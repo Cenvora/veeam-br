@@ -5,15 +5,15 @@
      height="100">
 <br>
 <br>
-Veeam Service Provider Console Python API Wrapper
+Veeam Backup & Replication Python API Wrapper
 </h1>
 
 <h4 align="center">
-Python package for interacting with the Veeam Service Provider Console REST API
+Python package for interacting with the Veeam Backup & Replication REST API
 </h4>
 
 <!-- Summary -->
-This project is an independent, open source Python client for the Veeam Service Provider Console <a href="https://helpcenter.veeam.com/docs/vac/rest/reference/vspc-rest.html">REST API</a>. It is not affiliated with, endorsed by, or sponsored by Veeam Software.
+This project is an independent, open source Python client for the Veeam Backup & Replication <a href="https://helpcenter.veeam.com/references/vbr/13/rest/1.3-rev1/tag/SectionAbout">REST API</a>. It is not affiliated with, endorsed by, or sponsored by Veeam Software.
 <!-- Summary -->
 
 ## Supported Versions
@@ -41,15 +41,13 @@ This project is an independent, open source Python client for the Veeam Service 
 </table>
 
 ## How to support new API versions
-1. Download the OpenAPI yaml into openapi_schemas
+1. Download the OpenAPI schema into openapi_schemas
 2. Install the openapi-python-client package
-2. Fix the OpenAPI yaml to conform to proper standards: `python fix_openapi_yaml.py .\openapi_schemas\vspc_rest_{vspc_version}.yaml .\openapi_schemas\vspc_rest_{vspc_version}_fixed.yaml`
-3. Run `openapi-python-client generate --path ".\openapi_schemas\vspc_rest_{vspc_version}_fixed.yaml" --output-path ".\veeam_spc" --overwrite`
-4. Fix any warnings/errors (application/binary+base64 can be ignored)
-5. Rename the folder to match the API version (i.e., `v3_5_1`)
-6. Update pyproject.toml to support the new packages
-7. Write pytest tests
-8. If an older API has been deprecated, delete its folder and yaml, then update the supported versions section of the readme
+2. Run `openapi-python-client generate --path ".\openapi_schemas\vbr_rest_{version}.json" --output-path ".\veeam_br" --overwrite`
+3. Fix any warnings/errors
+4. Rename the folder to match the API version (i.e., `v1.3-rev1`)
+6. Write pytest tests
+7. If an older API has been deprecated, delete its folder and yaml, then update the supported versions section of the readme
 
 ## Install
 ### From PyPi
@@ -62,6 +60,92 @@ Clone the repository and install dependencies:
 git clone https://github.com/Cenvora/veeam-br.git
 cd veeam-br
 pip install -e .
+```
+
+## Usage
+### Basic Usage
+First, create a client from the appropriate API version:
+
+```python
+from veeam_br.v1_3_rev1 import Client
+
+client = Client(base_url="https://api.example.com:9419")
+```
+
+Log in to the service (this requires an account with MFA disabled):
+```python
+from veeam_br.v1_3_rev1.client import Client
+from veeam_br.v1_3_rev1.models.token_login_spec import TokenLoginSpec
+from veeam_br.v1_3_rev1.api.login import create_token
+from veeam_br.v1_3_rev1.models.e_login_grant_type import ELoginGrantType
+
+client = Client(
+    base_url="https://vbr.example.com:9419",
+    verify_ssl=False
+)
+
+body = TokenLoginSpec(
+    grant_type=ELoginGrantType.PASSWORD,
+    username="administrator",
+    password="SuperSecretPassword"
+)
+
+with client as client:
+    token = create_token.sync(
+        client=client,
+        body=body,
+        x_api_version="1.3-rev1",
+    )
+```
+
+Now switch to the AuthenticatedClient:
+```python
+auth_client = AuthenticatedClient(
+    base_url=client._base_url,
+    token=token.access_token,
+    verify_ssl=client._verify_ssl,
+)
+```
+
+Now call your endpoint and use your models:
+```python
+from veeam_br.v1_3_rev1.models import ServerTimeModel
+from veeam_br.v1_3_rev1.api.service import get_server_time
+from veeam_br.v1_3_rev1.types import Response
+
+with auth_client as auth_client:
+    my_data: ServerTimeModel = get_server_time.sync(client=auth_client, x_api_version="1.3-rev1")
+    # or if you need more info (e.g. status_code)
+    response: Response[ServerTimeModel] = get_server_time.sync_detailed(client=auth_client, x_api_version="1.3-rev1")
+```
+
+### Async Usage
+Or do the same thing with an async version:
+```python
+from veeam_br.v1_3_rev1.models import ServerTimeModel
+from veeam_br.v1_3_rev1.api.service import get_server_time
+from veeam_br.v1_3_rev1.types import Response
+
+async with auth_client as auth_client:
+    my_data: ServerTimeModel = await get_server_time.asyncio(client=auth_client, x_api_version="1.3-rev1")
+    response: Response[ServerTimeModel] = await get_server_time.asyncio_detailed(client=auth_client, x_api_version="1.3-rev1")
+```
+
+### SSL Verification
+By default, HTTPS APIs will verify SSL certificates. You can pass a custom certificate bundle or disable verification (not recommended):
+```python
+client = AuthenticatedClient(
+    base_url="https://internal_api.example.com:9419", 
+    token="SuperSecretToken",
+    verify_ssl="/path/to/certificate_bundle.pem",
+)
+
+# Disable SSL verification (security risk)
+client = AuthenticatedClient(
+    base_url="https://internal_api.example.com:9419", 
+    token="SuperSecretToken", 
+    verify_ssl=False
+)
 ```
 
 ## Contributing
