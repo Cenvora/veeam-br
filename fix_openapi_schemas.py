@@ -41,8 +41,15 @@ def fix_openapi_schema(file_path: Path) -> bool:
     """
     print(f"\nProcessing {file_path.name}...")
     
-    with open(file_path, 'r', encoding='utf-8') as f:
-        data = json.load(f)
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+    except (IOError, OSError) as e:
+        print(f"  Error reading file: {e}")
+        return False
+    except json.JSONDecodeError as e:
+        print(f"  Error parsing JSON: {e}")
+        return False
     
     if 'components' not in data or 'schemas' not in data['components']:
         print(f"  No schemas found in {file_path.name}")
@@ -81,8 +88,12 @@ def fix_openapi_schema(file_path: Path) -> bool:
     
     if changes_made:
         # Write the fixed schema back to file
-        with open(file_path, 'w', encoding='utf-8') as f:
-            json.dump(data, f, indent=2, ensure_ascii=False)
+        try:
+            with open(file_path, 'w', encoding='utf-8') as f:
+                json.dump(data, f, indent=2, ensure_ascii=False)
+        except (IOError, OSError) as e:
+            print(f"  Error writing file: {e}")
+            return False
         
         print(f"  ✓ Fixed {len(fixed_schemas)} schemas in {file_path.name}")
         for schema in fixed_schemas:

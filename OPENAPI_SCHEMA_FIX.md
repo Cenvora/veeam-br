@@ -54,7 +54,6 @@ The fix removes `oneOf` and `discriminator` from parent schemas that are referen
   "CloudBrowserSpec": {
     "type": "object",
     "properties": { ... }
-    // oneOf and discriminator removed
   },
   "IBMCloudStorageBrowserSpec": {
     "allOf": [
@@ -64,6 +63,8 @@ The fix removes `oneOf` and `discriminator` from parent schemas that are referen
   }
 }
 ```
+
+Note: `oneOf` and `discriminator` have been removed from `CloudBrowserSpec`.
 
 ## Implementation
 
@@ -77,7 +78,7 @@ The `fix_openapi_schemas.py` script:
 The fix was applied to all three OpenAPI schema versions:
 
 - **vbr_rest_1.2-rev1.json**: Fixed 41 schemas
-- **vbr_rest_1.3-rev0.json**: Fixed 49 schemas  
+- **vbr_rest_1.3-rev0.json**: Fixed 49 schemas
 - **vbr_rest_1.3-rev1.json**: Fixed 55 schemas
 
 Notable schemas that were fixed include:
