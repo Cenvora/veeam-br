@@ -33,8 +33,18 @@ This project is an independent, open source Python client for the Veeam Backup &
       <td style="text-align:center;">&#9989;</td>
     </tr>
     <tr>
-      <td>&lt; 13.0.1.180</td>
-      <td>&lt; 1.3-rev1</td>
+      <td>13.0.0.4967</td>
+      <td>1.3-rev0</td>
+      <td style="text-align:center;">&#9989;</td>
+    </tr>
+    <tr>
+      <td>12.3.1.1139</td>
+      <td>1.2-rev1</td>
+      <td style="text-align:center;">&#9989;</td>
+    </tr>
+    <tr>
+      <td>&lt; 12.3.1.1139</td>
+      <td>&lt; 1.2-rev1</td>
       <td style="text-align:center;">&#10060;</td>
     </tr>
   </tbody>
