@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 
@@ -35,10 +37,10 @@ class JobImportSpec:
     description: str
     is_high_priority: bool
     type_: EJobType
-    virtual_machines: "BackupJobVirtualMachinesSpec"
-    storage: "BackupJobStorageImportModel"
-    guest_processing: "BackupJobGuestProcessingImportModel"
-    schedule: "BackupScheduleModel"
+    virtual_machines: BackupJobVirtualMachinesSpec
+    storage: BackupJobStorageImportModel
+    guest_processing: BackupJobGuestProcessingImportModel
+    schedule: BackupScheduleModel
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

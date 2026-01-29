@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -18,20 +20,20 @@ T = TypeVar("T", bound="FileBackupCopyJobScheduleModel")
 class FileBackupCopyJobScheduleModel:
     """
     Attributes:
-        type_ (Union[Unset, EFileBackupCopyJobScheduleType]):
-        custom_window (Union[Unset, ScheduleBackupWindowModel]): Backup window settings.
+        type_ (EFileBackupCopyJobScheduleType | Unset):
+        custom_window (ScheduleBackupWindowModel | Unset): Backup window settings.
     """
 
-    type_: Union[Unset, EFileBackupCopyJobScheduleType] = UNSET
-    custom_window: Union[Unset, "ScheduleBackupWindowModel"] = UNSET
+    type_: EFileBackupCopyJobScheduleType | Unset = UNSET
+    custom_window: ScheduleBackupWindowModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
-        custom_window: Union[Unset, dict[str, Any]] = UNSET
+        custom_window: dict[str, Any] | Unset = UNSET
         if not isinstance(self.custom_window, Unset):
             custom_window = self.custom_window.to_dict()
 
@@ -51,14 +53,14 @@ class FileBackupCopyJobScheduleModel:
 
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, EFileBackupCopyJobScheduleType]
+        type_: EFileBackupCopyJobScheduleType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:
             type_ = EFileBackupCopyJobScheduleType(_type_)
 
         _custom_window = d.pop("customWindow", UNSET)
-        custom_window: Union[Unset, ScheduleBackupWindowModel]
+        custom_window: ScheduleBackupWindowModel | Unset
         if isinstance(_custom_window, Unset):
             custom_window = UNSET
         else:

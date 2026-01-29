@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,12 +17,12 @@ class LicenseAutoUpdateSpec:
 
     Attributes:
         enabled (bool): If `true`, the license is automatically updated.
-        proactive_support_enabled (Union[Unset, bool]): If `true`, proactive support is enabled. This option
-            periodically shares anonymized, non-sensitive backup infrastructure details with Veeam.
+        proactive_support_enabled (bool | Unset): If `true`, proactive support is enabled. This option periodically
+            shares anonymized, non-sensitive backup infrastructure details with Veeam.
     """
 
     enabled: bool
-    proactive_support_enabled: Union[Unset, bool] = UNSET
+    proactive_support_enabled: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

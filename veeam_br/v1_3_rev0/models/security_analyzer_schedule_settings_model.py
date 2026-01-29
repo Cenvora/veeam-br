@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,23 +21,22 @@ class SecurityAnalyzerScheduleSettingsModel:
     """Settings for Security & Compliance Analyzer.
 
     Attributes:
-        daily_scan_enabled (Union[Unset, bool]): If `true`, Security & Compliance Analyzer runs daily.
-        daily_scan_local_time (Union[Unset, str]): Local time when the Security & Compliance Analyzer session must
-            start.
-        send_scan_results (Union[Unset, bool]): If `true`, email notifications with scan results are enabled.
-        recipients (Union[Unset, str]): Recipient email addresses separated with a semicolon.
-        notification_type (Union[Unset, EEmailNotificationType]): Type of email notification settings (global
-            notification settings specified for the backup server, or custom notification settings specified for this job).
-        custom_notification_settings (Union[Unset, SecurityAnalyzerEmailNotificationSettings]): Custom notification
-            settings specified for Security & Compliance Analyzer.
+        daily_scan_enabled (bool | Unset): If `true`, Security & Compliance Analyzer runs daily.
+        daily_scan_local_time (str | Unset): Local time when the Security & Compliance Analyzer session must start.
+        send_scan_results (bool | Unset): If `true`, email notifications with scan results are enabled.
+        recipients (str | Unset): Recipient email addresses separated with a semicolon.
+        notification_type (EEmailNotificationType | Unset): Type of email notification settings (global notification
+            settings specified for the backup server, or custom notification settings specified for this job).
+        custom_notification_settings (SecurityAnalyzerEmailNotificationSettings | Unset): Custom notification settings
+            specified for Security & Compliance Analyzer.
     """
 
-    daily_scan_enabled: Union[Unset, bool] = UNSET
-    daily_scan_local_time: Union[Unset, str] = UNSET
-    send_scan_results: Union[Unset, bool] = UNSET
-    recipients: Union[Unset, str] = UNSET
-    notification_type: Union[Unset, EEmailNotificationType] = UNSET
-    custom_notification_settings: Union[Unset, "SecurityAnalyzerEmailNotificationSettings"] = UNSET
+    daily_scan_enabled: bool | Unset = UNSET
+    daily_scan_local_time: str | Unset = UNSET
+    send_scan_results: bool | Unset = UNSET
+    recipients: str | Unset = UNSET
+    notification_type: EEmailNotificationType | Unset = UNSET
+    custom_notification_settings: SecurityAnalyzerEmailNotificationSettings | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -47,11 +48,11 @@ class SecurityAnalyzerScheduleSettingsModel:
 
         recipients = self.recipients
 
-        notification_type: Union[Unset, str] = UNSET
+        notification_type: str | Unset = UNSET
         if not isinstance(self.notification_type, Unset):
             notification_type = self.notification_type.value
 
-        custom_notification_settings: Union[Unset, dict[str, Any]] = UNSET
+        custom_notification_settings: dict[str, Any] | Unset = UNSET
         if not isinstance(self.custom_notification_settings, Unset):
             custom_notification_settings = self.custom_notification_settings.to_dict()
 
@@ -87,14 +88,14 @@ class SecurityAnalyzerScheduleSettingsModel:
         recipients = d.pop("recipients", UNSET)
 
         _notification_type = d.pop("notificationType", UNSET)
-        notification_type: Union[Unset, EEmailNotificationType]
+        notification_type: EEmailNotificationType | Unset
         if isinstance(_notification_type, Unset):
             notification_type = UNSET
         else:
             notification_type = EEmailNotificationType(_notification_type)
 
         _custom_notification_settings = d.pop("customNotificationSettings", UNSET)
-        custom_notification_settings: Union[Unset, SecurityAnalyzerEmailNotificationSettings]
+        custom_notification_settings: SecurityAnalyzerEmailNotificationSettings | Unset
         if isinstance(_custom_notification_settings, Unset):
             custom_notification_settings = UNSET
         else:

@@ -1,34 +1,14 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.backup_copy_job_model import BackupCopyJobModel
-from ...models.backup_job_model import BackupJobModel
-from ...models.cloud_director_backup_job_model import CloudDirectorBackupJobModel
-from ...models.entra_id_audit_log_backup_job_model import EntraIDAuditLogBackupJobModel
-from ...models.entra_id_tenant_backup_copy_job_model import EntraIDTenantBackupCopyJobModel
-from ...models.entra_id_tenant_backup_job_model import EntraIDTenantBackupJobModel
 from ...models.error import Error
-from ...models.file_backup_copy_job_model import FileBackupCopyJobModel
-from ...models.file_backup_job_model import FileBackupJobModel
-from ...models.hyper_v_backup_job_model import HyperVBackupJobModel
-from ...models.linux_agent_management_backup_job_model import LinuxAgentManagementBackupJobModel
-from ...models.linux_agent_management_backup_server_policy_model import LinuxAgentManagementBackupServerPolicyModel
-from ...models.linux_agent_management_backup_workstation_policy_model import (
-    LinuxAgentManagementBackupWorkstationPolicyModel,
-)
-from ...models.object_storage_backup_job_model import ObjectStorageBackupJobModel
-from ...models.sure_backup_content_scan_job_model import SureBackupContentScanJobModel
-from ...models.v_sphere_replica_job_model import VSphereReplicaJobModel
-from ...models.windows_agent_management_backup_job_model import WindowsAgentManagementBackupJobModel
-from ...models.windows_agent_management_backup_server_policy_model import WindowsAgentManagementBackupServerPolicyModel
-from ...models.windows_agent_management_backup_workstation_policy_model import (
-    WindowsAgentManagementBackupWorkstationPolicyModel,
-)
+from ...models.job_model import JobModel
 from ...types import Response
 
 
@@ -42,207 +22,18 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": f"/api/v1/jobs/{id}",
+        "url": "/api/v1/jobs/{id}".format(
+            id=quote(str(id), safe=""),
+        ),
     }
 
     _kwargs["headers"] = headers
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[
-    Union[
-        Error,
-        Union[
-            "BackupCopyJobModel",
-            "BackupJobModel",
-            "CloudDirectorBackupJobModel",
-            "EntraIDAuditLogBackupJobModel",
-            "EntraIDTenantBackupCopyJobModel",
-            "EntraIDTenantBackupJobModel",
-            "FileBackupCopyJobModel",
-            "FileBackupJobModel",
-            "HyperVBackupJobModel",
-            "LinuxAgentManagementBackupJobModel",
-            "LinuxAgentManagementBackupServerPolicyModel",
-            "LinuxAgentManagementBackupWorkstationPolicyModel",
-            "ObjectStorageBackupJobModel",
-            "SureBackupContentScanJobModel",
-            "VSphereReplicaJobModel",
-            "WindowsAgentManagementBackupJobModel",
-            "WindowsAgentManagementBackupServerPolicyModel",
-            "WindowsAgentManagementBackupWorkstationPolicyModel",
-        ],
-    ]
-]:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Error | JobModel | None:
     if response.status_code == 200:
-
-        def _parse_response_200(
-            data: object,
-        ) -> Union[
-            "BackupCopyJobModel",
-            "BackupJobModel",
-            "CloudDirectorBackupJobModel",
-            "EntraIDAuditLogBackupJobModel",
-            "EntraIDTenantBackupCopyJobModel",
-            "EntraIDTenantBackupJobModel",
-            "FileBackupCopyJobModel",
-            "FileBackupJobModel",
-            "HyperVBackupJobModel",
-            "LinuxAgentManagementBackupJobModel",
-            "LinuxAgentManagementBackupServerPolicyModel",
-            "LinuxAgentManagementBackupWorkstationPolicyModel",
-            "ObjectStorageBackupJobModel",
-            "SureBackupContentScanJobModel",
-            "VSphereReplicaJobModel",
-            "WindowsAgentManagementBackupJobModel",
-            "WindowsAgentManagementBackupServerPolicyModel",
-            "WindowsAgentManagementBackupWorkstationPolicyModel",
-        ]:
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_job_model_type_0 = BackupJobModel.from_dict(data)
-
-                return componentsschemas_job_model_type_0
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_job_model_type_1 = BackupCopyJobModel.from_dict(data)
-
-                return componentsschemas_job_model_type_1
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_job_model_type_2 = HyperVBackupJobModel.from_dict(data)
-
-                return componentsschemas_job_model_type_2
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_job_model_type_3 = CloudDirectorBackupJobModel.from_dict(data)
-
-                return componentsschemas_job_model_type_3
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_job_model_type_4 = VSphereReplicaJobModel.from_dict(data)
-
-                return componentsschemas_job_model_type_4
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_job_model_type_5 = EntraIDTenantBackupJobModel.from_dict(data)
-
-                return componentsschemas_job_model_type_5
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_job_model_type_6 = EntraIDAuditLogBackupJobModel.from_dict(data)
-
-                return componentsschemas_job_model_type_6
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_job_model_type_7 = FileBackupCopyJobModel.from_dict(data)
-
-                return componentsschemas_job_model_type_7
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_job_model_type_8 = WindowsAgentManagementBackupJobModel.from_dict(data)
-
-                return componentsschemas_job_model_type_8
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_job_model_type_9 = LinuxAgentManagementBackupJobModel.from_dict(data)
-
-                return componentsschemas_job_model_type_9
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_job_model_type_10 = WindowsAgentManagementBackupWorkstationPolicyModel.from_dict(data)
-
-                return componentsschemas_job_model_type_10
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_job_model_type_11 = LinuxAgentManagementBackupWorkstationPolicyModel.from_dict(data)
-
-                return componentsschemas_job_model_type_11
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_job_model_type_12 = WindowsAgentManagementBackupServerPolicyModel.from_dict(data)
-
-                return componentsschemas_job_model_type_12
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_job_model_type_13 = LinuxAgentManagementBackupServerPolicyModel.from_dict(data)
-
-                return componentsschemas_job_model_type_13
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_job_model_type_14 = FileBackupJobModel.from_dict(data)
-
-                return componentsschemas_job_model_type_14
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_job_model_type_15 = ObjectStorageBackupJobModel.from_dict(data)
-
-                return componentsschemas_job_model_type_15
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_job_model_type_16 = EntraIDTenantBackupCopyJobModel.from_dict(data)
-
-                return componentsschemas_job_model_type_16
-            except:  # noqa: E722
-                pass
-            if not isinstance(data, dict):
-                raise TypeError()
-            componentsschemas_job_model_type_17 = SureBackupContentScanJobModel.from_dict(data)
-
-            return componentsschemas_job_model_type_17
-
-        response_200 = _parse_response_200(response.json())
+        response_200 = JobModel.from_dict(response.json())
 
         return response_200
 
@@ -272,33 +63,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[
-    Union[
-        Error,
-        Union[
-            "BackupCopyJobModel",
-            "BackupJobModel",
-            "CloudDirectorBackupJobModel",
-            "EntraIDAuditLogBackupJobModel",
-            "EntraIDTenantBackupCopyJobModel",
-            "EntraIDTenantBackupJobModel",
-            "FileBackupCopyJobModel",
-            "FileBackupJobModel",
-            "HyperVBackupJobModel",
-            "LinuxAgentManagementBackupJobModel",
-            "LinuxAgentManagementBackupServerPolicyModel",
-            "LinuxAgentManagementBackupWorkstationPolicyModel",
-            "ObjectStorageBackupJobModel",
-            "SureBackupContentScanJobModel",
-            "VSphereReplicaJobModel",
-            "WindowsAgentManagementBackupJobModel",
-            "WindowsAgentManagementBackupServerPolicyModel",
-            "WindowsAgentManagementBackupWorkstationPolicyModel",
-        ],
-    ]
-]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[Error | JobModel]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -310,33 +75,9 @@ def _build_response(
 def sync_detailed(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.3-rev1",
-) -> Response[
-    Union[
-        Error,
-        Union[
-            "BackupCopyJobModel",
-            "BackupJobModel",
-            "CloudDirectorBackupJobModel",
-            "EntraIDAuditLogBackupJobModel",
-            "EntraIDTenantBackupCopyJobModel",
-            "EntraIDTenantBackupJobModel",
-            "FileBackupCopyJobModel",
-            "FileBackupJobModel",
-            "HyperVBackupJobModel",
-            "LinuxAgentManagementBackupJobModel",
-            "LinuxAgentManagementBackupServerPolicyModel",
-            "LinuxAgentManagementBackupWorkstationPolicyModel",
-            "ObjectStorageBackupJobModel",
-            "SureBackupContentScanJobModel",
-            "VSphereReplicaJobModel",
-            "WindowsAgentManagementBackupJobModel",
-            "WindowsAgentManagementBackupServerPolicyModel",
-            "WindowsAgentManagementBackupWorkstationPolicyModel",
-        ],
-    ]
-]:
+) -> Response[Error | JobModel]:
     """Get Job
 
      The HTTP GET request to the `/api/v1/jobs/{id}` endpoint gets a job that has the specified
@@ -352,7 +93,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, Union['BackupCopyJobModel', 'BackupJobModel', 'CloudDirectorBackupJobModel', 'EntraIDAuditLogBackupJobModel', 'EntraIDTenantBackupCopyJobModel', 'EntraIDTenantBackupJobModel', 'FileBackupCopyJobModel', 'FileBackupJobModel', 'HyperVBackupJobModel', 'LinuxAgentManagementBackupJobModel', 'LinuxAgentManagementBackupServerPolicyModel', 'LinuxAgentManagementBackupWorkstationPolicyModel', 'ObjectStorageBackupJobModel', 'SureBackupContentScanJobModel', 'VSphereReplicaJobModel', 'WindowsAgentManagementBackupJobModel', 'WindowsAgentManagementBackupServerPolicyModel', 'WindowsAgentManagementBackupWorkstationPolicyModel']]]
+        Response[Error | JobModel]
     """
 
     kwargs = _get_kwargs(
@@ -370,33 +111,9 @@ def sync_detailed(
 def sync(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.3-rev1",
-) -> Optional[
-    Union[
-        Error,
-        Union[
-            "BackupCopyJobModel",
-            "BackupJobModel",
-            "CloudDirectorBackupJobModel",
-            "EntraIDAuditLogBackupJobModel",
-            "EntraIDTenantBackupCopyJobModel",
-            "EntraIDTenantBackupJobModel",
-            "FileBackupCopyJobModel",
-            "FileBackupJobModel",
-            "HyperVBackupJobModel",
-            "LinuxAgentManagementBackupJobModel",
-            "LinuxAgentManagementBackupServerPolicyModel",
-            "LinuxAgentManagementBackupWorkstationPolicyModel",
-            "ObjectStorageBackupJobModel",
-            "SureBackupContentScanJobModel",
-            "VSphereReplicaJobModel",
-            "WindowsAgentManagementBackupJobModel",
-            "WindowsAgentManagementBackupServerPolicyModel",
-            "WindowsAgentManagementBackupWorkstationPolicyModel",
-        ],
-    ]
-]:
+) -> Error | JobModel | None:
     """Get Job
 
      The HTTP GET request to the `/api/v1/jobs/{id}` endpoint gets a job that has the specified
@@ -412,7 +129,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, Union['BackupCopyJobModel', 'BackupJobModel', 'CloudDirectorBackupJobModel', 'EntraIDAuditLogBackupJobModel', 'EntraIDTenantBackupCopyJobModel', 'EntraIDTenantBackupJobModel', 'FileBackupCopyJobModel', 'FileBackupJobModel', 'HyperVBackupJobModel', 'LinuxAgentManagementBackupJobModel', 'LinuxAgentManagementBackupServerPolicyModel', 'LinuxAgentManagementBackupWorkstationPolicyModel', 'ObjectStorageBackupJobModel', 'SureBackupContentScanJobModel', 'VSphereReplicaJobModel', 'WindowsAgentManagementBackupJobModel', 'WindowsAgentManagementBackupServerPolicyModel', 'WindowsAgentManagementBackupWorkstationPolicyModel']]
+        Error | JobModel
     """
 
     return sync_detailed(
@@ -425,33 +142,9 @@ def sync(
 async def asyncio_detailed(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.3-rev1",
-) -> Response[
-    Union[
-        Error,
-        Union[
-            "BackupCopyJobModel",
-            "BackupJobModel",
-            "CloudDirectorBackupJobModel",
-            "EntraIDAuditLogBackupJobModel",
-            "EntraIDTenantBackupCopyJobModel",
-            "EntraIDTenantBackupJobModel",
-            "FileBackupCopyJobModel",
-            "FileBackupJobModel",
-            "HyperVBackupJobModel",
-            "LinuxAgentManagementBackupJobModel",
-            "LinuxAgentManagementBackupServerPolicyModel",
-            "LinuxAgentManagementBackupWorkstationPolicyModel",
-            "ObjectStorageBackupJobModel",
-            "SureBackupContentScanJobModel",
-            "VSphereReplicaJobModel",
-            "WindowsAgentManagementBackupJobModel",
-            "WindowsAgentManagementBackupServerPolicyModel",
-            "WindowsAgentManagementBackupWorkstationPolicyModel",
-        ],
-    ]
-]:
+) -> Response[Error | JobModel]:
     """Get Job
 
      The HTTP GET request to the `/api/v1/jobs/{id}` endpoint gets a job that has the specified
@@ -467,7 +160,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, Union['BackupCopyJobModel', 'BackupJobModel', 'CloudDirectorBackupJobModel', 'EntraIDAuditLogBackupJobModel', 'EntraIDTenantBackupCopyJobModel', 'EntraIDTenantBackupJobModel', 'FileBackupCopyJobModel', 'FileBackupJobModel', 'HyperVBackupJobModel', 'LinuxAgentManagementBackupJobModel', 'LinuxAgentManagementBackupServerPolicyModel', 'LinuxAgentManagementBackupWorkstationPolicyModel', 'ObjectStorageBackupJobModel', 'SureBackupContentScanJobModel', 'VSphereReplicaJobModel', 'WindowsAgentManagementBackupJobModel', 'WindowsAgentManagementBackupServerPolicyModel', 'WindowsAgentManagementBackupWorkstationPolicyModel']]]
+        Response[Error | JobModel]
     """
 
     kwargs = _get_kwargs(
@@ -483,33 +176,9 @@ async def asyncio_detailed(
 async def asyncio(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.3-rev1",
-) -> Optional[
-    Union[
-        Error,
-        Union[
-            "BackupCopyJobModel",
-            "BackupJobModel",
-            "CloudDirectorBackupJobModel",
-            "EntraIDAuditLogBackupJobModel",
-            "EntraIDTenantBackupCopyJobModel",
-            "EntraIDTenantBackupJobModel",
-            "FileBackupCopyJobModel",
-            "FileBackupJobModel",
-            "HyperVBackupJobModel",
-            "LinuxAgentManagementBackupJobModel",
-            "LinuxAgentManagementBackupServerPolicyModel",
-            "LinuxAgentManagementBackupWorkstationPolicyModel",
-            "ObjectStorageBackupJobModel",
-            "SureBackupContentScanJobModel",
-            "VSphereReplicaJobModel",
-            "WindowsAgentManagementBackupJobModel",
-            "WindowsAgentManagementBackupServerPolicyModel",
-            "WindowsAgentManagementBackupWorkstationPolicyModel",
-        ],
-    ]
-]:
+) -> Error | JobModel | None:
     """Get Job
 
      The HTTP GET request to the `/api/v1/jobs/{id}` endpoint gets a job that has the specified
@@ -525,7 +194,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, Union['BackupCopyJobModel', 'BackupJobModel', 'CloudDirectorBackupJobModel', 'EntraIDAuditLogBackupJobModel', 'EntraIDTenantBackupCopyJobModel', 'EntraIDTenantBackupJobModel', 'FileBackupCopyJobModel', 'FileBackupJobModel', 'HyperVBackupJobModel', 'LinuxAgentManagementBackupJobModel', 'LinuxAgentManagementBackupServerPolicyModel', 'LinuxAgentManagementBackupWorkstationPolicyModel', 'ObjectStorageBackupJobModel', 'SureBackupContentScanJobModel', 'VSphereReplicaJobModel', 'WindowsAgentManagementBackupJobModel', 'WindowsAgentManagementBackupServerPolicyModel', 'WindowsAgentManagementBackupWorkstationPolicyModel']]
+        Error | JobModel
     """
 
     return (

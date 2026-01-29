@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -16,18 +18,18 @@ class GuestInteractionProxiesSettingsImportModel:
     Attributes:
         automatic_selection (bool): If `true`, Veeam Backup & Replication automatically selects the guest interaction
             proxy. Default: True.
-        proxies (Union[Unset, list[str]]): Array of proxies specified explicitly. The array must contain Microsoft
-            Windows servers added to the backup infrastructure only.
+        proxies (list[str] | Unset): Array of proxies specified explicitly. The array must contain Microsoft Windows
+            servers added to the backup infrastructure only.
     """
 
     automatic_selection: bool = True
-    proxies: Union[Unset, list[str]] = UNSET
+    proxies: list[str] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         automatic_selection = self.automatic_selection
 
-        proxies: Union[Unset, list[str]] = UNSET
+        proxies: list[str] | Unset = UNSET
         if not isinstance(self.proxies, Unset):
             proxies = self.proxies
 

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -17,19 +19,19 @@ class EntraIdTenantItemRecursiveComparisonNode:
         are_equal (bool): If `true`, the property values are equal.
         name (str): Property name.
         path (str): Property path.
-        is_read_only (Union[Unset, bool]): If `true`, the property is read only.
-        old_value (Union[Unset, str]): Property value from the earlier restore point.
-        new_value (Union[Unset, str]): Property value from the later restore point.
-        children (Union[Unset, list['EntraIdTenantItemRecursiveComparisonNode']]): Array of child properties.
+        is_read_only (bool | Unset): If `true`, the property is read only.
+        old_value (str | Unset): Property value from the earlier restore point.
+        new_value (str | Unset): Property value from the later restore point.
+        children (list[EntraIdTenantItemRecursiveComparisonNode] | Unset): Array of child properties.
     """
 
     are_equal: bool
     name: str
     path: str
-    is_read_only: Union[Unset, bool] = UNSET
-    old_value: Union[Unset, str] = UNSET
-    new_value: Union[Unset, str] = UNSET
-    children: Union[Unset, list["EntraIdTenantItemRecursiveComparisonNode"]] = UNSET
+    is_read_only: bool | Unset = UNSET
+    old_value: str | Unset = UNSET
+    new_value: str | Unset = UNSET
+    children: list[EntraIdTenantItemRecursiveComparisonNode] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -45,7 +47,7 @@ class EntraIdTenantItemRecursiveComparisonNode:
 
         new_value = self.new_value
 
-        children: Union[Unset, list[dict[str, Any]]] = UNSET
+        children: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.children, Unset):
             children = []
             for children_item_data in self.children:
@@ -87,12 +89,14 @@ class EntraIdTenantItemRecursiveComparisonNode:
 
         new_value = d.pop("newValue", UNSET)
 
-        children = []
         _children = d.pop("children", UNSET)
-        for children_item_data in _children or []:
-            children_item = EntraIdTenantItemRecursiveComparisonNode.from_dict(children_item_data)
+        children: list[EntraIdTenantItemRecursiveComparisonNode] | Unset = UNSET
+        if _children is not UNSET:
+            children = []
+            for children_item_data in _children:
+                children_item = EntraIdTenantItemRecursiveComparisonNode.from_dict(children_item_data)
 
-            children.append(children_item)
+                children.append(children_item)
 
         entra_id_tenant_item_recursive_comparison_node = cls(
             are_equal=are_equal,

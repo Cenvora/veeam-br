@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,14 +17,14 @@ class CloudMachinesProtectionGroupObjectsModel:
     """Cloud object added to the protection group.
 
     Attributes:
-        name (Union[Unset, str]): Cloud object name.
-        object_id (Union[Unset, str]): Cloud object ID.
-        type_ (Union[Unset, ECloudMachinesObjectType]): Cloud object type.
+        name (str | Unset): Cloud object name.
+        object_id (str | Unset): Cloud object ID.
+        type_ (ECloudMachinesObjectType | Unset): Cloud object type.
     """
 
-    name: Union[Unset, str] = UNSET
-    object_id: Union[Unset, str] = UNSET
-    type_: Union[Unset, ECloudMachinesObjectType] = UNSET
+    name: str | Unset = UNSET
+    object_id: str | Unset = UNSET
+    type_: ECloudMachinesObjectType | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -30,7 +32,7 @@ class CloudMachinesProtectionGroupObjectsModel:
 
         object_id = self.object_id
 
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
@@ -54,7 +56,7 @@ class CloudMachinesProtectionGroupObjectsModel:
         object_id = d.pop("objectId", UNSET)
 
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, ECloudMachinesObjectType]
+        type_: ECloudMachinesObjectType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:

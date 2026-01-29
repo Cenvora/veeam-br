@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -18,12 +20,12 @@ class RepositoryObjectModel:
     Attributes:
         id (UUID): ID of the repository.
         type_ (ERepositoryType): Repository type.
-        name (Union[Unset, str]): Name of the repository.
+        name (str | Unset): Name of the repository.
     """
 
     id: UUID
     type_: ERepositoryType
-    name: Union[Unset, str] = UNSET
+    name: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

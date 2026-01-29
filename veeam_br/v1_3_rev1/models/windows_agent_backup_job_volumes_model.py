@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 
@@ -19,11 +21,11 @@ class WindowsAgentBackupJobVolumesModel:
 
     Attributes:
         volumes_backup_mode (EAgentVolumesBackupMode): Backup mode for volume of protected machine.
-        volume_object (list['WindowsAgentBackupJobVolumeObjectModel']): Array of volume objects.
+        volume_object (list[WindowsAgentBackupJobVolumeObjectModel]): Array of volume objects.
     """
 
     volumes_backup_mode: EAgentVolumesBackupMode
-    volume_object: list["WindowsAgentBackupJobVolumeObjectModel"]
+    volume_object: list[WindowsAgentBackupJobVolumeObjectModel]
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

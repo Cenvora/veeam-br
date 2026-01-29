@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -18,20 +20,20 @@ class BackupJobAdvancedSettingsVSphereModel:
     """VMware vSphere settings for the job.
 
     Attributes:
-        enable_vm_ware_tools_quiescence (Union[Unset, bool]): If `true`, VMware Tools quiescence is enabled for freezing
-            the VM file system and application data.
-        changed_block_tracking (Union[Unset, VSphereChangedBlockTrackingSettingsModel]): Changed block tracking (CBT)
-            settings for the job.
+        enable_vm_ware_tools_quiescence (bool | Unset): If `true`, VMware Tools quiescence is enabled for freezing the
+            VM file system and application data.
+        changed_block_tracking (VSphereChangedBlockTrackingSettingsModel | Unset): Changed block tracking (CBT) settings
+            for the job.
     """
 
-    enable_vm_ware_tools_quiescence: Union[Unset, bool] = UNSET
-    changed_block_tracking: Union[Unset, "VSphereChangedBlockTrackingSettingsModel"] = UNSET
+    enable_vm_ware_tools_quiescence: bool | Unset = UNSET
+    changed_block_tracking: VSphereChangedBlockTrackingSettingsModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         enable_vm_ware_tools_quiescence = self.enable_vm_ware_tools_quiescence
 
-        changed_block_tracking: Union[Unset, dict[str, Any]] = UNSET
+        changed_block_tracking: dict[str, Any] | Unset = UNSET
         if not isinstance(self.changed_block_tracking, Unset):
             changed_block_tracking = self.changed_block_tracking.to_dict()
 
@@ -53,7 +55,7 @@ class BackupJobAdvancedSettingsVSphereModel:
         enable_vm_ware_tools_quiescence = d.pop("enableVMWareToolsQuiescence", UNSET)
 
         _changed_block_tracking = d.pop("changedBlockTracking", UNSET)
-        changed_block_tracking: Union[Unset, VSphereChangedBlockTrackingSettingsModel]
+        changed_block_tracking: VSphereChangedBlockTrackingSettingsModel | Unset
         if isinstance(_changed_block_tracking, Unset):
             changed_block_tracking = UNSET
         else:

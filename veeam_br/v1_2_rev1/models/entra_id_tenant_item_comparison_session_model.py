@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,19 +21,19 @@ class EntraIdTenantItemComparisonSessionModel:
     """
     Attributes:
         status (EntraIdTenantItemComparisonSessionModelStatus): Session status.
-        result (Union[Unset, EntraIdTenantItemComparisonModel]): Comparison result.
-        error_message (Union[Unset, str]): Error message.
+        result (EntraIdTenantItemComparisonModel | Unset): Comparison result.
+        error_message (str | Unset): Error message.
     """
 
     status: EntraIdTenantItemComparisonSessionModelStatus
-    result: Union[Unset, "EntraIdTenantItemComparisonModel"] = UNSET
-    error_message: Union[Unset, str] = UNSET
+    result: EntraIdTenantItemComparisonModel | Unset = UNSET
+    error_message: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         status = self.status.value
 
-        result: Union[Unset, dict[str, Any]] = UNSET
+        result: dict[str, Any] | Unset = UNSET
         if not isinstance(self.result, Unset):
             result = self.result.to_dict()
 
@@ -59,7 +61,7 @@ class EntraIdTenantItemComparisonSessionModel:
         status = EntraIdTenantItemComparisonSessionModelStatus(d.pop("status"))
 
         _result = d.pop("result", UNSET)
-        result: Union[Unset, EntraIdTenantItemComparisonModel]
+        result: EntraIdTenantItemComparisonModel | Unset
         if isinstance(_result, Unset):
             result = UNSET
         else:

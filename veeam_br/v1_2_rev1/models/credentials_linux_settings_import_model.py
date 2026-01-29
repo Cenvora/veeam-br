@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,24 +16,24 @@ class CredentialsLinuxSettingsImportModel:
     """Additional Linux account settings.
 
     Attributes:
-        ssh_port (Union[Unset, int]): SSH port used to connect to a Linux server.
-        elevate_to_root (Union[Unset, bool]): If `true`, the permissions of the account are automatically elevated to
-            the root user.
-        add_to_sudoers (Union[Unset, bool]): If `true`, the account is automatically added to the sudoers file.
-        use_su (Union[Unset, bool]): If `true`, the `su` command is used for Linux distributions where the `sudo`
-            command is not available.
-        private_key (Union[Unset, str]): Private key.
-        passphrase (Union[Unset, str]): Passphrase that protects the private key.
-        root_password (Union[Unset, str]): Password for the root account.
+        ssh_port (int | Unset): SSH port used to connect to a Linux server.
+        elevate_to_root (bool | Unset): If `true`, the permissions of the account are automatically elevated to the root
+            user.
+        add_to_sudoers (bool | Unset): If `true`, the account is automatically added to the sudoers file.
+        use_su (bool | Unset): If `true`, the `su` command is used for Linux distributions where the `sudo` command is
+            not available.
+        private_key (str | Unset): Private key.
+        passphrase (str | Unset): Passphrase that protects the private key.
+        root_password (str | Unset): Password for the root account.
     """
 
-    ssh_port: Union[Unset, int] = UNSET
-    elevate_to_root: Union[Unset, bool] = UNSET
-    add_to_sudoers: Union[Unset, bool] = UNSET
-    use_su: Union[Unset, bool] = UNSET
-    private_key: Union[Unset, str] = UNSET
-    passphrase: Union[Unset, str] = UNSET
-    root_password: Union[Unset, str] = UNSET
+    ssh_port: int | Unset = UNSET
+    elevate_to_root: bool | Unset = UNSET
+    add_to_sudoers: bool | Unset = UNSET
+    use_su: bool | Unset = UNSET
+    private_key: str | Unset = UNSET
+    passphrase: str | Unset = UNSET
+    root_password: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

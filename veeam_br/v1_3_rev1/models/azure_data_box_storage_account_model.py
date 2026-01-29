@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -21,12 +23,12 @@ class AzureDataBoxStorageAccountModel:
     Attributes:
         service_endpoint (str): Service endpoint address of the Microsoft Azure Data Box device.
         credentials_id (UUID): ID of the cloud credentials record.
-        connection_settings (Union[Unset, ObjectStorageConnectionModel]): Object storage connection settings.
+        connection_settings (ObjectStorageConnectionModel | Unset): Object storage connection settings.
     """
 
     service_endpoint: str
     credentials_id: UUID
-    connection_settings: Union[Unset, "ObjectStorageConnectionModel"] = UNSET
+    connection_settings: ObjectStorageConnectionModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -34,7 +36,7 @@ class AzureDataBoxStorageAccountModel:
 
         credentials_id = str(self.credentials_id)
 
-        connection_settings: Union[Unset, dict[str, Any]] = UNSET
+        connection_settings: dict[str, Any] | Unset = UNSET
         if not isinstance(self.connection_settings, Unset):
             connection_settings = self.connection_settings.to_dict()
 
@@ -61,7 +63,7 @@ class AzureDataBoxStorageAccountModel:
         credentials_id = UUID(d.pop("credentialsId"))
 
         _connection_settings = d.pop("connectionSettings", UNSET)
-        connection_settings: Union[Unset, ObjectStorageConnectionModel]
+        connection_settings: ObjectStorageConnectionModel | Unset
         if isinstance(_connection_settings, Unset):
             connection_settings = UNSET
         else:

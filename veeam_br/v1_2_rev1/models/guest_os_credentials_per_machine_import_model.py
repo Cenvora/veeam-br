@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -7,9 +9,8 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.cloud_director_object_model import CloudDirectorObjectModel
     from ..models.credentials_import_model import CredentialsImportModel
-    from ..models.vmware_object_model import VmwareObjectModel
+    from ..models.inventory_object_model import InventoryObjectModel
 
 
 T = TypeVar("T", bound="GuestOsCredentialsPerMachineImportModel")
@@ -19,30 +20,24 @@ T = TypeVar("T", bound="GuestOsCredentialsPerMachineImportModel")
 class GuestOsCredentialsPerMachineImportModel:
     """
     Attributes:
-        vm_object (Union['CloudDirectorObjectModel', 'VmwareObjectModel']): Inventory object properties.
-        windows_creds (Union[Unset, CredentialsImportModel]): Credentials used for connection.
-        linux_creds (Union[Unset, CredentialsImportModel]): Credentials used for connection.
+        vm_object (InventoryObjectModel): Inventory object properties.
+        windows_creds (CredentialsImportModel | Unset): Credentials used for connection.
+        linux_creds (CredentialsImportModel | Unset): Credentials used for connection.
     """
 
-    vm_object: Union["CloudDirectorObjectModel", "VmwareObjectModel"]
-    windows_creds: Union[Unset, "CredentialsImportModel"] = UNSET
-    linux_creds: Union[Unset, "CredentialsImportModel"] = UNSET
+    vm_object: InventoryObjectModel
+    windows_creds: CredentialsImportModel | Unset = UNSET
+    linux_creds: CredentialsImportModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.vmware_object_model import VmwareObjectModel
+        vm_object = self.vm_object.to_dict()
 
-        vm_object: dict[str, Any]
-        if isinstance(self.vm_object, VmwareObjectModel):
-            vm_object = self.vm_object.to_dict()
-        else:
-            vm_object = self.vm_object.to_dict()
-
-        windows_creds: Union[Unset, dict[str, Any]] = UNSET
+        windows_creds: dict[str, Any] | Unset = UNSET
         if not isinstance(self.windows_creds, Unset):
             windows_creds = self.windows_creds.to_dict()
 
-        linux_creds: Union[Unset, dict[str, Any]] = UNSET
+        linux_creds: dict[str, Any] | Unset = UNSET
         if not isinstance(self.linux_creds, Unset):
             linux_creds = self.linux_creds.to_dict()
 
@@ -62,38 +57,21 @@ class GuestOsCredentialsPerMachineImportModel:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.cloud_director_object_model import CloudDirectorObjectModel
         from ..models.credentials_import_model import CredentialsImportModel
-        from ..models.vmware_object_model import VmwareObjectModel
+        from ..models.inventory_object_model import InventoryObjectModel
 
         d = dict(src_dict)
-
-        def _parse_vm_object(data: object) -> Union["CloudDirectorObjectModel", "VmwareObjectModel"]:
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_0 = VmwareObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_0
-            except:  # noqa: E722
-                pass
-            if not isinstance(data, dict):
-                raise TypeError()
-            componentsschemas_inventory_object_model_type_1 = CloudDirectorObjectModel.from_dict(data)
-
-            return componentsschemas_inventory_object_model_type_1
-
-        vm_object = _parse_vm_object(d.pop("vmObject"))
+        vm_object = InventoryObjectModel.from_dict(d.pop("vmObject"))
 
         _windows_creds = d.pop("windowsCreds", UNSET)
-        windows_creds: Union[Unset, CredentialsImportModel]
+        windows_creds: CredentialsImportModel | Unset
         if isinstance(_windows_creds, Unset):
             windows_creds = UNSET
         else:
             windows_creds = CredentialsImportModel.from_dict(_windows_creds)
 
         _linux_creds = d.pop("linuxCreds", UNSET)
-        linux_creds: Union[Unset, CredentialsImportModel]
+        linux_creds: CredentialsImportModel | Unset
         if isinstance(_linux_creds, Unset):
             linux_creds = UNSET
         else:

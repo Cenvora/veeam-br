@@ -1,5 +1,6 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
@@ -22,7 +23,9 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": f"/api/v1/backupBrowser/entraIdTenant/{backup_id}/uploadGroup",
+        "url": "/api/v1/backupBrowser/entraIdTenant/{backup_id}/uploadGroup".format(
+            backup_id=quote(str(backup_id), safe=""),
+        ),
     }
 
     _kwargs["content"] = body.payload
@@ -34,8 +37,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[EntraIdTenantBrowseResult, Error]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> EntraIdTenantBrowseResult | Error | None:
     if response.status_code == 200:
         response_200 = EntraIdTenantBrowseResult.from_dict(response.json())
 
@@ -68,8 +71,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[EntraIdTenantBrowseResult, Error]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[EntraIdTenantBrowseResult | Error]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -81,10 +84,10 @@ def _build_response(
 def sync_detailed(
     backup_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: File,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[EntraIdTenantBrowseResult, Error]]:
+) -> Response[EntraIdTenantBrowseResult | Error]:
     """Upload Microsoft Entra ID Groups
 
      The HTTP POST request to the `/api/v1/backupBrowser/entraIdTenant/{backupId}/uploadGroup` endpoint
@@ -102,7 +105,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[EntraIdTenantBrowseResult, Error]]
+        Response[EntraIdTenantBrowseResult | Error]
     """
 
     kwargs = _get_kwargs(
@@ -121,10 +124,10 @@ def sync_detailed(
 def sync(
     backup_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: File,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[EntraIdTenantBrowseResult, Error]]:
+) -> EntraIdTenantBrowseResult | Error | None:
     """Upload Microsoft Entra ID Groups
 
      The HTTP POST request to the `/api/v1/backupBrowser/entraIdTenant/{backupId}/uploadGroup` endpoint
@@ -142,7 +145,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[EntraIdTenantBrowseResult, Error]
+        EntraIdTenantBrowseResult | Error
     """
 
     return sync_detailed(
@@ -156,10 +159,10 @@ def sync(
 async def asyncio_detailed(
     backup_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: File,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[EntraIdTenantBrowseResult, Error]]:
+) -> Response[EntraIdTenantBrowseResult | Error]:
     """Upload Microsoft Entra ID Groups
 
      The HTTP POST request to the `/api/v1/backupBrowser/entraIdTenant/{backupId}/uploadGroup` endpoint
@@ -177,7 +180,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[EntraIdTenantBrowseResult, Error]]
+        Response[EntraIdTenantBrowseResult | Error]
     """
 
     kwargs = _get_kwargs(
@@ -194,10 +197,10 @@ async def asyncio_detailed(
 async def asyncio(
     backup_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: File,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[EntraIdTenantBrowseResult, Error]]:
+) -> EntraIdTenantBrowseResult | Error | None:
     """Upload Microsoft Entra ID Groups
 
      The HTTP POST request to the `/api/v1/backupBrowser/entraIdTenant/{backupId}/uploadGroup` endpoint
@@ -215,7 +218,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[EntraIdTenantBrowseResult, Error]
+        EntraIdTenantBrowseResult | Error
     """
 
     return (

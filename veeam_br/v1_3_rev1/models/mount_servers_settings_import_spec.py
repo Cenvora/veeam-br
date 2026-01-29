@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,23 +22,23 @@ class MountServersSettingsImportSpec:
 
     Attributes:
         mount_server_settings_type (EMountServerSettingsType): Type of mount server settings.
-        windows (Union[Unset, MountServerSettingsImportSpec]): Import settings for mount server.
-        linux (Union[Unset, MountServerSettingsImportSpec]): Import settings for mount server.
+        windows (MountServerSettingsImportSpec | Unset): Import settings for mount server.
+        linux (MountServerSettingsImportSpec | Unset): Import settings for mount server.
     """
 
     mount_server_settings_type: EMountServerSettingsType
-    windows: Union[Unset, "MountServerSettingsImportSpec"] = UNSET
-    linux: Union[Unset, "MountServerSettingsImportSpec"] = UNSET
+    windows: MountServerSettingsImportSpec | Unset = UNSET
+    linux: MountServerSettingsImportSpec | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         mount_server_settings_type = self.mount_server_settings_type.value
 
-        windows: Union[Unset, dict[str, Any]] = UNSET
+        windows: dict[str, Any] | Unset = UNSET
         if not isinstance(self.windows, Unset):
             windows = self.windows.to_dict()
 
-        linux: Union[Unset, dict[str, Any]] = UNSET
+        linux: dict[str, Any] | Unset = UNSET
         if not isinstance(self.linux, Unset):
             linux = self.linux.to_dict()
 
@@ -62,14 +64,14 @@ class MountServersSettingsImportSpec:
         mount_server_settings_type = EMountServerSettingsType(d.pop("mountServerSettingsType"))
 
         _windows = d.pop("windows", UNSET)
-        windows: Union[Unset, MountServerSettingsImportSpec]
+        windows: MountServerSettingsImportSpec | Unset
         if isinstance(_windows, Unset):
             windows = UNSET
         else:
             windows = MountServerSettingsImportSpec.from_dict(_windows)
 
         _linux = d.pop("linux", UNSET)
-        linux: Union[Unset, MountServerSettingsImportSpec]
+        linux: MountServerSettingsImportSpec | Unset
         if isinstance(_linux, Unset):
             linux = UNSET
         else:

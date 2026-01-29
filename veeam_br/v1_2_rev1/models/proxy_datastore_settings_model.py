@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,18 +22,18 @@ class ProxyDatastoreSettingsModel:
     Attributes:
         auto_select_enabled (bool): If `true`, all datastores that the backup proxy can access are detected
             automatically.
-        datastores (Union[Unset, list['ProxyDatastoreModel']]): Array of datastores to which the backup proxy has a
-            direct SAN or NFS connection.
+        datastores (list[ProxyDatastoreModel] | Unset): Array of datastores to which the backup proxy has a direct SAN
+            or NFS connection.
     """
 
     auto_select_enabled: bool
-    datastores: Union[Unset, list["ProxyDatastoreModel"]] = UNSET
+    datastores: list[ProxyDatastoreModel] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         auto_select_enabled = self.auto_select_enabled
 
-        datastores: Union[Unset, list[dict[str, Any]]] = UNSET
+        datastores: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.datastores, Unset):
             datastores = []
             for datastores_item_data in self.datastores:
@@ -57,12 +59,14 @@ class ProxyDatastoreSettingsModel:
         d = dict(src_dict)
         auto_select_enabled = d.pop("autoSelectEnabled")
 
-        datastores = []
         _datastores = d.pop("datastores", UNSET)
-        for datastores_item_data in _datastores or []:
-            datastores_item = ProxyDatastoreModel.from_dict(datastores_item_data)
+        datastores: list[ProxyDatastoreModel] | Unset = UNSET
+        if _datastores is not UNSET:
+            datastores = []
+            for datastores_item_data in _datastores:
+                datastores_item = ProxyDatastoreModel.from_dict(datastores_item_data)
 
-            datastores.append(datastores_item)
+                datastores.append(datastores_item)
 
         proxy_datastore_settings_model = cls(
             auto_select_enabled=auto_select_enabled,

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -29,10 +31,10 @@ class RepositoryStateModel:
         used_space_gb (float): Used repository space in GB.
         is_online (bool): If `true`, the repository is online.
         is_out_of_date (bool): If `true`, the repository contains outdated components.
-        host_id (Union[Unset, UUID]): ID of the server that is used as a backup repository.
-        host_name (Union[Unset, str]): Name of the server that is used as a backup repository.
-        path (Union[Unset, str]): Path to the folder where backup files are stored.
-        scale_out_repository_details (Union[Unset, ScaleOutRepositoryDetailsModel]): Details related to scale-out backup
+        host_id (UUID | Unset): ID of the server that is used as a backup repository.
+        host_name (str | Unset): Name of the server that is used as a backup repository.
+        path (str | Unset): Path to the folder where backup files are stored.
+        scale_out_repository_details (ScaleOutRepositoryDetailsModel | Unset): Details related to scale-out backup
             repositories.
     """
 
@@ -45,10 +47,10 @@ class RepositoryStateModel:
     used_space_gb: float
     is_online: bool
     is_out_of_date: bool
-    host_id: Union[Unset, UUID] = UNSET
-    host_name: Union[Unset, str] = UNSET
-    path: Union[Unset, str] = UNSET
-    scale_out_repository_details: Union[Unset, "ScaleOutRepositoryDetailsModel"] = UNSET
+    host_id: UUID | Unset = UNSET
+    host_name: str | Unset = UNSET
+    path: str | Unset = UNSET
+    scale_out_repository_details: ScaleOutRepositoryDetailsModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -70,7 +72,7 @@ class RepositoryStateModel:
 
         is_out_of_date = self.is_out_of_date
 
-        host_id: Union[Unset, str] = UNSET
+        host_id: str | Unset = UNSET
         if not isinstance(self.host_id, Unset):
             host_id = str(self.host_id)
 
@@ -78,7 +80,7 @@ class RepositoryStateModel:
 
         path = self.path
 
-        scale_out_repository_details: Union[Unset, dict[str, Any]] = UNSET
+        scale_out_repository_details: dict[str, Any] | Unset = UNSET
         if not isinstance(self.scale_out_repository_details, Unset):
             scale_out_repository_details = self.scale_out_repository_details.to_dict()
 
@@ -132,7 +134,7 @@ class RepositoryStateModel:
         is_out_of_date = d.pop("isOutOfDate")
 
         _host_id = d.pop("hostId", UNSET)
-        host_id: Union[Unset, UUID]
+        host_id: UUID | Unset
         if isinstance(_host_id, Unset):
             host_id = UNSET
         else:
@@ -143,7 +145,7 @@ class RepositoryStateModel:
         path = d.pop("path", UNSET)
 
         _scale_out_repository_details = d.pop("scaleOutRepositoryDetails", UNSET)
-        scale_out_repository_details: Union[Unset, ScaleOutRepositoryDetailsModel]
+        scale_out_repository_details: ScaleOutRepositoryDetailsModel | Unset
         if isinstance(_scale_out_repository_details, Unset):
             scale_out_repository_details = UNSET
         else:

@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -19,13 +21,13 @@ class ComputerRecoveryTokenModel:
         id (UUID): ID of the recovery token.
         name (str): Friendly name of the recovery token.
         expiration_date (datetime.datetime): Date and time when the recovery token expires.
-        recovery_token (Union[Unset, str]): Recovery token.
+        recovery_token (str | Unset): Recovery token.
     """
 
     id: UUID
     name: str
     expiration_date: datetime.datetime
-    recovery_token: Union[Unset, str] = UNSET
+    recovery_token: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -36,14 +38,13 @@ class InstalledLicenseModel:
         is_multi_section (bool): If `true`, license contains multiple sections.
         proactive_support_enabled (bool): If `true`, proactive support is enabled. This option periodically sends
             anonymized, non-sensitive backup infrastructure details with Veeam.
-        expiration_date (Union[Unset, datetime.datetime]): Expiration date and time of the license.
-        type_ (Union[Unset, EInstalledLicenseType]): License type.
-        socket_license_summary (Union[Unset, SocketLicenseSummaryModel]): Details on per-socket license consumption.
-        instance_license_summary (Union[Unset, InstanceLicenseSummaryModel]): Details on per-instance license
-            consumption.
-        capacity_license_summary (Union[Unset, CapacityLicenseSummaryModel]): Details on total and consumed capacity by
+        expiration_date (datetime.datetime | Unset): Expiration date and time of the license.
+        type_ (EInstalledLicenseType | Unset): License type.
+        socket_license_summary (SocketLicenseSummaryModel | Unset): Details on per-socket license consumption.
+        instance_license_summary (InstanceLicenseSummaryModel | Unset): Details on per-instance license consumption.
+        capacity_license_summary (CapacityLicenseSummaryModel | Unset): Details on total and consumed capacity by
             workload.
-        support_expiration_date (Union[Unset, datetime.datetime]): Expiration date and time for the support contract.
+        support_expiration_date (datetime.datetime | Unset): Expiration date and time for the support contract.
     """
 
     status: EInstalledLicenseStatus
@@ -55,12 +56,12 @@ class InstalledLicenseModel:
     cloud_connect: EInstalledLicenseCloudConnectMode
     is_multi_section: bool
     proactive_support_enabled: bool
-    expiration_date: Union[Unset, datetime.datetime] = UNSET
-    type_: Union[Unset, EInstalledLicenseType] = UNSET
-    socket_license_summary: Union[Unset, "SocketLicenseSummaryModel"] = UNSET
-    instance_license_summary: Union[Unset, "InstanceLicenseSummaryModel"] = UNSET
-    capacity_license_summary: Union[Unset, "CapacityLicenseSummaryModel"] = UNSET
-    support_expiration_date: Union[Unset, datetime.datetime] = UNSET
+    expiration_date: datetime.datetime | Unset = UNSET
+    type_: EInstalledLicenseType | Unset = UNSET
+    socket_license_summary: SocketLicenseSummaryModel | Unset = UNSET
+    instance_license_summary: InstanceLicenseSummaryModel | Unset = UNSET
+    capacity_license_summary: CapacityLicenseSummaryModel | Unset = UNSET
+    support_expiration_date: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -82,27 +83,27 @@ class InstalledLicenseModel:
 
         proactive_support_enabled = self.proactive_support_enabled
 
-        expiration_date: Union[Unset, str] = UNSET
+        expiration_date: str | Unset = UNSET
         if not isinstance(self.expiration_date, Unset):
             expiration_date = self.expiration_date.isoformat()
 
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
-        socket_license_summary: Union[Unset, dict[str, Any]] = UNSET
+        socket_license_summary: dict[str, Any] | Unset = UNSET
         if not isinstance(self.socket_license_summary, Unset):
             socket_license_summary = self.socket_license_summary.to_dict()
 
-        instance_license_summary: Union[Unset, dict[str, Any]] = UNSET
+        instance_license_summary: dict[str, Any] | Unset = UNSET
         if not isinstance(self.instance_license_summary, Unset):
             instance_license_summary = self.instance_license_summary.to_dict()
 
-        capacity_license_summary: Union[Unset, dict[str, Any]] = UNSET
+        capacity_license_summary: dict[str, Any] | Unset = UNSET
         if not isinstance(self.capacity_license_summary, Unset):
             capacity_license_summary = self.capacity_license_summary.to_dict()
 
-        support_expiration_date: Union[Unset, str] = UNSET
+        support_expiration_date: str | Unset = UNSET
         if not isinstance(self.support_expiration_date, Unset):
             support_expiration_date = self.support_expiration_date.isoformat()
 
@@ -162,42 +163,42 @@ class InstalledLicenseModel:
         proactive_support_enabled = d.pop("proactiveSupportEnabled")
 
         _expiration_date = d.pop("expirationDate", UNSET)
-        expiration_date: Union[Unset, datetime.datetime]
+        expiration_date: datetime.datetime | Unset
         if isinstance(_expiration_date, Unset):
             expiration_date = UNSET
         else:
             expiration_date = isoparse(_expiration_date)
 
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, EInstalledLicenseType]
+        type_: EInstalledLicenseType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:
             type_ = EInstalledLicenseType(_type_)
 
         _socket_license_summary = d.pop("socketLicenseSummary", UNSET)
-        socket_license_summary: Union[Unset, SocketLicenseSummaryModel]
+        socket_license_summary: SocketLicenseSummaryModel | Unset
         if isinstance(_socket_license_summary, Unset):
             socket_license_summary = UNSET
         else:
             socket_license_summary = SocketLicenseSummaryModel.from_dict(_socket_license_summary)
 
         _instance_license_summary = d.pop("instanceLicenseSummary", UNSET)
-        instance_license_summary: Union[Unset, InstanceLicenseSummaryModel]
+        instance_license_summary: InstanceLicenseSummaryModel | Unset
         if isinstance(_instance_license_summary, Unset):
             instance_license_summary = UNSET
         else:
             instance_license_summary = InstanceLicenseSummaryModel.from_dict(_instance_license_summary)
 
         _capacity_license_summary = d.pop("capacityLicenseSummary", UNSET)
-        capacity_license_summary: Union[Unset, CapacityLicenseSummaryModel]
+        capacity_license_summary: CapacityLicenseSummaryModel | Unset
         if isinstance(_capacity_license_summary, Unset):
             capacity_license_summary = UNSET
         else:
             capacity_license_summary = CapacityLicenseSummaryModel.from_dict(_capacity_license_summary)
 
         _support_expiration_date = d.pop("supportExpirationDate", UNSET)
-        support_expiration_date: Union[Unset, datetime.datetime]
+        support_expiration_date: datetime.datetime | Unset
         if isinstance(_support_expiration_date, Unset):
             support_expiration_date = UNSET
         else:

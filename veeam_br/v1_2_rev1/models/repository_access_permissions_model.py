@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,24 +22,24 @@ class RepositoryAccessPermissionsModel:
 
     Attributes:
         access_policy (ERepositoryAccessType): Access type.
-        accounts (Union[Unset, list[str]]): (For *AllowExplicit* access policy) Array of accounts that have access to
-            the backup repository.
-        encryption_settings (Union[Unset, BackupStorageSettingsEncryptionModel]): Encryption of backup files.
+        accounts (list[str] | Unset): (For *AllowExplicit* access policy) Array of accounts that have access to the
+            backup repository.
+        encryption_settings (BackupStorageSettingsEncryptionModel | Unset): Encryption of backup files.
     """
 
     access_policy: ERepositoryAccessType
-    accounts: Union[Unset, list[str]] = UNSET
-    encryption_settings: Union[Unset, "BackupStorageSettingsEncryptionModel"] = UNSET
+    accounts: list[str] | Unset = UNSET
+    encryption_settings: BackupStorageSettingsEncryptionModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         access_policy = self.access_policy.value
 
-        accounts: Union[Unset, list[str]] = UNSET
+        accounts: list[str] | Unset = UNSET
         if not isinstance(self.accounts, Unset):
             accounts = self.accounts
 
-        encryption_settings: Union[Unset, dict[str, Any]] = UNSET
+        encryption_settings: dict[str, Any] | Unset = UNSET
         if not isinstance(self.encryption_settings, Unset):
             encryption_settings = self.encryption_settings.to_dict()
 
@@ -65,7 +67,7 @@ class RepositoryAccessPermissionsModel:
         accounts = cast(list[str], d.pop("accounts", UNSET))
 
         _encryption_settings = d.pop("encryptionSettings", UNSET)
-        encryption_settings: Union[Unset, BackupStorageSettingsEncryptionModel]
+        encryption_settings: BackupStorageSettingsEncryptionModel | Unset
         if isinstance(_encryption_settings, Unset):
             encryption_settings = UNSET
         else:

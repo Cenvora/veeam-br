@@ -1,17 +1,14 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.ad_objects_protection_group_model import ADObjectsProtectionGroupModel
-from ...models.csv_file_protection_group_model import CSVFileProtectionGroupModel
 from ...models.error import Error
-from ...models.individual_computers_protection_group_model import IndividualComputersProtectionGroupModel
-from ...models.manually_added_protection_group_model import ManuallyAddedProtectionGroupModel
-from ...models.pre_installed_agents_protection_group_model import PreInstalledAgentsProtectionGroupModel
+from ...models.protection_group_model import ProtectionGroupModel
 from ...types import Response
 
 
@@ -25,7 +22,9 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": f"/api/v1/agents/protectionGroups/{id}",
+        "url": "/api/v1/agents/protectionGroups/{id}".format(
+            id=quote(str(id), safe=""),
+        ),
     }
 
     _kwargs["headers"] = headers
@@ -33,71 +32,10 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[
-    Union[
-        Error,
-        Union[
-            "ADObjectsProtectionGroupModel",
-            "CSVFileProtectionGroupModel",
-            "IndividualComputersProtectionGroupModel",
-            "ManuallyAddedProtectionGroupModel",
-            "PreInstalledAgentsProtectionGroupModel",
-        ],
-    ]
-]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Error | ProtectionGroupModel | None:
     if response.status_code == 200:
-
-        def _parse_response_200(
-            data: object,
-        ) -> Union[
-            "ADObjectsProtectionGroupModel",
-            "CSVFileProtectionGroupModel",
-            "IndividualComputersProtectionGroupModel",
-            "ManuallyAddedProtectionGroupModel",
-            "PreInstalledAgentsProtectionGroupModel",
-        ]:
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_protection_group_model_type_0 = ManuallyAddedProtectionGroupModel.from_dict(data)
-
-                return componentsschemas_protection_group_model_type_0
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_protection_group_model_type_1 = IndividualComputersProtectionGroupModel.from_dict(
-                    data
-                )
-
-                return componentsschemas_protection_group_model_type_1
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_protection_group_model_type_2 = ADObjectsProtectionGroupModel.from_dict(data)
-
-                return componentsschemas_protection_group_model_type_2
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_protection_group_model_type_3 = CSVFileProtectionGroupModel.from_dict(data)
-
-                return componentsschemas_protection_group_model_type_3
-            except:  # noqa: E722
-                pass
-            if not isinstance(data, dict):
-                raise TypeError()
-            componentsschemas_protection_group_model_type_4 = PreInstalledAgentsProtectionGroupModel.from_dict(data)
-
-            return componentsschemas_protection_group_model_type_4
-
-        response_200 = _parse_response_200(response.json())
+        response_200 = ProtectionGroupModel.from_dict(response.json())
 
         return response_200
 
@@ -128,19 +66,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[
-    Union[
-        Error,
-        Union[
-            "ADObjectsProtectionGroupModel",
-            "CSVFileProtectionGroupModel",
-            "IndividualComputersProtectionGroupModel",
-            "ManuallyAddedProtectionGroupModel",
-            "PreInstalledAgentsProtectionGroupModel",
-        ],
-    ]
-]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | ProtectionGroupModel]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -152,20 +79,9 @@ def _build_response(
 def sync_detailed(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.3-rev0",
-) -> Response[
-    Union[
-        Error,
-        Union[
-            "ADObjectsProtectionGroupModel",
-            "CSVFileProtectionGroupModel",
-            "IndividualComputersProtectionGroupModel",
-            "ManuallyAddedProtectionGroupModel",
-            "PreInstalledAgentsProtectionGroupModel",
-        ],
-    ]
-]:
+) -> Response[Error | ProtectionGroupModel]:
     """Get Protection Group
 
      The HTTP GET request to the `/api/v1/agents/protectionGroups/{id}` path allows you to get a
@@ -181,7 +97,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, Union['ADObjectsProtectionGroupModel', 'CSVFileProtectionGroupModel', 'IndividualComputersProtectionGroupModel', 'ManuallyAddedProtectionGroupModel', 'PreInstalledAgentsProtectionGroupModel']]]
+        Response[Error | ProtectionGroupModel]
     """
 
     kwargs = _get_kwargs(
@@ -199,20 +115,9 @@ def sync_detailed(
 def sync(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.3-rev0",
-) -> Optional[
-    Union[
-        Error,
-        Union[
-            "ADObjectsProtectionGroupModel",
-            "CSVFileProtectionGroupModel",
-            "IndividualComputersProtectionGroupModel",
-            "ManuallyAddedProtectionGroupModel",
-            "PreInstalledAgentsProtectionGroupModel",
-        ],
-    ]
-]:
+) -> Error | ProtectionGroupModel | None:
     """Get Protection Group
 
      The HTTP GET request to the `/api/v1/agents/protectionGroups/{id}` path allows you to get a
@@ -228,7 +133,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, Union['ADObjectsProtectionGroupModel', 'CSVFileProtectionGroupModel', 'IndividualComputersProtectionGroupModel', 'ManuallyAddedProtectionGroupModel', 'PreInstalledAgentsProtectionGroupModel']]
+        Error | ProtectionGroupModel
     """
 
     return sync_detailed(
@@ -241,20 +146,9 @@ def sync(
 async def asyncio_detailed(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.3-rev0",
-) -> Response[
-    Union[
-        Error,
-        Union[
-            "ADObjectsProtectionGroupModel",
-            "CSVFileProtectionGroupModel",
-            "IndividualComputersProtectionGroupModel",
-            "ManuallyAddedProtectionGroupModel",
-            "PreInstalledAgentsProtectionGroupModel",
-        ],
-    ]
-]:
+) -> Response[Error | ProtectionGroupModel]:
     """Get Protection Group
 
      The HTTP GET request to the `/api/v1/agents/protectionGroups/{id}` path allows you to get a
@@ -270,7 +164,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, Union['ADObjectsProtectionGroupModel', 'CSVFileProtectionGroupModel', 'IndividualComputersProtectionGroupModel', 'ManuallyAddedProtectionGroupModel', 'PreInstalledAgentsProtectionGroupModel']]]
+        Response[Error | ProtectionGroupModel]
     """
 
     kwargs = _get_kwargs(
@@ -286,20 +180,9 @@ async def asyncio_detailed(
 async def asyncio(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.3-rev0",
-) -> Optional[
-    Union[
-        Error,
-        Union[
-            "ADObjectsProtectionGroupModel",
-            "CSVFileProtectionGroupModel",
-            "IndividualComputersProtectionGroupModel",
-            "ManuallyAddedProtectionGroupModel",
-            "PreInstalledAgentsProtectionGroupModel",
-        ],
-    ]
-]:
+) -> Error | ProtectionGroupModel | None:
     """Get Protection Group
 
      The HTTP GET request to the `/api/v1/agents/protectionGroups/{id}` path allows you to get a
@@ -315,7 +198,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, Union['ADObjectsProtectionGroupModel', 'CSVFileProtectionGroupModel', 'IndividualComputersProtectionGroupModel', 'ManuallyAddedProtectionGroupModel', 'PreInstalledAgentsProtectionGroupModel']]
+        Error | ProtectionGroupModel
     """
 
     return (

@@ -1,5 +1,6 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
@@ -22,7 +23,9 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "put",
-        "url": f"/api/v1/security/users/{id}/roles",
+        "url": "/api/v1/security/users/{id}/roles".format(
+            id=quote(str(id), safe=""),
+        ),
     }
 
     _kwargs["json"] = body.to_dict()
@@ -33,9 +36,7 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, RolesModel]]:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Error | RolesModel | None:
     if response.status_code == 200:
         response_200 = RolesModel.from_dict(response.json())
 
@@ -72,9 +73,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, RolesModel]]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[Error | RolesModel]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -86,10 +85,10 @@ def _build_response(
 def sync_detailed(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: RolesModel,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Error, RolesModel]]:
+) -> Response[Error | RolesModel]:
     """Edit Roles Assigned to User or Group
 
      The HTTP PUT request to the `/api/v1/security/users/{id}/roles` endpoint edits the roles assigned to
@@ -106,7 +105,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, RolesModel]]
+        Response[Error | RolesModel]
     """
 
     kwargs = _get_kwargs(
@@ -125,10 +124,10 @@ def sync_detailed(
 def sync(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: RolesModel,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Error, RolesModel]]:
+) -> Error | RolesModel | None:
     """Edit Roles Assigned to User or Group
 
      The HTTP PUT request to the `/api/v1/security/users/{id}/roles` endpoint edits the roles assigned to
@@ -145,7 +144,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, RolesModel]
+        Error | RolesModel
     """
 
     return sync_detailed(
@@ -159,10 +158,10 @@ def sync(
 async def asyncio_detailed(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: RolesModel,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Error, RolesModel]]:
+) -> Response[Error | RolesModel]:
     """Edit Roles Assigned to User or Group
 
      The HTTP PUT request to the `/api/v1/security/users/{id}/roles` endpoint edits the roles assigned to
@@ -179,7 +178,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, RolesModel]]
+        Response[Error | RolesModel]
     """
 
     kwargs = _get_kwargs(
@@ -196,10 +195,10 @@ async def asyncio_detailed(
 async def asyncio(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: RolesModel,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Error, RolesModel]]:
+) -> Error | RolesModel | None:
     """Edit Roles Assigned to User or Group
 
      The HTTP PUT request to the `/api/v1/security/users/{id}/roles` endpoint edits the roles assigned to
@@ -216,7 +215,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, RolesModel]
+        Error | RolesModel
     """
 
     return (

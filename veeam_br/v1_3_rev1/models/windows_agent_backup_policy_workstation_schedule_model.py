@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -22,38 +24,38 @@ class WindowsAgentBackupPolicyWorkstationScheduleModel:
 
     Attributes:
         run_automatically (bool): If `true`, job scheduling is enabled. Default: False.
-        daily (Union[Unset, ScheduleDailyModel]): Daily scheduling options.
-        power_off_action (Union[Unset, EPowerOffAction]): Action that Veeam Agent for Microsoft Windows will perform
-            when the protected computer is powered off at a time when the scheduled backup job must start.
-        post_backup_action (Union[Unset, EPostBackupAction]): Action that Veeam Agent for Microsoft Windows will perform
-            after the backup job completes successfully.
-        at_events (Union[Unset, AgentBackupPolicyScheduleAtEventsModel]): Settings for backups scheduled at a particular
+        daily (ScheduleDailyModel | Unset): Daily scheduling options.
+        power_off_action (EPowerOffAction | Unset): Action that Veeam Agent for Microsoft Windows will perform when the
+            protected computer is powered off at a time when the scheduled backup job must start.
+        post_backup_action (EPostBackupAction | Unset): Action that Veeam Agent for Microsoft Windows will perform after
+            the backup job completes successfully.
+        at_events (AgentBackupPolicyScheduleAtEventsModel | Unset): Settings for backups scheduled at a particular
             event.
     """
 
     run_automatically: bool = False
-    daily: Union[Unset, "ScheduleDailyModel"] = UNSET
-    power_off_action: Union[Unset, EPowerOffAction] = UNSET
-    post_backup_action: Union[Unset, EPostBackupAction] = UNSET
-    at_events: Union[Unset, "AgentBackupPolicyScheduleAtEventsModel"] = UNSET
+    daily: ScheduleDailyModel | Unset = UNSET
+    power_off_action: EPowerOffAction | Unset = UNSET
+    post_backup_action: EPostBackupAction | Unset = UNSET
+    at_events: AgentBackupPolicyScheduleAtEventsModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         run_automatically = self.run_automatically
 
-        daily: Union[Unset, dict[str, Any]] = UNSET
+        daily: dict[str, Any] | Unset = UNSET
         if not isinstance(self.daily, Unset):
             daily = self.daily.to_dict()
 
-        power_off_action: Union[Unset, str] = UNSET
+        power_off_action: str | Unset = UNSET
         if not isinstance(self.power_off_action, Unset):
             power_off_action = self.power_off_action.value
 
-        post_backup_action: Union[Unset, str] = UNSET
+        post_backup_action: str | Unset = UNSET
         if not isinstance(self.post_backup_action, Unset):
             post_backup_action = self.post_backup_action.value
 
-        at_events: Union[Unset, dict[str, Any]] = UNSET
+        at_events: dict[str, Any] | Unset = UNSET
         if not isinstance(self.at_events, Unset):
             at_events = self.at_events.to_dict()
 
@@ -84,28 +86,28 @@ class WindowsAgentBackupPolicyWorkstationScheduleModel:
         run_automatically = d.pop("runAutomatically")
 
         _daily = d.pop("daily", UNSET)
-        daily: Union[Unset, ScheduleDailyModel]
+        daily: ScheduleDailyModel | Unset
         if isinstance(_daily, Unset):
             daily = UNSET
         else:
             daily = ScheduleDailyModel.from_dict(_daily)
 
         _power_off_action = d.pop("powerOffAction", UNSET)
-        power_off_action: Union[Unset, EPowerOffAction]
+        power_off_action: EPowerOffAction | Unset
         if isinstance(_power_off_action, Unset):
             power_off_action = UNSET
         else:
             power_off_action = EPowerOffAction(_power_off_action)
 
         _post_backup_action = d.pop("postBackupAction", UNSET)
-        post_backup_action: Union[Unset, EPostBackupAction]
+        post_backup_action: EPostBackupAction | Unset
         if isinstance(_post_backup_action, Unset):
             post_backup_action = UNSET
         else:
             post_backup_action = EPostBackupAction(_post_backup_action)
 
         _at_events = d.pop("atEvents", UNSET)
-        at_events: Union[Unset, AgentBackupPolicyScheduleAtEventsModel]
+        at_events: AgentBackupPolicyScheduleAtEventsModel | Unset
         if isinstance(_at_events, Unset):
             at_events = UNSET
         else:

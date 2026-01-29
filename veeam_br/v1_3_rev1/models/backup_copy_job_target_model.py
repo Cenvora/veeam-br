@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -22,29 +24,29 @@ class BackupCopyJobTargetModel:
 
     Attributes:
         backup_repository_id (UUID): Backup repository ID.
-        retention_policy (Union[Unset, BackupJobRetentionPolicySettingsModel]): Retention policy settings.
-        gfs_policy (Union[Unset, BackupCopyGFSPolicySettingsModel]): GFS retention policy settings.
-        advanced_settings (Union[Unset, BackupCopyJobAdvancedSettingsModel]): Advanced settings for backup copy job.
+        retention_policy (BackupJobRetentionPolicySettingsModel | Unset): Retention policy settings.
+        gfs_policy (BackupCopyGFSPolicySettingsModel | Unset): GFS retention policy settings.
+        advanced_settings (BackupCopyJobAdvancedSettingsModel | Unset): Advanced settings for backup copy job.
     """
 
     backup_repository_id: UUID
-    retention_policy: Union[Unset, "BackupJobRetentionPolicySettingsModel"] = UNSET
-    gfs_policy: Union[Unset, "BackupCopyGFSPolicySettingsModel"] = UNSET
-    advanced_settings: Union[Unset, "BackupCopyJobAdvancedSettingsModel"] = UNSET
+    retention_policy: BackupJobRetentionPolicySettingsModel | Unset = UNSET
+    gfs_policy: BackupCopyGFSPolicySettingsModel | Unset = UNSET
+    advanced_settings: BackupCopyJobAdvancedSettingsModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         backup_repository_id = str(self.backup_repository_id)
 
-        retention_policy: Union[Unset, dict[str, Any]] = UNSET
+        retention_policy: dict[str, Any] | Unset = UNSET
         if not isinstance(self.retention_policy, Unset):
             retention_policy = self.retention_policy.to_dict()
 
-        gfs_policy: Union[Unset, dict[str, Any]] = UNSET
+        gfs_policy: dict[str, Any] | Unset = UNSET
         if not isinstance(self.gfs_policy, Unset):
             gfs_policy = self.gfs_policy.to_dict()
 
-        advanced_settings: Union[Unset, dict[str, Any]] = UNSET
+        advanced_settings: dict[str, Any] | Unset = UNSET
         if not isinstance(self.advanced_settings, Unset):
             advanced_settings = self.advanced_settings.to_dict()
 
@@ -74,21 +76,21 @@ class BackupCopyJobTargetModel:
         backup_repository_id = UUID(d.pop("backupRepositoryId"))
 
         _retention_policy = d.pop("retentionPolicy", UNSET)
-        retention_policy: Union[Unset, BackupJobRetentionPolicySettingsModel]
+        retention_policy: BackupJobRetentionPolicySettingsModel | Unset
         if isinstance(_retention_policy, Unset):
             retention_policy = UNSET
         else:
             retention_policy = BackupJobRetentionPolicySettingsModel.from_dict(_retention_policy)
 
         _gfs_policy = d.pop("gfsPolicy", UNSET)
-        gfs_policy: Union[Unset, BackupCopyGFSPolicySettingsModel]
+        gfs_policy: BackupCopyGFSPolicySettingsModel | Unset
         if isinstance(_gfs_policy, Unset):
             gfs_policy = UNSET
         else:
             gfs_policy = BackupCopyGFSPolicySettingsModel.from_dict(_gfs_policy)
 
         _advanced_settings = d.pop("advancedSettings", UNSET)
-        advanced_settings: Union[Unset, BackupCopyJobAdvancedSettingsModel]
+        advanced_settings: BackupCopyJobAdvancedSettingsModel | Unset
         if isinstance(_advanced_settings, Unset):
             advanced_settings = UNSET
         else:

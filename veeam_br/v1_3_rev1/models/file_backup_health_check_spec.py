@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -19,30 +21,30 @@ class FileBackupHealthCheckSpec:
     """Settings for health check of unstructured data backup or backup job.
 
     Attributes:
-        backup_ids (Union[Unset, list[UUID]]): Array of IDs of unstructured data backups that you want to check or
-            repair. To get the IDs, run the [Get All Backups](Backups#operation/GetAllBackups) request.
-        job_ids (Union[Unset, list[UUID]]): Array of IDs of unstructured data backup jobs that you want to check or
-            repair. To get the IDs, run the [Get All Jobs](Jobs#operation/GetAllJobs) request.
-        is_repair (Union[Unset, bool]): If `true`, Veeam Backup & Replication will repair corrupted data.
-        repair_options (Union[Unset, HealthCheckRepairOptions]): Settings for repair of unstructured data backup or
-            backup job.
+        backup_ids (list[UUID] | Unset): Array of IDs of unstructured data backups that you want to check or repair. To
+            get the IDs, run the [Get All Backups](Backups#operation/GetAllBackups) request.
+        job_ids (list[UUID] | Unset): Array of IDs of unstructured data backup jobs that you want to check or repair. To
+            get the IDs, run the [Get All Jobs](Jobs#operation/GetAllJobs) request.
+        is_repair (bool | Unset): If `true`, Veeam Backup & Replication will repair corrupted data.
+        repair_options (HealthCheckRepairOptions | Unset): Settings for repair of unstructured data backup or backup
+            job.
     """
 
-    backup_ids: Union[Unset, list[UUID]] = UNSET
-    job_ids: Union[Unset, list[UUID]] = UNSET
-    is_repair: Union[Unset, bool] = UNSET
-    repair_options: Union[Unset, "HealthCheckRepairOptions"] = UNSET
+    backup_ids: list[UUID] | Unset = UNSET
+    job_ids: list[UUID] | Unset = UNSET
+    is_repair: bool | Unset = UNSET
+    repair_options: HealthCheckRepairOptions | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        backup_ids: Union[Unset, list[str]] = UNSET
+        backup_ids: list[str] | Unset = UNSET
         if not isinstance(self.backup_ids, Unset):
             backup_ids = []
             for backup_ids_item_data in self.backup_ids:
                 backup_ids_item = str(backup_ids_item_data)
                 backup_ids.append(backup_ids_item)
 
-        job_ids: Union[Unset, list[str]] = UNSET
+        job_ids: list[str] | Unset = UNSET
         if not isinstance(self.job_ids, Unset):
             job_ids = []
             for job_ids_item_data in self.job_ids:
@@ -51,7 +53,7 @@ class FileBackupHealthCheckSpec:
 
         is_repair = self.is_repair
 
-        repair_options: Union[Unset, dict[str, Any]] = UNSET
+        repair_options: dict[str, Any] | Unset = UNSET
         if not isinstance(self.repair_options, Unset):
             repair_options = self.repair_options.to_dict()
 
@@ -74,24 +76,28 @@ class FileBackupHealthCheckSpec:
         from ..models.health_check_repair_options import HealthCheckRepairOptions
 
         d = dict(src_dict)
-        backup_ids = []
         _backup_ids = d.pop("backupIds", UNSET)
-        for backup_ids_item_data in _backup_ids or []:
-            backup_ids_item = UUID(backup_ids_item_data)
+        backup_ids: list[UUID] | Unset = UNSET
+        if _backup_ids is not UNSET:
+            backup_ids = []
+            for backup_ids_item_data in _backup_ids:
+                backup_ids_item = UUID(backup_ids_item_data)
 
-            backup_ids.append(backup_ids_item)
+                backup_ids.append(backup_ids_item)
 
-        job_ids = []
         _job_ids = d.pop("jobIds", UNSET)
-        for job_ids_item_data in _job_ids or []:
-            job_ids_item = UUID(job_ids_item_data)
+        job_ids: list[UUID] | Unset = UNSET
+        if _job_ids is not UNSET:
+            job_ids = []
+            for job_ids_item_data in _job_ids:
+                job_ids_item = UUID(job_ids_item_data)
 
-            job_ids.append(job_ids_item)
+                job_ids.append(job_ids_item)
 
         is_repair = d.pop("isRepair", UNSET)
 
         _repair_options = d.pop("repairOptions", UNSET)
-        repair_options: Union[Unset, HealthCheckRepairOptions]
+        repair_options: HealthCheckRepairOptions | Unset
         if isinstance(_repair_options, Unset):
             repair_options = UNSET
         else:

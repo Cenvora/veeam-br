@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -32,9 +32,7 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, SessionsResult]]:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Error | SessionsResult | None:
     if response.status_code == 201:
         response_201 = SessionsResult.from_dict(response.json())
 
@@ -72,8 +70,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, SessionsResult]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | SessionsResult]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -84,10 +82,10 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: ViVMSnapshotReplicaCommitFailbackSpec,
     x_api_version: str = "1.2-rev1",
-) -> Response[Union[Error, SessionsResult]]:
+) -> Response[Error | SessionsResult]:
     """Commit Failback
 
      The HTTP POST request to the `/api/v1/failback/commitFailback/vSphere/snapshot` path allows you to
@@ -103,7 +101,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, SessionsResult]]
+        Response[Error | SessionsResult]
     """
 
     kwargs = _get_kwargs(
@@ -120,10 +118,10 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: ViVMSnapshotReplicaCommitFailbackSpec,
     x_api_version: str = "1.2-rev1",
-) -> Optional[Union[Error, SessionsResult]]:
+) -> Error | SessionsResult | None:
     """Commit Failback
 
      The HTTP POST request to the `/api/v1/failback/commitFailback/vSphere/snapshot` path allows you to
@@ -139,7 +137,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, SessionsResult]
+        Error | SessionsResult
     """
 
     return sync_detailed(
@@ -151,10 +149,10 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: ViVMSnapshotReplicaCommitFailbackSpec,
     x_api_version: str = "1.2-rev1",
-) -> Response[Union[Error, SessionsResult]]:
+) -> Response[Error | SessionsResult]:
     """Commit Failback
 
      The HTTP POST request to the `/api/v1/failback/commitFailback/vSphere/snapshot` path allows you to
@@ -170,7 +168,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, SessionsResult]]
+        Response[Error | SessionsResult]
     """
 
     kwargs = _get_kwargs(
@@ -185,10 +183,10 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: ViVMSnapshotReplicaCommitFailbackSpec,
     x_api_version: str = "1.2-rev1",
-) -> Optional[Union[Error, SessionsResult]]:
+) -> Error | SessionsResult | None:
     """Commit Failback
 
      The HTTP POST request to the `/api/v1/failback/commitFailback/vSphere/snapshot` path allows you to
@@ -204,7 +202,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, SessionsResult]
+        Error | SessionsResult
     """
 
     return (

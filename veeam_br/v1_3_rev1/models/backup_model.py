@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -26,9 +28,9 @@ class BackupModel:
         creation_time (datetime.datetime): Date and time when the backup was created.
         repository_id (UUID): ID of the backup repository where the backup is stored.
         job_type (EJobType): Type of the job.
-        job_id (Union[Unset, UUID]): ID of the job that created the backup.
-        policy_unique_id (Union[Unset, str]): Unique ID that identifies retention policy.
-        repository_name (Union[Unset, str]): Name of the backup repository where the backup is stored.
+        job_id (UUID | Unset): ID of the job that created the backup.
+        policy_unique_id (str | Unset): Unique ID that identifies retention policy.
+        repository_name (str | Unset): Name of the backup repository where the backup is stored.
     """
 
     id: UUID
@@ -38,9 +40,9 @@ class BackupModel:
     creation_time: datetime.datetime
     repository_id: UUID
     job_type: EJobType
-    job_id: Union[Unset, UUID] = UNSET
-    policy_unique_id: Union[Unset, str] = UNSET
-    repository_name: Union[Unset, str] = UNSET
+    job_id: UUID | Unset = UNSET
+    policy_unique_id: str | Unset = UNSET
+    repository_name: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -58,7 +60,7 @@ class BackupModel:
 
         job_type = self.job_type.value
 
-        job_id: Union[Unset, str] = UNSET
+        job_id: str | Unset = UNSET
         if not isinstance(self.job_id, Unset):
             job_id = str(self.job_id)
 
@@ -106,7 +108,7 @@ class BackupModel:
         job_type = EJobType(d.pop("jobType"))
 
         _job_id = d.pop("jobId", UNSET)
-        job_id: Union[Unset, UUID]
+        job_id: UUID | Unset
         if isinstance(_job_id, Unset):
             job_id = UNSET
         else:

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -23,49 +25,49 @@ class BackupCopyJobAdvancedSettingsModel:
     """Advanced settings for backup copy job.
 
     Attributes:
-        backup_health (Union[Unset, BackupHealthCheckSettingsModels]): Health check settings for the latest restore
-            point in the backup chain.
-        full_backup_maintenance (Union[Unset, FullBackupMaintenanceModel]): Maintenance settings for full backup files.
-        storage_data (Union[Unset, BackupCopyJobStorageSettingsModel]): Storage settings for backup copy job.
-        rpo_monitor (Union[Unset, BackupCopyJobRPOMonitorModel]): RPO monitor settings for backup copy job.
-        notifications (Union[Unset, BackupCopyJobNotificationSettingsModel]): Notification settings.
-        scripts (Union[Unset, JobScriptsSettingsModel]): Script settings.<ul><li>`preCommand` — script executed before
-            the job</li><li>`postCommand` — script executed after the job</li></ul>
-        use_most_recent_restore_point (Union[Unset, bool]): If `true`, process the most recent restore point instead of
+        backup_health (BackupHealthCheckSettingsModels | Unset): Health check settings for the latest restore point in
+            the backup chain.
+        full_backup_maintenance (FullBackupMaintenanceModel | Unset): Maintenance settings for full backup files.
+        storage_data (BackupCopyJobStorageSettingsModel | Unset): Storage settings for backup copy job.
+        rpo_monitor (BackupCopyJobRPOMonitorModel | Unset): RPO monitor settings for backup copy job.
+        notifications (BackupCopyJobNotificationSettingsModel | Unset): Notification settings.
+        scripts (JobScriptsSettingsModel | Unset): Script settings.<ul><li>`preCommand` — script executed before the
+            job</li><li>`postCommand` — script executed after the job</li></ul>
+        use_most_recent_restore_point (bool | Unset): If `true`, process the most recent restore point instead of
             waiting for `periodic mode`.
     """
 
-    backup_health: Union[Unset, "BackupHealthCheckSettingsModels"] = UNSET
-    full_backup_maintenance: Union[Unset, "FullBackupMaintenanceModel"] = UNSET
-    storage_data: Union[Unset, "BackupCopyJobStorageSettingsModel"] = UNSET
-    rpo_monitor: Union[Unset, "BackupCopyJobRPOMonitorModel"] = UNSET
-    notifications: Union[Unset, "BackupCopyJobNotificationSettingsModel"] = UNSET
-    scripts: Union[Unset, "JobScriptsSettingsModel"] = UNSET
-    use_most_recent_restore_point: Union[Unset, bool] = UNSET
+    backup_health: BackupHealthCheckSettingsModels | Unset = UNSET
+    full_backup_maintenance: FullBackupMaintenanceModel | Unset = UNSET
+    storage_data: BackupCopyJobStorageSettingsModel | Unset = UNSET
+    rpo_monitor: BackupCopyJobRPOMonitorModel | Unset = UNSET
+    notifications: BackupCopyJobNotificationSettingsModel | Unset = UNSET
+    scripts: JobScriptsSettingsModel | Unset = UNSET
+    use_most_recent_restore_point: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        backup_health: Union[Unset, dict[str, Any]] = UNSET
+        backup_health: dict[str, Any] | Unset = UNSET
         if not isinstance(self.backup_health, Unset):
             backup_health = self.backup_health.to_dict()
 
-        full_backup_maintenance: Union[Unset, dict[str, Any]] = UNSET
+        full_backup_maintenance: dict[str, Any] | Unset = UNSET
         if not isinstance(self.full_backup_maintenance, Unset):
             full_backup_maintenance = self.full_backup_maintenance.to_dict()
 
-        storage_data: Union[Unset, dict[str, Any]] = UNSET
+        storage_data: dict[str, Any] | Unset = UNSET
         if not isinstance(self.storage_data, Unset):
             storage_data = self.storage_data.to_dict()
 
-        rpo_monitor: Union[Unset, dict[str, Any]] = UNSET
+        rpo_monitor: dict[str, Any] | Unset = UNSET
         if not isinstance(self.rpo_monitor, Unset):
             rpo_monitor = self.rpo_monitor.to_dict()
 
-        notifications: Union[Unset, dict[str, Any]] = UNSET
+        notifications: dict[str, Any] | Unset = UNSET
         if not isinstance(self.notifications, Unset):
             notifications = self.notifications.to_dict()
 
-        scripts: Union[Unset, dict[str, Any]] = UNSET
+        scripts: dict[str, Any] | Unset = UNSET
         if not isinstance(self.scripts, Unset):
             scripts = self.scripts.to_dict()
 
@@ -102,42 +104,42 @@ class BackupCopyJobAdvancedSettingsModel:
 
         d = dict(src_dict)
         _backup_health = d.pop("backupHealth", UNSET)
-        backup_health: Union[Unset, BackupHealthCheckSettingsModels]
+        backup_health: BackupHealthCheckSettingsModels | Unset
         if isinstance(_backup_health, Unset):
             backup_health = UNSET
         else:
             backup_health = BackupHealthCheckSettingsModels.from_dict(_backup_health)
 
         _full_backup_maintenance = d.pop("fullBackupMaintenance", UNSET)
-        full_backup_maintenance: Union[Unset, FullBackupMaintenanceModel]
+        full_backup_maintenance: FullBackupMaintenanceModel | Unset
         if isinstance(_full_backup_maintenance, Unset):
             full_backup_maintenance = UNSET
         else:
             full_backup_maintenance = FullBackupMaintenanceModel.from_dict(_full_backup_maintenance)
 
         _storage_data = d.pop("storageData", UNSET)
-        storage_data: Union[Unset, BackupCopyJobStorageSettingsModel]
+        storage_data: BackupCopyJobStorageSettingsModel | Unset
         if isinstance(_storage_data, Unset):
             storage_data = UNSET
         else:
             storage_data = BackupCopyJobStorageSettingsModel.from_dict(_storage_data)
 
         _rpo_monitor = d.pop("rpoMonitor", UNSET)
-        rpo_monitor: Union[Unset, BackupCopyJobRPOMonitorModel]
+        rpo_monitor: BackupCopyJobRPOMonitorModel | Unset
         if isinstance(_rpo_monitor, Unset):
             rpo_monitor = UNSET
         else:
             rpo_monitor = BackupCopyJobRPOMonitorModel.from_dict(_rpo_monitor)
 
         _notifications = d.pop("notifications", UNSET)
-        notifications: Union[Unset, BackupCopyJobNotificationSettingsModel]
+        notifications: BackupCopyJobNotificationSettingsModel | Unset
         if isinstance(_notifications, Unset):
             notifications = UNSET
         else:
             notifications = BackupCopyJobNotificationSettingsModel.from_dict(_notifications)
 
         _scripts = d.pop("scripts", UNSET)
-        scripts: Union[Unset, JobScriptsSettingsModel]
+        scripts: JobScriptsSettingsModel | Unset
         if isinstance(_scripts, Unset):
             scripts = UNSET
         else:

@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -17,36 +19,36 @@ T = TypeVar("T", bound="AuthorizationEventsFilters")
 class AuthorizationEventsFilters:
     """
     Attributes:
-        skip (Union[Unset, int]): Number of tasks to skip.
-        limit (Union[Unset, int]): Maximum number of tasks to return.
-        order_column (Union[Unset, EAuthorizationEventsFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        created_after_filter (Union[Unset, datetime.datetime]):
-        created_before_filter (Union[Unset, datetime.datetime]):
-        processed_after_filter (Union[Unset, datetime.datetime]):
-        processed_before_filter (Union[Unset, datetime.datetime]):
-        state_filter (Union[Unset, list[EAuthorizationEventState]]):
-        created_by_filter (Union[Unset, str]):
-        processed_by_filter (Union[Unset, str]):
-        expire_before_filter (Union[Unset, datetime.datetime]):
-        expire_after_filter (Union[Unset, datetime.datetime]):
+        skip (int | Unset): Number of tasks to skip.
+        limit (int | Unset): Maximum number of tasks to return.
+        order_column (EAuthorizationEventsFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        created_after_filter (datetime.datetime | Unset):
+        created_before_filter (datetime.datetime | Unset):
+        processed_after_filter (datetime.datetime | Unset):
+        processed_before_filter (datetime.datetime | Unset):
+        state_filter (list[EAuthorizationEventState] | Unset):
+        created_by_filter (str | Unset):
+        processed_by_filter (str | Unset):
+        expire_before_filter (datetime.datetime | Unset):
+        expire_after_filter (datetime.datetime | Unset):
     """
 
-    skip: Union[Unset, int] = UNSET
-    limit: Union[Unset, int] = UNSET
-    order_column: Union[Unset, EAuthorizationEventsFiltersOrderColumn] = UNSET
-    order_asc: Union[Unset, bool] = UNSET
-    name_filter: Union[Unset, str] = UNSET
-    created_after_filter: Union[Unset, datetime.datetime] = UNSET
-    created_before_filter: Union[Unset, datetime.datetime] = UNSET
-    processed_after_filter: Union[Unset, datetime.datetime] = UNSET
-    processed_before_filter: Union[Unset, datetime.datetime] = UNSET
-    state_filter: Union[Unset, list[EAuthorizationEventState]] = UNSET
-    created_by_filter: Union[Unset, str] = UNSET
-    processed_by_filter: Union[Unset, str] = UNSET
-    expire_before_filter: Union[Unset, datetime.datetime] = UNSET
-    expire_after_filter: Union[Unset, datetime.datetime] = UNSET
+    skip: int | Unset = UNSET
+    limit: int | Unset = UNSET
+    order_column: EAuthorizationEventsFiltersOrderColumn | Unset = UNSET
+    order_asc: bool | Unset = UNSET
+    name_filter: str | Unset = UNSET
+    created_after_filter: datetime.datetime | Unset = UNSET
+    created_before_filter: datetime.datetime | Unset = UNSET
+    processed_after_filter: datetime.datetime | Unset = UNSET
+    processed_before_filter: datetime.datetime | Unset = UNSET
+    state_filter: list[EAuthorizationEventState] | Unset = UNSET
+    created_by_filter: str | Unset = UNSET
+    processed_by_filter: str | Unset = UNSET
+    expire_before_filter: datetime.datetime | Unset = UNSET
+    expire_after_filter: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -54,7 +56,7 @@ class AuthorizationEventsFilters:
 
         limit = self.limit
 
-        order_column: Union[Unset, str] = UNSET
+        order_column: str | Unset = UNSET
         if not isinstance(self.order_column, Unset):
             order_column = self.order_column.value
 
@@ -62,23 +64,23 @@ class AuthorizationEventsFilters:
 
         name_filter = self.name_filter
 
-        created_after_filter: Union[Unset, str] = UNSET
+        created_after_filter: str | Unset = UNSET
         if not isinstance(self.created_after_filter, Unset):
             created_after_filter = self.created_after_filter.isoformat()
 
-        created_before_filter: Union[Unset, str] = UNSET
+        created_before_filter: str | Unset = UNSET
         if not isinstance(self.created_before_filter, Unset):
             created_before_filter = self.created_before_filter.isoformat()
 
-        processed_after_filter: Union[Unset, str] = UNSET
+        processed_after_filter: str | Unset = UNSET
         if not isinstance(self.processed_after_filter, Unset):
             processed_after_filter = self.processed_after_filter.isoformat()
 
-        processed_before_filter: Union[Unset, str] = UNSET
+        processed_before_filter: str | Unset = UNSET
         if not isinstance(self.processed_before_filter, Unset):
             processed_before_filter = self.processed_before_filter.isoformat()
 
-        state_filter: Union[Unset, list[str]] = UNSET
+        state_filter: list[str] | Unset = UNSET
         if not isinstance(self.state_filter, Unset):
             state_filter = []
             for state_filter_item_data in self.state_filter:
@@ -89,11 +91,11 @@ class AuthorizationEventsFilters:
 
         processed_by_filter = self.processed_by_filter
 
-        expire_before_filter: Union[Unset, str] = UNSET
+        expire_before_filter: str | Unset = UNSET
         if not isinstance(self.expire_before_filter, Unset):
             expire_before_filter = self.expire_before_filter.isoformat()
 
-        expire_after_filter: Union[Unset, str] = UNSET
+        expire_after_filter: str | Unset = UNSET
         if not isinstance(self.expire_after_filter, Unset):
             expire_after_filter = self.expire_after_filter.isoformat()
 
@@ -139,7 +141,7 @@ class AuthorizationEventsFilters:
         limit = d.pop("limit", UNSET)
 
         _order_column = d.pop("orderColumn", UNSET)
-        order_column: Union[Unset, EAuthorizationEventsFiltersOrderColumn]
+        order_column: EAuthorizationEventsFiltersOrderColumn | Unset
         if isinstance(_order_column, Unset):
             order_column = UNSET
         else:
@@ -150,53 +152,55 @@ class AuthorizationEventsFilters:
         name_filter = d.pop("nameFilter", UNSET)
 
         _created_after_filter = d.pop("createdAfterFilter", UNSET)
-        created_after_filter: Union[Unset, datetime.datetime]
+        created_after_filter: datetime.datetime | Unset
         if isinstance(_created_after_filter, Unset):
             created_after_filter = UNSET
         else:
             created_after_filter = isoparse(_created_after_filter)
 
         _created_before_filter = d.pop("createdBeforeFilter", UNSET)
-        created_before_filter: Union[Unset, datetime.datetime]
+        created_before_filter: datetime.datetime | Unset
         if isinstance(_created_before_filter, Unset):
             created_before_filter = UNSET
         else:
             created_before_filter = isoparse(_created_before_filter)
 
         _processed_after_filter = d.pop("processedAfterFilter", UNSET)
-        processed_after_filter: Union[Unset, datetime.datetime]
+        processed_after_filter: datetime.datetime | Unset
         if isinstance(_processed_after_filter, Unset):
             processed_after_filter = UNSET
         else:
             processed_after_filter = isoparse(_processed_after_filter)
 
         _processed_before_filter = d.pop("processedBeforeFilter", UNSET)
-        processed_before_filter: Union[Unset, datetime.datetime]
+        processed_before_filter: datetime.datetime | Unset
         if isinstance(_processed_before_filter, Unset):
             processed_before_filter = UNSET
         else:
             processed_before_filter = isoparse(_processed_before_filter)
 
-        state_filter = []
         _state_filter = d.pop("stateFilter", UNSET)
-        for state_filter_item_data in _state_filter or []:
-            state_filter_item = EAuthorizationEventState(state_filter_item_data)
+        state_filter: list[EAuthorizationEventState] | Unset = UNSET
+        if _state_filter is not UNSET:
+            state_filter = []
+            for state_filter_item_data in _state_filter:
+                state_filter_item = EAuthorizationEventState(state_filter_item_data)
 
-            state_filter.append(state_filter_item)
+                state_filter.append(state_filter_item)
 
         created_by_filter = d.pop("createdByFilter", UNSET)
 
         processed_by_filter = d.pop("processedByFilter", UNSET)
 
         _expire_before_filter = d.pop("expireBeforeFilter", UNSET)
-        expire_before_filter: Union[Unset, datetime.datetime]
+        expire_before_filter: datetime.datetime | Unset
         if isinstance(_expire_before_filter, Unset):
             expire_before_filter = UNSET
         else:
             expire_before_filter = isoparse(_expire_before_filter)
 
         _expire_after_filter = d.pop("expireAfterFilter", UNSET)
-        expire_after_filter: Union[Unset, datetime.datetime]
+        expire_after_filter: datetime.datetime | Unset
         if isinstance(_expire_after_filter, Unset):
             expire_after_filter = UNSET
         else:

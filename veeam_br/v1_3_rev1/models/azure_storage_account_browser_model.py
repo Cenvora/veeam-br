@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -18,18 +20,18 @@ class AzureStorageAccountBrowserModel:
     """Microsoft Azure storage account.
 
     Attributes:
-        storage_account_name (Union[Unset, str]): Account name.
-        instance_sizes (Union[Unset, list['AzureStorageAccountInstanceSizeModel']]): Array of available instance sizes.
+        storage_account_name (str | Unset): Account name.
+        instance_sizes (list[AzureStorageAccountInstanceSizeModel] | Unset): Array of available instance sizes.
     """
 
-    storage_account_name: Union[Unset, str] = UNSET
-    instance_sizes: Union[Unset, list["AzureStorageAccountInstanceSizeModel"]] = UNSET
+    storage_account_name: str | Unset = UNSET
+    instance_sizes: list[AzureStorageAccountInstanceSizeModel] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         storage_account_name = self.storage_account_name
 
-        instance_sizes: Union[Unset, list[dict[str, Any]]] = UNSET
+        instance_sizes: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.instance_sizes, Unset):
             instance_sizes = []
             for instance_sizes_item_data in self.instance_sizes:
@@ -53,12 +55,14 @@ class AzureStorageAccountBrowserModel:
         d = dict(src_dict)
         storage_account_name = d.pop("storageAccountName", UNSET)
 
-        instance_sizes = []
         _instance_sizes = d.pop("instanceSizes", UNSET)
-        for instance_sizes_item_data in _instance_sizes or []:
-            instance_sizes_item = AzureStorageAccountInstanceSizeModel.from_dict(instance_sizes_item_data)
+        instance_sizes: list[AzureStorageAccountInstanceSizeModel] | Unset = UNSET
+        if _instance_sizes is not UNSET:
+            instance_sizes = []
+            for instance_sizes_item_data in _instance_sizes:
+                instance_sizes_item = AzureStorageAccountInstanceSizeModel.from_dict(instance_sizes_item_data)
 
-            instance_sizes.append(instance_sizes_item)
+                instance_sizes.append(instance_sizes_item)
 
         azure_storage_account_browser_model = cls(
             storage_account_name=storage_account_name,

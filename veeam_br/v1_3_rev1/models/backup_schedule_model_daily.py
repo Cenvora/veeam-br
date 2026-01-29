@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,17 +21,17 @@ class BackupScheduleModelDaily:
 
     Attributes:
         run_automatically (bool): If `true`, job scheduling is enabled. Default: False.
-        daily (Union[Unset, ScheduleDailyModel]): Daily scheduling options.
+        daily (ScheduleDailyModel | Unset): Daily scheduling options.
     """
 
     run_automatically: bool = False
-    daily: Union[Unset, "ScheduleDailyModel"] = UNSET
+    daily: ScheduleDailyModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         run_automatically = self.run_automatically
 
-        daily: Union[Unset, dict[str, Any]] = UNSET
+        daily: dict[str, Any] | Unset = UNSET
         if not isinstance(self.daily, Unset):
             daily = self.daily.to_dict()
 
@@ -53,7 +55,7 @@ class BackupScheduleModelDaily:
         run_automatically = d.pop("runAutomatically")
 
         _daily = d.pop("daily", UNSET)
-        daily: Union[Unset, ScheduleDailyModel]
+        daily: ScheduleDailyModel | Unset
         if isinstance(_daily, Unset):
             daily = UNSET
         else:

@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -31,18 +33,18 @@ class SessionModel:
         creation_time (datetime.datetime): Date and time when the session was created.
         state (ESessionState): State of the session.
         usn (int): Update sequence number.
-        end_time (Union[Unset, datetime.datetime]): Date and time when the session was ended.
-        progress_percent (Union[Unset, int]): Progress percentage of the session.
-        result (Union[Unset, SessionResultModel]): Session result.
-        resource_id (Union[Unset, UUID]): ID of the resource.
-        resource_reference (Union[Unset, str]): URI of the resource.
-        parent_session_id (Union[Unset, UUID]): ID of the parent session.
-        platform_name (Union[Unset, EPlatformType]): Platform type.
-        platform_id (Union[Unset, UUID]): ID of the resource platform. The value is always
+        end_time (datetime.datetime | Unset): Date and time when the session was ended.
+        progress_percent (int | Unset): Progress percentage of the session.
+        result (SessionResultModel | Unset): Session result.
+        resource_id (UUID | Unset): ID of the resource.
+        resource_reference (str | Unset): URI of the resource.
+        parent_session_id (UUID | Unset): ID of the parent session.
+        platform_name (EPlatformType | Unset): Platform type.
+        platform_id (UUID | Unset): ID of the resource platform. The value is always
             *00000000-0000-0000-0000-000000000000* except for custom platforms.
-        initiated_by (Union[Unset, str]): Name of the user that initiated the session.
-        related_session_id (Union[Unset, UUID]): ID of a related session. Contains a rescan session triggered when
-            creating or modifying a protection group.
+        initiated_by (str | Unset): Name of the user that initiated the session.
+        related_session_id (UUID | Unset): ID of a related session. Contains a rescan session triggered when creating or
+            modifying a protection group.
     """
 
     id: UUID
@@ -52,16 +54,16 @@ class SessionModel:
     creation_time: datetime.datetime
     state: ESessionState
     usn: int
-    end_time: Union[Unset, datetime.datetime] = UNSET
-    progress_percent: Union[Unset, int] = UNSET
-    result: Union[Unset, "SessionResultModel"] = UNSET
-    resource_id: Union[Unset, UUID] = UNSET
-    resource_reference: Union[Unset, str] = UNSET
-    parent_session_id: Union[Unset, UUID] = UNSET
-    platform_name: Union[Unset, EPlatformType] = UNSET
-    platform_id: Union[Unset, UUID] = UNSET
-    initiated_by: Union[Unset, str] = UNSET
-    related_session_id: Union[Unset, UUID] = UNSET
+    end_time: datetime.datetime | Unset = UNSET
+    progress_percent: int | Unset = UNSET
+    result: SessionResultModel | Unset = UNSET
+    resource_id: UUID | Unset = UNSET
+    resource_reference: str | Unset = UNSET
+    parent_session_id: UUID | Unset = UNSET
+    platform_name: EPlatformType | Unset = UNSET
+    platform_id: UUID | Unset = UNSET
+    initiated_by: str | Unset = UNSET
+    related_session_id: UUID | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -79,37 +81,37 @@ class SessionModel:
 
         usn = self.usn
 
-        end_time: Union[Unset, str] = UNSET
+        end_time: str | Unset = UNSET
         if not isinstance(self.end_time, Unset):
             end_time = self.end_time.isoformat()
 
         progress_percent = self.progress_percent
 
-        result: Union[Unset, dict[str, Any]] = UNSET
+        result: dict[str, Any] | Unset = UNSET
         if not isinstance(self.result, Unset):
             result = self.result.to_dict()
 
-        resource_id: Union[Unset, str] = UNSET
+        resource_id: str | Unset = UNSET
         if not isinstance(self.resource_id, Unset):
             resource_id = str(self.resource_id)
 
         resource_reference = self.resource_reference
 
-        parent_session_id: Union[Unset, str] = UNSET
+        parent_session_id: str | Unset = UNSET
         if not isinstance(self.parent_session_id, Unset):
             parent_session_id = str(self.parent_session_id)
 
-        platform_name: Union[Unset, str] = UNSET
+        platform_name: str | Unset = UNSET
         if not isinstance(self.platform_name, Unset):
             platform_name = self.platform_name.value
 
-        platform_id: Union[Unset, str] = UNSET
+        platform_id: str | Unset = UNSET
         if not isinstance(self.platform_id, Unset):
             platform_id = str(self.platform_id)
 
         initiated_by = self.initiated_by
 
-        related_session_id: Union[Unset, str] = UNSET
+        related_session_id: str | Unset = UNSET
         if not isinstance(self.related_session_id, Unset):
             related_session_id = str(self.related_session_id)
 
@@ -169,7 +171,7 @@ class SessionModel:
         usn = d.pop("usn")
 
         _end_time = d.pop("endTime", UNSET)
-        end_time: Union[Unset, datetime.datetime]
+        end_time: datetime.datetime | Unset
         if isinstance(_end_time, Unset):
             end_time = UNSET
         else:
@@ -178,14 +180,14 @@ class SessionModel:
         progress_percent = d.pop("progressPercent", UNSET)
 
         _result = d.pop("result", UNSET)
-        result: Union[Unset, SessionResultModel]
+        result: SessionResultModel | Unset
         if isinstance(_result, Unset):
             result = UNSET
         else:
             result = SessionResultModel.from_dict(_result)
 
         _resource_id = d.pop("resourceId", UNSET)
-        resource_id: Union[Unset, UUID]
+        resource_id: UUID | Unset
         if isinstance(_resource_id, Unset):
             resource_id = UNSET
         else:
@@ -194,21 +196,21 @@ class SessionModel:
         resource_reference = d.pop("resourceReference", UNSET)
 
         _parent_session_id = d.pop("parentSessionId", UNSET)
-        parent_session_id: Union[Unset, UUID]
+        parent_session_id: UUID | Unset
         if isinstance(_parent_session_id, Unset):
             parent_session_id = UNSET
         else:
             parent_session_id = UUID(_parent_session_id)
 
         _platform_name = d.pop("platformName", UNSET)
-        platform_name: Union[Unset, EPlatformType]
+        platform_name: EPlatformType | Unset
         if isinstance(_platform_name, Unset):
             platform_name = UNSET
         else:
             platform_name = EPlatformType(_platform_name)
 
         _platform_id = d.pop("platformId", UNSET)
-        platform_id: Union[Unset, UUID]
+        platform_id: UUID | Unset
         if isinstance(_platform_id, Unset):
             platform_id = UNSET
         else:
@@ -217,7 +219,7 @@ class SessionModel:
         initiated_by = d.pop("initiatedBy", UNSET)
 
         _related_session_id = d.pop("relatedSessionId", UNSET)
-        related_session_id: Union[Unset, UUID]
+        related_session_id: UUID | Unset
         if isinstance(_related_session_id, Unset):
             related_session_id = UNSET
         else:

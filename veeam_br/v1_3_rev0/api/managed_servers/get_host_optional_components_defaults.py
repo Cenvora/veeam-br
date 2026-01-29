@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -27,8 +27,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, HostOptionalComponents]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Error | HostOptionalComponents | None:
     if response.status_code == 200:
         response_200 = HostOptionalComponents.from_dict(response.json())
 
@@ -56,8 +56,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, HostOptionalComponents]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | HostOptionalComponents]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -68,9 +68,9 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.3-rev0",
-) -> Response[Union[Error, HostOptionalComponents]]:
+) -> Response[Error | HostOptionalComponents]:
     r"""Default Set of Optional Managed Server Components
 
      The HTTP GET request to the
@@ -86,7 +86,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, HostOptionalComponents]]
+        Response[Error | HostOptionalComponents]
     """
 
     kwargs = _get_kwargs(
@@ -102,9 +102,9 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Union[Error, HostOptionalComponents]]:
+) -> Error | HostOptionalComponents | None:
     r"""Default Set of Optional Managed Server Components
 
      The HTTP GET request to the
@@ -120,7 +120,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, HostOptionalComponents]
+        Error | HostOptionalComponents
     """
 
     return sync_detailed(
@@ -131,9 +131,9 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.3-rev0",
-) -> Response[Union[Error, HostOptionalComponents]]:
+) -> Response[Error | HostOptionalComponents]:
     r"""Default Set of Optional Managed Server Components
 
      The HTTP GET request to the
@@ -149,7 +149,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, HostOptionalComponents]]
+        Response[Error | HostOptionalComponents]
     """
 
     kwargs = _get_kwargs(
@@ -163,9 +163,9 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Union[Error, HostOptionalComponents]]:
+) -> Error | HostOptionalComponents | None:
     r"""Default Set of Optional Managed Server Components
 
      The HTTP GET request to the
@@ -181,7 +181,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, HostOptionalComponents]
+        Error | HostOptionalComponents
     """
 
     return (

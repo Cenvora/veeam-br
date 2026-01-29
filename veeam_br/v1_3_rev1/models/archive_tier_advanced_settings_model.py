@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,14 +16,13 @@ class ArchiveTierAdvancedSettingsModel:
     """Advanced settings of the archive tier.
 
     Attributes:
-        cost_optimized_archive_enabled (Union[Unset, bool]): If `true`, backups are archived as soon as the remaining
+        cost_optimized_archive_enabled (bool | Unset): If `true`, backups are archived as soon as the remaining
             retention time is above the minimum storage period for the repository.
-        archive_deduplication_enabled (Union[Unset, bool]): If `true`, each backup is stored as a delta to the previous
-            one.
+        archive_deduplication_enabled (bool | Unset): If `true`, each backup is stored as a delta to the previous one.
     """
 
-    cost_optimized_archive_enabled: Union[Unset, bool] = UNSET
-    archive_deduplication_enabled: Union[Unset, bool] = UNSET
+    cost_optimized_archive_enabled: bool | Unset = UNSET
+    archive_deduplication_enabled: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

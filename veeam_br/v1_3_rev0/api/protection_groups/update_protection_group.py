@@ -1,17 +1,14 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.ad_objects_protection_group_model import ADObjectsProtectionGroupModel
-from ...models.csv_file_protection_group_model import CSVFileProtectionGroupModel
 from ...models.error import Error
-from ...models.individual_computers_protection_group_model import IndividualComputersProtectionGroupModel
-from ...models.manually_added_protection_group_model import ManuallyAddedProtectionGroupModel
-from ...models.pre_installed_agents_protection_group_model import PreInstalledAgentsProtectionGroupModel
+from ...models.protection_group_model import ProtectionGroupModel
 from ...models.session_model import SessionModel
 from ...types import Response
 
@@ -19,13 +16,7 @@ from ...types import Response
 def _get_kwargs(
     id: UUID,
     *,
-    body: Union[
-        "ADObjectsProtectionGroupModel",
-        "CSVFileProtectionGroupModel",
-        "IndividualComputersProtectionGroupModel",
-        "ManuallyAddedProtectionGroupModel",
-        "PreInstalledAgentsProtectionGroupModel",
-    ],
+    body: ProtectionGroupModel,
     x_api_version: str = "1.3-rev0",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -33,20 +24,12 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "put",
-        "url": f"/api/v1/agents/protectionGroups/{id}",
+        "url": "/api/v1/agents/protectionGroups/{id}".format(
+            id=quote(str(id), safe=""),
+        ),
     }
 
-    _kwargs["json"]: dict[str, Any]
-    if isinstance(body, ManuallyAddedProtectionGroupModel):
-        _kwargs["json"] = body.to_dict()
-    elif isinstance(body, IndividualComputersProtectionGroupModel):
-        _kwargs["json"] = body.to_dict()
-    elif isinstance(body, ADObjectsProtectionGroupModel):
-        _kwargs["json"] = body.to_dict()
-    elif isinstance(body, CSVFileProtectionGroupModel):
-        _kwargs["json"] = body.to_dict()
-    else:
-        _kwargs["json"] = body.to_dict()
+    _kwargs["json"] = body.to_dict()
 
     headers["Content-Type"] = "application/json"
 
@@ -54,9 +37,7 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, SessionModel]]:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Error | SessionModel | None:
     if response.status_code == 201:
         response_201 = SessionModel.from_dict(response.json())
 
@@ -94,8 +75,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, SessionModel]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | SessionModel]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -107,16 +88,10 @@ def _build_response(
 def sync_detailed(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union[
-        "ADObjectsProtectionGroupModel",
-        "CSVFileProtectionGroupModel",
-        "IndividualComputersProtectionGroupModel",
-        "ManuallyAddedProtectionGroupModel",
-        "PreInstalledAgentsProtectionGroupModel",
-    ],
+    client: AuthenticatedClient | Client,
+    body: ProtectionGroupModel,
     x_api_version: str = "1.3-rev0",
-) -> Response[Union[Error, SessionModel]]:
+) -> Response[Error | SessionModel]:
     """Edit Protection Group
 
      The HTTP PUT request to the `/api/v1/agents/protectionGroups/{id}` path allows you to edit the
@@ -126,16 +101,14 @@ def sync_detailed(
     Args:
         id (UUID):
         x_api_version (str):  Default: '1.3-rev0'.
-        body (Union['ADObjectsProtectionGroupModel', 'CSVFileProtectionGroupModel',
-            'IndividualComputersProtectionGroupModel', 'ManuallyAddedProtectionGroupModel',
-            'PreInstalledAgentsProtectionGroupModel']): Protection group.
+        body (ProtectionGroupModel): Protection group.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, SessionModel]]
+        Response[Error | SessionModel]
     """
 
     kwargs = _get_kwargs(
@@ -154,16 +127,10 @@ def sync_detailed(
 def sync(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union[
-        "ADObjectsProtectionGroupModel",
-        "CSVFileProtectionGroupModel",
-        "IndividualComputersProtectionGroupModel",
-        "ManuallyAddedProtectionGroupModel",
-        "PreInstalledAgentsProtectionGroupModel",
-    ],
+    client: AuthenticatedClient | Client,
+    body: ProtectionGroupModel,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Union[Error, SessionModel]]:
+) -> Error | SessionModel | None:
     """Edit Protection Group
 
      The HTTP PUT request to the `/api/v1/agents/protectionGroups/{id}` path allows you to edit the
@@ -173,16 +140,14 @@ def sync(
     Args:
         id (UUID):
         x_api_version (str):  Default: '1.3-rev0'.
-        body (Union['ADObjectsProtectionGroupModel', 'CSVFileProtectionGroupModel',
-            'IndividualComputersProtectionGroupModel', 'ManuallyAddedProtectionGroupModel',
-            'PreInstalledAgentsProtectionGroupModel']): Protection group.
+        body (ProtectionGroupModel): Protection group.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, SessionModel]
+        Error | SessionModel
     """
 
     return sync_detailed(
@@ -196,16 +161,10 @@ def sync(
 async def asyncio_detailed(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union[
-        "ADObjectsProtectionGroupModel",
-        "CSVFileProtectionGroupModel",
-        "IndividualComputersProtectionGroupModel",
-        "ManuallyAddedProtectionGroupModel",
-        "PreInstalledAgentsProtectionGroupModel",
-    ],
+    client: AuthenticatedClient | Client,
+    body: ProtectionGroupModel,
     x_api_version: str = "1.3-rev0",
-) -> Response[Union[Error, SessionModel]]:
+) -> Response[Error | SessionModel]:
     """Edit Protection Group
 
      The HTTP PUT request to the `/api/v1/agents/protectionGroups/{id}` path allows you to edit the
@@ -215,16 +174,14 @@ async def asyncio_detailed(
     Args:
         id (UUID):
         x_api_version (str):  Default: '1.3-rev0'.
-        body (Union['ADObjectsProtectionGroupModel', 'CSVFileProtectionGroupModel',
-            'IndividualComputersProtectionGroupModel', 'ManuallyAddedProtectionGroupModel',
-            'PreInstalledAgentsProtectionGroupModel']): Protection group.
+        body (ProtectionGroupModel): Protection group.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, SessionModel]]
+        Response[Error | SessionModel]
     """
 
     kwargs = _get_kwargs(
@@ -241,16 +198,10 @@ async def asyncio_detailed(
 async def asyncio(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union[
-        "ADObjectsProtectionGroupModel",
-        "CSVFileProtectionGroupModel",
-        "IndividualComputersProtectionGroupModel",
-        "ManuallyAddedProtectionGroupModel",
-        "PreInstalledAgentsProtectionGroupModel",
-    ],
+    client: AuthenticatedClient | Client,
+    body: ProtectionGroupModel,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Union[Error, SessionModel]]:
+) -> Error | SessionModel | None:
     """Edit Protection Group
 
      The HTTP PUT request to the `/api/v1/agents/protectionGroups/{id}` path allows you to edit the
@@ -260,16 +211,14 @@ async def asyncio(
     Args:
         id (UUID):
         x_api_version (str):  Default: '1.3-rev0'.
-        body (Union['ADObjectsProtectionGroupModel', 'CSVFileProtectionGroupModel',
-            'IndividualComputersProtectionGroupModel', 'ManuallyAddedProtectionGroupModel',
-            'PreInstalledAgentsProtectionGroupModel']): Protection group.
+        body (ProtectionGroupModel): Protection group.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, SessionModel]
+        Error | SessionModel
     """
 
     return (

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -16,26 +18,26 @@ T = TypeVar("T", bound="BackupObjectsFilters")
 class BackupObjectsFilters:
     """
     Attributes:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):
-        order_column (Union[Unset, EBackupObjectsFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        platform_name_filter (Union[Unset, EPlatformType]): Platform type.
-        platform_id_filter (Union[Unset, UUID]):
-        type_filter (Union[Unset, str]):
-        vi_type_filter (Union[Unset, str]):
+        skip (int | Unset):
+        limit (int | Unset):
+        order_column (EBackupObjectsFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        platform_name_filter (EPlatformType | Unset): Platform type.
+        platform_id_filter (UUID | Unset):
+        type_filter (str | Unset):
+        vi_type_filter (str | Unset):
     """
 
-    skip: Union[Unset, int] = UNSET
-    limit: Union[Unset, int] = UNSET
-    order_column: Union[Unset, EBackupObjectsFiltersOrderColumn] = UNSET
-    order_asc: Union[Unset, bool] = UNSET
-    name_filter: Union[Unset, str] = UNSET
-    platform_name_filter: Union[Unset, EPlatformType] = UNSET
-    platform_id_filter: Union[Unset, UUID] = UNSET
-    type_filter: Union[Unset, str] = UNSET
-    vi_type_filter: Union[Unset, str] = UNSET
+    skip: int | Unset = UNSET
+    limit: int | Unset = UNSET
+    order_column: EBackupObjectsFiltersOrderColumn | Unset = UNSET
+    order_asc: bool | Unset = UNSET
+    name_filter: str | Unset = UNSET
+    platform_name_filter: EPlatformType | Unset = UNSET
+    platform_id_filter: UUID | Unset = UNSET
+    type_filter: str | Unset = UNSET
+    vi_type_filter: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -43,7 +45,7 @@ class BackupObjectsFilters:
 
         limit = self.limit
 
-        order_column: Union[Unset, str] = UNSET
+        order_column: str | Unset = UNSET
         if not isinstance(self.order_column, Unset):
             order_column = self.order_column.value
 
@@ -51,11 +53,11 @@ class BackupObjectsFilters:
 
         name_filter = self.name_filter
 
-        platform_name_filter: Union[Unset, str] = UNSET
+        platform_name_filter: str | Unset = UNSET
         if not isinstance(self.platform_name_filter, Unset):
             platform_name_filter = self.platform_name_filter.value
 
-        platform_id_filter: Union[Unset, str] = UNSET
+        platform_id_filter: str | Unset = UNSET
         if not isinstance(self.platform_id_filter, Unset):
             platform_id_filter = str(self.platform_id_filter)
 
@@ -95,7 +97,7 @@ class BackupObjectsFilters:
         limit = d.pop("limit", UNSET)
 
         _order_column = d.pop("orderColumn", UNSET)
-        order_column: Union[Unset, EBackupObjectsFiltersOrderColumn]
+        order_column: EBackupObjectsFiltersOrderColumn | Unset
         if isinstance(_order_column, Unset):
             order_column = UNSET
         else:
@@ -106,14 +108,14 @@ class BackupObjectsFilters:
         name_filter = d.pop("nameFilter", UNSET)
 
         _platform_name_filter = d.pop("platformNameFilter", UNSET)
-        platform_name_filter: Union[Unset, EPlatformType]
+        platform_name_filter: EPlatformType | Unset
         if isinstance(_platform_name_filter, Unset):
             platform_name_filter = UNSET
         else:
             platform_name_filter = EPlatformType(_platform_name_filter)
 
         _platform_id_filter = d.pop("platformIdFilter", UNSET)
-        platform_id_filter: Union[Unset, UUID]
+        platform_id_filter: UUID | Unset
         if isinstance(_platform_id_filter, Unset):
             platform_id_filter = UNSET
         else:

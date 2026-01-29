@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,31 +17,31 @@ class UnstructuredDataArchiveSettingsModel:
     """Archive settings for unstructured data backup jobs.
 
     Attributes:
-        archival_type (Union[Unset, EUnstructuredDataArchivalType]): Filter settings for file versions that you want to
-            keep on the archive repository.
-        inclusion_mask (Union[Unset, list[str]]): Array of folders and files that the unstructured data backup job will
+        archival_type (EUnstructuredDataArchivalType | Unset): Filter settings for file versions that you want to keep
+            on the archive repository.
+        inclusion_mask (list[str] | Unset): Array of folders and files that the unstructured data backup job will save
+            to the archive repository. Full paths to files and folders, environmental variables and file masks with the
+            asterisk (*) and question mark (?) characters can be used.
+        exclusion_mask (list[str] | Unset): Array of folders and files that the unstructured data backup job will not
             save to the archive repository. Full paths to files and folders, environmental variables and file masks with the
             asterisk (*) and question mark (?) characters can be used.
-        exclusion_mask (Union[Unset, list[str]]): Array of folders and files that the unstructured data backup job will
-            not save to the archive repository. Full paths to files and folders, environmental variables and file masks with
-            the asterisk (*) and question mark (?) characters can be used.
     """
 
-    archival_type: Union[Unset, EUnstructuredDataArchivalType] = UNSET
-    inclusion_mask: Union[Unset, list[str]] = UNSET
-    exclusion_mask: Union[Unset, list[str]] = UNSET
+    archival_type: EUnstructuredDataArchivalType | Unset = UNSET
+    inclusion_mask: list[str] | Unset = UNSET
+    exclusion_mask: list[str] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        archival_type: Union[Unset, str] = UNSET
+        archival_type: str | Unset = UNSET
         if not isinstance(self.archival_type, Unset):
             archival_type = self.archival_type.value
 
-        inclusion_mask: Union[Unset, list[str]] = UNSET
+        inclusion_mask: list[str] | Unset = UNSET
         if not isinstance(self.inclusion_mask, Unset):
             inclusion_mask = self.inclusion_mask
 
-        exclusion_mask: Union[Unset, list[str]] = UNSET
+        exclusion_mask: list[str] | Unset = UNSET
         if not isinstance(self.exclusion_mask, Unset):
             exclusion_mask = self.exclusion_mask
 
@@ -59,7 +61,7 @@ class UnstructuredDataArchiveSettingsModel:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _archival_type = d.pop("archivalType", UNSET)
-        archival_type: Union[Unset, EUnstructuredDataArchivalType]
+        archival_type: EUnstructuredDataArchivalType | Unset
         if isinstance(_archival_type, Unset):
             archival_type = UNSET
         else:

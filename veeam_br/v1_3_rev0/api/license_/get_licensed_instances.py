@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 from uuid import UUID
 
 import httpx
@@ -14,15 +14,15 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     *,
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EInstanceWorkloadsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    host_name_filter: Union[Unset, str] = UNSET,
-    used_instances_number_filter: Union[Unset, float] = UNSET,
-    type_filter: Union[Unset, str] = UNSET,
-    instance_id_filter: Union[Unset, UUID] = UNSET,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EInstanceWorkloadsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    host_name_filter: str | Unset = UNSET,
+    used_instances_number_filter: float | Unset = UNSET,
+    type_filter: str | Unset = UNSET,
+    instance_id_filter: UUID | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -34,7 +34,7 @@ def _get_kwargs(
 
     params["limit"] = limit
 
-    json_order_column: Union[Unset, str] = UNSET
+    json_order_column: str | Unset = UNSET
     if not isinstance(order_column, Unset):
         json_order_column = order_column.value
 
@@ -50,7 +50,7 @@ def _get_kwargs(
 
     params["typeFilter"] = type_filter
 
-    json_instance_id_filter: Union[Unset, str] = UNSET
+    json_instance_id_filter: str | Unset = UNSET
     if not isinstance(instance_id_filter, Unset):
         json_instance_id_filter = str(instance_id_filter)
     params["instanceIdFilter"] = json_instance_id_filter
@@ -68,8 +68,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, InstanceLicenseWorkloadResult]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Error | InstanceLicenseWorkloadResult | None:
     if response.status_code == 200:
         response_200 = InstanceLicenseWorkloadResult.from_dict(response.json())
 
@@ -97,8 +97,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, InstanceLicenseWorkloadResult]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | InstanceLicenseWorkloadResult]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -109,18 +109,18 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EInstanceWorkloadsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    host_name_filter: Union[Unset, str] = UNSET,
-    used_instances_number_filter: Union[Unset, float] = UNSET,
-    type_filter: Union[Unset, str] = UNSET,
-    instance_id_filter: Union[Unset, UUID] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EInstanceWorkloadsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    host_name_filter: str | Unset = UNSET,
+    used_instances_number_filter: float | Unset = UNSET,
+    type_filter: str | Unset = UNSET,
+    instance_id_filter: UUID | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Response[Union[Error, InstanceLicenseWorkloadResult]]:
+) -> Response[Error | InstanceLicenseWorkloadResult]:
     """Get Instance Licenses Consumption
 
      The HTTP GET request to the `/api/v1/license/instances` path allows you to get information about
@@ -128,16 +128,16 @@ def sync_detailed(
     Administrator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EInstanceWorkloadsFiltersOrderColumn]): Sorts licensed
-            workloads according to one of the parameters.
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        host_name_filter (Union[Unset, str]):
-        used_instances_number_filter (Union[Unset, float]):
-        type_filter (Union[Unset, str]):
-        instance_id_filter (Union[Unset, UUID]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EInstanceWorkloadsFiltersOrderColumn | Unset): Sorts licensed workloads
+            according to one of the parameters.
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        host_name_filter (str | Unset):
+        used_instances_number_filter (float | Unset):
+        type_filter (str | Unset):
+        instance_id_filter (UUID | Unset):
         x_api_version (str):  Default: '1.3-rev0'.
 
     Raises:
@@ -145,7 +145,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, InstanceLicenseWorkloadResult]]
+        Response[Error | InstanceLicenseWorkloadResult]
     """
 
     kwargs = _get_kwargs(
@@ -170,18 +170,18 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EInstanceWorkloadsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    host_name_filter: Union[Unset, str] = UNSET,
-    used_instances_number_filter: Union[Unset, float] = UNSET,
-    type_filter: Union[Unset, str] = UNSET,
-    instance_id_filter: Union[Unset, UUID] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EInstanceWorkloadsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    host_name_filter: str | Unset = UNSET,
+    used_instances_number_filter: float | Unset = UNSET,
+    type_filter: str | Unset = UNSET,
+    instance_id_filter: UUID | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Union[Error, InstanceLicenseWorkloadResult]]:
+) -> Error | InstanceLicenseWorkloadResult | None:
     """Get Instance Licenses Consumption
 
      The HTTP GET request to the `/api/v1/license/instances` path allows you to get information about
@@ -189,16 +189,16 @@ def sync(
     Administrator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EInstanceWorkloadsFiltersOrderColumn]): Sorts licensed
-            workloads according to one of the parameters.
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        host_name_filter (Union[Unset, str]):
-        used_instances_number_filter (Union[Unset, float]):
-        type_filter (Union[Unset, str]):
-        instance_id_filter (Union[Unset, UUID]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EInstanceWorkloadsFiltersOrderColumn | Unset): Sorts licensed workloads
+            according to one of the parameters.
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        host_name_filter (str | Unset):
+        used_instances_number_filter (float | Unset):
+        type_filter (str | Unset):
+        instance_id_filter (UUID | Unset):
         x_api_version (str):  Default: '1.3-rev0'.
 
     Raises:
@@ -206,7 +206,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, InstanceLicenseWorkloadResult]
+        Error | InstanceLicenseWorkloadResult
     """
 
     return sync_detailed(
@@ -226,18 +226,18 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EInstanceWorkloadsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    host_name_filter: Union[Unset, str] = UNSET,
-    used_instances_number_filter: Union[Unset, float] = UNSET,
-    type_filter: Union[Unset, str] = UNSET,
-    instance_id_filter: Union[Unset, UUID] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EInstanceWorkloadsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    host_name_filter: str | Unset = UNSET,
+    used_instances_number_filter: float | Unset = UNSET,
+    type_filter: str | Unset = UNSET,
+    instance_id_filter: UUID | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Response[Union[Error, InstanceLicenseWorkloadResult]]:
+) -> Response[Error | InstanceLicenseWorkloadResult]:
     """Get Instance Licenses Consumption
 
      The HTTP GET request to the `/api/v1/license/instances` path allows you to get information about
@@ -245,16 +245,16 @@ async def asyncio_detailed(
     Administrator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EInstanceWorkloadsFiltersOrderColumn]): Sorts licensed
-            workloads according to one of the parameters.
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        host_name_filter (Union[Unset, str]):
-        used_instances_number_filter (Union[Unset, float]):
-        type_filter (Union[Unset, str]):
-        instance_id_filter (Union[Unset, UUID]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EInstanceWorkloadsFiltersOrderColumn | Unset): Sorts licensed workloads
+            according to one of the parameters.
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        host_name_filter (str | Unset):
+        used_instances_number_filter (float | Unset):
+        type_filter (str | Unset):
+        instance_id_filter (UUID | Unset):
         x_api_version (str):  Default: '1.3-rev0'.
 
     Raises:
@@ -262,7 +262,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, InstanceLicenseWorkloadResult]]
+        Response[Error | InstanceLicenseWorkloadResult]
     """
 
     kwargs = _get_kwargs(
@@ -285,18 +285,18 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EInstanceWorkloadsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    host_name_filter: Union[Unset, str] = UNSET,
-    used_instances_number_filter: Union[Unset, float] = UNSET,
-    type_filter: Union[Unset, str] = UNSET,
-    instance_id_filter: Union[Unset, UUID] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EInstanceWorkloadsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    host_name_filter: str | Unset = UNSET,
+    used_instances_number_filter: float | Unset = UNSET,
+    type_filter: str | Unset = UNSET,
+    instance_id_filter: UUID | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Union[Error, InstanceLicenseWorkloadResult]]:
+) -> Error | InstanceLicenseWorkloadResult | None:
     """Get Instance Licenses Consumption
 
      The HTTP GET request to the `/api/v1/license/instances` path allows you to get information about
@@ -304,16 +304,16 @@ async def asyncio(
     Administrator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EInstanceWorkloadsFiltersOrderColumn]): Sorts licensed
-            workloads according to one of the parameters.
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        host_name_filter (Union[Unset, str]):
-        used_instances_number_filter (Union[Unset, float]):
-        type_filter (Union[Unset, str]):
-        instance_id_filter (Union[Unset, UUID]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EInstanceWorkloadsFiltersOrderColumn | Unset): Sorts licensed workloads
+            according to one of the parameters.
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        host_name_filter (str | Unset):
+        used_instances_number_filter (float | Unset):
+        type_filter (str | Unset):
+        instance_id_filter (UUID | Unset):
         x_api_version (str):  Default: '1.3-rev0'.
 
     Raises:
@@ -321,7 +321,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, InstanceLicenseWorkloadResult]
+        Error | InstanceLicenseWorkloadResult
     """
 
     return (

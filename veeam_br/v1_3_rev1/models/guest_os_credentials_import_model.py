@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,21 +21,21 @@ class GuestOsCredentialsImportModel:
     """VM custom credentials.
 
     Attributes:
-        creds (Union[Unset, CredentialsImportModel]): Credentials used for connection.
-        credentials_per_machine (Union[Unset, list['GuestOsCredentialsPerMachineImportModel']]): Array of per-machine
+        creds (CredentialsImportModel | Unset): Credentials used for connection.
+        credentials_per_machine (list[GuestOsCredentialsPerMachineImportModel] | Unset): Array of per-machine
             credentials.
     """
 
-    creds: Union[Unset, "CredentialsImportModel"] = UNSET
-    credentials_per_machine: Union[Unset, list["GuestOsCredentialsPerMachineImportModel"]] = UNSET
+    creds: CredentialsImportModel | Unset = UNSET
+    credentials_per_machine: list[GuestOsCredentialsPerMachineImportModel] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        creds: Union[Unset, dict[str, Any]] = UNSET
+        creds: dict[str, Any] | Unset = UNSET
         if not isinstance(self.creds, Unset):
             creds = self.creds.to_dict()
 
-        credentials_per_machine: Union[Unset, list[dict[str, Any]]] = UNSET
+        credentials_per_machine: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.credentials_per_machine, Unset):
             credentials_per_machine = []
             for credentials_per_machine_item_data in self.credentials_per_machine:
@@ -57,20 +59,22 @@ class GuestOsCredentialsImportModel:
 
         d = dict(src_dict)
         _creds = d.pop("creds", UNSET)
-        creds: Union[Unset, CredentialsImportModel]
+        creds: CredentialsImportModel | Unset
         if isinstance(_creds, Unset):
             creds = UNSET
         else:
             creds = CredentialsImportModel.from_dict(_creds)
 
-        credentials_per_machine = []
         _credentials_per_machine = d.pop("credentialsPerMachine", UNSET)
-        for credentials_per_machine_item_data in _credentials_per_machine or []:
-            credentials_per_machine_item = GuestOsCredentialsPerMachineImportModel.from_dict(
-                credentials_per_machine_item_data
-            )
+        credentials_per_machine: list[GuestOsCredentialsPerMachineImportModel] | Unset = UNSET
+        if _credentials_per_machine is not UNSET:
+            credentials_per_machine = []
+            for credentials_per_machine_item_data in _credentials_per_machine:
+                credentials_per_machine_item = GuestOsCredentialsPerMachineImportModel.from_dict(
+                    credentials_per_machine_item_data
+                )
 
-            credentials_per_machine.append(credentials_per_machine_item)
+                credentials_per_machine.append(credentials_per_machine_item)
 
         guest_os_credentials_import_model = cls(
             creds=creds,

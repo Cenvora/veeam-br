@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,17 +22,17 @@ class VeeamDataCloudStorageAccountModel:
 
     Attributes:
         vault (VeeamDataCloudVaultModel): Veeam Data Cloud Vault repository.
-        connection_settings (Union[Unset, ObjectStorageConnectionModel]): Object storage connection settings.
+        connection_settings (ObjectStorageConnectionModel | Unset): Object storage connection settings.
     """
 
-    vault: "VeeamDataCloudVaultModel"
-    connection_settings: Union[Unset, "ObjectStorageConnectionModel"] = UNSET
+    vault: VeeamDataCloudVaultModel
+    connection_settings: ObjectStorageConnectionModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         vault = self.vault.to_dict()
 
-        connection_settings: Union[Unset, dict[str, Any]] = UNSET
+        connection_settings: dict[str, Any] | Unset = UNSET
         if not isinstance(self.connection_settings, Unset):
             connection_settings = self.connection_settings.to_dict()
 
@@ -55,7 +57,7 @@ class VeeamDataCloudStorageAccountModel:
         vault = VeeamDataCloudVaultModel.from_dict(d.pop("vault"))
 
         _connection_settings = d.pop("connectionSettings", UNSET)
-        connection_settings: Union[Unset, ObjectStorageConnectionModel]
+        connection_settings: ObjectStorageConnectionModel | Unset
         if isinstance(_connection_settings, Unset):
             connection_settings = UNSET
         else:

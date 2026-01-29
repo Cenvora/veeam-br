@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -16,27 +18,27 @@ class EntraIdTenantGroupFilterBrowseSpec:
     """Filtering options.
 
     Attributes:
-        display_name (Union[Unset, str]): Group display name.
-        group_types (Union[Unset, list[EEntraIdTenantGroupType]]): Array of group types.
-        membership_types (Union[Unset, list[EEntraIdTenantGroupMembershipType]]): Array of group membership types.
+        display_name (str | Unset): Group display name.
+        group_types (list[EEntraIdTenantGroupType] | Unset): Array of group types.
+        membership_types (list[EEntraIdTenantGroupMembershipType] | Unset): Array of group membership types.
     """
 
-    display_name: Union[Unset, str] = UNSET
-    group_types: Union[Unset, list[EEntraIdTenantGroupType]] = UNSET
-    membership_types: Union[Unset, list[EEntraIdTenantGroupMembershipType]] = UNSET
+    display_name: str | Unset = UNSET
+    group_types: list[EEntraIdTenantGroupType] | Unset = UNSET
+    membership_types: list[EEntraIdTenantGroupMembershipType] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         display_name = self.display_name
 
-        group_types: Union[Unset, list[str]] = UNSET
+        group_types: list[str] | Unset = UNSET
         if not isinstance(self.group_types, Unset):
             group_types = []
             for group_types_item_data in self.group_types:
                 group_types_item = group_types_item_data.value
                 group_types.append(group_types_item)
 
-        membership_types: Union[Unset, list[str]] = UNSET
+        membership_types: list[str] | Unset = UNSET
         if not isinstance(self.membership_types, Unset):
             membership_types = []
             for membership_types_item_data in self.membership_types:
@@ -60,19 +62,23 @@ class EntraIdTenantGroupFilterBrowseSpec:
         d = dict(src_dict)
         display_name = d.pop("displayName", UNSET)
 
-        group_types = []
         _group_types = d.pop("groupTypes", UNSET)
-        for group_types_item_data in _group_types or []:
-            group_types_item = EEntraIdTenantGroupType(group_types_item_data)
+        group_types: list[EEntraIdTenantGroupType] | Unset = UNSET
+        if _group_types is not UNSET:
+            group_types = []
+            for group_types_item_data in _group_types:
+                group_types_item = EEntraIdTenantGroupType(group_types_item_data)
 
-            group_types.append(group_types_item)
+                group_types.append(group_types_item)
 
-        membership_types = []
         _membership_types = d.pop("membershipTypes", UNSET)
-        for membership_types_item_data in _membership_types or []:
-            membership_types_item = EEntraIdTenantGroupMembershipType(membership_types_item_data)
+        membership_types: list[EEntraIdTenantGroupMembershipType] | Unset = UNSET
+        if _membership_types is not UNSET:
+            membership_types = []
+            for membership_types_item_data in _membership_types:
+                membership_types_item = EEntraIdTenantGroupMembershipType(membership_types_item_data)
 
-            membership_types.append(membership_types_item)
+                membership_types.append(membership_types_item)
 
         entra_id_tenant_group_filter_browse_spec = cls(
             display_name=display_name,

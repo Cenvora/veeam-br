@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -15,23 +17,22 @@ class HvHostDiscoverySpec:
     """Settings for Microsoft Hyper-V hosts discovery.
 
     Attributes:
-        credentials_id (Union[Unset, UUID]): Credentials ID used to connect to the Microsoft Hyper-V cluster or SCVMM
-            Server.
-        scvmm_host_id (Union[Unset, UUID]): ID of the SCVMM server.
-        hv_cluster_name (Union[Unset, str]): Name of the Microsoft Hyper-V cluster.
+        credentials_id (UUID | Unset): Credentials ID used to connect to the Microsoft Hyper-V cluster or SCVMM Server.
+        scvmm_host_id (UUID | Unset): ID of the SCVMM server.
+        hv_cluster_name (str | Unset): Name of the Microsoft Hyper-V cluster.
     """
 
-    credentials_id: Union[Unset, UUID] = UNSET
-    scvmm_host_id: Union[Unset, UUID] = UNSET
-    hv_cluster_name: Union[Unset, str] = UNSET
+    credentials_id: UUID | Unset = UNSET
+    scvmm_host_id: UUID | Unset = UNSET
+    hv_cluster_name: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        credentials_id: Union[Unset, str] = UNSET
+        credentials_id: str | Unset = UNSET
         if not isinstance(self.credentials_id, Unset):
             credentials_id = str(self.credentials_id)
 
-        scvmm_host_id: Union[Unset, str] = UNSET
+        scvmm_host_id: str | Unset = UNSET
         if not isinstance(self.scvmm_host_id, Unset):
             scvmm_host_id = str(self.scvmm_host_id)
 
@@ -53,14 +54,14 @@ class HvHostDiscoverySpec:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _credentials_id = d.pop("credentialsId", UNSET)
-        credentials_id: Union[Unset, UUID]
+        credentials_id: UUID | Unset
         if isinstance(_credentials_id, Unset):
             credentials_id = UNSET
         else:
             credentials_id = UUID(_credentials_id)
 
         _scvmm_host_id = d.pop("scvmmHostId", UNSET)
-        scvmm_host_id: Union[Unset, UUID]
+        scvmm_host_id: UUID | Unset
         if isinstance(_scvmm_host_id, Unset):
             scvmm_host_id = UNSET
         else:

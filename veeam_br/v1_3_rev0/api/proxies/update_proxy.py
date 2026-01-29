@@ -1,5 +1,6 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
@@ -7,17 +8,15 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.error import Error
-from ...models.general_purpose_proxy_model import GeneralPurposeProxyModel
-from ...models.hv_proxy_model import HvProxyModel
+from ...models.proxy_model import ProxyModel
 from ...models.session_model import SessionModel
-from ...models.vi_proxy_model import ViProxyModel
 from ...types import Response
 
 
 def _get_kwargs(
     id: UUID,
     *,
-    body: Union["GeneralPurposeProxyModel", "HvProxyModel", "ViProxyModel"],
+    body: ProxyModel,
     x_api_version: str = "1.3-rev0",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -25,16 +24,12 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "put",
-        "url": f"/api/v1/backupInfrastructure/proxies/{id}",
+        "url": "/api/v1/backupInfrastructure/proxies/{id}".format(
+            id=quote(str(id), safe=""),
+        ),
     }
 
-    _kwargs["json"]: dict[str, Any]
-    if isinstance(body, ViProxyModel):
-        _kwargs["json"] = body.to_dict()
-    elif isinstance(body, HvProxyModel):
-        _kwargs["json"] = body.to_dict()
-    else:
-        _kwargs["json"] = body.to_dict()
+    _kwargs["json"] = body.to_dict()
 
     headers["Content-Type"] = "application/json"
 
@@ -42,9 +37,7 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, SessionModel]]:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Error | SessionModel | None:
     if response.status_code == 201:
         response_201 = SessionModel.from_dict(response.json())
 
@@ -82,8 +75,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, SessionModel]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | SessionModel]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -95,10 +88,10 @@ def _build_response(
 def sync_detailed(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union["GeneralPurposeProxyModel", "HvProxyModel", "ViProxyModel"],
+    client: AuthenticatedClient | Client,
+    body: ProxyModel,
     x_api_version: str = "1.3-rev0",
-) -> Response[Union[Error, SessionModel]]:
+) -> Response[Error | SessionModel]:
     """Edit Proxy
 
      The HTTP PUT request to the `/api/v1/backupInfrastructure/proxies/{id}` path allows you to edit a
@@ -107,14 +100,14 @@ def sync_detailed(
     Args:
         id (UUID):
         x_api_version (str):  Default: '1.3-rev0'.
-        body (Union['GeneralPurposeProxyModel', 'HvProxyModel', 'ViProxyModel']): Backup proxy.
+        body (ProxyModel): Backup proxy.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, SessionModel]]
+        Response[Error | SessionModel]
     """
 
     kwargs = _get_kwargs(
@@ -133,10 +126,10 @@ def sync_detailed(
 def sync(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union["GeneralPurposeProxyModel", "HvProxyModel", "ViProxyModel"],
+    client: AuthenticatedClient | Client,
+    body: ProxyModel,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Union[Error, SessionModel]]:
+) -> Error | SessionModel | None:
     """Edit Proxy
 
      The HTTP PUT request to the `/api/v1/backupInfrastructure/proxies/{id}` path allows you to edit a
@@ -145,14 +138,14 @@ def sync(
     Args:
         id (UUID):
         x_api_version (str):  Default: '1.3-rev0'.
-        body (Union['GeneralPurposeProxyModel', 'HvProxyModel', 'ViProxyModel']): Backup proxy.
+        body (ProxyModel): Backup proxy.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, SessionModel]
+        Error | SessionModel
     """
 
     return sync_detailed(
@@ -166,10 +159,10 @@ def sync(
 async def asyncio_detailed(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union["GeneralPurposeProxyModel", "HvProxyModel", "ViProxyModel"],
+    client: AuthenticatedClient | Client,
+    body: ProxyModel,
     x_api_version: str = "1.3-rev0",
-) -> Response[Union[Error, SessionModel]]:
+) -> Response[Error | SessionModel]:
     """Edit Proxy
 
      The HTTP PUT request to the `/api/v1/backupInfrastructure/proxies/{id}` path allows you to edit a
@@ -178,14 +171,14 @@ async def asyncio_detailed(
     Args:
         id (UUID):
         x_api_version (str):  Default: '1.3-rev0'.
-        body (Union['GeneralPurposeProxyModel', 'HvProxyModel', 'ViProxyModel']): Backup proxy.
+        body (ProxyModel): Backup proxy.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, SessionModel]]
+        Response[Error | SessionModel]
     """
 
     kwargs = _get_kwargs(
@@ -202,10 +195,10 @@ async def asyncio_detailed(
 async def asyncio(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union["GeneralPurposeProxyModel", "HvProxyModel", "ViProxyModel"],
+    client: AuthenticatedClient | Client,
+    body: ProxyModel,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Union[Error, SessionModel]]:
+) -> Error | SessionModel | None:
     """Edit Proxy
 
      The HTTP PUT request to the `/api/v1/backupInfrastructure/proxies/{id}` path allows you to edit a
@@ -214,14 +207,14 @@ async def asyncio(
     Args:
         id (UUID):
         x_api_version (str):  Default: '1.3-rev0'.
-        body (Union['GeneralPurposeProxyModel', 'HvProxyModel', 'ViProxyModel']): Backup proxy.
+        body (ProxyModel): Backup proxy.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, SessionModel]
+        Error | SessionModel
     """
 
     return (

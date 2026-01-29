@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -21,15 +23,15 @@ class CSVFileProtectionGroupCredentialModel:
     Attributes:
         master_credentials_id (UUID): Master account credentials for authenticating to all computers listed in a CSV
             file.
-        use_custom_credentials (Union[Unset, bool]): If `true`, custom credentials are used to authenticate to the
-            computers listed in a CSV file.
-        custom_credentials (Union[Unset, list['CSVFileCustomCredentialsModel']]): Array of custom credentials for
-            authenticating to associated computers.
+        use_custom_credentials (bool | Unset): If `true`, custom credentials are used to authenticate to the computers
+            listed in a CSV file.
+        custom_credentials (list[CSVFileCustomCredentialsModel] | Unset): Array of custom credentials for authenticating
+            to associated computers.
     """
 
     master_credentials_id: UUID
-    use_custom_credentials: Union[Unset, bool] = UNSET
-    custom_credentials: Union[Unset, list["CSVFileCustomCredentialsModel"]] = UNSET
+    use_custom_credentials: bool | Unset = UNSET
+    custom_credentials: list[CSVFileCustomCredentialsModel] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -37,7 +39,7 @@ class CSVFileProtectionGroupCredentialModel:
 
         use_custom_credentials = self.use_custom_credentials
 
-        custom_credentials: Union[Unset, list[dict[str, Any]]] = UNSET
+        custom_credentials: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.custom_credentials, Unset):
             custom_credentials = []
             for custom_credentials_item_data in self.custom_credentials:
@@ -67,12 +69,14 @@ class CSVFileProtectionGroupCredentialModel:
 
         use_custom_credentials = d.pop("useCustomCredentials", UNSET)
 
-        custom_credentials = []
         _custom_credentials = d.pop("customCredentials", UNSET)
-        for custom_credentials_item_data in _custom_credentials or []:
-            custom_credentials_item = CSVFileCustomCredentialsModel.from_dict(custom_credentials_item_data)
+        custom_credentials: list[CSVFileCustomCredentialsModel] | Unset = UNSET
+        if _custom_credentials is not UNSET:
+            custom_credentials = []
+            for custom_credentials_item_data in _custom_credentials:
+                custom_credentials_item = CSVFileCustomCredentialsModel.from_dict(custom_credentials_item_data)
 
-            custom_credentials.append(custom_credentials_item)
+                custom_credentials.append(custom_credentials_item)
 
         csv_file_protection_group_credential_model = cls(
             master_credentials_id=master_credentials_id,

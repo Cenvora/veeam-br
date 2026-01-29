@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,14 +17,14 @@ class LinuxPackageModel:
     """Linux package.
 
     Attributes:
-        package_name (Union[Unset, str]): Linux package name.
-        distribution_name (Union[Unset, str]): Linux distribution name.
-        package_bitness (Union[Unset, EOSBitness]): Bitness type.
+        package_name (str | Unset): Linux package name.
+        distribution_name (str | Unset): Linux distribution name.
+        package_bitness (EOSBitness | Unset): Bitness type.
     """
 
-    package_name: Union[Unset, str] = UNSET
-    distribution_name: Union[Unset, str] = UNSET
-    package_bitness: Union[Unset, EOSBitness] = UNSET
+    package_name: str | Unset = UNSET
+    distribution_name: str | Unset = UNSET
+    package_bitness: EOSBitness | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -30,7 +32,7 @@ class LinuxPackageModel:
 
         distribution_name = self.distribution_name
 
-        package_bitness: Union[Unset, str] = UNSET
+        package_bitness: str | Unset = UNSET
         if not isinstance(self.package_bitness, Unset):
             package_bitness = self.package_bitness.value
 
@@ -54,7 +56,7 @@ class LinuxPackageModel:
         distribution_name = d.pop("distributionName", UNSET)
 
         _package_bitness = d.pop("packageBitness", UNSET)
-        package_bitness: Union[Unset, EOSBitness]
+        package_bitness: EOSBitness | Unset
         if isinstance(_package_bitness, Unset):
             package_bitness = UNSET
         else:

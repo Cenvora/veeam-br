@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,25 +22,25 @@ class ProxyServerSettingsImportSpec:
 
     Attributes:
         host_name (str): Name of the server.
-        host_unique_id (Union[Unset, str]): Host unique ID assigned to the server.
-        transport_mode (Union[Unset, EBackupProxyTransportMode]): Transport mode of the backup proxy.
-        failover_to_network (Union[Unset, bool]): (For the Direct storage access and Virtual appliance transport modes)
-            If `true`, Veeam Backup & Replication failovers to the network transport mode in case the primary mode fails or
-            is unavailable.
-        host_to_proxy_encryption (Union[Unset, bool]): (For the Network mode) If `true`, VM data is transferred over an
+        host_unique_id (str | Unset): Host unique ID assigned to the server.
+        transport_mode (EBackupProxyTransportMode | Unset): Transport mode of the backup proxy.
+        failover_to_network (bool | Unset): (For the Direct storage access and Virtual appliance transport modes) If
+            `true`, Veeam Backup & Replication failovers to the network transport mode in case the primary mode fails or is
+            unavailable.
+        host_to_proxy_encryption (bool | Unset): (For the Network mode) If `true`, VM data is transferred over an
             encrypted TLS connection.
-        connected_datastores (Union[Unset, ProxyDatastoreSettingsModel]): Datastores to which the backup proxy has a
-            direct SAN or NFS connection.
-        max_task_count (Union[Unset, int]): Maximum number of concurrent tasks.
+        connected_datastores (ProxyDatastoreSettingsModel | Unset): Datastores to which the backup proxy has a direct
+            SAN or NFS connection.
+        max_task_count (int | Unset): Maximum number of concurrent tasks.
     """
 
     host_name: str
-    host_unique_id: Union[Unset, str] = UNSET
-    transport_mode: Union[Unset, EBackupProxyTransportMode] = UNSET
-    failover_to_network: Union[Unset, bool] = UNSET
-    host_to_proxy_encryption: Union[Unset, bool] = UNSET
-    connected_datastores: Union[Unset, "ProxyDatastoreSettingsModel"] = UNSET
-    max_task_count: Union[Unset, int] = UNSET
+    host_unique_id: str | Unset = UNSET
+    transport_mode: EBackupProxyTransportMode | Unset = UNSET
+    failover_to_network: bool | Unset = UNSET
+    host_to_proxy_encryption: bool | Unset = UNSET
+    connected_datastores: ProxyDatastoreSettingsModel | Unset = UNSET
+    max_task_count: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -46,7 +48,7 @@ class ProxyServerSettingsImportSpec:
 
         host_unique_id = self.host_unique_id
 
-        transport_mode: Union[Unset, str] = UNSET
+        transport_mode: str | Unset = UNSET
         if not isinstance(self.transport_mode, Unset):
             transport_mode = self.transport_mode.value
 
@@ -54,7 +56,7 @@ class ProxyServerSettingsImportSpec:
 
         host_to_proxy_encryption = self.host_to_proxy_encryption
 
-        connected_datastores: Union[Unset, dict[str, Any]] = UNSET
+        connected_datastores: dict[str, Any] | Unset = UNSET
         if not isinstance(self.connected_datastores, Unset):
             connected_datastores = self.connected_datastores.to_dict()
 
@@ -92,7 +94,7 @@ class ProxyServerSettingsImportSpec:
         host_unique_id = d.pop("hostUniqueId", UNSET)
 
         _transport_mode = d.pop("transportMode", UNSET)
-        transport_mode: Union[Unset, EBackupProxyTransportMode]
+        transport_mode: EBackupProxyTransportMode | Unset
         if isinstance(_transport_mode, Unset):
             transport_mode = UNSET
         else:
@@ -103,7 +105,7 @@ class ProxyServerSettingsImportSpec:
         host_to_proxy_encryption = d.pop("hostToProxyEncryption", UNSET)
 
         _connected_datastores = d.pop("connectedDatastores", UNSET)
-        connected_datastores: Union[Unset, ProxyDatastoreSettingsModel]
+        connected_datastores: ProxyDatastoreSettingsModel | Unset
         if isinstance(_connected_datastores, Unset):
             connected_datastores = UNSET
         else:

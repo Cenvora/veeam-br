@@ -1,5 +1,6 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
@@ -23,7 +24,9 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": f"/api/v1/backupBrowser/entraIdTenant/{session_id}/passwords/generate",
+        "url": "/api/v1/backupBrowser/entraIdTenant/{session_id}/passwords/generate".format(
+            session_id=quote(str(session_id), safe=""),
+        ),
     }
 
     _kwargs["json"] = body.to_dict()
@@ -35,8 +38,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[EntraIdTenantGeneratedPasswordsModel, Error]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> EntraIdTenantGeneratedPasswordsModel | Error | None:
     if response.status_code == 200:
         response_200 = EntraIdTenantGeneratedPasswordsModel.from_dict(response.json())
 
@@ -69,8 +72,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[EntraIdTenantGeneratedPasswordsModel, Error]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[EntraIdTenantGeneratedPasswordsModel | Error]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -82,10 +85,10 @@ def _build_response(
 def sync_detailed(
     session_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: EntraIdTenantGeneratePasswordSpec,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[EntraIdTenantGeneratedPasswordsModel, Error]]:
+) -> Response[EntraIdTenantGeneratedPasswordsModel | Error]:
     """Generate Microsoft Entra ID User Passwords
 
      The HTTP POST request to the `/api/v1/backupBrowser/entraIdTenant/{sessionId}/passwords/generate`
@@ -102,7 +105,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[EntraIdTenantGeneratedPasswordsModel, Error]]
+        Response[EntraIdTenantGeneratedPasswordsModel | Error]
     """
 
     kwargs = _get_kwargs(
@@ -121,10 +124,10 @@ def sync_detailed(
 def sync(
     session_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: EntraIdTenantGeneratePasswordSpec,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[EntraIdTenantGeneratedPasswordsModel, Error]]:
+) -> EntraIdTenantGeneratedPasswordsModel | Error | None:
     """Generate Microsoft Entra ID User Passwords
 
      The HTTP POST request to the `/api/v1/backupBrowser/entraIdTenant/{sessionId}/passwords/generate`
@@ -141,7 +144,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[EntraIdTenantGeneratedPasswordsModel, Error]
+        EntraIdTenantGeneratedPasswordsModel | Error
     """
 
     return sync_detailed(
@@ -155,10 +158,10 @@ def sync(
 async def asyncio_detailed(
     session_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: EntraIdTenantGeneratePasswordSpec,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[EntraIdTenantGeneratedPasswordsModel, Error]]:
+) -> Response[EntraIdTenantGeneratedPasswordsModel | Error]:
     """Generate Microsoft Entra ID User Passwords
 
      The HTTP POST request to the `/api/v1/backupBrowser/entraIdTenant/{sessionId}/passwords/generate`
@@ -175,7 +178,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[EntraIdTenantGeneratedPasswordsModel, Error]]
+        Response[EntraIdTenantGeneratedPasswordsModel | Error]
     """
 
     kwargs = _get_kwargs(
@@ -192,10 +195,10 @@ async def asyncio_detailed(
 async def asyncio(
     session_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: EntraIdTenantGeneratePasswordSpec,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[EntraIdTenantGeneratedPasswordsModel, Error]]:
+) -> EntraIdTenantGeneratedPasswordsModel | Error | None:
     """Generate Microsoft Entra ID User Passwords
 
      The HTTP POST request to the `/api/v1/backupBrowser/entraIdTenant/{sessionId}/passwords/generate`
@@ -212,7 +215,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[EntraIdTenantGeneratedPasswordsModel, Error]
+        EntraIdTenantGeneratedPasswordsModel | Error
     """
 
     return (

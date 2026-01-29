@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
@@ -32,10 +34,10 @@ class ConfigBackupModel:
     is_enabled: bool
     backup_repository_id: UUID
     restore_points_to_keep: int
-    notifications: "ConfigBackupNotificationsModel"
-    schedule: "ConfigBackupScheduleModel"
-    last_successful_backup: "ConfigBackupLastSuccessfulModel"
-    encryption: "ConfigBackupEncryptionModel"
+    notifications: ConfigBackupNotificationsModel
+    schedule: ConfigBackupScheduleModel
+    last_successful_backup: ConfigBackupLastSuccessfulModel
+    encryption: ConfigBackupEncryptionModel
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

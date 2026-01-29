@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 
@@ -22,7 +24,7 @@ class KMSServerChangeCertificateSpec:
         type_ (EKMSCertificateType): Certificate type.
     """
 
-    certificate: "CertificateUploadSpec"
+    certificate: CertificateUploadSpec
     type_: EKMSCertificateType
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 

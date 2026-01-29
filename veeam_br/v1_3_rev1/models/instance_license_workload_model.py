@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -23,7 +25,7 @@ class InstanceLicenseWorkloadModel:
         instance_id (UUID): Instance ID.
         platform_type (ELicensePlatformType): License platform type.
         can_be_revoked (bool): If `true`, the instance license can be revoked.
-        display_name (Union[Unset, str]): Protected workload display name.
+        display_name (str | Unset): Protected workload display name.
     """
 
     name: str
@@ -33,7 +35,7 @@ class InstanceLicenseWorkloadModel:
     instance_id: UUID
     platform_type: ELicensePlatformType
     can_be_revoked: bool
-    display_name: Union[Unset, str] = UNSET
+    display_name: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

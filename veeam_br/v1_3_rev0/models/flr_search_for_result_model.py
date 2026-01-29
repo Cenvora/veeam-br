@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,15 +22,15 @@ class FlrSearchForResultModel:
 
     Attributes:
         search_string (str): Search string.
-        items (list['FlrBrowserItemModel']): Array of child items.
-        path (Union[Unset, str]): Search path.
-        pagination (Union[Unset, PaginationResult]): Pagination settings.
+        items (list[FlrBrowserItemModel]): Array of child items.
+        path (str | Unset): Search path.
+        pagination (PaginationResult | Unset): Pagination settings.
     """
 
     search_string: str
-    items: list["FlrBrowserItemModel"]
-    path: Union[Unset, str] = UNSET
-    pagination: Union[Unset, "PaginationResult"] = UNSET
+    items: list[FlrBrowserItemModel]
+    path: str | Unset = UNSET
+    pagination: PaginationResult | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -41,7 +43,7 @@ class FlrSearchForResultModel:
 
         path = self.path
 
-        pagination: Union[Unset, dict[str, Any]] = UNSET
+        pagination: dict[str, Any] | Unset = UNSET
         if not isinstance(self.pagination, Unset):
             pagination = self.pagination.to_dict()
 
@@ -78,7 +80,7 @@ class FlrSearchForResultModel:
         path = d.pop("path", UNSET)
 
         _pagination = d.pop("pagination", UNSET)
-        pagination: Union[Unset, PaginationResult]
+        pagination: PaginationResult | Unset
         if isinstance(_pagination, Unset):
             pagination = UNSET
         else:

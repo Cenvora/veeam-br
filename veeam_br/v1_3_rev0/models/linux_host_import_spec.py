@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -25,15 +27,15 @@ class LinuxHostImportSpec:
         type_ (EManagedServerType): Type of the server.
         credentials (CredentialsImportModel): Credentials used for connection.
         ssh_fingerprint (str): SSH key fingerprint used to verify the server identity.
-        ssh_settings (Union[Unset, LinuxHostSSHSettingsModel]): SSH settings of the Linux host.
+        ssh_settings (LinuxHostSSHSettingsModel | Unset): SSH settings of the Linux host.
     """
 
     name: str
     description: str
     type_: EManagedServerType
-    credentials: "CredentialsImportModel"
+    credentials: CredentialsImportModel
     ssh_fingerprint: str
-    ssh_settings: Union[Unset, "LinuxHostSSHSettingsModel"] = UNSET
+    ssh_settings: LinuxHostSSHSettingsModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -47,7 +49,7 @@ class LinuxHostImportSpec:
 
         ssh_fingerprint = self.ssh_fingerprint
 
-        ssh_settings: Union[Unset, dict[str, Any]] = UNSET
+        ssh_settings: dict[str, Any] | Unset = UNSET
         if not isinstance(self.ssh_settings, Unset):
             ssh_settings = self.ssh_settings.to_dict()
 
@@ -84,7 +86,7 @@ class LinuxHostImportSpec:
         ssh_fingerprint = d.pop("sshFingerprint")
 
         _ssh_settings = d.pop("sshSettings", UNSET)
-        ssh_settings: Union[Unset, LinuxHostSSHSettingsModel]
+        ssh_settings: LinuxHostSSHSettingsModel | Unset
         if isinstance(_ssh_settings, Unset):
             ssh_settings = UNSET
         else:

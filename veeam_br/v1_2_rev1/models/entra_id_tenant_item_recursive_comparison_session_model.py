@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -21,19 +23,19 @@ class EntraIdTenantItemRecursiveComparisonSessionModel:
     """
     Attributes:
         status (EntraIdTenantItemRecursiveComparisonSessionModelStatus): Session status.
-        result (Union[Unset, EntraIdTenantItemRecursiveComparisonModel]): Comparison result.
-        error_message (Union[Unset, str]): Error message.
+        result (EntraIdTenantItemRecursiveComparisonModel | Unset): Comparison result.
+        error_message (str | Unset): Error message.
     """
 
     status: EntraIdTenantItemRecursiveComparisonSessionModelStatus
-    result: Union[Unset, "EntraIdTenantItemRecursiveComparisonModel"] = UNSET
-    error_message: Union[Unset, str] = UNSET
+    result: EntraIdTenantItemRecursiveComparisonModel | Unset = UNSET
+    error_message: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         status = self.status.value
 
-        result: Union[Unset, dict[str, Any]] = UNSET
+        result: dict[str, Any] | Unset = UNSET
         if not isinstance(self.result, Unset):
             result = self.result.to_dict()
 
@@ -61,7 +63,7 @@ class EntraIdTenantItemRecursiveComparisonSessionModel:
         status = EntraIdTenantItemRecursiveComparisonSessionModelStatus(d.pop("status"))
 
         _result = d.pop("result", UNSET)
-        result: Union[Unset, EntraIdTenantItemRecursiveComparisonModel]
+        result: EntraIdTenantItemRecursiveComparisonModel | Unset
         if isinstance(_result, Unset):
             result = UNSET
         else:

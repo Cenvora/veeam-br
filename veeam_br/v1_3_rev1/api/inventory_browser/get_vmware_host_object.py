@@ -1,5 +1,6 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
+from urllib.parse import quote
 
 import httpx
 
@@ -16,15 +17,15 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     name: str,
     *,
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EvCentersInventoryFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    object_id_filter: Union[Unset, str] = UNSET,
-    hierarchy_type_filter: Union[Unset, EHierarchyType] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, EVmwareInventoryType] = UNSET,
-    parent_container_name_filter: Union[Unset, str] = UNSET,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EvCentersInventoryFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    object_id_filter: str | Unset = UNSET,
+    hierarchy_type_filter: EHierarchyType | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: EVmwareInventoryType | Unset = UNSET,
+    parent_container_name_filter: str | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -36,7 +37,7 @@ def _get_kwargs(
 
     params["limit"] = limit
 
-    json_order_column: Union[Unset, str] = UNSET
+    json_order_column: str | Unset = UNSET
     if not isinstance(order_column, Unset):
         json_order_column = order_column.value
 
@@ -46,7 +47,7 @@ def _get_kwargs(
 
     params["objectIdFilter"] = object_id_filter
 
-    json_hierarchy_type_filter: Union[Unset, str] = UNSET
+    json_hierarchy_type_filter: str | Unset = UNSET
     if not isinstance(hierarchy_type_filter, Unset):
         json_hierarchy_type_filter = hierarchy_type_filter.value
 
@@ -54,7 +55,7 @@ def _get_kwargs(
 
     params["nameFilter"] = name_filter
 
-    json_type_filter: Union[Unset, str] = UNSET
+    json_type_filter: str | Unset = UNSET
     if not isinstance(type_filter, Unset):
         json_type_filter = type_filter.value
 
@@ -66,7 +67,9 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": f"/api/v1/inventory/vmware/hosts/{name}",
+        "url": "/api/v1/inventory/vmware/hosts/{name}".format(
+            name=quote(str(name), safe=""),
+        ),
         "params": params,
     }
 
@@ -75,8 +78,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, VCenterInventoryResult]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Error | VCenterInventoryResult | None:
     if response.status_code == 200:
         response_200 = VCenterInventoryResult.from_dict(response.json())
 
@@ -109,8 +112,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, VCenterInventoryResult]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | VCenterInventoryResult]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -122,18 +125,18 @@ def _build_response(
 def sync_detailed(
     name: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EvCentersInventoryFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    object_id_filter: Union[Unset, str] = UNSET,
-    hierarchy_type_filter: Union[Unset, EHierarchyType] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, EVmwareInventoryType] = UNSET,
-    parent_container_name_filter: Union[Unset, str] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EvCentersInventoryFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    object_id_filter: str | Unset = UNSET,
+    hierarchy_type_filter: EHierarchyType | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: EVmwareInventoryType | Unset = UNSET,
+    parent_container_name_filter: str | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Error, VCenterInventoryResult]]:
+) -> Response[Error | VCenterInventoryResult]:
     """Get VMware vSphere Server Objects
 
      The HTTP GET request to the `/api/v1/inventory/vmware/hosts/{name}` endpoint gets an array of
@@ -143,18 +146,18 @@ def sync_detailed(
 
     Args:
         name (str):
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EvCentersInventoryFiltersOrderColumn]): Sorts vCenter Servers
-            by one of the job parameters.
-        order_asc (Union[Unset, bool]):
-        object_id_filter (Union[Unset, str]):
-        hierarchy_type_filter (Union[Unset, EHierarchyType]): VMware vSphere hierarchy type.
-        name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, EVmwareInventoryType]): Type of the VMware vSphere object.<p>
-            Note that inventory objects with multiple tags (*Multitag* type) can only be added in the
-            Veeam Backup & Replication UI or PowerShell.
-        parent_container_name_filter (Union[Unset, str]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EvCentersInventoryFiltersOrderColumn | Unset): Sorts vCenter Servers by one
+            of the job parameters.
+        order_asc (bool | Unset):
+        object_id_filter (str | Unset):
+        hierarchy_type_filter (EHierarchyType | Unset): VMware vSphere hierarchy type.
+        name_filter (str | Unset):
+        type_filter (EVmwareInventoryType | Unset): Type of the VMware vSphere object.<p> Note
+            that inventory objects with multiple tags (*Multitag* type) can only be added in the Veeam
+            Backup & Replication UI or PowerShell.
+        parent_container_name_filter (str | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -162,7 +165,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, VCenterInventoryResult]]
+        Response[Error | VCenterInventoryResult]
     """
 
     kwargs = _get_kwargs(
@@ -189,18 +192,18 @@ def sync_detailed(
 def sync(
     name: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EvCentersInventoryFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    object_id_filter: Union[Unset, str] = UNSET,
-    hierarchy_type_filter: Union[Unset, EHierarchyType] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, EVmwareInventoryType] = UNSET,
-    parent_container_name_filter: Union[Unset, str] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EvCentersInventoryFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    object_id_filter: str | Unset = UNSET,
+    hierarchy_type_filter: EHierarchyType | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: EVmwareInventoryType | Unset = UNSET,
+    parent_container_name_filter: str | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Error, VCenterInventoryResult]]:
+) -> Error | VCenterInventoryResult | None:
     """Get VMware vSphere Server Objects
 
      The HTTP GET request to the `/api/v1/inventory/vmware/hosts/{name}` endpoint gets an array of
@@ -210,18 +213,18 @@ def sync(
 
     Args:
         name (str):
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EvCentersInventoryFiltersOrderColumn]): Sorts vCenter Servers
-            by one of the job parameters.
-        order_asc (Union[Unset, bool]):
-        object_id_filter (Union[Unset, str]):
-        hierarchy_type_filter (Union[Unset, EHierarchyType]): VMware vSphere hierarchy type.
-        name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, EVmwareInventoryType]): Type of the VMware vSphere object.<p>
-            Note that inventory objects with multiple tags (*Multitag* type) can only be added in the
-            Veeam Backup & Replication UI or PowerShell.
-        parent_container_name_filter (Union[Unset, str]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EvCentersInventoryFiltersOrderColumn | Unset): Sorts vCenter Servers by one
+            of the job parameters.
+        order_asc (bool | Unset):
+        object_id_filter (str | Unset):
+        hierarchy_type_filter (EHierarchyType | Unset): VMware vSphere hierarchy type.
+        name_filter (str | Unset):
+        type_filter (EVmwareInventoryType | Unset): Type of the VMware vSphere object.<p> Note
+            that inventory objects with multiple tags (*Multitag* type) can only be added in the Veeam
+            Backup & Replication UI or PowerShell.
+        parent_container_name_filter (str | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -229,7 +232,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, VCenterInventoryResult]
+        Error | VCenterInventoryResult
     """
 
     return sync_detailed(
@@ -251,18 +254,18 @@ def sync(
 async def asyncio_detailed(
     name: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EvCentersInventoryFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    object_id_filter: Union[Unset, str] = UNSET,
-    hierarchy_type_filter: Union[Unset, EHierarchyType] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, EVmwareInventoryType] = UNSET,
-    parent_container_name_filter: Union[Unset, str] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EvCentersInventoryFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    object_id_filter: str | Unset = UNSET,
+    hierarchy_type_filter: EHierarchyType | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: EVmwareInventoryType | Unset = UNSET,
+    parent_container_name_filter: str | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Error, VCenterInventoryResult]]:
+) -> Response[Error | VCenterInventoryResult]:
     """Get VMware vSphere Server Objects
 
      The HTTP GET request to the `/api/v1/inventory/vmware/hosts/{name}` endpoint gets an array of
@@ -272,18 +275,18 @@ async def asyncio_detailed(
 
     Args:
         name (str):
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EvCentersInventoryFiltersOrderColumn]): Sorts vCenter Servers
-            by one of the job parameters.
-        order_asc (Union[Unset, bool]):
-        object_id_filter (Union[Unset, str]):
-        hierarchy_type_filter (Union[Unset, EHierarchyType]): VMware vSphere hierarchy type.
-        name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, EVmwareInventoryType]): Type of the VMware vSphere object.<p>
-            Note that inventory objects with multiple tags (*Multitag* type) can only be added in the
-            Veeam Backup & Replication UI or PowerShell.
-        parent_container_name_filter (Union[Unset, str]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EvCentersInventoryFiltersOrderColumn | Unset): Sorts vCenter Servers by one
+            of the job parameters.
+        order_asc (bool | Unset):
+        object_id_filter (str | Unset):
+        hierarchy_type_filter (EHierarchyType | Unset): VMware vSphere hierarchy type.
+        name_filter (str | Unset):
+        type_filter (EVmwareInventoryType | Unset): Type of the VMware vSphere object.<p> Note
+            that inventory objects with multiple tags (*Multitag* type) can only be added in the Veeam
+            Backup & Replication UI or PowerShell.
+        parent_container_name_filter (str | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -291,7 +294,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, VCenterInventoryResult]]
+        Response[Error | VCenterInventoryResult]
     """
 
     kwargs = _get_kwargs(
@@ -316,18 +319,18 @@ async def asyncio_detailed(
 async def asyncio(
     name: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EvCentersInventoryFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    object_id_filter: Union[Unset, str] = UNSET,
-    hierarchy_type_filter: Union[Unset, EHierarchyType] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, EVmwareInventoryType] = UNSET,
-    parent_container_name_filter: Union[Unset, str] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EvCentersInventoryFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    object_id_filter: str | Unset = UNSET,
+    hierarchy_type_filter: EHierarchyType | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: EVmwareInventoryType | Unset = UNSET,
+    parent_container_name_filter: str | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Error, VCenterInventoryResult]]:
+) -> Error | VCenterInventoryResult | None:
     """Get VMware vSphere Server Objects
 
      The HTTP GET request to the `/api/v1/inventory/vmware/hosts/{name}` endpoint gets an array of
@@ -337,18 +340,18 @@ async def asyncio(
 
     Args:
         name (str):
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EvCentersInventoryFiltersOrderColumn]): Sorts vCenter Servers
-            by one of the job parameters.
-        order_asc (Union[Unset, bool]):
-        object_id_filter (Union[Unset, str]):
-        hierarchy_type_filter (Union[Unset, EHierarchyType]): VMware vSphere hierarchy type.
-        name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, EVmwareInventoryType]): Type of the VMware vSphere object.<p>
-            Note that inventory objects with multiple tags (*Multitag* type) can only be added in the
-            Veeam Backup & Replication UI or PowerShell.
-        parent_container_name_filter (Union[Unset, str]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EvCentersInventoryFiltersOrderColumn | Unset): Sorts vCenter Servers by one
+            of the job parameters.
+        order_asc (bool | Unset):
+        object_id_filter (str | Unset):
+        hierarchy_type_filter (EHierarchyType | Unset): VMware vSphere hierarchy type.
+        name_filter (str | Unset):
+        type_filter (EVmwareInventoryType | Unset): Type of the VMware vSphere object.<p> Note
+            that inventory objects with multiple tags (*Multitag* type) can only be added in the Veeam
+            Backup & Replication UI or PowerShell.
+        parent_container_name_filter (str | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -356,7 +359,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, VCenterInventoryResult]
+        Error | VCenterInventoryResult
     """
 
     return (

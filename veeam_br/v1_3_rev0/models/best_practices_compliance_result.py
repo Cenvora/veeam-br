@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 
@@ -16,10 +18,10 @@ class BestPracticesComplianceResult:
     """Details on compliance with best practices.
 
     Attributes:
-        items (list['BestPracticesComplianceModel']): Array of security options.
+        items (list[BestPracticesComplianceModel]): Array of security options.
     """
 
-    items: list["BestPracticesComplianceModel"]
+    items: list[BestPracticesComplianceModel]
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

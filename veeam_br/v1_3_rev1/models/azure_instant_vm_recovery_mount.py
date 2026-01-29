@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -23,13 +25,13 @@ class AzureInstantVMRecoveryMount:
         id (UUID): Mount point ID.
         state (EAzureInstantRecoveryMountState): Mount state.
         spec (AzureInstantVMRecoverySpec): Settings for Instant Recovery to Microsoft Azure.
-        error_message (Union[Unset, str]): Error message.
+        error_message (str | Unset): Error message.
     """
 
     id: UUID
     state: EAzureInstantRecoveryMountState
-    spec: "AzureInstantVMRecoverySpec"
-    error_message: Union[Unset, str] = UNSET
+    spec: AzureInstantVMRecoverySpec
+    error_message: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -24,21 +26,21 @@ class EntraIDTenantSpec:
         azure_tenant_id (UUID): Tenant ID assigned by Microsoft Entra ID.
         creation_mode (EEntraIDTenantCreationMode): Connection method that defines whether you want to connect to
             Microsoft Entra ID using an existing or a newly created app registration.
-        description (Union[Unset, str]): Tenant description.
-        cache_repository_id (Union[Unset, UUID]): ID of a backup repository that is used as a cache repository for the
-            tenant. If you do not specify the ID, the default backup repository is used.
-        region (Union[Unset, EAzureRegionType]): Microsoft Azure region.
-        existing_account (Union[Unset, EntraIDTenantExistingAccountSpec]): Existing Microsoft Entra ID app registration.
-        new_account (Union[Unset, EntraIDTenantNewAccountSpec]): New Microsoft Entra ID app registration.
+        description (str | Unset): Tenant description.
+        cache_repository_id (UUID | Unset): ID of a backup repository that is used as a cache repository for the tenant.
+            If you do not specify the ID, the default backup repository is used.
+        region (EAzureRegionType | Unset): Microsoft Azure region.
+        existing_account (EntraIDTenantExistingAccountSpec | Unset): Existing Microsoft Entra ID app registration.
+        new_account (EntraIDTenantNewAccountSpec | Unset): New Microsoft Entra ID app registration.
     """
 
     azure_tenant_id: UUID
     creation_mode: EEntraIDTenantCreationMode
-    description: Union[Unset, str] = UNSET
-    cache_repository_id: Union[Unset, UUID] = UNSET
-    region: Union[Unset, EAzureRegionType] = UNSET
-    existing_account: Union[Unset, "EntraIDTenantExistingAccountSpec"] = UNSET
-    new_account: Union[Unset, "EntraIDTenantNewAccountSpec"] = UNSET
+    description: str | Unset = UNSET
+    cache_repository_id: UUID | Unset = UNSET
+    region: EAzureRegionType | Unset = UNSET
+    existing_account: EntraIDTenantExistingAccountSpec | Unset = UNSET
+    new_account: EntraIDTenantNewAccountSpec | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -48,19 +50,19 @@ class EntraIDTenantSpec:
 
         description = self.description
 
-        cache_repository_id: Union[Unset, str] = UNSET
+        cache_repository_id: str | Unset = UNSET
         if not isinstance(self.cache_repository_id, Unset):
             cache_repository_id = str(self.cache_repository_id)
 
-        region: Union[Unset, str] = UNSET
+        region: str | Unset = UNSET
         if not isinstance(self.region, Unset):
             region = self.region.value
 
-        existing_account: Union[Unset, dict[str, Any]] = UNSET
+        existing_account: dict[str, Any] | Unset = UNSET
         if not isinstance(self.existing_account, Unset):
             existing_account = self.existing_account.to_dict()
 
-        new_account: Union[Unset, dict[str, Any]] = UNSET
+        new_account: dict[str, Any] | Unset = UNSET
         if not isinstance(self.new_account, Unset):
             new_account = self.new_account.to_dict()
 
@@ -98,28 +100,28 @@ class EntraIDTenantSpec:
         description = d.pop("description", UNSET)
 
         _cache_repository_id = d.pop("cacheRepositoryId", UNSET)
-        cache_repository_id: Union[Unset, UUID]
+        cache_repository_id: UUID | Unset
         if isinstance(_cache_repository_id, Unset):
             cache_repository_id = UNSET
         else:
             cache_repository_id = UUID(_cache_repository_id)
 
         _region = d.pop("region", UNSET)
-        region: Union[Unset, EAzureRegionType]
+        region: EAzureRegionType | Unset
         if isinstance(_region, Unset):
             region = UNSET
         else:
             region = EAzureRegionType(_region)
 
         _existing_account = d.pop("existingAccount", UNSET)
-        existing_account: Union[Unset, EntraIDTenantExistingAccountSpec]
+        existing_account: EntraIDTenantExistingAccountSpec | Unset
         if isinstance(_existing_account, Unset):
             existing_account = UNSET
         else:
             existing_account = EntraIDTenantExistingAccountSpec.from_dict(_existing_account)
 
         _new_account = d.pop("newAccount", UNSET)
-        new_account: Union[Unset, EntraIDTenantNewAccountSpec]
+        new_account: EntraIDTenantNewAccountSpec | Unset
         if isinstance(_new_account, Unset):
             new_account = UNSET
         else:

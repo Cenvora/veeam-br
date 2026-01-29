@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -18,24 +20,24 @@ class FileBackupNotificationSettingsModel:
     """Notification settings for file backup.
 
     Attributes:
-        send_snmp_notifications (Union[Unset, bool]): If `true`, SNMP notifications are enabled for this job.
-        email_notifications (Union[Unset, EmailNotificationSettingsModel]): Email notification settings for the job.
-        trigger_issue_job_warning (Union[Unset, bool]): If `true`, you will recieve a warning at the end of the job
-            processing session in case of issues with processing files or folders.
-        trigger_attribute_issue_job_warning (Union[Unset, bool]): If `true`, you will recieve a warning at the end of
-            the job processing session in case of issues with processing file or folder attributes.
+        send_snmp_notifications (bool | Unset): If `true`, SNMP notifications are enabled for this job.
+        email_notifications (EmailNotificationSettingsModel | Unset): Email notification settings for the job.
+        trigger_issue_job_warning (bool | Unset): If `true`, you will recieve a warning at the end of the job processing
+            session in case of issues with processing files or folders.
+        trigger_attribute_issue_job_warning (bool | Unset): If `true`, you will recieve a warning at the end of the job
+            processing session in case of issues with processing file or folder attributes.
     """
 
-    send_snmp_notifications: Union[Unset, bool] = UNSET
-    email_notifications: Union[Unset, "EmailNotificationSettingsModel"] = UNSET
-    trigger_issue_job_warning: Union[Unset, bool] = UNSET
-    trigger_attribute_issue_job_warning: Union[Unset, bool] = UNSET
+    send_snmp_notifications: bool | Unset = UNSET
+    email_notifications: EmailNotificationSettingsModel | Unset = UNSET
+    trigger_issue_job_warning: bool | Unset = UNSET
+    trigger_attribute_issue_job_warning: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         send_snmp_notifications = self.send_snmp_notifications
 
-        email_notifications: Union[Unset, dict[str, Any]] = UNSET
+        email_notifications: dict[str, Any] | Unset = UNSET
         if not isinstance(self.email_notifications, Unset):
             email_notifications = self.email_notifications.to_dict()
 
@@ -65,7 +67,7 @@ class FileBackupNotificationSettingsModel:
         send_snmp_notifications = d.pop("sendSNMPNotifications", UNSET)
 
         _email_notifications = d.pop("emailNotifications", UNSET)
-        email_notifications: Union[Unset, EmailNotificationSettingsModel]
+        email_notifications: EmailNotificationSettingsModel | Unset
         if isinstance(_email_notifications, Unset):
             email_notifications = UNSET
         else:

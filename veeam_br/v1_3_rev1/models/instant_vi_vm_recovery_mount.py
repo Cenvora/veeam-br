@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -11,8 +13,7 @@ from ..models.e_instant_recovery_mount_state import EInstantRecoveryMountState
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.instant_vi_vm_customized_recovery_spec import InstantViVMCustomizedRecoverySpec
-    from ..models.instant_vi_vm_original_location_recovery_spec import InstantViVMOriginalLocationRecoverySpec
+    from ..models.instant_vi_vm_recovery_spec import InstantViVMRecoverySpec
 
 
 T = TypeVar("T", bound="InstantViVMRecoveryMount")
@@ -27,40 +28,33 @@ class InstantViVMRecoveryMount:
         session_id (UUID): Restore session ID. Use the ID to track the progress. For details, see [Get
             Session](Sessions#operation/GetSession).
         state (EInstantRecoveryMountState): Mount state.
-        spec (Union['InstantViVMCustomizedRecoverySpec', 'InstantViVMOriginalLocationRecoverySpec']): Instant Recovery
-            settings.
+        spec (InstantViVMRecoverySpec): Instant Recovery settings.
         vm_name (str): Name of the recovered VM.
         job_name (str): Job name.
         restore_point_date (datetime.datetime): Date and time the restore point was created.
-        host_name (Union[Unset, str]): Name of the destination host.
-        error_message (Union[Unset, str]): Error message.
+        host_name (str | Unset): Name of the destination host.
+        error_message (str | Unset): Error message.
     """
 
     id: UUID
     session_id: UUID
     state: EInstantRecoveryMountState
-    spec: Union["InstantViVMCustomizedRecoverySpec", "InstantViVMOriginalLocationRecoverySpec"]
+    spec: InstantViVMRecoverySpec
     vm_name: str
     job_name: str
     restore_point_date: datetime.datetime
-    host_name: Union[Unset, str] = UNSET
-    error_message: Union[Unset, str] = UNSET
+    host_name: str | Unset = UNSET
+    error_message: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.instant_vi_vm_original_location_recovery_spec import InstantViVMOriginalLocationRecoverySpec
-
         id = str(self.id)
 
         session_id = str(self.session_id)
 
         state = self.state.value
 
-        spec: dict[str, Any]
-        if isinstance(self.spec, InstantViVMOriginalLocationRecoverySpec):
-            spec = self.spec.to_dict()
-        else:
-            spec = self.spec.to_dict()
+        spec = self.spec.to_dict()
 
         vm_name = self.vm_name
 
@@ -94,8 +88,7 @@ class InstantViVMRecoveryMount:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.instant_vi_vm_customized_recovery_spec import InstantViVMCustomizedRecoverySpec
-        from ..models.instant_vi_vm_original_location_recovery_spec import InstantViVMOriginalLocationRecoverySpec
+        from ..models.instant_vi_vm_recovery_spec import InstantViVMRecoverySpec
 
         d = dict(src_dict)
         id = UUID(d.pop("id"))
@@ -104,26 +97,7 @@ class InstantViVMRecoveryMount:
 
         state = EInstantRecoveryMountState(d.pop("state"))
 
-        def _parse_spec(
-            data: object,
-        ) -> Union["InstantViVMCustomizedRecoverySpec", "InstantViVMOriginalLocationRecoverySpec"]:
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_instant_vi_vm_recovery_spec_type_0 = (
-                    InstantViVMOriginalLocationRecoverySpec.from_dict(data)
-                )
-
-                return componentsschemas_instant_vi_vm_recovery_spec_type_0
-            except:  # noqa: E722
-                pass
-            if not isinstance(data, dict):
-                raise TypeError()
-            componentsschemas_instant_vi_vm_recovery_spec_type_1 = InstantViVMCustomizedRecoverySpec.from_dict(data)
-
-            return componentsschemas_instant_vi_vm_recovery_spec_type_1
-
-        spec = _parse_spec(d.pop("spec"))
+        spec = InstantViVMRecoverySpec.from_dict(d.pop("spec"))
 
         vm_name = d.pop("vmName")
 

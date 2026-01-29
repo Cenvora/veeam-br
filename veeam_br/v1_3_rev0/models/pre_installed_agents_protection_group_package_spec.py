@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -21,22 +23,22 @@ class PreInstalledAgentsProtectionGroupPackageSpec:
     """Package download settings.
 
     Attributes:
-        format_ (Union[Unset, PreInstalledAgentsProtectionGroupPackageSpecFormat]): Format of the agent package.
-        include_windows_packages (Union[Unset, bool]): If `true`, Windows packages will be downloaded.
-        include_mac_packages (Union[Unset, bool]): If `true`, Mac packages will be downloaded.
-        linux_packages (Union[Unset, PreInstalledAgentsPackagesModel]): Pre-installed packages on the protection group.
-        unix_packages (Union[Unset, PreInstalledAgentsPackagesModel]): Pre-installed packages on the protection group.
+        format_ (PreInstalledAgentsProtectionGroupPackageSpecFormat | Unset): Format of the agent package.
+        include_windows_packages (bool | Unset): If `true`, Windows packages will be downloaded.
+        include_mac_packages (bool | Unset): If `true`, Mac packages will be downloaded.
+        linux_packages (PreInstalledAgentsPackagesModel | Unset): Pre-installed packages on the protection group.
+        unix_packages (PreInstalledAgentsPackagesModel | Unset): Pre-installed packages on the protection group.
     """
 
-    format_: Union[Unset, PreInstalledAgentsProtectionGroupPackageSpecFormat] = UNSET
-    include_windows_packages: Union[Unset, bool] = UNSET
-    include_mac_packages: Union[Unset, bool] = UNSET
-    linux_packages: Union[Unset, "PreInstalledAgentsPackagesModel"] = UNSET
-    unix_packages: Union[Unset, "PreInstalledAgentsPackagesModel"] = UNSET
+    format_: PreInstalledAgentsProtectionGroupPackageSpecFormat | Unset = UNSET
+    include_windows_packages: bool | Unset = UNSET
+    include_mac_packages: bool | Unset = UNSET
+    linux_packages: PreInstalledAgentsPackagesModel | Unset = UNSET
+    unix_packages: PreInstalledAgentsPackagesModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        format_: Union[Unset, str] = UNSET
+        format_: str | Unset = UNSET
         if not isinstance(self.format_, Unset):
             format_ = self.format_.value
 
@@ -44,11 +46,11 @@ class PreInstalledAgentsProtectionGroupPackageSpec:
 
         include_mac_packages = self.include_mac_packages
 
-        linux_packages: Union[Unset, dict[str, Any]] = UNSET
+        linux_packages: dict[str, Any] | Unset = UNSET
         if not isinstance(self.linux_packages, Unset):
             linux_packages = self.linux_packages.to_dict()
 
-        unix_packages: Union[Unset, dict[str, Any]] = UNSET
+        unix_packages: dict[str, Any] | Unset = UNSET
         if not isinstance(self.unix_packages, Unset):
             unix_packages = self.unix_packages.to_dict()
 
@@ -74,7 +76,7 @@ class PreInstalledAgentsProtectionGroupPackageSpec:
 
         d = dict(src_dict)
         _format_ = d.pop("format", UNSET)
-        format_: Union[Unset, PreInstalledAgentsProtectionGroupPackageSpecFormat]
+        format_: PreInstalledAgentsProtectionGroupPackageSpecFormat | Unset
         if isinstance(_format_, Unset):
             format_ = UNSET
         else:
@@ -85,14 +87,14 @@ class PreInstalledAgentsProtectionGroupPackageSpec:
         include_mac_packages = d.pop("includeMacPackages", UNSET)
 
         _linux_packages = d.pop("linuxPackages", UNSET)
-        linux_packages: Union[Unset, PreInstalledAgentsPackagesModel]
+        linux_packages: PreInstalledAgentsPackagesModel | Unset
         if isinstance(_linux_packages, Unset):
             linux_packages = UNSET
         else:
             linux_packages = PreInstalledAgentsPackagesModel.from_dict(_linux_packages)
 
         _unix_packages = d.pop("unixPackages", UNSET)
-        unix_packages: Union[Unset, PreInstalledAgentsPackagesModel]
+        unix_packages: PreInstalledAgentsPackagesModel | Unset
         if isinstance(_unix_packages, Unset):
             unix_packages = UNSET
         else:

@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -28,11 +30,11 @@ class JobStateModel:
         last_result (ESessionResult): Result status.
         workload (EJobWorkload): Workload which the job must process.
         objects_count (int): Number of objects processed by the job.
-        last_run (Union[Unset, datetime.datetime]): Last run of the job.
-        next_run (Union[Unset, datetime.datetime]): Next run of the job.
-        repository_id (Union[Unset, UUID]): ID of the backup repository.
-        repository_name (Union[Unset, str]): Name of the backup repository.
-        session_id (Union[Unset, UUID]): ID of the last job session.
+        last_run (datetime.datetime | Unset): Last run of the job.
+        next_run (datetime.datetime | Unset): Next run of the job.
+        repository_id (UUID | Unset): ID of the backup repository.
+        repository_name (str | Unset): Name of the backup repository.
+        session_id (UUID | Unset): ID of the last job session.
     """
 
     id: UUID
@@ -43,11 +45,11 @@ class JobStateModel:
     last_result: ESessionResult
     workload: EJobWorkload
     objects_count: int
-    last_run: Union[Unset, datetime.datetime] = UNSET
-    next_run: Union[Unset, datetime.datetime] = UNSET
-    repository_id: Union[Unset, UUID] = UNSET
-    repository_name: Union[Unset, str] = UNSET
-    session_id: Union[Unset, UUID] = UNSET
+    last_run: datetime.datetime | Unset = UNSET
+    next_run: datetime.datetime | Unset = UNSET
+    repository_id: UUID | Unset = UNSET
+    repository_name: str | Unset = UNSET
+    session_id: UUID | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -67,21 +69,21 @@ class JobStateModel:
 
         objects_count = self.objects_count
 
-        last_run: Union[Unset, str] = UNSET
+        last_run: str | Unset = UNSET
         if not isinstance(self.last_run, Unset):
             last_run = self.last_run.isoformat()
 
-        next_run: Union[Unset, str] = UNSET
+        next_run: str | Unset = UNSET
         if not isinstance(self.next_run, Unset):
             next_run = self.next_run.isoformat()
 
-        repository_id: Union[Unset, str] = UNSET
+        repository_id: str | Unset = UNSET
         if not isinstance(self.repository_id, Unset):
             repository_id = str(self.repository_id)
 
         repository_name = self.repository_name
 
-        session_id: Union[Unset, str] = UNSET
+        session_id: str | Unset = UNSET
         if not isinstance(self.session_id, Unset):
             session_id = str(self.session_id)
 
@@ -132,21 +134,21 @@ class JobStateModel:
         objects_count = d.pop("objectsCount")
 
         _last_run = d.pop("lastRun", UNSET)
-        last_run: Union[Unset, datetime.datetime]
+        last_run: datetime.datetime | Unset
         if isinstance(_last_run, Unset):
             last_run = UNSET
         else:
             last_run = isoparse(_last_run)
 
         _next_run = d.pop("nextRun", UNSET)
-        next_run: Union[Unset, datetime.datetime]
+        next_run: datetime.datetime | Unset
         if isinstance(_next_run, Unset):
             next_run = UNSET
         else:
             next_run = isoparse(_next_run)
 
         _repository_id = d.pop("repositoryId", UNSET)
-        repository_id: Union[Unset, UUID]
+        repository_id: UUID | Unset
         if isinstance(_repository_id, Unset):
             repository_id = UNSET
         else:
@@ -155,7 +157,7 @@ class JobStateModel:
         repository_name = d.pop("repositoryName", UNSET)
 
         _session_id = d.pop("sessionId", UNSET)
-        session_id: Union[Unset, UUID]
+        session_id: UUID | Unset
         if isinstance(_session_id, Unset):
             session_id = UNSET
         else:

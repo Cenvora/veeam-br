@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -21,42 +23,41 @@ class ManageServerImportSpecCollection:
     """Collection of settings for importing managed servers.
 
     Attributes:
-        windows_hosts (Union[Unset, list['WindowsHostImportSpec']]): Array of managed Microsoft Windows servers.
-        linux_hosts (Union[Unset, list['LinuxHostImportSpec']]): Array of managed Linux servers.
-        vi_hosts (Union[Unset, list['ViHostImportSpec']]): Array of VMware vSphere servers.
-        cloud_director_hosts (Union[Unset, list['CloudDirectorHostImportSpec']]): Array of VMware Cloud Director
-            servers.
+        windows_hosts (list[WindowsHostImportSpec] | Unset): Array of managed Microsoft Windows servers.
+        linux_hosts (list[LinuxHostImportSpec] | Unset): Array of managed Linux servers.
+        vi_hosts (list[ViHostImportSpec] | Unset): Array of VMware vSphere servers.
+        cloud_director_hosts (list[CloudDirectorHostImportSpec] | Unset): Array of VMware Cloud Director servers.
     """
 
-    windows_hosts: Union[Unset, list["WindowsHostImportSpec"]] = UNSET
-    linux_hosts: Union[Unset, list["LinuxHostImportSpec"]] = UNSET
-    vi_hosts: Union[Unset, list["ViHostImportSpec"]] = UNSET
-    cloud_director_hosts: Union[Unset, list["CloudDirectorHostImportSpec"]] = UNSET
+    windows_hosts: list[WindowsHostImportSpec] | Unset = UNSET
+    linux_hosts: list[LinuxHostImportSpec] | Unset = UNSET
+    vi_hosts: list[ViHostImportSpec] | Unset = UNSET
+    cloud_director_hosts: list[CloudDirectorHostImportSpec] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        windows_hosts: Union[Unset, list[dict[str, Any]]] = UNSET
+        windows_hosts: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.windows_hosts, Unset):
             windows_hosts = []
             for windows_hosts_item_data in self.windows_hosts:
                 windows_hosts_item = windows_hosts_item_data.to_dict()
                 windows_hosts.append(windows_hosts_item)
 
-        linux_hosts: Union[Unset, list[dict[str, Any]]] = UNSET
+        linux_hosts: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.linux_hosts, Unset):
             linux_hosts = []
             for linux_hosts_item_data in self.linux_hosts:
                 linux_hosts_item = linux_hosts_item_data.to_dict()
                 linux_hosts.append(linux_hosts_item)
 
-        vi_hosts: Union[Unset, list[dict[str, Any]]] = UNSET
+        vi_hosts: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.vi_hosts, Unset):
             vi_hosts = []
             for vi_hosts_item_data in self.vi_hosts:
                 vi_hosts_item = vi_hosts_item_data.to_dict()
                 vi_hosts.append(vi_hosts_item)
 
-        cloud_director_hosts: Union[Unset, list[dict[str, Any]]] = UNSET
+        cloud_director_hosts: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.cloud_director_hosts, Unset):
             cloud_director_hosts = []
             for cloud_director_hosts_item_data in self.cloud_director_hosts:
@@ -85,33 +86,41 @@ class ManageServerImportSpecCollection:
         from ..models.windows_host_import_spec import WindowsHostImportSpec
 
         d = dict(src_dict)
-        windows_hosts = []
         _windows_hosts = d.pop("windowsHosts", UNSET)
-        for windows_hosts_item_data in _windows_hosts or []:
-            windows_hosts_item = WindowsHostImportSpec.from_dict(windows_hosts_item_data)
+        windows_hosts: list[WindowsHostImportSpec] | Unset = UNSET
+        if _windows_hosts is not UNSET:
+            windows_hosts = []
+            for windows_hosts_item_data in _windows_hosts:
+                windows_hosts_item = WindowsHostImportSpec.from_dict(windows_hosts_item_data)
 
-            windows_hosts.append(windows_hosts_item)
+                windows_hosts.append(windows_hosts_item)
 
-        linux_hosts = []
         _linux_hosts = d.pop("linuxHosts", UNSET)
-        for linux_hosts_item_data in _linux_hosts or []:
-            linux_hosts_item = LinuxHostImportSpec.from_dict(linux_hosts_item_data)
+        linux_hosts: list[LinuxHostImportSpec] | Unset = UNSET
+        if _linux_hosts is not UNSET:
+            linux_hosts = []
+            for linux_hosts_item_data in _linux_hosts:
+                linux_hosts_item = LinuxHostImportSpec.from_dict(linux_hosts_item_data)
 
-            linux_hosts.append(linux_hosts_item)
+                linux_hosts.append(linux_hosts_item)
 
-        vi_hosts = []
         _vi_hosts = d.pop("viHosts", UNSET)
-        for vi_hosts_item_data in _vi_hosts or []:
-            vi_hosts_item = ViHostImportSpec.from_dict(vi_hosts_item_data)
+        vi_hosts: list[ViHostImportSpec] | Unset = UNSET
+        if _vi_hosts is not UNSET:
+            vi_hosts = []
+            for vi_hosts_item_data in _vi_hosts:
+                vi_hosts_item = ViHostImportSpec.from_dict(vi_hosts_item_data)
 
-            vi_hosts.append(vi_hosts_item)
+                vi_hosts.append(vi_hosts_item)
 
-        cloud_director_hosts = []
         _cloud_director_hosts = d.pop("cloudDirectorHosts", UNSET)
-        for cloud_director_hosts_item_data in _cloud_director_hosts or []:
-            cloud_director_hosts_item = CloudDirectorHostImportSpec.from_dict(cloud_director_hosts_item_data)
+        cloud_director_hosts: list[CloudDirectorHostImportSpec] | Unset = UNSET
+        if _cloud_director_hosts is not UNSET:
+            cloud_director_hosts = []
+            for cloud_director_hosts_item_data in _cloud_director_hosts:
+                cloud_director_hosts_item = CloudDirectorHostImportSpec.from_dict(cloud_director_hosts_item_data)
 
-            cloud_director_hosts.append(cloud_director_hosts_item)
+                cloud_director_hosts.append(cloud_director_hosts_item)
 
         manage_server_import_spec_collection = cls(
             windows_hosts=windows_hosts,

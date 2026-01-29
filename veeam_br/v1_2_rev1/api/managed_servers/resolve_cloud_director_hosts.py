@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -33,8 +33,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[CloudDirectorHostDiscoveryResult, Error]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> CloudDirectorHostDiscoveryResult | Error | None:
     if response.status_code == 200:
         response_200 = CloudDirectorHostDiscoveryResult.from_dict(response.json())
 
@@ -67,8 +67,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[CloudDirectorHostDiscoveryResult, Error]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[CloudDirectorHostDiscoveryResult | Error]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -79,10 +79,10 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: CloudDirectorHostDiscoverySpec,
     x_api_version: str = "1.2-rev1",
-) -> Response[Union[CloudDirectorHostDiscoveryResult, Error]]:
+) -> Response[CloudDirectorHostDiscoveryResult | Error]:
     """Get vCenter Servers Attached to Cloud Director Server
 
      The HTTP POST request to the `/api/v1/backupInfrastructure/managedServers/cloudDirectorHosts` path
@@ -98,7 +98,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[CloudDirectorHostDiscoveryResult, Error]]
+        Response[CloudDirectorHostDiscoveryResult | Error]
     """
 
     kwargs = _get_kwargs(
@@ -115,10 +115,10 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: CloudDirectorHostDiscoverySpec,
     x_api_version: str = "1.2-rev1",
-) -> Optional[Union[CloudDirectorHostDiscoveryResult, Error]]:
+) -> CloudDirectorHostDiscoveryResult | Error | None:
     """Get vCenter Servers Attached to Cloud Director Server
 
      The HTTP POST request to the `/api/v1/backupInfrastructure/managedServers/cloudDirectorHosts` path
@@ -134,7 +134,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[CloudDirectorHostDiscoveryResult, Error]
+        CloudDirectorHostDiscoveryResult | Error
     """
 
     return sync_detailed(
@@ -146,10 +146,10 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: CloudDirectorHostDiscoverySpec,
     x_api_version: str = "1.2-rev1",
-) -> Response[Union[CloudDirectorHostDiscoveryResult, Error]]:
+) -> Response[CloudDirectorHostDiscoveryResult | Error]:
     """Get vCenter Servers Attached to Cloud Director Server
 
      The HTTP POST request to the `/api/v1/backupInfrastructure/managedServers/cloudDirectorHosts` path
@@ -165,7 +165,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[CloudDirectorHostDiscoveryResult, Error]]
+        Response[CloudDirectorHostDiscoveryResult | Error]
     """
 
     kwargs = _get_kwargs(
@@ -180,10 +180,10 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: CloudDirectorHostDiscoverySpec,
     x_api_version: str = "1.2-rev1",
-) -> Optional[Union[CloudDirectorHostDiscoveryResult, Error]]:
+) -> CloudDirectorHostDiscoveryResult | Error | None:
     """Get vCenter Servers Attached to Cloud Director Server
 
      The HTTP POST request to the `/api/v1/backupInfrastructure/managedServers/cloudDirectorHosts` path
@@ -199,7 +199,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[CloudDirectorHostDiscoveryResult, Error]
+        CloudDirectorHostDiscoveryResult | Error
     """
 
     return (

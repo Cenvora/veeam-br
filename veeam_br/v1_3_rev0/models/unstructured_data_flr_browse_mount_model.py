@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -21,24 +23,23 @@ class UnstructuredDataFlrBrowseMountModel:
 
     Attributes:
         session_id (UUID): Restore session ID.
-        properties (Union[Unset, FlrBrowseProperties]): Browser properties.
-        source_properties (Union[Unset, UnstructuredDataBrowseSourceProperties]): Properties of unstructured data
-            backup.
+        properties (FlrBrowseProperties | Unset): Browser properties.
+        source_properties (UnstructuredDataBrowseSourceProperties | Unset): Properties of unstructured data backup.
     """
 
     session_id: UUID
-    properties: Union[Unset, "FlrBrowseProperties"] = UNSET
-    source_properties: Union[Unset, "UnstructuredDataBrowseSourceProperties"] = UNSET
+    properties: FlrBrowseProperties | Unset = UNSET
+    source_properties: UnstructuredDataBrowseSourceProperties | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         session_id = str(self.session_id)
 
-        properties: Union[Unset, dict[str, Any]] = UNSET
+        properties: dict[str, Any] | Unset = UNSET
         if not isinstance(self.properties, Unset):
             properties = self.properties.to_dict()
 
-        source_properties: Union[Unset, dict[str, Any]] = UNSET
+        source_properties: dict[str, Any] | Unset = UNSET
         if not isinstance(self.source_properties, Unset):
             source_properties = self.source_properties.to_dict()
 
@@ -65,14 +66,14 @@ class UnstructuredDataFlrBrowseMountModel:
         session_id = UUID(d.pop("sessionId"))
 
         _properties = d.pop("properties", UNSET)
-        properties: Union[Unset, FlrBrowseProperties]
+        properties: FlrBrowseProperties | Unset
         if isinstance(_properties, Unset):
             properties = UNSET
         else:
             properties = FlrBrowseProperties.from_dict(_properties)
 
         _source_properties = d.pop("sourceProperties", UNSET)
-        source_properties: Union[Unset, UnstructuredDataBrowseSourceProperties]
+        source_properties: UnstructuredDataBrowseSourceProperties | Unset
         if isinstance(_source_properties, Unset):
             source_properties = UNSET
         else:

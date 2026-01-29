@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 from uuid import UUID
 
 import httpx
@@ -15,17 +15,17 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     *,
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = UNSET,
-    order_column: Union[Unset, ERepositoryStatesFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    id_filter: Union[Unset, UUID] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, ERepositoryType] = UNSET,
-    capacity_filter: Union[Unset, float] = UNSET,
-    free_space_filter: Union[Unset, float] = UNSET,
-    used_space_filter: Union[Unset, float] = UNSET,
-    is_online_filter: Union[Unset, bool] = UNSET,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = UNSET,
+    order_column: ERepositoryStatesFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    id_filter: UUID | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: ERepositoryType | Unset = UNSET,
+    capacity_filter: float | Unset = UNSET,
+    free_space_filter: float | Unset = UNSET,
+    used_space_filter: float | Unset = UNSET,
+    is_online_filter: bool | Unset = UNSET,
     x_api_version: str = "1.2-rev1",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -37,7 +37,7 @@ def _get_kwargs(
 
     params["limit"] = limit
 
-    json_order_column: Union[Unset, str] = UNSET
+    json_order_column: str | Unset = UNSET
     if not isinstance(order_column, Unset):
         json_order_column = order_column.value
 
@@ -45,14 +45,14 @@ def _get_kwargs(
 
     params["orderAsc"] = order_asc
 
-    json_id_filter: Union[Unset, str] = UNSET
+    json_id_filter: str | Unset = UNSET
     if not isinstance(id_filter, Unset):
         json_id_filter = str(id_filter)
     params["idFilter"] = json_id_filter
 
     params["nameFilter"] = name_filter
 
-    json_type_filter: Union[Unset, str] = UNSET
+    json_type_filter: str | Unset = UNSET
     if not isinstance(type_filter, Unset):
         json_type_filter = type_filter.value
 
@@ -79,8 +79,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, RepositoryStatesResult]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Error | RepositoryStatesResult | None:
     if response.status_code == 200:
         response_200 = RepositoryStatesResult.from_dict(response.json())
 
@@ -108,8 +108,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, RepositoryStatesResult]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | RepositoryStatesResult]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -120,20 +120,20 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = UNSET,
-    order_column: Union[Unset, ERepositoryStatesFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    id_filter: Union[Unset, UUID] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, ERepositoryType] = UNSET,
-    capacity_filter: Union[Unset, float] = UNSET,
-    free_space_filter: Union[Unset, float] = UNSET,
-    used_space_filter: Union[Unset, float] = UNSET,
-    is_online_filter: Union[Unset, bool] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = UNSET,
+    order_column: ERepositoryStatesFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    id_filter: UUID | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: ERepositoryType | Unset = UNSET,
+    capacity_filter: float | Unset = UNSET,
+    free_space_filter: float | Unset = UNSET,
+    used_space_filter: float | Unset = UNSET,
+    is_online_filter: bool | Unset = UNSET,
     x_api_version: str = "1.2-rev1",
-) -> Response[Union[Error, RepositoryStatesResult]]:
+) -> Response[Error | RepositoryStatesResult]:
     """Get All Repository States
 
      The HTTP GET request to the `/api/v1/backupInfrastructure/repositories/states` path allows you to
@@ -143,18 +143,18 @@ def sync_detailed(
     Operator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):
-        order_column (Union[Unset, ERepositoryStatesFiltersOrderColumn]): Orders repositories by
-            the specified column.
-        order_asc (Union[Unset, bool]):
-        id_filter (Union[Unset, UUID]):
-        name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, ERepositoryType]): Repository type.
-        capacity_filter (Union[Unset, float]):
-        free_space_filter (Union[Unset, float]):
-        used_space_filter (Union[Unset, float]):
-        is_online_filter (Union[Unset, bool]):
+        skip (int | Unset):
+        limit (int | Unset):
+        order_column (ERepositoryStatesFiltersOrderColumn | Unset): Orders repositories by the
+            specified column.
+        order_asc (bool | Unset):
+        id_filter (UUID | Unset):
+        name_filter (str | Unset):
+        type_filter (ERepositoryType | Unset): Repository type.
+        capacity_filter (float | Unset):
+        free_space_filter (float | Unset):
+        used_space_filter (float | Unset):
+        is_online_filter (bool | Unset):
         x_api_version (str):  Default: '1.2-rev1'.
 
     Raises:
@@ -162,7 +162,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, RepositoryStatesResult]]
+        Response[Error | RepositoryStatesResult]
     """
 
     kwargs = _get_kwargs(
@@ -189,20 +189,20 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = UNSET,
-    order_column: Union[Unset, ERepositoryStatesFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    id_filter: Union[Unset, UUID] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, ERepositoryType] = UNSET,
-    capacity_filter: Union[Unset, float] = UNSET,
-    free_space_filter: Union[Unset, float] = UNSET,
-    used_space_filter: Union[Unset, float] = UNSET,
-    is_online_filter: Union[Unset, bool] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = UNSET,
+    order_column: ERepositoryStatesFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    id_filter: UUID | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: ERepositoryType | Unset = UNSET,
+    capacity_filter: float | Unset = UNSET,
+    free_space_filter: float | Unset = UNSET,
+    used_space_filter: float | Unset = UNSET,
+    is_online_filter: bool | Unset = UNSET,
     x_api_version: str = "1.2-rev1",
-) -> Optional[Union[Error, RepositoryStatesResult]]:
+) -> Error | RepositoryStatesResult | None:
     """Get All Repository States
 
      The HTTP GET request to the `/api/v1/backupInfrastructure/repositories/states` path allows you to
@@ -212,18 +212,18 @@ def sync(
     Operator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):
-        order_column (Union[Unset, ERepositoryStatesFiltersOrderColumn]): Orders repositories by
-            the specified column.
-        order_asc (Union[Unset, bool]):
-        id_filter (Union[Unset, UUID]):
-        name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, ERepositoryType]): Repository type.
-        capacity_filter (Union[Unset, float]):
-        free_space_filter (Union[Unset, float]):
-        used_space_filter (Union[Unset, float]):
-        is_online_filter (Union[Unset, bool]):
+        skip (int | Unset):
+        limit (int | Unset):
+        order_column (ERepositoryStatesFiltersOrderColumn | Unset): Orders repositories by the
+            specified column.
+        order_asc (bool | Unset):
+        id_filter (UUID | Unset):
+        name_filter (str | Unset):
+        type_filter (ERepositoryType | Unset): Repository type.
+        capacity_filter (float | Unset):
+        free_space_filter (float | Unset):
+        used_space_filter (float | Unset):
+        is_online_filter (bool | Unset):
         x_api_version (str):  Default: '1.2-rev1'.
 
     Raises:
@@ -231,7 +231,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, RepositoryStatesResult]
+        Error | RepositoryStatesResult
     """
 
     return sync_detailed(
@@ -253,20 +253,20 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = UNSET,
-    order_column: Union[Unset, ERepositoryStatesFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    id_filter: Union[Unset, UUID] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, ERepositoryType] = UNSET,
-    capacity_filter: Union[Unset, float] = UNSET,
-    free_space_filter: Union[Unset, float] = UNSET,
-    used_space_filter: Union[Unset, float] = UNSET,
-    is_online_filter: Union[Unset, bool] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = UNSET,
+    order_column: ERepositoryStatesFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    id_filter: UUID | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: ERepositoryType | Unset = UNSET,
+    capacity_filter: float | Unset = UNSET,
+    free_space_filter: float | Unset = UNSET,
+    used_space_filter: float | Unset = UNSET,
+    is_online_filter: bool | Unset = UNSET,
     x_api_version: str = "1.2-rev1",
-) -> Response[Union[Error, RepositoryStatesResult]]:
+) -> Response[Error | RepositoryStatesResult]:
     """Get All Repository States
 
      The HTTP GET request to the `/api/v1/backupInfrastructure/repositories/states` path allows you to
@@ -276,18 +276,18 @@ async def asyncio_detailed(
     Operator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):
-        order_column (Union[Unset, ERepositoryStatesFiltersOrderColumn]): Orders repositories by
-            the specified column.
-        order_asc (Union[Unset, bool]):
-        id_filter (Union[Unset, UUID]):
-        name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, ERepositoryType]): Repository type.
-        capacity_filter (Union[Unset, float]):
-        free_space_filter (Union[Unset, float]):
-        used_space_filter (Union[Unset, float]):
-        is_online_filter (Union[Unset, bool]):
+        skip (int | Unset):
+        limit (int | Unset):
+        order_column (ERepositoryStatesFiltersOrderColumn | Unset): Orders repositories by the
+            specified column.
+        order_asc (bool | Unset):
+        id_filter (UUID | Unset):
+        name_filter (str | Unset):
+        type_filter (ERepositoryType | Unset): Repository type.
+        capacity_filter (float | Unset):
+        free_space_filter (float | Unset):
+        used_space_filter (float | Unset):
+        is_online_filter (bool | Unset):
         x_api_version (str):  Default: '1.2-rev1'.
 
     Raises:
@@ -295,7 +295,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, RepositoryStatesResult]]
+        Response[Error | RepositoryStatesResult]
     """
 
     kwargs = _get_kwargs(
@@ -320,20 +320,20 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = UNSET,
-    order_column: Union[Unset, ERepositoryStatesFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    id_filter: Union[Unset, UUID] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, ERepositoryType] = UNSET,
-    capacity_filter: Union[Unset, float] = UNSET,
-    free_space_filter: Union[Unset, float] = UNSET,
-    used_space_filter: Union[Unset, float] = UNSET,
-    is_online_filter: Union[Unset, bool] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = UNSET,
+    order_column: ERepositoryStatesFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    id_filter: UUID | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: ERepositoryType | Unset = UNSET,
+    capacity_filter: float | Unset = UNSET,
+    free_space_filter: float | Unset = UNSET,
+    used_space_filter: float | Unset = UNSET,
+    is_online_filter: bool | Unset = UNSET,
     x_api_version: str = "1.2-rev1",
-) -> Optional[Union[Error, RepositoryStatesResult]]:
+) -> Error | RepositoryStatesResult | None:
     """Get All Repository States
 
      The HTTP GET request to the `/api/v1/backupInfrastructure/repositories/states` path allows you to
@@ -343,18 +343,18 @@ async def asyncio(
     Operator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):
-        order_column (Union[Unset, ERepositoryStatesFiltersOrderColumn]): Orders repositories by
-            the specified column.
-        order_asc (Union[Unset, bool]):
-        id_filter (Union[Unset, UUID]):
-        name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, ERepositoryType]): Repository type.
-        capacity_filter (Union[Unset, float]):
-        free_space_filter (Union[Unset, float]):
-        used_space_filter (Union[Unset, float]):
-        is_online_filter (Union[Unset, bool]):
+        skip (int | Unset):
+        limit (int | Unset):
+        order_column (ERepositoryStatesFiltersOrderColumn | Unset): Orders repositories by the
+            specified column.
+        order_asc (bool | Unset):
+        id_filter (UUID | Unset):
+        name_filter (str | Unset):
+        type_filter (ERepositoryType | Unset): Repository type.
+        capacity_filter (float | Unset):
+        free_space_filter (float | Unset):
+        used_space_filter (float | Unset):
+        is_online_filter (bool | Unset):
         x_api_version (str):  Default: '1.2-rev1'.
 
     Raises:
@@ -362,7 +362,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, RepositoryStatesResult]
+        Error | RepositoryStatesResult
     """
 
     return (

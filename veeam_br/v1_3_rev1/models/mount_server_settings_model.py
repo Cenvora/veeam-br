@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -22,14 +24,13 @@ class MountServerSettingsModel:
         mount_server_id (UUID): ID of the mount server.
         write_cache_folder (str): Path to the folder used for writing cache during mount operations.
         v_power_nfs_enabled (bool): If `true`, the vPower NFS Service is enabled on the mount server.
-        v_power_nfs_port_settings (Union[Unset, VPowerNFSPortSettingsModel]): Network ports used by the vPower NFS
-            Service.
+        v_power_nfs_port_settings (VPowerNFSPortSettingsModel | Unset): Network ports used by the vPower NFS Service.
     """
 
     mount_server_id: UUID
     write_cache_folder: str
     v_power_nfs_enabled: bool
-    v_power_nfs_port_settings: Union[Unset, "VPowerNFSPortSettingsModel"] = UNSET
+    v_power_nfs_port_settings: VPowerNFSPortSettingsModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -39,7 +40,7 @@ class MountServerSettingsModel:
 
         v_power_nfs_enabled = self.v_power_nfs_enabled
 
-        v_power_nfs_port_settings: Union[Unset, dict[str, Any]] = UNSET
+        v_power_nfs_port_settings: dict[str, Any] | Unset = UNSET
         if not isinstance(self.v_power_nfs_port_settings, Unset):
             v_power_nfs_port_settings = self.v_power_nfs_port_settings.to_dict()
 
@@ -69,7 +70,7 @@ class MountServerSettingsModel:
         v_power_nfs_enabled = d.pop("vPowerNFSEnabled")
 
         _v_power_nfs_port_settings = d.pop("vPowerNFSPortSettings", UNSET)
-        v_power_nfs_port_settings: Union[Unset, VPowerNFSPortSettingsModel]
+        v_power_nfs_port_settings: VPowerNFSPortSettingsModel | Unset
         if isinstance(_v_power_nfs_port_settings, Unset):
             v_power_nfs_port_settings = UNSET
         else:

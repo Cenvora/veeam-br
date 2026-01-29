@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -17,17 +19,17 @@ class BackupLogShippingServersModel:
     Attributes:
         auto_selection (bool): If `true`, Veeam Backup & Replication chooses an optimal log shipping server
             automatically.
-        shipping_server_ids (Union[Unset, list[UUID]]): Array of servers that are explicitly selected for log shipping.
+        shipping_server_ids (list[UUID] | Unset): Array of servers that are explicitly selected for log shipping.
     """
 
     auto_selection: bool
-    shipping_server_ids: Union[Unset, list[UUID]] = UNSET
+    shipping_server_ids: list[UUID] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         auto_selection = self.auto_selection
 
-        shipping_server_ids: Union[Unset, list[str]] = UNSET
+        shipping_server_ids: list[str] | Unset = UNSET
         if not isinstance(self.shipping_server_ids, Unset):
             shipping_server_ids = []
             for shipping_server_ids_item_data in self.shipping_server_ids:
@@ -51,12 +53,14 @@ class BackupLogShippingServersModel:
         d = dict(src_dict)
         auto_selection = d.pop("autoSelection")
 
-        shipping_server_ids = []
         _shipping_server_ids = d.pop("shippingServerIds", UNSET)
-        for shipping_server_ids_item_data in _shipping_server_ids or []:
-            shipping_server_ids_item = UUID(shipping_server_ids_item_data)
+        shipping_server_ids: list[UUID] | Unset = UNSET
+        if _shipping_server_ids is not UNSET:
+            shipping_server_ids = []
+            for shipping_server_ids_item_data in _shipping_server_ids:
+                shipping_server_ids_item = UUID(shipping_server_ids_item_data)
 
-            shipping_server_ids.append(shipping_server_ids_item)
+                shipping_server_ids.append(shipping_server_ids_item)
 
         backup_log_shipping_servers_model = cls(
             auto_selection=auto_selection,

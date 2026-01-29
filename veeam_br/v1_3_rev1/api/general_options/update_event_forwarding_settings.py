@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -32,8 +32,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, GeneralOptionsEventForwardingModel]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Error | GeneralOptionsEventForwardingModel | None:
     if response.status_code == 200:
         response_200 = GeneralOptionsEventForwardingModel.from_dict(response.json())
 
@@ -71,8 +71,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, GeneralOptionsEventForwardingModel]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | GeneralOptionsEventForwardingModel]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -83,10 +83,10 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: GeneralOptionsEventForwardingModel,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Error, GeneralOptionsEventForwardingModel]]:
+) -> Response[Error | GeneralOptionsEventForwardingModel]:
     """Edit Event Forwarding Settings
 
      The HTTP PUT request to the `/api/v1/generalOptions/eventForwarding` endpoint edits Veeam Backup &
@@ -101,7 +101,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, GeneralOptionsEventForwardingModel]]
+        Response[Error | GeneralOptionsEventForwardingModel]
     """
 
     kwargs = _get_kwargs(
@@ -118,10 +118,10 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: GeneralOptionsEventForwardingModel,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Error, GeneralOptionsEventForwardingModel]]:
+) -> Error | GeneralOptionsEventForwardingModel | None:
     """Edit Event Forwarding Settings
 
      The HTTP PUT request to the `/api/v1/generalOptions/eventForwarding` endpoint edits Veeam Backup &
@@ -136,7 +136,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, GeneralOptionsEventForwardingModel]
+        Error | GeneralOptionsEventForwardingModel
     """
 
     return sync_detailed(
@@ -148,10 +148,10 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: GeneralOptionsEventForwardingModel,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Error, GeneralOptionsEventForwardingModel]]:
+) -> Response[Error | GeneralOptionsEventForwardingModel]:
     """Edit Event Forwarding Settings
 
      The HTTP PUT request to the `/api/v1/generalOptions/eventForwarding` endpoint edits Veeam Backup &
@@ -166,7 +166,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, GeneralOptionsEventForwardingModel]]
+        Response[Error | GeneralOptionsEventForwardingModel]
     """
 
     kwargs = _get_kwargs(
@@ -181,10 +181,10 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: GeneralOptionsEventForwardingModel,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Error, GeneralOptionsEventForwardingModel]]:
+) -> Error | GeneralOptionsEventForwardingModel | None:
     """Edit Event Forwarding Settings
 
      The HTTP PUT request to the `/api/v1/generalOptions/eventForwarding` endpoint edits Veeam Backup &
@@ -199,7 +199,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, GeneralOptionsEventForwardingModel]
+        Error | GeneralOptionsEventForwardingModel
     """
 
     return (

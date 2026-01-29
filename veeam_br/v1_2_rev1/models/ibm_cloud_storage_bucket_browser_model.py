@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -13,18 +15,18 @@ T = TypeVar("T", bound="IBMCloudStorageBucketBrowserModel")
 class IBMCloudStorageBucketBrowserModel:
     """
     Attributes:
-        name (Union[Unset, str]): Bucket name.
-        folders (Union[Unset, list[str]]): Array of folders located in the bucket.
+        name (str | Unset): Bucket name.
+        folders (list[str] | Unset): Array of folders located in the bucket.
     """
 
-    name: Union[Unset, str] = UNSET
-    folders: Union[Unset, list[str]] = UNSET
+    name: str | Unset = UNSET
+    folders: list[str] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         name = self.name
 
-        folders: Union[Unset, list[str]] = UNSET
+        folders: list[str] | Unset = UNSET
         if not isinstance(self.folders, Unset):
             folders = self.folders
 

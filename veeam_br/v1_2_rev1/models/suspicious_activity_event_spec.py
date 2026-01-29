@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
@@ -29,7 +31,7 @@ class SuspiciousActivityEventSpec:
     """
 
     detection_time_utc: datetime.datetime
-    machine: "SuspiciousActivityMachineSpec"
+    machine: SuspiciousActivityMachineSpec
     details: str
     engine: str
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)

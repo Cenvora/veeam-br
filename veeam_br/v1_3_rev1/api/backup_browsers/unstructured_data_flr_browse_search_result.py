@@ -1,5 +1,6 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
@@ -24,7 +25,10 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": f"/api/v1/backupBrowser/flr/unstructuredData/{session_id}/search/{task_id}/browse",
+        "url": "/api/v1/backupBrowser/flr/unstructuredData/{session_id}/search/{task_id}/browse".format(
+            session_id=quote(str(session_id), safe=""),
+            task_id=quote(str(task_id), safe=""),
+        ),
     }
 
     _kwargs["json"] = body.to_dict()
@@ -36,8 +40,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, FlrSearchForResultModel]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Error | FlrSearchForResultModel | None:
     if response.status_code == 200:
         response_200 = FlrSearchForResultModel.from_dict(response.json())
 
@@ -70,8 +74,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, FlrSearchForResultModel]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | FlrSearchForResultModel]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -84,10 +88,10 @@ def sync_detailed(
     session_id: UUID,
     task_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: FlrSearchForResultSpec,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Error, FlrSearchForResultModel]]:
+) -> Response[Error | FlrSearchForResultModel]:
     """Browse Search Results in Unstructured Data Mount Point
 
      The HTTP POST request to the
@@ -106,7 +110,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, FlrSearchForResultModel]]
+        Response[Error | FlrSearchForResultModel]
     """
 
     kwargs = _get_kwargs(
@@ -127,10 +131,10 @@ def sync(
     session_id: UUID,
     task_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: FlrSearchForResultSpec,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Error, FlrSearchForResultModel]]:
+) -> Error | FlrSearchForResultModel | None:
     """Browse Search Results in Unstructured Data Mount Point
 
      The HTTP POST request to the
@@ -149,7 +153,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, FlrSearchForResultModel]
+        Error | FlrSearchForResultModel
     """
 
     return sync_detailed(
@@ -165,10 +169,10 @@ async def asyncio_detailed(
     session_id: UUID,
     task_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: FlrSearchForResultSpec,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Error, FlrSearchForResultModel]]:
+) -> Response[Error | FlrSearchForResultModel]:
     """Browse Search Results in Unstructured Data Mount Point
 
      The HTTP POST request to the
@@ -187,7 +191,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, FlrSearchForResultModel]]
+        Response[Error | FlrSearchForResultModel]
     """
 
     kwargs = _get_kwargs(
@@ -206,10 +210,10 @@ async def asyncio(
     session_id: UUID,
     task_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: FlrSearchForResultSpec,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Error, FlrSearchForResultModel]]:
+) -> Error | FlrSearchForResultModel | None:
     """Browse Search Results in Unstructured Data Mount Point
 
      The HTTP POST request to the
@@ -228,7 +232,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, FlrSearchForResultModel]
+        Error | FlrSearchForResultModel
     """
 
     return (

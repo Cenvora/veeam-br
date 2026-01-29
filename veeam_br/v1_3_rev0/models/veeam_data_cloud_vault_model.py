@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -16,16 +18,16 @@ class VeeamDataCloudVaultModel:
     Attributes:
         vault_id (str): Vault ID.
         is_initialized (bool): If `true`, you have obtained a vault and assigned it to your backup server.
-        vault_name (Union[Unset, str]): Vault repository name.
-        storage_container_name (Union[Unset, str]): Storage container name.
-        folders (Union[Unset, list[str]]): Array of folders located in Veeam Data Cloud Vault.
+        vault_name (str | Unset): Vault repository name.
+        storage_container_name (str | Unset): Storage container name.
+        folders (list[str] | Unset): Array of folders located in Veeam Data Cloud Vault.
     """
 
     vault_id: str
     is_initialized: bool
-    vault_name: Union[Unset, str] = UNSET
-    storage_container_name: Union[Unset, str] = UNSET
-    folders: Union[Unset, list[str]] = UNSET
+    vault_name: str | Unset = UNSET
+    storage_container_name: str | Unset = UNSET
+    folders: list[str] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -37,7 +39,7 @@ class VeeamDataCloudVaultModel:
 
         storage_container_name = self.storage_container_name
 
-        folders: Union[Unset, list[str]] = UNSET
+        folders: list[str] | Unset = UNSET
         if not isinstance(self.folders, Unset):
             folders = self.folders
 

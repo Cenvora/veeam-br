@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -7,9 +9,8 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.hyper_v_linux_flr_helper_appliance_resource_model import HyperVLinuxFlrHelperApplianceResourceModel
     from ..models.ip_settings_model import IpSettingsModel
-    from ..models.vmware_linux_flr_helper_appliance_resource_model import VmwareLinuxFlrHelperApplianceResourceModel
+    from ..models.linux_flr_helper_appliance_resource_model import LinuxFlrHelperApplianceResourceModel
 
 
 T = TypeVar("T", bound="LinuxFlrHelperApplianceSpec")
@@ -20,35 +21,25 @@ class LinuxFlrHelperApplianceSpec:
     """Helper appliance settings. Use this option if you want to mount the file system to a temporary helper appliance.
 
     Attributes:
-        platform_resource_settings (Union['HyperVLinuxFlrHelperApplianceResourceModel',
-            'VmwareLinuxFlrHelperApplianceResourceModel', Unset]): Helper appliance location.
-        network_settings (Union[Unset, IpSettingsModel]): IP addressing settings for the helper appliance and DNS
-            server.
-        ftp_server_enabled (Union[Unset, bool]): If `true`, FTP access to the restored file system is enabled.
-        restore_from_nss (Union[Unset, bool]): If `true`, the file system of the original machine is Novell Storage
-            Services (NSS).
+        platform_resource_settings (LinuxFlrHelperApplianceResourceModel | Unset): Helper appliance location.
+        network_settings (IpSettingsModel | Unset): IP addressing settings for the helper appliance and DNS server.
+        ftp_server_enabled (bool | Unset): If `true`, FTP access to the restored file system is enabled.
+        restore_from_nss (bool | Unset): If `true`, the file system of the original machine is Novell Storage Services
+            (NSS).
     """
 
-    platform_resource_settings: Union[
-        "HyperVLinuxFlrHelperApplianceResourceModel", "VmwareLinuxFlrHelperApplianceResourceModel", Unset
-    ] = UNSET
-    network_settings: Union[Unset, "IpSettingsModel"] = UNSET
-    ftp_server_enabled: Union[Unset, bool] = UNSET
-    restore_from_nss: Union[Unset, bool] = UNSET
+    platform_resource_settings: LinuxFlrHelperApplianceResourceModel | Unset = UNSET
+    network_settings: IpSettingsModel | Unset = UNSET
+    ftp_server_enabled: bool | Unset = UNSET
+    restore_from_nss: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.vmware_linux_flr_helper_appliance_resource_model import VmwareLinuxFlrHelperApplianceResourceModel
-
-        platform_resource_settings: Union[Unset, dict[str, Any]]
-        if isinstance(self.platform_resource_settings, Unset):
-            platform_resource_settings = UNSET
-        elif isinstance(self.platform_resource_settings, VmwareLinuxFlrHelperApplianceResourceModel):
-            platform_resource_settings = self.platform_resource_settings.to_dict()
-        else:
+        platform_resource_settings: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.platform_resource_settings, Unset):
             platform_resource_settings = self.platform_resource_settings.to_dict()
 
-        network_settings: Union[Unset, dict[str, Any]] = UNSET
+        network_settings: dict[str, Any] | Unset = UNSET
         if not isinstance(self.network_settings, Unset):
             network_settings = self.network_settings.to_dict()
 
@@ -72,41 +63,19 @@ class LinuxFlrHelperApplianceSpec:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.hyper_v_linux_flr_helper_appliance_resource_model import (
-            HyperVLinuxFlrHelperApplianceResourceModel,
-        )
         from ..models.ip_settings_model import IpSettingsModel
-        from ..models.vmware_linux_flr_helper_appliance_resource_model import VmwareLinuxFlrHelperApplianceResourceModel
+        from ..models.linux_flr_helper_appliance_resource_model import LinuxFlrHelperApplianceResourceModel
 
         d = dict(src_dict)
-
-        def _parse_platform_resource_settings(
-            data: object,
-        ) -> Union["HyperVLinuxFlrHelperApplianceResourceModel", "VmwareLinuxFlrHelperApplianceResourceModel", Unset]:
-            if isinstance(data, Unset):
-                return data
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_linux_flr_helper_appliance_resource_model_type_0 = (
-                    VmwareLinuxFlrHelperApplianceResourceModel.from_dict(data)
-                )
-
-                return componentsschemas_linux_flr_helper_appliance_resource_model_type_0
-            except:  # noqa: E722
-                pass
-            if not isinstance(data, dict):
-                raise TypeError()
-            componentsschemas_linux_flr_helper_appliance_resource_model_type_1 = (
-                HyperVLinuxFlrHelperApplianceResourceModel.from_dict(data)
-            )
-
-            return componentsschemas_linux_flr_helper_appliance_resource_model_type_1
-
-        platform_resource_settings = _parse_platform_resource_settings(d.pop("platformResourceSettings", UNSET))
+        _platform_resource_settings = d.pop("platformResourceSettings", UNSET)
+        platform_resource_settings: LinuxFlrHelperApplianceResourceModel | Unset
+        if isinstance(_platform_resource_settings, Unset):
+            platform_resource_settings = UNSET
+        else:
+            platform_resource_settings = LinuxFlrHelperApplianceResourceModel.from_dict(_platform_resource_settings)
 
         _network_settings = d.pop("networkSettings", UNSET)
-        network_settings: Union[Unset, IpSettingsModel]
+        network_settings: IpSettingsModel | Unset
         if isinstance(_network_settings, Unset):
             network_settings = UNSET
         else:

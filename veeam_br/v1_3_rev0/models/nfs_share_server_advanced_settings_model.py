@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,20 +17,20 @@ class NFSShareServerAdvancedSettingsModel:
     r"""Advanced settings for NFS share.
 
     Attributes:
-        processing_mode (Union[Unset, ENFSShareServerProcessingMode]): Processing mode for NFS share.
-        direct_backup_failover_enabled (Union[Unset, bool]): If `true`, Veeam Backup & Replication will read data for
-            backup directly from the file share when the snapshot is unavailable. Otherwise, the file backup job will fail.
-        storage_snapshot_path (Union[Unset, str]): Path in the `\\<server>\<snapshotfolder>\<snapshotname>` format to
-            the snapshot stored on the SMB file share.
+        processing_mode (ENFSShareServerProcessingMode | Unset): Processing mode for NFS share.
+        direct_backup_failover_enabled (bool | Unset): If `true`, Veeam Backup & Replication will read data for backup
+            directly from the file share when the snapshot is unavailable. Otherwise, the file backup job will fail.
+        storage_snapshot_path (str | Unset): Path in the `\\<server>\<snapshotfolder>\<snapshotname>` format to the
+            snapshot stored on the SMB file share.
     """
 
-    processing_mode: Union[Unset, ENFSShareServerProcessingMode] = UNSET
-    direct_backup_failover_enabled: Union[Unset, bool] = UNSET
-    storage_snapshot_path: Union[Unset, str] = UNSET
+    processing_mode: ENFSShareServerProcessingMode | Unset = UNSET
+    direct_backup_failover_enabled: bool | Unset = UNSET
+    storage_snapshot_path: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        processing_mode: Union[Unset, str] = UNSET
+        processing_mode: str | Unset = UNSET
         if not isinstance(self.processing_mode, Unset):
             processing_mode = self.processing_mode.value
 
@@ -52,7 +54,7 @@ class NFSShareServerAdvancedSettingsModel:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _processing_mode = d.pop("processingMode", UNSET)
-        processing_mode: Union[Unset, ENFSShareServerProcessingMode]
+        processing_mode: ENFSShareServerProcessingMode | Unset
         if isinstance(_processing_mode, Unset):
             processing_mode = UNSET
         else:

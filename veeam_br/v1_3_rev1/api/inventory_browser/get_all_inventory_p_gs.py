@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -7,12 +7,13 @@ from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.error import Error
 from ...models.inventory_browser_filters import InventoryBrowserFilters
-from ...types import Response
+from ...models.physical_inventory_browser_result import PhysicalInventoryBrowserResult
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     *,
-    body: InventoryBrowserFilters,
+    body: InventoryBrowserFilters | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -23,7 +24,8 @@ def _get_kwargs(
         "url": "/api/v1/inventory/physical",
     }
 
-    _kwargs["json"] = body.to_dict()
+    if not isinstance(body, Unset):
+        _kwargs["json"] = body.to_dict()
 
     headers["Content-Type"] = "application/json"
 
@@ -31,7 +33,14 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Error]:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Error | PhysicalInventoryBrowserResult | None:
+    if response.status_code == 200:
+        response_200 = PhysicalInventoryBrowserResult.from_dict(response.json())
+
+        return response_200
+
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
 
@@ -53,7 +62,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Error]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | PhysicalInventoryBrowserResult]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -64,10 +75,10 @@ def _build_response(*, client: Union[AuthenticatedClient, Client], response: htt
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: InventoryBrowserFilters,
+    client: AuthenticatedClient | Client,
+    body: InventoryBrowserFilters | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Response[Error]:
+) -> Response[Error | PhysicalInventoryBrowserResult]:
     r"""Get All Protection Groups
 
      The HTTP POST request to the `/api/v1/inventory/physical` endpoint gets an array of computers added
@@ -78,14 +89,14 @@ def sync_detailed(
 
     Args:
         x_api_version (str):  Default: '1.3-rev1'.
-        body (InventoryBrowserFilters):
+        body (InventoryBrowserFilters | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error]
+        Response[Error | PhysicalInventoryBrowserResult]
     """
 
     kwargs = _get_kwargs(
@@ -102,10 +113,10 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: InventoryBrowserFilters,
+    client: AuthenticatedClient | Client,
+    body: InventoryBrowserFilters | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Error]:
+) -> Error | PhysicalInventoryBrowserResult | None:
     r"""Get All Protection Groups
 
      The HTTP POST request to the `/api/v1/inventory/physical` endpoint gets an array of computers added
@@ -116,14 +127,14 @@ def sync(
 
     Args:
         x_api_version (str):  Default: '1.3-rev1'.
-        body (InventoryBrowserFilters):
+        body (InventoryBrowserFilters | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error
+        Error | PhysicalInventoryBrowserResult
     """
 
     return sync_detailed(
@@ -135,10 +146,10 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: InventoryBrowserFilters,
+    client: AuthenticatedClient | Client,
+    body: InventoryBrowserFilters | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Response[Error]:
+) -> Response[Error | PhysicalInventoryBrowserResult]:
     r"""Get All Protection Groups
 
      The HTTP POST request to the `/api/v1/inventory/physical` endpoint gets an array of computers added
@@ -149,14 +160,14 @@ async def asyncio_detailed(
 
     Args:
         x_api_version (str):  Default: '1.3-rev1'.
-        body (InventoryBrowserFilters):
+        body (InventoryBrowserFilters | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error]
+        Response[Error | PhysicalInventoryBrowserResult]
     """
 
     kwargs = _get_kwargs(
@@ -171,10 +182,10 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: InventoryBrowserFilters,
+    client: AuthenticatedClient | Client,
+    body: InventoryBrowserFilters | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Error]:
+) -> Error | PhysicalInventoryBrowserResult | None:
     r"""Get All Protection Groups
 
      The HTTP POST request to the `/api/v1/inventory/physical` endpoint gets an array of computers added
@@ -185,14 +196,14 @@ async def asyncio(
 
     Args:
         x_api_version (str):  Default: '1.3-rev1'.
-        body (InventoryBrowserFilters):
+        body (InventoryBrowserFilters | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error
+        Error | PhysicalInventoryBrowserResult
     """
 
     return (

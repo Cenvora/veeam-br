@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,12 +16,12 @@ class AmazonS3IAStorageModel:
     """Standard Infrequent Access.
 
     Attributes:
-        is_enabled (Union[Unset, bool]): If `true`, Standard Infrequent Access is enabled.
-        single_zone_enabled (Union[Unset, bool]): If `true`, Amazon S3 One Zone-Infrequent Access is enabled.
+        is_enabled (bool | Unset): If `true`, Standard Infrequent Access is enabled.
+        single_zone_enabled (bool | Unset): If `true`, Amazon S3 One Zone-Infrequent Access is enabled.
     """
 
-    is_enabled: Union[Unset, bool] = UNSET
-    single_zone_enabled: Union[Unset, bool] = UNSET
+    is_enabled: bool | Unset = UNSET
+    single_zone_enabled: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -22,26 +24,26 @@ class UnstructuredDataBackupJobArchiveRepositoryModel:
     """Archive repository settings for unstructured data backup job.
 
     Attributes:
-        archive_repository_id (Union[Unset, UUID]): Archive repository ID.
-        archive_recent_file_versions (Union[Unset, bool]): If `true`, a copy of the data stored in the backup repository
-            will also be stored in the archive repository.
-        archive_previous_file_versions (Union[Unset, bool]): If `true`, Veeam Backup & Replication will archive previous
-            file versions.
-        archive_retention_policy (Union[Unset, UnstructuredDataArchiveRetentionPolicySettingsModel]): Retention policy
+        archive_repository_id (UUID | Unset): Archive repository ID.
+        archive_recent_file_versions (bool | Unset): If `true`, a copy of the data stored in the backup repository will
+            also be stored in the archive repository.
+        archive_previous_file_versions (bool | Unset): If `true`, Veeam Backup & Replication will archive previous file
+            versions.
+        archive_retention_policy (UnstructuredDataArchiveRetentionPolicySettingsModel | Unset): Retention policy
             settings.
-        file_archive_settings (Union[Unset, UnstructuredDataArchiveSettingsModel]): Archive settings for unstructured
-            data backup jobs.
+        file_archive_settings (UnstructuredDataArchiveSettingsModel | Unset): Archive settings for unstructured data
+            backup jobs.
     """
 
-    archive_repository_id: Union[Unset, UUID] = UNSET
-    archive_recent_file_versions: Union[Unset, bool] = UNSET
-    archive_previous_file_versions: Union[Unset, bool] = UNSET
-    archive_retention_policy: Union[Unset, "UnstructuredDataArchiveRetentionPolicySettingsModel"] = UNSET
-    file_archive_settings: Union[Unset, "UnstructuredDataArchiveSettingsModel"] = UNSET
+    archive_repository_id: UUID | Unset = UNSET
+    archive_recent_file_versions: bool | Unset = UNSET
+    archive_previous_file_versions: bool | Unset = UNSET
+    archive_retention_policy: UnstructuredDataArchiveRetentionPolicySettingsModel | Unset = UNSET
+    file_archive_settings: UnstructuredDataArchiveSettingsModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        archive_repository_id: Union[Unset, str] = UNSET
+        archive_repository_id: str | Unset = UNSET
         if not isinstance(self.archive_repository_id, Unset):
             archive_repository_id = str(self.archive_repository_id)
 
@@ -49,11 +51,11 @@ class UnstructuredDataBackupJobArchiveRepositoryModel:
 
         archive_previous_file_versions = self.archive_previous_file_versions
 
-        archive_retention_policy: Union[Unset, dict[str, Any]] = UNSET
+        archive_retention_policy: dict[str, Any] | Unset = UNSET
         if not isinstance(self.archive_retention_policy, Unset):
             archive_retention_policy = self.archive_retention_policy.to_dict()
 
-        file_archive_settings: Union[Unset, dict[str, Any]] = UNSET
+        file_archive_settings: dict[str, Any] | Unset = UNSET
         if not isinstance(self.file_archive_settings, Unset):
             file_archive_settings = self.file_archive_settings.to_dict()
 
@@ -82,7 +84,7 @@ class UnstructuredDataBackupJobArchiveRepositoryModel:
 
         d = dict(src_dict)
         _archive_repository_id = d.pop("archiveRepositoryId", UNSET)
-        archive_repository_id: Union[Unset, UUID]
+        archive_repository_id: UUID | Unset
         if isinstance(_archive_repository_id, Unset):
             archive_repository_id = UNSET
         else:
@@ -93,7 +95,7 @@ class UnstructuredDataBackupJobArchiveRepositoryModel:
         archive_previous_file_versions = d.pop("archivePreviousFileVersions", UNSET)
 
         _archive_retention_policy = d.pop("archiveRetentionPolicy", UNSET)
-        archive_retention_policy: Union[Unset, UnstructuredDataArchiveRetentionPolicySettingsModel]
+        archive_retention_policy: UnstructuredDataArchiveRetentionPolicySettingsModel | Unset
         if isinstance(_archive_retention_policy, Unset):
             archive_retention_policy = UNSET
         else:
@@ -102,7 +104,7 @@ class UnstructuredDataBackupJobArchiveRepositoryModel:
             )
 
         _file_archive_settings = d.pop("fileArchiveSettings", UNSET)
-        file_archive_settings: Union[Unset, UnstructuredDataArchiveSettingsModel]
+        file_archive_settings: UnstructuredDataArchiveSettingsModel | Unset
         if isinstance(_file_archive_settings, Unset):
             file_archive_settings = UNSET
         else:

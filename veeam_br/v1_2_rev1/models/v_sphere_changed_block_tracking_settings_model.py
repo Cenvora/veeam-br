@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,15 +17,15 @@ class VSphereChangedBlockTrackingSettingsModel:
 
     Attributes:
         is_enabled (bool): If `true`, CBT data is used.
-        enable_cb_tautomatically (Union[Unset, bool]): If `true`, CBT is enabled for all processed VMs even if CBT is
-            disabled in VM configuration. CBT is used for VMs with virtual hardware version 7 or later. These VMs must not
-            have existing snapshots.
-        reset_cb_ton_active_full (Union[Unset, bool]): If `true`, CBT is reset before creating active full backups.
+        enable_cb_tautomatically (bool | Unset): If `true`, CBT is enabled for all processed VMs even if CBT is disabled
+            in VM configuration. CBT is used for VMs with virtual hardware version 7 or later. These VMs must not have
+            existing snapshots.
+        reset_cb_ton_active_full (bool | Unset): If `true`, CBT is reset before creating active full backups.
     """
 
     is_enabled: bool
-    enable_cb_tautomatically: Union[Unset, bool] = UNSET
-    reset_cb_ton_active_full: Union[Unset, bool] = UNSET
+    enable_cb_tautomatically: bool | Unset = UNSET
+    reset_cb_ton_active_full: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

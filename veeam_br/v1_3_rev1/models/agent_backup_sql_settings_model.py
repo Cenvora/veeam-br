@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -18,21 +20,21 @@ class AgentBackupSQLSettingsModel:
 
     Attributes:
         logs_processing (ESQLLogsProcessing): Type of transaction logs processing.
-        use_guest_credentials (Union[Unset, bool]): If `true`, Veeam Backup & Replication uses credentials specified in
-            the guest processing settings.
-        credentials_id (Union[Unset, UUID]): Credentials ID.
-        backup_mins_count (Union[Unset, int]): Frequency of transaction log backup, in minutes.
-        retain_log_backups (Union[Unset, ERetainLogBackupsType]): Retention policy for the logs stored in the backup
+        use_guest_credentials (bool | Unset): If `true`, Veeam Backup & Replication uses credentials specified in the
+            guest processing settings.
+        credentials_id (UUID | Unset): Credentials ID.
+        backup_mins_count (int | Unset): Frequency of transaction log backup, in minutes.
+        retain_log_backups (ERetainLogBackupsType | Unset): Retention policy for the logs stored in the backup
             repository.
-        keep_days_count (Union[Unset, int]): Number of days to keep transaction logs in the backup repository.
+        keep_days_count (int | Unset): Number of days to keep transaction logs in the backup repository.
     """
 
     logs_processing: ESQLLogsProcessing
-    use_guest_credentials: Union[Unset, bool] = UNSET
-    credentials_id: Union[Unset, UUID] = UNSET
-    backup_mins_count: Union[Unset, int] = UNSET
-    retain_log_backups: Union[Unset, ERetainLogBackupsType] = UNSET
-    keep_days_count: Union[Unset, int] = UNSET
+    use_guest_credentials: bool | Unset = UNSET
+    credentials_id: UUID | Unset = UNSET
+    backup_mins_count: int | Unset = UNSET
+    retain_log_backups: ERetainLogBackupsType | Unset = UNSET
+    keep_days_count: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -40,13 +42,13 @@ class AgentBackupSQLSettingsModel:
 
         use_guest_credentials = self.use_guest_credentials
 
-        credentials_id: Union[Unset, str] = UNSET
+        credentials_id: str | Unset = UNSET
         if not isinstance(self.credentials_id, Unset):
             credentials_id = str(self.credentials_id)
 
         backup_mins_count = self.backup_mins_count
 
-        retain_log_backups: Union[Unset, str] = UNSET
+        retain_log_backups: str | Unset = UNSET
         if not isinstance(self.retain_log_backups, Unset):
             retain_log_backups = self.retain_log_backups.value
 
@@ -80,7 +82,7 @@ class AgentBackupSQLSettingsModel:
         use_guest_credentials = d.pop("useGuestCredentials", UNSET)
 
         _credentials_id = d.pop("credentialsId", UNSET)
-        credentials_id: Union[Unset, UUID]
+        credentials_id: UUID | Unset
         if isinstance(_credentials_id, Unset):
             credentials_id = UNSET
         else:
@@ -89,7 +91,7 @@ class AgentBackupSQLSettingsModel:
         backup_mins_count = d.pop("backupMinsCount", UNSET)
 
         _retain_log_backups = d.pop("retainLogBackups", UNSET)
-        retain_log_backups: Union[Unset, ERetainLogBackupsType]
+        retain_log_backups: ERetainLogBackupsType | Unset
         if isinstance(_retain_log_backups, Unset):
             retain_log_backups = UNSET
         else:

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -21,14 +23,14 @@ class CapacityLicenseSummaryModel:
     Attributes:
         licensed_capacity_tb (float): Total capacity provided by the license in TB.
         used_capacity_tb (float): Amount of consumed capacity in TB.
-        objects (Union[Unset, list['CapacityLicenseObjectModel']]): Array of unstructured data sources.
-        workload (Union[Unset, list['CapacityLicenseWorkloadModel']]): Array of unstructured data workloads.
+        objects (list[CapacityLicenseObjectModel] | Unset): Array of unstructured data sources.
+        workload (list[CapacityLicenseWorkloadModel] | Unset): Array of unstructured data workloads.
     """
 
     licensed_capacity_tb: float
     used_capacity_tb: float
-    objects: Union[Unset, list["CapacityLicenseObjectModel"]] = UNSET
-    workload: Union[Unset, list["CapacityLicenseWorkloadModel"]] = UNSET
+    objects: list[CapacityLicenseObjectModel] | Unset = UNSET
+    workload: list[CapacityLicenseWorkloadModel] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -36,14 +38,14 @@ class CapacityLicenseSummaryModel:
 
         used_capacity_tb = self.used_capacity_tb
 
-        objects: Union[Unset, list[dict[str, Any]]] = UNSET
+        objects: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.objects, Unset):
             objects = []
             for objects_item_data in self.objects:
                 objects_item = objects_item_data.to_dict()
                 objects.append(objects_item)
 
-        workload: Union[Unset, list[dict[str, Any]]] = UNSET
+        workload: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.workload, Unset):
             workload = []
             for workload_item_data in self.workload:
@@ -75,19 +77,23 @@ class CapacityLicenseSummaryModel:
 
         used_capacity_tb = d.pop("usedCapacityTb")
 
-        objects = []
         _objects = d.pop("objects", UNSET)
-        for objects_item_data in _objects or []:
-            objects_item = CapacityLicenseObjectModel.from_dict(objects_item_data)
+        objects: list[CapacityLicenseObjectModel] | Unset = UNSET
+        if _objects is not UNSET:
+            objects = []
+            for objects_item_data in _objects:
+                objects_item = CapacityLicenseObjectModel.from_dict(objects_item_data)
 
-            objects.append(objects_item)
+                objects.append(objects_item)
 
-        workload = []
         _workload = d.pop("workload", UNSET)
-        for workload_item_data in _workload or []:
-            workload_item = CapacityLicenseWorkloadModel.from_dict(workload_item_data)
+        workload: list[CapacityLicenseWorkloadModel] | Unset = UNSET
+        if _workload is not UNSET:
+            workload = []
+            for workload_item_data in _workload:
+                workload_item = CapacityLicenseWorkloadModel.from_dict(workload_item_data)
 
-            workload.append(workload_item)
+                workload.append(workload_item)
 
         capacity_license_summary_model = cls(
             licensed_capacity_tb=licensed_capacity_tb,

@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -27,26 +29,26 @@ class InstanceLicenseSummaryModel:
         new_instances_number (float): Number of new instances, consumed for the first time within the current calendar
             month. New instances are counted separately and do not consume licenses in the current month.
         rental_instances_number (float): Number of consumed instances.
-        objects (Union[Unset, list['InstanceLicenseObjectModel']]): Array of objects containing details on workloads
-            covered by instance licenses.
-        workload (Union[Unset, list['InstanceLicenseWorkloadModel']]): Array of protected workloads.
-        package (Union[Unset, ELicensePackageType]): License package.
-        promo_instances_number (Union[Unset, float]): Number of Promo instance licenses.
-        licensed_instances_promo_included_number (Union[Unset, float]): Number of licensed instances, including Promo
+        objects (list[InstanceLicenseObjectModel] | Unset): Array of objects containing details on workloads covered by
             instance licenses.
-        promo_expires_on (Union[Unset, datetime.datetime]): Expiration date for the Promo instance licenses.
+        workload (list[InstanceLicenseWorkloadModel] | Unset): Array of protected workloads.
+        package (ELicensePackageType | Unset): License package.
+        promo_instances_number (float | Unset): Number of Promo instance licenses.
+        licensed_instances_promo_included_number (float | Unset): Number of licensed instances, including Promo instance
+            licenses.
+        promo_expires_on (datetime.datetime | Unset): Expiration date for the Promo instance licenses.
     """
 
     licensed_instances_number: float
     used_instances_number: float
     new_instances_number: float
     rental_instances_number: float
-    objects: Union[Unset, list["InstanceLicenseObjectModel"]] = UNSET
-    workload: Union[Unset, list["InstanceLicenseWorkloadModel"]] = UNSET
-    package: Union[Unset, ELicensePackageType] = UNSET
-    promo_instances_number: Union[Unset, float] = UNSET
-    licensed_instances_promo_included_number: Union[Unset, float] = UNSET
-    promo_expires_on: Union[Unset, datetime.datetime] = UNSET
+    objects: list[InstanceLicenseObjectModel] | Unset = UNSET
+    workload: list[InstanceLicenseWorkloadModel] | Unset = UNSET
+    package: ELicensePackageType | Unset = UNSET
+    promo_instances_number: float | Unset = UNSET
+    licensed_instances_promo_included_number: float | Unset = UNSET
+    promo_expires_on: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -58,21 +60,21 @@ class InstanceLicenseSummaryModel:
 
         rental_instances_number = self.rental_instances_number
 
-        objects: Union[Unset, list[dict[str, Any]]] = UNSET
+        objects: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.objects, Unset):
             objects = []
             for objects_item_data in self.objects:
                 objects_item = objects_item_data.to_dict()
                 objects.append(objects_item)
 
-        workload: Union[Unset, list[dict[str, Any]]] = UNSET
+        workload: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.workload, Unset):
             workload = []
             for workload_item_data in self.workload:
                 workload_item = workload_item_data.to_dict()
                 workload.append(workload_item)
 
-        package: Union[Unset, str] = UNSET
+        package: str | Unset = UNSET
         if not isinstance(self.package, Unset):
             package = self.package.value
 
@@ -80,7 +82,7 @@ class InstanceLicenseSummaryModel:
 
         licensed_instances_promo_included_number = self.licensed_instances_promo_included_number
 
-        promo_expires_on: Union[Unset, str] = UNSET
+        promo_expires_on: str | Unset = UNSET
         if not isinstance(self.promo_expires_on, Unset):
             promo_expires_on = self.promo_expires_on.isoformat()
 
@@ -123,22 +125,26 @@ class InstanceLicenseSummaryModel:
 
         rental_instances_number = d.pop("rentalInstancesNumber")
 
-        objects = []
         _objects = d.pop("objects", UNSET)
-        for objects_item_data in _objects or []:
-            objects_item = InstanceLicenseObjectModel.from_dict(objects_item_data)
+        objects: list[InstanceLicenseObjectModel] | Unset = UNSET
+        if _objects is not UNSET:
+            objects = []
+            for objects_item_data in _objects:
+                objects_item = InstanceLicenseObjectModel.from_dict(objects_item_data)
 
-            objects.append(objects_item)
+                objects.append(objects_item)
 
-        workload = []
         _workload = d.pop("workload", UNSET)
-        for workload_item_data in _workload or []:
-            workload_item = InstanceLicenseWorkloadModel.from_dict(workload_item_data)
+        workload: list[InstanceLicenseWorkloadModel] | Unset = UNSET
+        if _workload is not UNSET:
+            workload = []
+            for workload_item_data in _workload:
+                workload_item = InstanceLicenseWorkloadModel.from_dict(workload_item_data)
 
-            workload.append(workload_item)
+                workload.append(workload_item)
 
         _package = d.pop("package", UNSET)
-        package: Union[Unset, ELicensePackageType]
+        package: ELicensePackageType | Unset
         if isinstance(_package, Unset):
             package = UNSET
         else:
@@ -149,7 +155,7 @@ class InstanceLicenseSummaryModel:
         licensed_instances_promo_included_number = d.pop("licensedInstancesPromoIncludedNumber", UNSET)
 
         _promo_expires_on = d.pop("promoExpiresOn", UNSET)
-        promo_expires_on: Union[Unset, datetime.datetime]
+        promo_expires_on: datetime.datetime | Unset
         if isinstance(_promo_expires_on, Unset):
             promo_expires_on = UNSET
         else:

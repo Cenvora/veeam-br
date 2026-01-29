@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -16,22 +18,22 @@ T = TypeVar("T", bound="ProxiesFilters")
 class ProxiesFilters:
     """
     Attributes:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):
-        order_column (Union[Unset, EProxiesFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, list[EProxyType]]):
-        host_id_filter (Union[Unset, UUID]):
+        skip (int | Unset):
+        limit (int | Unset):
+        order_column (EProxiesFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        type_filter (list[EProxyType] | Unset):
+        host_id_filter (UUID | Unset):
     """
 
-    skip: Union[Unset, int] = UNSET
-    limit: Union[Unset, int] = UNSET
-    order_column: Union[Unset, EProxiesFiltersOrderColumn] = UNSET
-    order_asc: Union[Unset, bool] = UNSET
-    name_filter: Union[Unset, str] = UNSET
-    type_filter: Union[Unset, list[EProxyType]] = UNSET
-    host_id_filter: Union[Unset, UUID] = UNSET
+    skip: int | Unset = UNSET
+    limit: int | Unset = UNSET
+    order_column: EProxiesFiltersOrderColumn | Unset = UNSET
+    order_asc: bool | Unset = UNSET
+    name_filter: str | Unset = UNSET
+    type_filter: list[EProxyType] | Unset = UNSET
+    host_id_filter: UUID | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -39,7 +41,7 @@ class ProxiesFilters:
 
         limit = self.limit
 
-        order_column: Union[Unset, str] = UNSET
+        order_column: str | Unset = UNSET
         if not isinstance(self.order_column, Unset):
             order_column = self.order_column.value
 
@@ -47,14 +49,14 @@ class ProxiesFilters:
 
         name_filter = self.name_filter
 
-        type_filter: Union[Unset, list[str]] = UNSET
+        type_filter: list[str] | Unset = UNSET
         if not isinstance(self.type_filter, Unset):
             type_filter = []
             for type_filter_item_data in self.type_filter:
                 type_filter_item = type_filter_item_data.value
                 type_filter.append(type_filter_item)
 
-        host_id_filter: Union[Unset, str] = UNSET
+        host_id_filter: str | Unset = UNSET
         if not isinstance(self.host_id_filter, Unset):
             host_id_filter = str(self.host_id_filter)
 
@@ -86,7 +88,7 @@ class ProxiesFilters:
         limit = d.pop("limit", UNSET)
 
         _order_column = d.pop("orderColumn", UNSET)
-        order_column: Union[Unset, EProxiesFiltersOrderColumn]
+        order_column: EProxiesFiltersOrderColumn | Unset
         if isinstance(_order_column, Unset):
             order_column = UNSET
         else:
@@ -96,15 +98,17 @@ class ProxiesFilters:
 
         name_filter = d.pop("nameFilter", UNSET)
 
-        type_filter = []
         _type_filter = d.pop("typeFilter", UNSET)
-        for type_filter_item_data in _type_filter or []:
-            type_filter_item = EProxyType(type_filter_item_data)
+        type_filter: list[EProxyType] | Unset = UNSET
+        if _type_filter is not UNSET:
+            type_filter = []
+            for type_filter_item_data in _type_filter:
+                type_filter_item = EProxyType(type_filter_item_data)
 
-            type_filter.append(type_filter_item)
+                type_filter.append(type_filter_item)
 
         _host_id_filter = d.pop("hostIdFilter", UNSET)
-        host_id_filter: Union[Unset, UUID]
+        host_id_filter: UUID | Unset
         if isinstance(_host_id_filter, Unset):
             host_id_filter = UNSET
         else:

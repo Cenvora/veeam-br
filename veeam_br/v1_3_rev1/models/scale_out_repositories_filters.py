@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,20 +16,20 @@ T = TypeVar("T", bound="ScaleOutRepositoriesFilters")
 class ScaleOutRepositoriesFilters:
     """
     Attributes:
-        skip (Union[Unset, int]): Number of repositories to skip.
-        limit (Union[Unset, int]): Maximum number of repositories to return.
-        order_column (Union[Unset, EScaleOutRepositoryFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]): If `true`, sorts repositories in ascending order by the `orderColumn` parameter.
-        name_filter (Union[Unset, str]): Filters repositories by the `nameFilter` pattern. The pattern can match any
+        skip (int | Unset): Number of repositories to skip.
+        limit (int | Unset): Maximum number of repositories to return.
+        order_column (EScaleOutRepositoryFiltersOrderColumn | Unset):
+        order_asc (bool | Unset): If `true`, sorts repositories in ascending order by the `orderColumn` parameter.
+        name_filter (str | Unset): Filters repositories by the `nameFilter` pattern. The pattern can match any
             repository parameter. To substitute one or more characters, use the asterisk (*) character at the beginning, at
             the end or both.
     """
 
-    skip: Union[Unset, int] = UNSET
-    limit: Union[Unset, int] = UNSET
-    order_column: Union[Unset, EScaleOutRepositoryFiltersOrderColumn] = UNSET
-    order_asc: Union[Unset, bool] = UNSET
-    name_filter: Union[Unset, str] = UNSET
+    skip: int | Unset = UNSET
+    limit: int | Unset = UNSET
+    order_column: EScaleOutRepositoryFiltersOrderColumn | Unset = UNSET
+    order_asc: bool | Unset = UNSET
+    name_filter: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -35,7 +37,7 @@ class ScaleOutRepositoriesFilters:
 
         limit = self.limit
 
-        order_column: Union[Unset, str] = UNSET
+        order_column: str | Unset = UNSET
         if not isinstance(self.order_column, Unset):
             order_column = self.order_column.value
 
@@ -67,7 +69,7 @@ class ScaleOutRepositoriesFilters:
         limit = d.pop("limit", UNSET)
 
         _order_column = d.pop("orderColumn", UNSET)
-        order_column: Union[Unset, EScaleOutRepositoryFiltersOrderColumn]
+        order_column: EScaleOutRepositoryFiltersOrderColumn | Unset
         if isinstance(_order_column, Unset):
             order_column = UNSET
         else:

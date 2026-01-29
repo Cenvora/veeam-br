@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -21,25 +23,25 @@ class ObjectStorageBackupJobObjectModel:
     Attributes:
         object_storage_server_id (UUID): ID of the object storage server. To get the ID, run the [Get All Unstructured
             Data Servers](Inventory-Browser#operation/GetAllUnstructuredDataServers) request.
-        container (Union[Unset, str]): Bucket or container that will be processed by the backup job.
-        path (Union[Unset, str]): Object path or prefixes within a bucket or a container.
-        inclusion_tag_mask (Union[Unset, list['ObjectStorageBackupJobTagMaskModel']]): Array of objects added to the
-            object storage backup job. Full paths to files and folders, environmental variables and file masks with the
-            asterisk (*) and question mark (?) characters can be used.
-        exclusion_tag_mask (Union[Unset, list['ObjectStorageBackupJobTagMaskModel']]): Array of objects excluded from
-            the object storage backup job. Full paths to files and folders, environmental variables and file masks with the
-            asterisk (*) and question mark (?) characters can be used.
-        exclusion_path_mask (Union[Unset, list[str]]): Array of paths to files excluded from the object storage backup
-            job. Full paths to files and folders, environmental variables and file masks with the asterisk (*) and question
-            mark (?) characters can be used.
+        container (str | Unset): Bucket or container that will be processed by the backup job.
+        path (str | Unset): Object path or prefixes within a bucket or a container.
+        inclusion_tag_mask (list[ObjectStorageBackupJobTagMaskModel] | Unset): Array of objects added to the object
+            storage backup job. Full paths to files and folders, environmental variables and file masks with the asterisk
+            (*) and question mark (?) characters can be used.
+        exclusion_tag_mask (list[ObjectStorageBackupJobTagMaskModel] | Unset): Array of objects excluded from the object
+            storage backup job. Full paths to files and folders, environmental variables and file masks with the asterisk
+            (*) and question mark (?) characters can be used.
+        exclusion_path_mask (list[str] | Unset): Array of paths to files excluded from the object storage backup job.
+            Full paths to files and folders, environmental variables and file masks with the asterisk (*) and question mark
+            (?) characters can be used.
     """
 
     object_storage_server_id: UUID
-    container: Union[Unset, str] = UNSET
-    path: Union[Unset, str] = UNSET
-    inclusion_tag_mask: Union[Unset, list["ObjectStorageBackupJobTagMaskModel"]] = UNSET
-    exclusion_tag_mask: Union[Unset, list["ObjectStorageBackupJobTagMaskModel"]] = UNSET
-    exclusion_path_mask: Union[Unset, list[str]] = UNSET
+    container: str | Unset = UNSET
+    path: str | Unset = UNSET
+    inclusion_tag_mask: list[ObjectStorageBackupJobTagMaskModel] | Unset = UNSET
+    exclusion_tag_mask: list[ObjectStorageBackupJobTagMaskModel] | Unset = UNSET
+    exclusion_path_mask: list[str] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -49,21 +51,21 @@ class ObjectStorageBackupJobObjectModel:
 
         path = self.path
 
-        inclusion_tag_mask: Union[Unset, list[dict[str, Any]]] = UNSET
+        inclusion_tag_mask: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.inclusion_tag_mask, Unset):
             inclusion_tag_mask = []
             for inclusion_tag_mask_item_data in self.inclusion_tag_mask:
                 inclusion_tag_mask_item = inclusion_tag_mask_item_data.to_dict()
                 inclusion_tag_mask.append(inclusion_tag_mask_item)
 
-        exclusion_tag_mask: Union[Unset, list[dict[str, Any]]] = UNSET
+        exclusion_tag_mask: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.exclusion_tag_mask, Unset):
             exclusion_tag_mask = []
             for exclusion_tag_mask_item_data in self.exclusion_tag_mask:
                 exclusion_tag_mask_item = exclusion_tag_mask_item_data.to_dict()
                 exclusion_tag_mask.append(exclusion_tag_mask_item)
 
-        exclusion_path_mask: Union[Unset, list[str]] = UNSET
+        exclusion_path_mask: list[str] | Unset = UNSET
         if not isinstance(self.exclusion_path_mask, Unset):
             exclusion_path_mask = self.exclusion_path_mask
 
@@ -98,19 +100,23 @@ class ObjectStorageBackupJobObjectModel:
 
         path = d.pop("path", UNSET)
 
-        inclusion_tag_mask = []
         _inclusion_tag_mask = d.pop("inclusionTagMask", UNSET)
-        for inclusion_tag_mask_item_data in _inclusion_tag_mask or []:
-            inclusion_tag_mask_item = ObjectStorageBackupJobTagMaskModel.from_dict(inclusion_tag_mask_item_data)
+        inclusion_tag_mask: list[ObjectStorageBackupJobTagMaskModel] | Unset = UNSET
+        if _inclusion_tag_mask is not UNSET:
+            inclusion_tag_mask = []
+            for inclusion_tag_mask_item_data in _inclusion_tag_mask:
+                inclusion_tag_mask_item = ObjectStorageBackupJobTagMaskModel.from_dict(inclusion_tag_mask_item_data)
 
-            inclusion_tag_mask.append(inclusion_tag_mask_item)
+                inclusion_tag_mask.append(inclusion_tag_mask_item)
 
-        exclusion_tag_mask = []
         _exclusion_tag_mask = d.pop("exclusionTagMask", UNSET)
-        for exclusion_tag_mask_item_data in _exclusion_tag_mask or []:
-            exclusion_tag_mask_item = ObjectStorageBackupJobTagMaskModel.from_dict(exclusion_tag_mask_item_data)
+        exclusion_tag_mask: list[ObjectStorageBackupJobTagMaskModel] | Unset = UNSET
+        if _exclusion_tag_mask is not UNSET:
+            exclusion_tag_mask = []
+            for exclusion_tag_mask_item_data in _exclusion_tag_mask:
+                exclusion_tag_mask_item = ObjectStorageBackupJobTagMaskModel.from_dict(exclusion_tag_mask_item_data)
 
-            exclusion_tag_mask.append(exclusion_tag_mask_item)
+                exclusion_tag_mask.append(exclusion_tag_mask_item)
 
         exclusion_path_mask = cast(list[str], d.pop("exclusionPathMask", UNSET))
 

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,10 +21,10 @@ class IPv4NetworkRuleModel:
         target_ip_address (str): IP address of the replica.
         target_subnet_mask (str): Subnet mask of the replica.
         target_default_gateway (str): Defaul gateway address.
-        preferred_dns_server (Union[Unset, str]): Preferred DNS server address.
-        alternate_dns_server (Union[Unset, str]): Alternate DNS server address.
-        preferred_wins_server (Union[Unset, str]): Preferred WINS server address.
-        alternate_wins_server (Union[Unset, str]): Alternate WINS server address.
+        preferred_dns_server (str | Unset): Preferred DNS server address.
+        alternate_dns_server (str | Unset): Alternate DNS server address.
+        preferred_wins_server (str | Unset): Preferred WINS server address.
+        alternate_wins_server (str | Unset): Alternate WINS server address.
     """
 
     source_ip_address: str
@@ -30,10 +32,10 @@ class IPv4NetworkRuleModel:
     target_ip_address: str
     target_subnet_mask: str
     target_default_gateway: str
-    preferred_dns_server: Union[Unset, str] = UNSET
-    alternate_dns_server: Union[Unset, str] = UNSET
-    preferred_wins_server: Union[Unset, str] = UNSET
-    alternate_wins_server: Union[Unset, str] = UNSET
+    preferred_dns_server: str | Unset = UNSET
+    alternate_dns_server: str | Unset = UNSET
+    preferred_wins_server: str | Unset = UNSET
+    alternate_wins_server: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

@@ -1,5 +1,6 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
@@ -30,7 +31,10 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": f"/api/v1/agents/protectionGroups/{id}/discoveredEntities/{entity_id}/createRecoveryMedia",
+        "url": "/api/v1/agents/protectionGroups/{id}/discoveredEntities/{entity_id}/createRecoveryMedia".format(
+            id=quote(str(id), safe=""),
+            entity_id=quote(str(entity_id), safe=""),
+        ),
         "params": params,
     }
 
@@ -38,7 +42,7 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Error]:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Error | None:
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
 
@@ -65,7 +69,7 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Error]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[Error]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -78,7 +82,7 @@ def sync_detailed(
     id: UUID,
     entity_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     format_: ERecoveryMediaFormat,
     x_api_version: str = "1.3-rev1",
 ) -> Response[Error]:
@@ -125,10 +129,10 @@ def sync(
     id: UUID,
     entity_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     format_: ERecoveryMediaFormat,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Error]:
+) -> Error | None:
     """Create Recovery Media for Discovered Entity
 
      The HTTP GET request to the
@@ -167,7 +171,7 @@ async def asyncio_detailed(
     id: UUID,
     entity_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     format_: ERecoveryMediaFormat,
     x_api_version: str = "1.3-rev1",
 ) -> Response[Error]:
@@ -212,10 +216,10 @@ async def asyncio(
     id: UUID,
     entity_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     format_: ERecoveryMediaFormat,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Error]:
+) -> Error | None:
     """Create Recovery Media for Discovered Entity
 
      The HTTP GET request to the

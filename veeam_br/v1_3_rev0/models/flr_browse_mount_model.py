@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -25,17 +27,17 @@ class FlrBrowseMountModel:
         session_id (UUID): Restore session ID.
         type_ (EFlrType): Restore type.
         source_properties (FlrBrowseSourceProperties): Restore point settings.
-        mount_errors (list['FlrBrowseMountError']): Array of file-level mount errors.
+        mount_errors (list[FlrBrowseMountError]): Array of file-level mount errors.
         restore_point_id (UUID): Restore point ID.
-        properties (Union[Unset, FlrBrowseProperties]): Browser properties.
+        properties (FlrBrowseProperties | Unset): Browser properties.
     """
 
     session_id: UUID
     type_: EFlrType
-    source_properties: "FlrBrowseSourceProperties"
-    mount_errors: list["FlrBrowseMountError"]
+    source_properties: FlrBrowseSourceProperties
+    mount_errors: list[FlrBrowseMountError]
     restore_point_id: UUID
-    properties: Union[Unset, "FlrBrowseProperties"] = UNSET
+    properties: FlrBrowseProperties | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -52,7 +54,7 @@ class FlrBrowseMountModel:
 
         restore_point_id = str(self.restore_point_id)
 
-        properties: Union[Unset, dict[str, Any]] = UNSET
+        properties: dict[str, Any] | Unset = UNSET
         if not isinstance(self.properties, Unset):
             properties = self.properties.to_dict()
 
@@ -95,7 +97,7 @@ class FlrBrowseMountModel:
         restore_point_id = UUID(d.pop("restorePointId"))
 
         _properties = d.pop("properties", UNSET)
-        properties: Union[Unset, FlrBrowseProperties]
+        properties: FlrBrowseProperties | Unset
         if isinstance(_properties, Unset):
             properties = UNSET
         else:

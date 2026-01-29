@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -17,18 +19,18 @@ class ObjectStorageConnectionModel:
 
     Attributes:
         connection_type (ERepositoryConnectionType): Repository connection type (direct or through a gateway server).
-        gateway_server_ids (Union[Unset, list[UUID]]): Array of gateway server IDs. The value is *null* if the
-            connection type is *Direct*.
+        gateway_server_ids (list[UUID] | Unset): Array of gateway server IDs. The value is *null* if the connection type
+            is *Direct*.
     """
 
     connection_type: ERepositoryConnectionType
-    gateway_server_ids: Union[Unset, list[UUID]] = UNSET
+    gateway_server_ids: list[UUID] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         connection_type = self.connection_type.value
 
-        gateway_server_ids: Union[Unset, list[str]] = UNSET
+        gateway_server_ids: list[str] | Unset = UNSET
         if not isinstance(self.gateway_server_ids, Unset):
             gateway_server_ids = []
             for gateway_server_ids_item_data in self.gateway_server_ids:
@@ -52,12 +54,14 @@ class ObjectStorageConnectionModel:
         d = dict(src_dict)
         connection_type = ERepositoryConnectionType(d.pop("connectionType"))
 
-        gateway_server_ids = []
         _gateway_server_ids = d.pop("gatewayServerIds", UNSET)
-        for gateway_server_ids_item_data in _gateway_server_ids or []:
-            gateway_server_ids_item = UUID(gateway_server_ids_item_data)
+        gateway_server_ids: list[UUID] | Unset = UNSET
+        if _gateway_server_ids is not UNSET:
+            gateway_server_ids = []
+            for gateway_server_ids_item_data in _gateway_server_ids:
+                gateway_server_ids_item = UUID(gateway_server_ids_item_data)
 
-            gateway_server_ids.append(gateway_server_ids_item)
+                gateway_server_ids.append(gateway_server_ids_item)
 
         object_storage_connection_model = cls(
             connection_type=connection_type,

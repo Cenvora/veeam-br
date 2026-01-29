@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,14 +17,14 @@ class ObjectStorageConsumptionLimitModel:
     """Soft consumption limit for the storage. The limit can be exceeded temporarily.
 
     Attributes:
-        is_enabled (Union[Unset, bool]): If `true`, the consumption limit is enabled.
-        consumption_limit_count (Union[Unset, int]): Limit value.
-        consumption_limit_kind (Union[Unset, EConsumptionLimitKind]): Measurement unit.
+        is_enabled (bool | Unset): If `true`, the consumption limit is enabled.
+        consumption_limit_count (int | Unset): Limit value.
+        consumption_limit_kind (EConsumptionLimitKind | Unset): Measurement unit.
     """
 
-    is_enabled: Union[Unset, bool] = UNSET
-    consumption_limit_count: Union[Unset, int] = UNSET
-    consumption_limit_kind: Union[Unset, EConsumptionLimitKind] = UNSET
+    is_enabled: bool | Unset = UNSET
+    consumption_limit_count: int | Unset = UNSET
+    consumption_limit_kind: EConsumptionLimitKind | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -30,7 +32,7 @@ class ObjectStorageConsumptionLimitModel:
 
         consumption_limit_count = self.consumption_limit_count
 
-        consumption_limit_kind: Union[Unset, str] = UNSET
+        consumption_limit_kind: str | Unset = UNSET
         if not isinstance(self.consumption_limit_kind, Unset):
             consumption_limit_kind = self.consumption_limit_kind.value
 
@@ -54,7 +56,7 @@ class ObjectStorageConsumptionLimitModel:
         consumption_limit_count = d.pop("consumptionLimitCount", UNSET)
 
         _consumption_limit_kind = d.pop("consumptionLimitKind", UNSET)
-        consumption_limit_kind: Union[Unset, EConsumptionLimitKind]
+        consumption_limit_kind: EConsumptionLimitKind | Unset
         if isinstance(_consumption_limit_kind, Unset):
             consumption_limit_kind = UNSET
         else:

@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -27,8 +27,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, InstalledLicenseModel]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Error | InstalledLicenseModel | None:
     if response.status_code == 200:
         response_200 = InstalledLicenseModel.from_dict(response.json())
 
@@ -56,8 +56,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, InstalledLicenseModel]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | InstalledLicenseModel]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -68,9 +68,9 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.2-rev1",
-) -> Response[Union[Error, InstalledLicenseModel]]:
+) -> Response[Error | InstalledLicenseModel]:
     """Get Installed License
 
      The HTTP GET request to the `/api/v1/license` path allows you to get the installed license on the
@@ -84,7 +84,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, InstalledLicenseModel]]
+        Response[Error | InstalledLicenseModel]
     """
 
     kwargs = _get_kwargs(
@@ -100,9 +100,9 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.2-rev1",
-) -> Optional[Union[Error, InstalledLicenseModel]]:
+) -> Error | InstalledLicenseModel | None:
     """Get Installed License
 
      The HTTP GET request to the `/api/v1/license` path allows you to get the installed license on the
@@ -116,7 +116,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, InstalledLicenseModel]
+        Error | InstalledLicenseModel
     """
 
     return sync_detailed(
@@ -127,9 +127,9 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.2-rev1",
-) -> Response[Union[Error, InstalledLicenseModel]]:
+) -> Response[Error | InstalledLicenseModel]:
     """Get Installed License
 
      The HTTP GET request to the `/api/v1/license` path allows you to get the installed license on the
@@ -143,7 +143,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, InstalledLicenseModel]]
+        Response[Error | InstalledLicenseModel]
     """
 
     kwargs = _get_kwargs(
@@ -157,9 +157,9 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.2-rev1",
-) -> Optional[Union[Error, InstalledLicenseModel]]:
+) -> Error | InstalledLicenseModel | None:
     """Get Installed License
 
      The HTTP GET request to the `/api/v1/license` path allows you to get the installed license on the
@@ -173,7 +173,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, InstalledLicenseModel]
+        Error | InstalledLicenseModel
     """
 
     return (

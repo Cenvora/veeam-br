@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -23,9 +25,9 @@ class RepositoryStateModel:
         free_gb (float): Repository free space in GB.
         used_space_gb (float): Repository used space in GB.
         is_online (bool): Repository connection status.
-        host_id (Union[Unset, UUID]): ID of the server that is used as a backup repository.
-        host_name (Union[Unset, str]): Name of the server that is used as a backup repository.
-        path (Union[Unset, str]): Path to the folder where backup files are stored.
+        host_id (UUID | Unset): ID of the server that is used as a backup repository.
+        host_name (str | Unset): Name of the server that is used as a backup repository.
+        path (str | Unset): Path to the folder where backup files are stored.
     """
 
     id: UUID
@@ -36,9 +38,9 @@ class RepositoryStateModel:
     free_gb: float
     used_space_gb: float
     is_online: bool
-    host_id: Union[Unset, UUID] = UNSET
-    host_name: Union[Unset, str] = UNSET
-    path: Union[Unset, str] = UNSET
+    host_id: UUID | Unset = UNSET
+    host_name: str | Unset = UNSET
+    path: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -58,7 +60,7 @@ class RepositoryStateModel:
 
         is_online = self.is_online
 
-        host_id: Union[Unset, str] = UNSET
+        host_id: str | Unset = UNSET
         if not isinstance(self.host_id, Unset):
             host_id = str(self.host_id)
 
@@ -109,7 +111,7 @@ class RepositoryStateModel:
         is_online = d.pop("isOnline")
 
         _host_id = d.pop("hostId", UNSET)
-        host_id: Union[Unset, UUID]
+        host_id: UUID | Unset
         if isinstance(_host_id, Unset):
             host_id = UNSET
         else:

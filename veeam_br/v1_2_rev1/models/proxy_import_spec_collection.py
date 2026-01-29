@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 
@@ -15,10 +17,10 @@ T = TypeVar("T", bound="ProxyImportSpecCollection")
 class ProxyImportSpecCollection:
     """
     Attributes:
-        proxies (list['ProxyImportSpec']): Array of backup proxies.
+        proxies (list[ProxyImportSpec]): Array of backup proxies.
     """
 
-    proxies: list["ProxyImportSpec"]
+    proxies: list[ProxyImportSpec]
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

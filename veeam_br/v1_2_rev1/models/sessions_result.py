@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 
@@ -16,12 +18,12 @@ T = TypeVar("T", bound="SessionsResult")
 class SessionsResult:
     """
     Attributes:
-        data (list['SessionModel']): Array of sessions.
+        data (list[SessionModel]): Array of sessions.
         pagination (PaginationResult): Pagination settings.
     """
 
-    data: list["SessionModel"]
-    pagination: "PaginationResult"
+    data: list[SessionModel]
+    pagination: PaginationResult
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

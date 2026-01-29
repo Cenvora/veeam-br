@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,14 +17,14 @@ class ObjectStorageImmutabilityModel:
     """Object storage immutability.
 
     Attributes:
-        is_enabled (Union[Unset, bool]): If `true`, immutability is enabled.
-        days_count (Union[Unset, int]): Immutability period, in days.
-        immutability_mode (Union[Unset, ERepositoryImmutabilityMode]): Repository immutability mode.
+        is_enabled (bool | Unset): If `true`, immutability is enabled.
+        days_count (int | Unset): Immutability period, in days.
+        immutability_mode (ERepositoryImmutabilityMode | Unset): Repository immutability mode.
     """
 
-    is_enabled: Union[Unset, bool] = UNSET
-    days_count: Union[Unset, int] = UNSET
-    immutability_mode: Union[Unset, ERepositoryImmutabilityMode] = UNSET
+    is_enabled: bool | Unset = UNSET
+    days_count: int | Unset = UNSET
+    immutability_mode: ERepositoryImmutabilityMode | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -30,7 +32,7 @@ class ObjectStorageImmutabilityModel:
 
         days_count = self.days_count
 
-        immutability_mode: Union[Unset, str] = UNSET
+        immutability_mode: str | Unset = UNSET
         if not isinstance(self.immutability_mode, Unset):
             immutability_mode = self.immutability_mode.value
 
@@ -54,7 +56,7 @@ class ObjectStorageImmutabilityModel:
         days_count = d.pop("daysCount", UNSET)
 
         _immutability_mode = d.pop("immutabilityMode", UNSET)
-        immutability_mode: Union[Unset, ERepositoryImmutabilityMode]
+        immutability_mode: ERepositoryImmutabilityMode | Unset
         if isinstance(_immutability_mode, Unset):
             immutability_mode = UNSET
         else:

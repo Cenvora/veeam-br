@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,22 +16,22 @@ T = TypeVar("T", bound="EntraIDTenantsFilters")
 class EntraIDTenantsFilters:
     """
     Attributes:
-        skip (Union[Unset, int]): Number of Microsoft Entra ID tenants to skip.
-        limit (Union[Unset, int]): Maximum number of Microsoft Entra ID tenants to return.
-        order_column (Union[Unset, EEntraIDTenantsFiltersOrderColumn]): Sorts Microsoft Entra ID tenants by one of the
-            tenant parameters.
-        order_asc (Union[Unset, bool]): If `true`, sorts Microsoft Entra ID tenants in ascending order by the
-            `orderColumn` parameter.
-        name_filter (Union[Unset, str]): Filters Microsoft Entra ID tenants by the `nameFilter` pattern. The pattern can
-            match any cloud credentials parameter. To substitute one or more characters, use the asterisk (*) character at
-            the beginning and/or at the end.
+        skip (int | Unset): Number of Microsoft Entra ID tenants to skip.
+        limit (int | Unset): Maximum number of Microsoft Entra ID tenants to return.
+        order_column (EEntraIDTenantsFiltersOrderColumn | Unset): Sorts Microsoft Entra ID tenants by one of the tenant
+            parameters.
+        order_asc (bool | Unset): If `true`, sorts Microsoft Entra ID tenants in ascending order by the `orderColumn`
+            parameter.
+        name_filter (str | Unset): Filters Microsoft Entra ID tenants by the `nameFilter` pattern. The pattern can match
+            any cloud credentials parameter. To substitute one or more characters, use the asterisk (*) character at the
+            beginning and/or at the end.
     """
 
-    skip: Union[Unset, int] = UNSET
-    limit: Union[Unset, int] = UNSET
-    order_column: Union[Unset, EEntraIDTenantsFiltersOrderColumn] = UNSET
-    order_asc: Union[Unset, bool] = UNSET
-    name_filter: Union[Unset, str] = UNSET
+    skip: int | Unset = UNSET
+    limit: int | Unset = UNSET
+    order_column: EEntraIDTenantsFiltersOrderColumn | Unset = UNSET
+    order_asc: bool | Unset = UNSET
+    name_filter: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -37,7 +39,7 @@ class EntraIDTenantsFilters:
 
         limit = self.limit
 
-        order_column: Union[Unset, str] = UNSET
+        order_column: str | Unset = UNSET
         if not isinstance(self.order_column, Unset):
             order_column = self.order_column.value
 
@@ -69,7 +71,7 @@ class EntraIDTenantsFilters:
         limit = d.pop("limit", UNSET)
 
         _order_column = d.pop("orderColumn", UNSET)
-        order_column: Union[Unset, EEntraIDTenantsFiltersOrderColumn]
+        order_column: EEntraIDTenantsFiltersOrderColumn | Unset
         if isinstance(_order_column, Unset):
             order_column = UNSET
         else:

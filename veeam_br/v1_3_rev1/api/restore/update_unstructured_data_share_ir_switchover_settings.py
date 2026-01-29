@@ -1,5 +1,6 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
@@ -8,13 +9,13 @@ from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.error import Error
 from ...models.unstructured_data_switchover_settings_model import UnstructuredDataSwitchoverSettingsModel
-from ...types import Response
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     mount_id: UUID,
     *,
-    body: UnstructuredDataSwitchoverSettingsModel,
+    body: UnstructuredDataSwitchoverSettingsModel | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -22,10 +23,13 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "put",
-        "url": f"/api/v1/restore/instantRecovery/unstructuredData/{mount_id}/switchoverSettings",
+        "url": "/api/v1/restore/instantRecovery/unstructuredData/{mount_id}/switchoverSettings".format(
+            mount_id=quote(str(mount_id), safe=""),
+        ),
     }
 
-    _kwargs["json"] = body.to_dict()
+    if not isinstance(body, Unset):
+        _kwargs["json"] = body.to_dict()
 
     headers["Content-Type"] = "application/json"
 
@@ -34,8 +38,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, UnstructuredDataSwitchoverSettingsModel]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Error | UnstructuredDataSwitchoverSettingsModel | None:
     if response.status_code == 200:
         response_200 = UnstructuredDataSwitchoverSettingsModel.from_dict(response.json())
 
@@ -73,8 +77,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, UnstructuredDataSwitchoverSettingsModel]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | UnstructuredDataSwitchoverSettingsModel]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -86,10 +90,10 @@ def _build_response(
 def sync_detailed(
     mount_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: UnstructuredDataSwitchoverSettingsModel,
+    client: AuthenticatedClient | Client,
+    body: UnstructuredDataSwitchoverSettingsModel | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Error, UnstructuredDataSwitchoverSettingsModel]]:
+) -> Response[Error | UnstructuredDataSwitchoverSettingsModel]:
     """Update File Share Switchover Settings
 
      The HTTP PUT request to the
@@ -100,15 +104,15 @@ def sync_detailed(
     Args:
         mount_id (UUID):
         x_api_version (str):  Default: '1.3-rev1'.
-        body (UnstructuredDataSwitchoverSettingsModel): Switchover settings for Instant File Share
-            Recovery.
+        body (UnstructuredDataSwitchoverSettingsModel | Unset): Switchover settings for Instant
+            File Share Recovery.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, UnstructuredDataSwitchoverSettingsModel]]
+        Response[Error | UnstructuredDataSwitchoverSettingsModel]
     """
 
     kwargs = _get_kwargs(
@@ -127,10 +131,10 @@ def sync_detailed(
 def sync(
     mount_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: UnstructuredDataSwitchoverSettingsModel,
+    client: AuthenticatedClient | Client,
+    body: UnstructuredDataSwitchoverSettingsModel | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Error, UnstructuredDataSwitchoverSettingsModel]]:
+) -> Error | UnstructuredDataSwitchoverSettingsModel | None:
     """Update File Share Switchover Settings
 
      The HTTP PUT request to the
@@ -141,15 +145,15 @@ def sync(
     Args:
         mount_id (UUID):
         x_api_version (str):  Default: '1.3-rev1'.
-        body (UnstructuredDataSwitchoverSettingsModel): Switchover settings for Instant File Share
-            Recovery.
+        body (UnstructuredDataSwitchoverSettingsModel | Unset): Switchover settings for Instant
+            File Share Recovery.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, UnstructuredDataSwitchoverSettingsModel]
+        Error | UnstructuredDataSwitchoverSettingsModel
     """
 
     return sync_detailed(
@@ -163,10 +167,10 @@ def sync(
 async def asyncio_detailed(
     mount_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: UnstructuredDataSwitchoverSettingsModel,
+    client: AuthenticatedClient | Client,
+    body: UnstructuredDataSwitchoverSettingsModel | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Error, UnstructuredDataSwitchoverSettingsModel]]:
+) -> Response[Error | UnstructuredDataSwitchoverSettingsModel]:
     """Update File Share Switchover Settings
 
      The HTTP PUT request to the
@@ -177,15 +181,15 @@ async def asyncio_detailed(
     Args:
         mount_id (UUID):
         x_api_version (str):  Default: '1.3-rev1'.
-        body (UnstructuredDataSwitchoverSettingsModel): Switchover settings for Instant File Share
-            Recovery.
+        body (UnstructuredDataSwitchoverSettingsModel | Unset): Switchover settings for Instant
+            File Share Recovery.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, UnstructuredDataSwitchoverSettingsModel]]
+        Response[Error | UnstructuredDataSwitchoverSettingsModel]
     """
 
     kwargs = _get_kwargs(
@@ -202,10 +206,10 @@ async def asyncio_detailed(
 async def asyncio(
     mount_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: UnstructuredDataSwitchoverSettingsModel,
+    client: AuthenticatedClient | Client,
+    body: UnstructuredDataSwitchoverSettingsModel | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Error, UnstructuredDataSwitchoverSettingsModel]]:
+) -> Error | UnstructuredDataSwitchoverSettingsModel | None:
     """Update File Share Switchover Settings
 
      The HTTP PUT request to the
@@ -216,15 +220,15 @@ async def asyncio(
     Args:
         mount_id (UUID):
         x_api_version (str):  Default: '1.3-rev1'.
-        body (UnstructuredDataSwitchoverSettingsModel): Switchover settings for Instant File Share
-            Recovery.
+        body (UnstructuredDataSwitchoverSettingsModel | Unset): Switchover settings for Instant
+            File Share Recovery.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, UnstructuredDataSwitchoverSettingsModel]
+        Error | UnstructuredDataSwitchoverSettingsModel
     """
 
     return (

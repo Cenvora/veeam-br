@@ -1,6 +1,7 @@
 import datetime
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
@@ -19,17 +20,17 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     mount_id: UUID,
     *,
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, ESessionsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    created_after_filter: Union[Unset, datetime.datetime] = UNSET,
-    created_before_filter: Union[Unset, datetime.datetime] = UNSET,
-    ended_after_filter: Union[Unset, datetime.datetime] = UNSET,
-    ended_before_filter: Union[Unset, datetime.datetime] = UNSET,
-    type_filter: Union[Unset, ESessionType] = UNSET,
-    state_filter: Union[Unset, ESessionState] = UNSET,
-    result_filter: Union[Unset, list[ESessionResult]] = UNSET,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: ESessionsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    created_after_filter: datetime.datetime | Unset = UNSET,
+    created_before_filter: datetime.datetime | Unset = UNSET,
+    ended_after_filter: datetime.datetime | Unset = UNSET,
+    ended_before_filter: datetime.datetime | Unset = UNSET,
+    type_filter: ESessionType | Unset = UNSET,
+    state_filter: ESessionState | Unset = UNSET,
+    result_filter: list[ESessionResult] | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -41,7 +42,7 @@ def _get_kwargs(
 
     params["limit"] = limit
 
-    json_order_column: Union[Unset, str] = UNSET
+    json_order_column: str | Unset = UNSET
     if not isinstance(order_column, Unset):
         json_order_column = order_column.value
 
@@ -49,39 +50,39 @@ def _get_kwargs(
 
     params["orderAsc"] = order_asc
 
-    json_created_after_filter: Union[Unset, str] = UNSET
+    json_created_after_filter: str | Unset = UNSET
     if not isinstance(created_after_filter, Unset):
         json_created_after_filter = created_after_filter.isoformat()
     params["createdAfterFilter"] = json_created_after_filter
 
-    json_created_before_filter: Union[Unset, str] = UNSET
+    json_created_before_filter: str | Unset = UNSET
     if not isinstance(created_before_filter, Unset):
         json_created_before_filter = created_before_filter.isoformat()
     params["createdBeforeFilter"] = json_created_before_filter
 
-    json_ended_after_filter: Union[Unset, str] = UNSET
+    json_ended_after_filter: str | Unset = UNSET
     if not isinstance(ended_after_filter, Unset):
         json_ended_after_filter = ended_after_filter.isoformat()
     params["endedAfterFilter"] = json_ended_after_filter
 
-    json_ended_before_filter: Union[Unset, str] = UNSET
+    json_ended_before_filter: str | Unset = UNSET
     if not isinstance(ended_before_filter, Unset):
         json_ended_before_filter = ended_before_filter.isoformat()
     params["endedBeforeFilter"] = json_ended_before_filter
 
-    json_type_filter: Union[Unset, str] = UNSET
+    json_type_filter: str | Unset = UNSET
     if not isinstance(type_filter, Unset):
         json_type_filter = type_filter.value
 
     params["typeFilter"] = json_type_filter
 
-    json_state_filter: Union[Unset, str] = UNSET
+    json_state_filter: str | Unset = UNSET
     if not isinstance(state_filter, Unset):
         json_state_filter = state_filter.value
 
     params["stateFilter"] = json_state_filter
 
-    json_result_filter: Union[Unset, list[str]] = UNSET
+    json_result_filter: list[str] | Unset = UNSET
     if not isinstance(result_filter, Unset):
         json_result_filter = []
         for result_filter_item_data in result_filter:
@@ -94,7 +95,9 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": f"/api/v1/restore/instantRecovery/azure/vm/{mount_id}/sessions",
+        "url": "/api/v1/restore/instantRecovery/azure/vm/{mount_id}/sessions".format(
+            mount_id=quote(str(mount_id), safe=""),
+        ),
         "params": params,
     }
 
@@ -102,9 +105,7 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, SessionsResult]]:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Error | SessionsResult | None:
     if response.status_code == 200:
         response_200 = SessionsResult.from_dict(response.json())
 
@@ -137,8 +138,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, SessionsResult]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | SessionsResult]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -150,20 +151,20 @@ def _build_response(
 def sync_detailed(
     mount_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, ESessionsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    created_after_filter: Union[Unset, datetime.datetime] = UNSET,
-    created_before_filter: Union[Unset, datetime.datetime] = UNSET,
-    ended_after_filter: Union[Unset, datetime.datetime] = UNSET,
-    ended_before_filter: Union[Unset, datetime.datetime] = UNSET,
-    type_filter: Union[Unset, ESessionType] = UNSET,
-    state_filter: Union[Unset, ESessionState] = UNSET,
-    result_filter: Union[Unset, list[ESessionResult]] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: ESessionsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    created_after_filter: datetime.datetime | Unset = UNSET,
+    created_before_filter: datetime.datetime | Unset = UNSET,
+    ended_after_filter: datetime.datetime | Unset = UNSET,
+    ended_before_filter: datetime.datetime | Unset = UNSET,
+    type_filter: ESessionType | Unset = UNSET,
+    state_filter: ESessionState | Unset = UNSET,
+    result_filter: list[ESessionResult] | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Response[Union[Error, SessionsResult]]:
+) -> Response[Error | SessionsResult]:
     """Get All Mount Sessions for Instant Recovery to Azure
 
      The HTTP GET request to the `/api/v1/restore/instantRecovery/azure/vm/{mountId}/sessions` path
@@ -172,17 +173,17 @@ def sync_detailed(
 
     Args:
         mount_id (UUID):
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, ESessionsFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
-        created_after_filter (Union[Unset, datetime.datetime]):
-        created_before_filter (Union[Unset, datetime.datetime]):
-        ended_after_filter (Union[Unset, datetime.datetime]):
-        ended_before_filter (Union[Unset, datetime.datetime]):
-        type_filter (Union[Unset, ESessionType]): Type of the session.
-        state_filter (Union[Unset, ESessionState]): State of the session.
-        result_filter (Union[Unset, list[ESessionResult]]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (ESessionsFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
+        created_after_filter (datetime.datetime | Unset):
+        created_before_filter (datetime.datetime | Unset):
+        ended_after_filter (datetime.datetime | Unset):
+        ended_before_filter (datetime.datetime | Unset):
+        type_filter (ESessionType | Unset): Type of the session.
+        state_filter (ESessionState | Unset): State of the session.
+        result_filter (list[ESessionResult] | Unset):
         x_api_version (str):  Default: '1.3-rev0'.
 
     Raises:
@@ -190,7 +191,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, SessionsResult]]
+        Response[Error | SessionsResult]
     """
 
     kwargs = _get_kwargs(
@@ -219,20 +220,20 @@ def sync_detailed(
 def sync(
     mount_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, ESessionsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    created_after_filter: Union[Unset, datetime.datetime] = UNSET,
-    created_before_filter: Union[Unset, datetime.datetime] = UNSET,
-    ended_after_filter: Union[Unset, datetime.datetime] = UNSET,
-    ended_before_filter: Union[Unset, datetime.datetime] = UNSET,
-    type_filter: Union[Unset, ESessionType] = UNSET,
-    state_filter: Union[Unset, ESessionState] = UNSET,
-    result_filter: Union[Unset, list[ESessionResult]] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: ESessionsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    created_after_filter: datetime.datetime | Unset = UNSET,
+    created_before_filter: datetime.datetime | Unset = UNSET,
+    ended_after_filter: datetime.datetime | Unset = UNSET,
+    ended_before_filter: datetime.datetime | Unset = UNSET,
+    type_filter: ESessionType | Unset = UNSET,
+    state_filter: ESessionState | Unset = UNSET,
+    result_filter: list[ESessionResult] | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Union[Error, SessionsResult]]:
+) -> Error | SessionsResult | None:
     """Get All Mount Sessions for Instant Recovery to Azure
 
      The HTTP GET request to the `/api/v1/restore/instantRecovery/azure/vm/{mountId}/sessions` path
@@ -241,17 +242,17 @@ def sync(
 
     Args:
         mount_id (UUID):
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, ESessionsFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
-        created_after_filter (Union[Unset, datetime.datetime]):
-        created_before_filter (Union[Unset, datetime.datetime]):
-        ended_after_filter (Union[Unset, datetime.datetime]):
-        ended_before_filter (Union[Unset, datetime.datetime]):
-        type_filter (Union[Unset, ESessionType]): Type of the session.
-        state_filter (Union[Unset, ESessionState]): State of the session.
-        result_filter (Union[Unset, list[ESessionResult]]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (ESessionsFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
+        created_after_filter (datetime.datetime | Unset):
+        created_before_filter (datetime.datetime | Unset):
+        ended_after_filter (datetime.datetime | Unset):
+        ended_before_filter (datetime.datetime | Unset):
+        type_filter (ESessionType | Unset): Type of the session.
+        state_filter (ESessionState | Unset): State of the session.
+        result_filter (list[ESessionResult] | Unset):
         x_api_version (str):  Default: '1.3-rev0'.
 
     Raises:
@@ -259,7 +260,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, SessionsResult]
+        Error | SessionsResult
     """
 
     return sync_detailed(
@@ -283,20 +284,20 @@ def sync(
 async def asyncio_detailed(
     mount_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, ESessionsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    created_after_filter: Union[Unset, datetime.datetime] = UNSET,
-    created_before_filter: Union[Unset, datetime.datetime] = UNSET,
-    ended_after_filter: Union[Unset, datetime.datetime] = UNSET,
-    ended_before_filter: Union[Unset, datetime.datetime] = UNSET,
-    type_filter: Union[Unset, ESessionType] = UNSET,
-    state_filter: Union[Unset, ESessionState] = UNSET,
-    result_filter: Union[Unset, list[ESessionResult]] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: ESessionsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    created_after_filter: datetime.datetime | Unset = UNSET,
+    created_before_filter: datetime.datetime | Unset = UNSET,
+    ended_after_filter: datetime.datetime | Unset = UNSET,
+    ended_before_filter: datetime.datetime | Unset = UNSET,
+    type_filter: ESessionType | Unset = UNSET,
+    state_filter: ESessionState | Unset = UNSET,
+    result_filter: list[ESessionResult] | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Response[Union[Error, SessionsResult]]:
+) -> Response[Error | SessionsResult]:
     """Get All Mount Sessions for Instant Recovery to Azure
 
      The HTTP GET request to the `/api/v1/restore/instantRecovery/azure/vm/{mountId}/sessions` path
@@ -305,17 +306,17 @@ async def asyncio_detailed(
 
     Args:
         mount_id (UUID):
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, ESessionsFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
-        created_after_filter (Union[Unset, datetime.datetime]):
-        created_before_filter (Union[Unset, datetime.datetime]):
-        ended_after_filter (Union[Unset, datetime.datetime]):
-        ended_before_filter (Union[Unset, datetime.datetime]):
-        type_filter (Union[Unset, ESessionType]): Type of the session.
-        state_filter (Union[Unset, ESessionState]): State of the session.
-        result_filter (Union[Unset, list[ESessionResult]]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (ESessionsFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
+        created_after_filter (datetime.datetime | Unset):
+        created_before_filter (datetime.datetime | Unset):
+        ended_after_filter (datetime.datetime | Unset):
+        ended_before_filter (datetime.datetime | Unset):
+        type_filter (ESessionType | Unset): Type of the session.
+        state_filter (ESessionState | Unset): State of the session.
+        result_filter (list[ESessionResult] | Unset):
         x_api_version (str):  Default: '1.3-rev0'.
 
     Raises:
@@ -323,7 +324,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, SessionsResult]]
+        Response[Error | SessionsResult]
     """
 
     kwargs = _get_kwargs(
@@ -350,20 +351,20 @@ async def asyncio_detailed(
 async def asyncio(
     mount_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, ESessionsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    created_after_filter: Union[Unset, datetime.datetime] = UNSET,
-    created_before_filter: Union[Unset, datetime.datetime] = UNSET,
-    ended_after_filter: Union[Unset, datetime.datetime] = UNSET,
-    ended_before_filter: Union[Unset, datetime.datetime] = UNSET,
-    type_filter: Union[Unset, ESessionType] = UNSET,
-    state_filter: Union[Unset, ESessionState] = UNSET,
-    result_filter: Union[Unset, list[ESessionResult]] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: ESessionsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    created_after_filter: datetime.datetime | Unset = UNSET,
+    created_before_filter: datetime.datetime | Unset = UNSET,
+    ended_after_filter: datetime.datetime | Unset = UNSET,
+    ended_before_filter: datetime.datetime | Unset = UNSET,
+    type_filter: ESessionType | Unset = UNSET,
+    state_filter: ESessionState | Unset = UNSET,
+    result_filter: list[ESessionResult] | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Union[Error, SessionsResult]]:
+) -> Error | SessionsResult | None:
     """Get All Mount Sessions for Instant Recovery to Azure
 
      The HTTP GET request to the `/api/v1/restore/instantRecovery/azure/vm/{mountId}/sessions` path
@@ -372,17 +373,17 @@ async def asyncio(
 
     Args:
         mount_id (UUID):
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, ESessionsFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
-        created_after_filter (Union[Unset, datetime.datetime]):
-        created_before_filter (Union[Unset, datetime.datetime]):
-        ended_after_filter (Union[Unset, datetime.datetime]):
-        ended_before_filter (Union[Unset, datetime.datetime]):
-        type_filter (Union[Unset, ESessionType]): Type of the session.
-        state_filter (Union[Unset, ESessionState]): State of the session.
-        result_filter (Union[Unset, list[ESessionResult]]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (ESessionsFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
+        created_after_filter (datetime.datetime | Unset):
+        created_before_filter (datetime.datetime | Unset):
+        ended_after_filter (datetime.datetime | Unset):
+        ended_before_filter (datetime.datetime | Unset):
+        type_filter (ESessionType | Unset): Type of the session.
+        state_filter (ESessionState | Unset): State of the session.
+        result_filter (list[ESessionResult] | Unset):
         x_api_version (str):  Default: '1.3-rev0'.
 
     Raises:
@@ -390,7 +391,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, SessionsResult]
+        Error | SessionsResult
     """
 
     return (

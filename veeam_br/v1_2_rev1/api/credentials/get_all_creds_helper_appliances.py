@@ -1,11 +1,13 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...models.cloud_helper_appliance_result import CloudHelperApplianceResult
 from ...models.error import Error
 from ...types import Response
 
@@ -20,14 +22,23 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": f"/api/v1/cloudCredentials/{id}/helperAppliances",
+        "url": "/api/v1/cloudCredentials/{id}/helperAppliances".format(
+            id=quote(str(id), safe=""),
+        ),
     }
 
     _kwargs["headers"] = headers
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Error]:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> CloudHelperApplianceResult | Error | None:
+    if response.status_code == 200:
+        response_200 = CloudHelperApplianceResult.from_dict(response.json())
+
+        return response_200
+
     if response.status_code == 400:
         response_400 = Error.from_dict(response.json())
 
@@ -54,7 +65,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Error]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[CloudHelperApplianceResult | Error]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -66,9 +79,9 @@ def _build_response(*, client: Union[AuthenticatedClient, Client], response: htt
 def sync_detailed(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.2-rev1",
-) -> Response[Error]:
+) -> Response[CloudHelperApplianceResult | Error]:
     """Get All Helper Appliances
 
      The HTTP GET request to the `/api/v1/cloudCredentials/{id}/helperAppliances` path allows you to get
@@ -85,7 +98,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error]
+        Response[CloudHelperApplianceResult | Error]
     """
 
     kwargs = _get_kwargs(
@@ -103,9 +116,9 @@ def sync_detailed(
 def sync(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.2-rev1",
-) -> Optional[Error]:
+) -> CloudHelperApplianceResult | Error | None:
     """Get All Helper Appliances
 
      The HTTP GET request to the `/api/v1/cloudCredentials/{id}/helperAppliances` path allows you to get
@@ -122,7 +135,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error
+        CloudHelperApplianceResult | Error
     """
 
     return sync_detailed(
@@ -135,9 +148,9 @@ def sync(
 async def asyncio_detailed(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.2-rev1",
-) -> Response[Error]:
+) -> Response[CloudHelperApplianceResult | Error]:
     """Get All Helper Appliances
 
      The HTTP GET request to the `/api/v1/cloudCredentials/{id}/helperAppliances` path allows you to get
@@ -154,7 +167,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error]
+        Response[CloudHelperApplianceResult | Error]
     """
 
     kwargs = _get_kwargs(
@@ -170,9 +183,9 @@ async def asyncio_detailed(
 async def asyncio(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.2-rev1",
-) -> Optional[Error]:
+) -> CloudHelperApplianceResult | Error | None:
     """Get All Helper Appliances
 
      The HTTP GET request to the `/api/v1/cloudCredentials/{id}/helperAppliances` path allows you to get
@@ -189,7 +202,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error
+        CloudHelperApplianceResult | Error
     """
 
     return (

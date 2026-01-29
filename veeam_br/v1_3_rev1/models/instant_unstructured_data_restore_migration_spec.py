@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -25,12 +27,12 @@ class InstantUnstructuredDataRestoreMigrationSpec:
         destination (UnstructuredDataShareMigrationDestinationModel): Destination for file share migration.
         switchover_settings (UnstructuredDataSwitchoverSettingsModel): Switchover settings for Instant File Share
             Recovery.
-        overwrite_mode (Union[Unset, EUnstructuredDataInstantRestoreOverwriteMode]): Overwrite mode.
+        overwrite_mode (EUnstructuredDataInstantRestoreOverwriteMode | Unset): Overwrite mode.
     """
 
-    destination: "UnstructuredDataShareMigrationDestinationModel"
-    switchover_settings: "UnstructuredDataSwitchoverSettingsModel"
-    overwrite_mode: Union[Unset, EUnstructuredDataInstantRestoreOverwriteMode] = UNSET
+    destination: UnstructuredDataShareMigrationDestinationModel
+    switchover_settings: UnstructuredDataSwitchoverSettingsModel
+    overwrite_mode: EUnstructuredDataInstantRestoreOverwriteMode | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -38,7 +40,7 @@ class InstantUnstructuredDataRestoreMigrationSpec:
 
         switchover_settings = self.switchover_settings.to_dict()
 
-        overwrite_mode: Union[Unset, str] = UNSET
+        overwrite_mode: str | Unset = UNSET
         if not isinstance(self.overwrite_mode, Unset):
             overwrite_mode = self.overwrite_mode.value
 
@@ -68,7 +70,7 @@ class InstantUnstructuredDataRestoreMigrationSpec:
         switchover_settings = UnstructuredDataSwitchoverSettingsModel.from_dict(d.pop("switchoverSettings"))
 
         _overwrite_mode = d.pop("overwriteMode", UNSET)
-        overwrite_mode: Union[Unset, EUnstructuredDataInstantRestoreOverwriteMode]
+        overwrite_mode: EUnstructuredDataInstantRestoreOverwriteMode | Unset
         if isinstance(_overwrite_mode, Unset):
             overwrite_mode = UNSET
         else:

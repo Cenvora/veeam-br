@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -26,19 +28,19 @@ class TenantLoadCalculatorResponse:
         tenant_items (TenantResponse): Tenant items.
         tenant_consumption (EntraIdResource): Resource consumption.
         issue (Issue): Issue status.
-        instance_resource_left (Union[Unset, EntraIdResource]): Resource consumption.
-        entra_id_plugin_settings (Union[Unset, EntraIDPluginSettings]): Settings for Microsoft Entra ID plug-in.
-        template (Union[Unset, str]): Template.
+        instance_resource_left (EntraIdResource | Unset): Resource consumption.
+        entra_id_plugin_settings (EntraIDPluginSettings | Unset): Settings for Microsoft Entra ID plug-in.
+        template (str | Unset): Template.
     """
 
     instance_id: str
     azure_tenant_id: str
-    tenant_items: "TenantResponse"
-    tenant_consumption: "EntraIdResource"
-    issue: "Issue"
-    instance_resource_left: Union[Unset, "EntraIdResource"] = UNSET
-    entra_id_plugin_settings: Union[Unset, "EntraIDPluginSettings"] = UNSET
-    template: Union[Unset, str] = UNSET
+    tenant_items: TenantResponse
+    tenant_consumption: EntraIdResource
+    issue: Issue
+    instance_resource_left: EntraIdResource | Unset = UNSET
+    entra_id_plugin_settings: EntraIDPluginSettings | Unset = UNSET
+    template: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -52,11 +54,11 @@ class TenantLoadCalculatorResponse:
 
         issue = self.issue.to_dict()
 
-        instance_resource_left: Union[Unset, dict[str, Any]] = UNSET
+        instance_resource_left: dict[str, Any] | Unset = UNSET
         if not isinstance(self.instance_resource_left, Unset):
             instance_resource_left = self.instance_resource_left.to_dict()
 
-        entra_id_plugin_settings: Union[Unset, dict[str, Any]] = UNSET
+        entra_id_plugin_settings: dict[str, Any] | Unset = UNSET
         if not isinstance(self.entra_id_plugin_settings, Unset):
             entra_id_plugin_settings = self.entra_id_plugin_settings.to_dict()
 
@@ -101,14 +103,14 @@ class TenantLoadCalculatorResponse:
         issue = Issue.from_dict(d.pop("issue"))
 
         _instance_resource_left = d.pop("instanceResourceLeft", UNSET)
-        instance_resource_left: Union[Unset, EntraIdResource]
+        instance_resource_left: EntraIdResource | Unset
         if isinstance(_instance_resource_left, Unset):
             instance_resource_left = UNSET
         else:
             instance_resource_left = EntraIdResource.from_dict(_instance_resource_left)
 
         _entra_id_plugin_settings = d.pop("entraIdPluginSettings", UNSET)
-        entra_id_plugin_settings: Union[Unset, EntraIDPluginSettings]
+        entra_id_plugin_settings: EntraIDPluginSettings | Unset
         if isinstance(_entra_id_plugin_settings, Unset):
             entra_id_plugin_settings = UNSET
         else:

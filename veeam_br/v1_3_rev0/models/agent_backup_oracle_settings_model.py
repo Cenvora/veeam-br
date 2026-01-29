@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -20,28 +22,27 @@ class AgentBackupOracleSettingsModel:
         use_guest_credentials (bool): If `true`, Veeam Backup & Replication uses credentials specified in the guest
             processing settings.
         archive_logs (EBackupOracleLogsSettings): Type of archived logs processing.
-        credentials_id (Union[Unset, UUID]): ID of the credentials record that is used if `useGuestCredentials` is
-            *false*.
-        delete_hours_count (Union[Unset, int]): Time period in hours to keep archived logs. This parameter should be
-            specified if the `EBackupOracleLogsSettings` value is *deleteExpiredHours*.
-        delete_g_bs_count (Union[Unset, int]): Maximum size for archived logs in GB. This parameter should be specified
-            if the `EBackupOracleLogsSettings` value is *deleteExpiredGBs*.
-        backup_logs (Union[Unset, bool]): If `true`, archived logs are backed up.
-        backup_mins_count (Union[Unset, int]): Frequency of archived log backup, in minutes.
-        retain_log_backups (Union[Unset, ERetainLogBackupsType]): Retention policy for the logs stored in the backup
+        credentials_id (UUID | Unset): ID of the credentials record that is used if `useGuestCredentials` is *false*.
+        delete_hours_count (int | Unset): Time period in hours to keep archived logs. This parameter should be specified
+            if the `EBackupOracleLogsSettings` value is *deleteExpiredHours*.
+        delete_g_bs_count (int | Unset): Maximum size for archived logs in GB. This parameter should be specified if the
+            `EBackupOracleLogsSettings` value is *deleteExpiredGBs*.
+        backup_logs (bool | Unset): If `true`, archived logs are backed up.
+        backup_mins_count (int | Unset): Frequency of archived log backup, in minutes.
+        retain_log_backups (ERetainLogBackupsType | Unset): Retention policy for the logs stored in the backup
             repository.
-        keep_days_count (Union[Unset, int]): Number of days to keep archived logs.
+        keep_days_count (int | Unset): Number of days to keep archived logs.
     """
 
     use_guest_credentials: bool
     archive_logs: EBackupOracleLogsSettings
-    credentials_id: Union[Unset, UUID] = UNSET
-    delete_hours_count: Union[Unset, int] = UNSET
-    delete_g_bs_count: Union[Unset, int] = UNSET
-    backup_logs: Union[Unset, bool] = UNSET
-    backup_mins_count: Union[Unset, int] = UNSET
-    retain_log_backups: Union[Unset, ERetainLogBackupsType] = UNSET
-    keep_days_count: Union[Unset, int] = UNSET
+    credentials_id: UUID | Unset = UNSET
+    delete_hours_count: int | Unset = UNSET
+    delete_g_bs_count: int | Unset = UNSET
+    backup_logs: bool | Unset = UNSET
+    backup_mins_count: int | Unset = UNSET
+    retain_log_backups: ERetainLogBackupsType | Unset = UNSET
+    keep_days_count: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -49,7 +50,7 @@ class AgentBackupOracleSettingsModel:
 
         archive_logs = self.archive_logs.value
 
-        credentials_id: Union[Unset, str] = UNSET
+        credentials_id: str | Unset = UNSET
         if not isinstance(self.credentials_id, Unset):
             credentials_id = str(self.credentials_id)
 
@@ -61,7 +62,7 @@ class AgentBackupOracleSettingsModel:
 
         backup_mins_count = self.backup_mins_count
 
-        retain_log_backups: Union[Unset, str] = UNSET
+        retain_log_backups: str | Unset = UNSET
         if not isinstance(self.retain_log_backups, Unset):
             retain_log_backups = self.retain_log_backups.value
 
@@ -100,7 +101,7 @@ class AgentBackupOracleSettingsModel:
         archive_logs = EBackupOracleLogsSettings(d.pop("archiveLogs"))
 
         _credentials_id = d.pop("credentialsId", UNSET)
-        credentials_id: Union[Unset, UUID]
+        credentials_id: UUID | Unset
         if isinstance(_credentials_id, Unset):
             credentials_id = UNSET
         else:
@@ -115,7 +116,7 @@ class AgentBackupOracleSettingsModel:
         backup_mins_count = d.pop("backupMinsCount", UNSET)
 
         _retain_log_backups = d.pop("retainLogBackups", UNSET)
-        retain_log_backups: Union[Unset, ERetainLogBackupsType]
+        retain_log_backups: ERetainLogBackupsType | Unset
         if isinstance(_retain_log_backups, Unset):
             retain_log_backups = UNSET
         else:

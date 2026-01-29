@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -16,12 +16,12 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     *,
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = UNSET,
-    order_column: Union[Unset, EInstantUnstructuredDataRecoveryMountsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    state_filter: Union[Unset, EInstantRecoveryMountState] = UNSET,
-    share_name_filter: Union[Unset, str] = UNSET,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = UNSET,
+    order_column: EInstantUnstructuredDataRecoveryMountsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    state_filter: EInstantRecoveryMountState | Unset = UNSET,
+    share_name_filter: str | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -33,7 +33,7 @@ def _get_kwargs(
 
     params["limit"] = limit
 
-    json_order_column: Union[Unset, str] = UNSET
+    json_order_column: str | Unset = UNSET
     if not isinstance(order_column, Unset):
         json_order_column = order_column.value
 
@@ -41,7 +41,7 @@ def _get_kwargs(
 
     params["orderAsc"] = order_asc
 
-    json_state_filter: Union[Unset, str] = UNSET
+    json_state_filter: str | Unset = UNSET
     if not isinstance(state_filter, Unset):
         json_state_filter = state_filter.value
 
@@ -62,8 +62,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, InstantUnstructuredDataRecoveryMountsResult]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Error | InstantUnstructuredDataRecoveryMountsResult | None:
     if response.status_code == 200:
         response_200 = InstantUnstructuredDataRecoveryMountsResult.from_dict(response.json())
 
@@ -96,8 +96,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, InstantUnstructuredDataRecoveryMountsResult]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | InstantUnstructuredDataRecoveryMountsResult]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -108,15 +108,15 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = UNSET,
-    order_column: Union[Unset, EInstantUnstructuredDataRecoveryMountsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    state_filter: Union[Unset, EInstantRecoveryMountState] = UNSET,
-    share_name_filter: Union[Unset, str] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = UNSET,
+    order_column: EInstantUnstructuredDataRecoveryMountsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    state_filter: EInstantRecoveryMountState | Unset = UNSET,
+    share_name_filter: str | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Error, InstantUnstructuredDataRecoveryMountsResult]]:
+) -> Response[Error | InstantUnstructuredDataRecoveryMountsResult]:
     """Get All Mount Points for Instant File Share Recovery
 
      The HTTP GET request to the `/api/v1/restore/instantRecovery/unstructuredData` endpoint gets an
@@ -124,13 +124,13 @@ def sync_detailed(
     Administrator, Veeam Restore Operator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):
-        order_column (Union[Unset, EInstantUnstructuredDataRecoveryMountsFiltersOrderColumn]):
-            Sorts mounts by one of the mount parameters.
-        order_asc (Union[Unset, bool]):
-        state_filter (Union[Unset, EInstantRecoveryMountState]): Mount state.
-        share_name_filter (Union[Unset, str]):
+        skip (int | Unset):
+        limit (int | Unset):
+        order_column (EInstantUnstructuredDataRecoveryMountsFiltersOrderColumn | Unset): Sorts
+            mounts by one of the mount parameters.
+        order_asc (bool | Unset):
+        state_filter (EInstantRecoveryMountState | Unset): Mount state.
+        share_name_filter (str | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -138,7 +138,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, InstantUnstructuredDataRecoveryMountsResult]]
+        Response[Error | InstantUnstructuredDataRecoveryMountsResult]
     """
 
     kwargs = _get_kwargs(
@@ -160,15 +160,15 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = UNSET,
-    order_column: Union[Unset, EInstantUnstructuredDataRecoveryMountsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    state_filter: Union[Unset, EInstantRecoveryMountState] = UNSET,
-    share_name_filter: Union[Unset, str] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = UNSET,
+    order_column: EInstantUnstructuredDataRecoveryMountsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    state_filter: EInstantRecoveryMountState | Unset = UNSET,
+    share_name_filter: str | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Error, InstantUnstructuredDataRecoveryMountsResult]]:
+) -> Error | InstantUnstructuredDataRecoveryMountsResult | None:
     """Get All Mount Points for Instant File Share Recovery
 
      The HTTP GET request to the `/api/v1/restore/instantRecovery/unstructuredData` endpoint gets an
@@ -176,13 +176,13 @@ def sync(
     Administrator, Veeam Restore Operator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):
-        order_column (Union[Unset, EInstantUnstructuredDataRecoveryMountsFiltersOrderColumn]):
-            Sorts mounts by one of the mount parameters.
-        order_asc (Union[Unset, bool]):
-        state_filter (Union[Unset, EInstantRecoveryMountState]): Mount state.
-        share_name_filter (Union[Unset, str]):
+        skip (int | Unset):
+        limit (int | Unset):
+        order_column (EInstantUnstructuredDataRecoveryMountsFiltersOrderColumn | Unset): Sorts
+            mounts by one of the mount parameters.
+        order_asc (bool | Unset):
+        state_filter (EInstantRecoveryMountState | Unset): Mount state.
+        share_name_filter (str | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -190,7 +190,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, InstantUnstructuredDataRecoveryMountsResult]
+        Error | InstantUnstructuredDataRecoveryMountsResult
     """
 
     return sync_detailed(
@@ -207,15 +207,15 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = UNSET,
-    order_column: Union[Unset, EInstantUnstructuredDataRecoveryMountsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    state_filter: Union[Unset, EInstantRecoveryMountState] = UNSET,
-    share_name_filter: Union[Unset, str] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = UNSET,
+    order_column: EInstantUnstructuredDataRecoveryMountsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    state_filter: EInstantRecoveryMountState | Unset = UNSET,
+    share_name_filter: str | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Error, InstantUnstructuredDataRecoveryMountsResult]]:
+) -> Response[Error | InstantUnstructuredDataRecoveryMountsResult]:
     """Get All Mount Points for Instant File Share Recovery
 
      The HTTP GET request to the `/api/v1/restore/instantRecovery/unstructuredData` endpoint gets an
@@ -223,13 +223,13 @@ async def asyncio_detailed(
     Administrator, Veeam Restore Operator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):
-        order_column (Union[Unset, EInstantUnstructuredDataRecoveryMountsFiltersOrderColumn]):
-            Sorts mounts by one of the mount parameters.
-        order_asc (Union[Unset, bool]):
-        state_filter (Union[Unset, EInstantRecoveryMountState]): Mount state.
-        share_name_filter (Union[Unset, str]):
+        skip (int | Unset):
+        limit (int | Unset):
+        order_column (EInstantUnstructuredDataRecoveryMountsFiltersOrderColumn | Unset): Sorts
+            mounts by one of the mount parameters.
+        order_asc (bool | Unset):
+        state_filter (EInstantRecoveryMountState | Unset): Mount state.
+        share_name_filter (str | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -237,7 +237,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, InstantUnstructuredDataRecoveryMountsResult]]
+        Response[Error | InstantUnstructuredDataRecoveryMountsResult]
     """
 
     kwargs = _get_kwargs(
@@ -257,15 +257,15 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = UNSET,
-    order_column: Union[Unset, EInstantUnstructuredDataRecoveryMountsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    state_filter: Union[Unset, EInstantRecoveryMountState] = UNSET,
-    share_name_filter: Union[Unset, str] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = UNSET,
+    order_column: EInstantUnstructuredDataRecoveryMountsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    state_filter: EInstantRecoveryMountState | Unset = UNSET,
+    share_name_filter: str | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Error, InstantUnstructuredDataRecoveryMountsResult]]:
+) -> Error | InstantUnstructuredDataRecoveryMountsResult | None:
     """Get All Mount Points for Instant File Share Recovery
 
      The HTTP GET request to the `/api/v1/restore/instantRecovery/unstructuredData` endpoint gets an
@@ -273,13 +273,13 @@ async def asyncio(
     Administrator, Veeam Restore Operator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):
-        order_column (Union[Unset, EInstantUnstructuredDataRecoveryMountsFiltersOrderColumn]):
-            Sorts mounts by one of the mount parameters.
-        order_asc (Union[Unset, bool]):
-        state_filter (Union[Unset, EInstantRecoveryMountState]): Mount state.
-        share_name_filter (Union[Unset, str]):
+        skip (int | Unset):
+        limit (int | Unset):
+        order_column (EInstantUnstructuredDataRecoveryMountsFiltersOrderColumn | Unset): Sorts
+            mounts by one of the mount parameters.
+        order_asc (bool | Unset):
+        state_filter (EInstantRecoveryMountState | Unset): Mount state.
+        share_name_filter (str | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -287,7 +287,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, InstantUnstructuredDataRecoveryMountsResult]
+        Error | InstantUnstructuredDataRecoveryMountsResult
     """
 
     return (

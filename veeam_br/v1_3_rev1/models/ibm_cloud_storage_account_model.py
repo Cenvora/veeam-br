@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
@@ -26,7 +28,7 @@ class IBMCloudStorageAccountModel:
     service_point: str
     region_id: str
     credentials_id: UUID
-    connection_settings: "ObjectStorageConnectionModel"
+    connection_settings: ObjectStorageConnectionModel
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

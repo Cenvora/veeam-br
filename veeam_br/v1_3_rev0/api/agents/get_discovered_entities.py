@@ -1,11 +1,13 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...models.discovered_entities_result import DiscoveredEntitiesResult
 from ...models.e_discovered_entity_filters_order_column import EDiscoveredEntityFiltersOrderColumn
 from ...models.error import Error
 from ...types import UNSET, Response, Unset
@@ -14,15 +16,15 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     id: UUID,
     *,
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EDiscoveredEntityFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    ip_address_filter: Union[Unset, str] = UNSET,
-    state_filter: Union[Unset, str] = UNSET,
-    agent_status_filter: Union[Unset, str] = UNSET,
-    driver_status_filter: Union[Unset, str] = UNSET,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EDiscoveredEntityFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    ip_address_filter: str | Unset = UNSET,
+    state_filter: str | Unset = UNSET,
+    agent_status_filter: str | Unset = UNSET,
+    driver_status_filter: str | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -34,7 +36,7 @@ def _get_kwargs(
 
     params["limit"] = limit
 
-    json_order_column: Union[Unset, str] = UNSET
+    json_order_column: str | Unset = UNSET
     if not isinstance(order_column, Unset):
         json_order_column = order_column.value
 
@@ -56,7 +58,9 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": f"/api/v1/agents/protectionGroups/{id}/discoveredEntities",
+        "url": "/api/v1/agents/protectionGroups/{id}/discoveredEntities".format(
+            id=quote(str(id), safe=""),
+        ),
         "params": params,
     }
 
@@ -64,7 +68,14 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Error]:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> DiscoveredEntitiesResult | Error | None:
+    if response.status_code == 200:
+        response_200 = DiscoveredEntitiesResult.from_dict(response.json())
+
+        return response_200
+
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
 
@@ -91,7 +102,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Error]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[DiscoveredEntitiesResult | Error]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -103,18 +116,18 @@ def _build_response(*, client: Union[AuthenticatedClient, Client], response: htt
 def sync_detailed(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EDiscoveredEntityFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    ip_address_filter: Union[Unset, str] = UNSET,
-    state_filter: Union[Unset, str] = UNSET,
-    agent_status_filter: Union[Unset, str] = UNSET,
-    driver_status_filter: Union[Unset, str] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EDiscoveredEntityFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    ip_address_filter: str | Unset = UNSET,
+    state_filter: str | Unset = UNSET,
+    agent_status_filter: str | Unset = UNSET,
+    driver_status_filter: str | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Response[Error]:
+) -> Response[DiscoveredEntitiesResult | Error]:
     """Get Discovered Entities
 
      The HTTP GET request to the `/api/v1/agents/protectionGroups/{id}/discoveredEntities` path allows
@@ -124,16 +137,16 @@ def sync_detailed(
 
     Args:
         id (UUID):
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EDiscoveredEntityFiltersOrderColumn]): Sorts discovered
-            entities by one of the parameters.
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        ip_address_filter (Union[Unset, str]):
-        state_filter (Union[Unset, str]):
-        agent_status_filter (Union[Unset, str]):
-        driver_status_filter (Union[Unset, str]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EDiscoveredEntityFiltersOrderColumn | Unset): Sorts discovered entities by
+            one of the parameters.
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        ip_address_filter (str | Unset):
+        state_filter (str | Unset):
+        agent_status_filter (str | Unset):
+        driver_status_filter (str | Unset):
         x_api_version (str):  Default: '1.3-rev0'.
 
     Raises:
@@ -141,7 +154,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error]
+        Response[DiscoveredEntitiesResult | Error]
     """
 
     kwargs = _get_kwargs(
@@ -168,18 +181,18 @@ def sync_detailed(
 def sync(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EDiscoveredEntityFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    ip_address_filter: Union[Unset, str] = UNSET,
-    state_filter: Union[Unset, str] = UNSET,
-    agent_status_filter: Union[Unset, str] = UNSET,
-    driver_status_filter: Union[Unset, str] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EDiscoveredEntityFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    ip_address_filter: str | Unset = UNSET,
+    state_filter: str | Unset = UNSET,
+    agent_status_filter: str | Unset = UNSET,
+    driver_status_filter: str | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Error]:
+) -> DiscoveredEntitiesResult | Error | None:
     """Get Discovered Entities
 
      The HTTP GET request to the `/api/v1/agents/protectionGroups/{id}/discoveredEntities` path allows
@@ -189,16 +202,16 @@ def sync(
 
     Args:
         id (UUID):
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EDiscoveredEntityFiltersOrderColumn]): Sorts discovered
-            entities by one of the parameters.
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        ip_address_filter (Union[Unset, str]):
-        state_filter (Union[Unset, str]):
-        agent_status_filter (Union[Unset, str]):
-        driver_status_filter (Union[Unset, str]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EDiscoveredEntityFiltersOrderColumn | Unset): Sorts discovered entities by
+            one of the parameters.
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        ip_address_filter (str | Unset):
+        state_filter (str | Unset):
+        agent_status_filter (str | Unset):
+        driver_status_filter (str | Unset):
         x_api_version (str):  Default: '1.3-rev0'.
 
     Raises:
@@ -206,7 +219,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error
+        DiscoveredEntitiesResult | Error
     """
 
     return sync_detailed(
@@ -228,18 +241,18 @@ def sync(
 async def asyncio_detailed(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EDiscoveredEntityFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    ip_address_filter: Union[Unset, str] = UNSET,
-    state_filter: Union[Unset, str] = UNSET,
-    agent_status_filter: Union[Unset, str] = UNSET,
-    driver_status_filter: Union[Unset, str] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EDiscoveredEntityFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    ip_address_filter: str | Unset = UNSET,
+    state_filter: str | Unset = UNSET,
+    agent_status_filter: str | Unset = UNSET,
+    driver_status_filter: str | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Response[Error]:
+) -> Response[DiscoveredEntitiesResult | Error]:
     """Get Discovered Entities
 
      The HTTP GET request to the `/api/v1/agents/protectionGroups/{id}/discoveredEntities` path allows
@@ -249,16 +262,16 @@ async def asyncio_detailed(
 
     Args:
         id (UUID):
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EDiscoveredEntityFiltersOrderColumn]): Sorts discovered
-            entities by one of the parameters.
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        ip_address_filter (Union[Unset, str]):
-        state_filter (Union[Unset, str]):
-        agent_status_filter (Union[Unset, str]):
-        driver_status_filter (Union[Unset, str]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EDiscoveredEntityFiltersOrderColumn | Unset): Sorts discovered entities by
+            one of the parameters.
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        ip_address_filter (str | Unset):
+        state_filter (str | Unset):
+        agent_status_filter (str | Unset):
+        driver_status_filter (str | Unset):
         x_api_version (str):  Default: '1.3-rev0'.
 
     Raises:
@@ -266,7 +279,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error]
+        Response[DiscoveredEntitiesResult | Error]
     """
 
     kwargs = _get_kwargs(
@@ -291,18 +304,18 @@ async def asyncio_detailed(
 async def asyncio(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EDiscoveredEntityFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    ip_address_filter: Union[Unset, str] = UNSET,
-    state_filter: Union[Unset, str] = UNSET,
-    agent_status_filter: Union[Unset, str] = UNSET,
-    driver_status_filter: Union[Unset, str] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EDiscoveredEntityFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    ip_address_filter: str | Unset = UNSET,
+    state_filter: str | Unset = UNSET,
+    agent_status_filter: str | Unset = UNSET,
+    driver_status_filter: str | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Error]:
+) -> DiscoveredEntitiesResult | Error | None:
     """Get Discovered Entities
 
      The HTTP GET request to the `/api/v1/agents/protectionGroups/{id}/discoveredEntities` path allows
@@ -312,16 +325,16 @@ async def asyncio(
 
     Args:
         id (UUID):
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EDiscoveredEntityFiltersOrderColumn]): Sorts discovered
-            entities by one of the parameters.
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        ip_address_filter (Union[Unset, str]):
-        state_filter (Union[Unset, str]):
-        agent_status_filter (Union[Unset, str]):
-        driver_status_filter (Union[Unset, str]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EDiscoveredEntityFiltersOrderColumn | Unset): Sorts discovered entities by
+            one of the parameters.
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        ip_address_filter (str | Unset):
+        state_filter (str | Unset):
+        agent_status_filter (str | Unset):
+        driver_status_filter (str | Unset):
         x_api_version (str):  Default: '1.3-rev0'.
 
     Raises:
@@ -329,7 +342,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error
+        DiscoveredEntitiesResult | Error
     """
 
     return (

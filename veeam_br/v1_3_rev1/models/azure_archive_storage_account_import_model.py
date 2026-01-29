@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -22,12 +24,12 @@ class AzureArchiveStorageAccountImportModel:
     Attributes:
         credentials (CloudCredentialsImportModel): Cloud credentials used for connection.
         region_type (EAzureRegionType): Microsoft Azure region.
-        connection_settings (Union[Unset, ObjectStorageConnectionImportSpec]): Object storage connection settings.
+        connection_settings (ObjectStorageConnectionImportSpec | Unset): Object storage connection settings.
     """
 
-    credentials: "CloudCredentialsImportModel"
+    credentials: CloudCredentialsImportModel
     region_type: EAzureRegionType
-    connection_settings: Union[Unset, "ObjectStorageConnectionImportSpec"] = UNSET
+    connection_settings: ObjectStorageConnectionImportSpec | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -35,7 +37,7 @@ class AzureArchiveStorageAccountImportModel:
 
         region_type = self.region_type.value
 
-        connection_settings: Union[Unset, dict[str, Any]] = UNSET
+        connection_settings: dict[str, Any] | Unset = UNSET
         if not isinstance(self.connection_settings, Unset):
             connection_settings = self.connection_settings.to_dict()
 
@@ -63,7 +65,7 @@ class AzureArchiveStorageAccountImportModel:
         region_type = EAzureRegionType(d.pop("regionType"))
 
         _connection_settings = d.pop("connectionSettings", UNSET)
-        connection_settings: Union[Unset, ObjectStorageConnectionImportSpec]
+        connection_settings: ObjectStorageConnectionImportSpec | Unset
         if isinstance(_connection_settings, Unset):
             connection_settings = UNSET
         else:

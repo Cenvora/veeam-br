@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
@@ -21,13 +23,13 @@ class ProtectedComputerModel:
         id (UUID): ID of the protected computer.
         name (str): Full DNS name, NetBIOS name or IP address of the protected computer
         type_ (EProtectedComputerType): Type of the protected computer.
-        protection_groups (list['ProtectedComputerGroupModel']): Array of protection groups that include the computer.
+        protection_groups (list[ProtectedComputerGroupModel]): Array of protection groups that include the computer.
     """
 
     id: UUID
     name: str
     type_: EProtectedComputerType
-    protection_groups: list["ProtectedComputerGroupModel"]
+    protection_groups: list[ProtectedComputerGroupModel]
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

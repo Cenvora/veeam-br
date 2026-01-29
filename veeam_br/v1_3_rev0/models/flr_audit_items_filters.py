@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -17,26 +19,26 @@ T = TypeVar("T", bound="FlrAuditItemsFilters")
 class FlrAuditItemsFilters:
     """
     Attributes:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):
-        order_column (Union[Unset, EFlrAuditItemsFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
-        restore_status_filter (Union[Unset, list[EFlrItemRestoreStatus]]):
-        restore_ended_before_filter (Union[Unset, datetime.datetime]):
-        restore_ended_after_filter (Union[Unset, datetime.datetime]):
-        initiator_name_filter (Union[Unset, str]):
-        name_filter (Union[Unset, str]):
+        skip (int | Unset):
+        limit (int | Unset):
+        order_column (EFlrAuditItemsFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
+        restore_status_filter (list[EFlrItemRestoreStatus] | Unset):
+        restore_ended_before_filter (datetime.datetime | Unset):
+        restore_ended_after_filter (datetime.datetime | Unset):
+        initiator_name_filter (str | Unset):
+        name_filter (str | Unset):
     """
 
-    skip: Union[Unset, int] = UNSET
-    limit: Union[Unset, int] = UNSET
-    order_column: Union[Unset, EFlrAuditItemsFiltersOrderColumn] = UNSET
-    order_asc: Union[Unset, bool] = UNSET
-    restore_status_filter: Union[Unset, list[EFlrItemRestoreStatus]] = UNSET
-    restore_ended_before_filter: Union[Unset, datetime.datetime] = UNSET
-    restore_ended_after_filter: Union[Unset, datetime.datetime] = UNSET
-    initiator_name_filter: Union[Unset, str] = UNSET
-    name_filter: Union[Unset, str] = UNSET
+    skip: int | Unset = UNSET
+    limit: int | Unset = UNSET
+    order_column: EFlrAuditItemsFiltersOrderColumn | Unset = UNSET
+    order_asc: bool | Unset = UNSET
+    restore_status_filter: list[EFlrItemRestoreStatus] | Unset = UNSET
+    restore_ended_before_filter: datetime.datetime | Unset = UNSET
+    restore_ended_after_filter: datetime.datetime | Unset = UNSET
+    initiator_name_filter: str | Unset = UNSET
+    name_filter: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -44,24 +46,24 @@ class FlrAuditItemsFilters:
 
         limit = self.limit
 
-        order_column: Union[Unset, str] = UNSET
+        order_column: str | Unset = UNSET
         if not isinstance(self.order_column, Unset):
             order_column = self.order_column.value
 
         order_asc = self.order_asc
 
-        restore_status_filter: Union[Unset, list[str]] = UNSET
+        restore_status_filter: list[str] | Unset = UNSET
         if not isinstance(self.restore_status_filter, Unset):
             restore_status_filter = []
             for restore_status_filter_item_data in self.restore_status_filter:
                 restore_status_filter_item = restore_status_filter_item_data.value
                 restore_status_filter.append(restore_status_filter_item)
 
-        restore_ended_before_filter: Union[Unset, str] = UNSET
+        restore_ended_before_filter: str | Unset = UNSET
         if not isinstance(self.restore_ended_before_filter, Unset):
             restore_ended_before_filter = self.restore_ended_before_filter.isoformat()
 
-        restore_ended_after_filter: Union[Unset, str] = UNSET
+        restore_ended_after_filter: str | Unset = UNSET
         if not isinstance(self.restore_ended_after_filter, Unset):
             restore_ended_after_filter = self.restore_ended_after_filter.isoformat()
 
@@ -101,7 +103,7 @@ class FlrAuditItemsFilters:
         limit = d.pop("limit", UNSET)
 
         _order_column = d.pop("orderColumn", UNSET)
-        order_column: Union[Unset, EFlrAuditItemsFiltersOrderColumn]
+        order_column: EFlrAuditItemsFiltersOrderColumn | Unset
         if isinstance(_order_column, Unset):
             order_column = UNSET
         else:
@@ -109,22 +111,24 @@ class FlrAuditItemsFilters:
 
         order_asc = d.pop("orderAsc", UNSET)
 
-        restore_status_filter = []
         _restore_status_filter = d.pop("restoreStatusFilter", UNSET)
-        for restore_status_filter_item_data in _restore_status_filter or []:
-            restore_status_filter_item = EFlrItemRestoreStatus(restore_status_filter_item_data)
+        restore_status_filter: list[EFlrItemRestoreStatus] | Unset = UNSET
+        if _restore_status_filter is not UNSET:
+            restore_status_filter = []
+            for restore_status_filter_item_data in _restore_status_filter:
+                restore_status_filter_item = EFlrItemRestoreStatus(restore_status_filter_item_data)
 
-            restore_status_filter.append(restore_status_filter_item)
+                restore_status_filter.append(restore_status_filter_item)
 
         _restore_ended_before_filter = d.pop("restoreEndedBeforeFilter", UNSET)
-        restore_ended_before_filter: Union[Unset, datetime.datetime]
+        restore_ended_before_filter: datetime.datetime | Unset
         if isinstance(_restore_ended_before_filter, Unset):
             restore_ended_before_filter = UNSET
         else:
             restore_ended_before_filter = isoparse(_restore_ended_before_filter)
 
         _restore_ended_after_filter = d.pop("restoreEndedAfterFilter", UNSET)
-        restore_ended_after_filter: Union[Unset, datetime.datetime]
+        restore_ended_after_filter: datetime.datetime | Unset
         if isinstance(_restore_ended_after_filter, Unset):
             restore_ended_after_filter = UNSET
         else:

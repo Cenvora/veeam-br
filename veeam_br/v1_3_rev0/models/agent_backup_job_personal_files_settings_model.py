@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,26 +21,26 @@ class AgentBackupJobPersonalFilesSettingsModel:
     """Scope of personal data backed up with Veeam Agent backup job.
 
     Attributes:
-        backup_personal_files (Union[Unset, bool]): If `true`, the backup job will backup personal files.
-        includes (Union[Unset, AgentBackupJobPersonalFilesInclusionModel]): Scope of personal data included in Agent
-            backup job.
-        excludes (Union[Unset, AgentBackupPersonalFilesExclusionModel]): Scope of personal data excluded from Agent
-            backup job.
+        backup_personal_files (bool | Unset): If `true`, the backup job will backup personal files.
+        includes (AgentBackupJobPersonalFilesInclusionModel | Unset): Scope of personal data included in Agent backup
+            job.
+        excludes (AgentBackupPersonalFilesExclusionModel | Unset): Scope of personal data excluded from Agent backup
+            job.
     """
 
-    backup_personal_files: Union[Unset, bool] = UNSET
-    includes: Union[Unset, "AgentBackupJobPersonalFilesInclusionModel"] = UNSET
-    excludes: Union[Unset, "AgentBackupPersonalFilesExclusionModel"] = UNSET
+    backup_personal_files: bool | Unset = UNSET
+    includes: AgentBackupJobPersonalFilesInclusionModel | Unset = UNSET
+    excludes: AgentBackupPersonalFilesExclusionModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         backup_personal_files = self.backup_personal_files
 
-        includes: Union[Unset, dict[str, Any]] = UNSET
+        includes: dict[str, Any] | Unset = UNSET
         if not isinstance(self.includes, Unset):
             includes = self.includes.to_dict()
 
-        excludes: Union[Unset, dict[str, Any]] = UNSET
+        excludes: dict[str, Any] | Unset = UNSET
         if not isinstance(self.excludes, Unset):
             excludes = self.excludes.to_dict()
 
@@ -63,14 +65,14 @@ class AgentBackupJobPersonalFilesSettingsModel:
         backup_personal_files = d.pop("backupPersonalFiles", UNSET)
 
         _includes = d.pop("includes", UNSET)
-        includes: Union[Unset, AgentBackupJobPersonalFilesInclusionModel]
+        includes: AgentBackupJobPersonalFilesInclusionModel | Unset
         if isinstance(_includes, Unset):
             includes = UNSET
         else:
             includes = AgentBackupJobPersonalFilesInclusionModel.from_dict(_includes)
 
         _excludes = d.pop("excludes", UNSET)
-        excludes: Union[Unset, AgentBackupPersonalFilesExclusionModel]
+        excludes: AgentBackupPersonalFilesExclusionModel | Unset
         if isinstance(_excludes, Unset):
             excludes = UNSET
         else:

@@ -1,5 +1,6 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
@@ -22,7 +23,9 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "put",
-        "url": f"/api/v1/backupInfrastructure/managedServers/{id}/volumes",
+        "url": "/api/v1/backupInfrastructure/managedServers/{id}/volumes".format(
+            id=quote(str(id), safe=""),
+        ),
     }
 
     _kwargs["json"] = body.to_dict()
@@ -34,8 +37,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, HyperVVolumeManageModel]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Error | HyperVVolumeManageModel | None:
     if response.status_code == 200:
         response_200 = HyperVVolumeManageModel.from_dict(response.json())
 
@@ -73,8 +76,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, HyperVVolumeManageModel]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | HyperVVolumeManageModel]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -86,10 +89,10 @@ def _build_response(
 def sync_detailed(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: HyperVVolumeManageModel,
     x_api_version: str = "1.3-rev0",
-) -> Response[Union[Error, HyperVVolumeManageModel]]:
+) -> Response[Error | HyperVVolumeManageModel]:
     """Edit Volumes on Hyper-V Standalone Server
 
      The HTTP PUT request to the `/api/v1/backupInfrastructure/managedServers/{id}/volumes` path allows
@@ -105,7 +108,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, HyperVVolumeManageModel]]
+        Response[Error | HyperVVolumeManageModel]
     """
 
     kwargs = _get_kwargs(
@@ -124,10 +127,10 @@ def sync_detailed(
 def sync(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: HyperVVolumeManageModel,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Union[Error, HyperVVolumeManageModel]]:
+) -> Error | HyperVVolumeManageModel | None:
     """Edit Volumes on Hyper-V Standalone Server
 
      The HTTP PUT request to the `/api/v1/backupInfrastructure/managedServers/{id}/volumes` path allows
@@ -143,7 +146,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, HyperVVolumeManageModel]
+        Error | HyperVVolumeManageModel
     """
 
     return sync_detailed(
@@ -157,10 +160,10 @@ def sync(
 async def asyncio_detailed(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: HyperVVolumeManageModel,
     x_api_version: str = "1.3-rev0",
-) -> Response[Union[Error, HyperVVolumeManageModel]]:
+) -> Response[Error | HyperVVolumeManageModel]:
     """Edit Volumes on Hyper-V Standalone Server
 
      The HTTP PUT request to the `/api/v1/backupInfrastructure/managedServers/{id}/volumes` path allows
@@ -176,7 +179,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, HyperVVolumeManageModel]]
+        Response[Error | HyperVVolumeManageModel]
     """
 
     kwargs = _get_kwargs(
@@ -193,10 +196,10 @@ async def asyncio_detailed(
 async def asyncio(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: HyperVVolumeManageModel,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Union[Error, HyperVVolumeManageModel]]:
+) -> Error | HyperVVolumeManageModel | None:
     """Edit Volumes on Hyper-V Standalone Server
 
      The HTTP PUT request to the `/api/v1/backupInfrastructure/managedServers/{id}/volumes` path allows
@@ -212,7 +215,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, HyperVVolumeManageModel]
+        Error | HyperVVolumeManageModel
     """
 
     return (

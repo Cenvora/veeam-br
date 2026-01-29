@@ -1,5 +1,6 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
@@ -21,7 +22,9 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": f"/api/v1/globalExclusions/vm/{id}",
+        "url": "/api/v1/globalExclusions/vm/{id}".format(
+            id=quote(str(id), safe=""),
+        ),
     }
 
     _kwargs["headers"] = headers
@@ -29,8 +32,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, GlobalVMExclusionModel]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Error | GlobalVMExclusionModel | None:
     if response.status_code == 200:
         response_200 = GlobalVMExclusionModel.from_dict(response.json())
 
@@ -63,8 +66,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, GlobalVMExclusionModel]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | GlobalVMExclusionModel]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -76,9 +79,9 @@ def _build_response(
 def sync_detailed(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.3-rev0",
-) -> Response[Union[Error, GlobalVMExclusionModel]]:
+) -> Response[Error | GlobalVMExclusionModel]:
     """Get Global VM Exclusion
 
      The HTTP GET request to the `/api/v1/globalExclusions/vm/{id}` path allows you to get a global VM
@@ -93,7 +96,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, GlobalVMExclusionModel]]
+        Response[Error | GlobalVMExclusionModel]
     """
 
     kwargs = _get_kwargs(
@@ -111,9 +114,9 @@ def sync_detailed(
 def sync(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Union[Error, GlobalVMExclusionModel]]:
+) -> Error | GlobalVMExclusionModel | None:
     """Get Global VM Exclusion
 
      The HTTP GET request to the `/api/v1/globalExclusions/vm/{id}` path allows you to get a global VM
@@ -128,7 +131,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, GlobalVMExclusionModel]
+        Error | GlobalVMExclusionModel
     """
 
     return sync_detailed(
@@ -141,9 +144,9 @@ def sync(
 async def asyncio_detailed(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.3-rev0",
-) -> Response[Union[Error, GlobalVMExclusionModel]]:
+) -> Response[Error | GlobalVMExclusionModel]:
     """Get Global VM Exclusion
 
      The HTTP GET request to the `/api/v1/globalExclusions/vm/{id}` path allows you to get a global VM
@@ -158,7 +161,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, GlobalVMExclusionModel]]
+        Response[Error | GlobalVMExclusionModel]
     """
 
     kwargs = _get_kwargs(
@@ -174,9 +177,9 @@ async def asyncio_detailed(
 async def asyncio(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Union[Error, GlobalVMExclusionModel]]:
+) -> Error | GlobalVMExclusionModel | None:
     """Get Global VM Exclusion
 
      The HTTP GET request to the `/api/v1/globalExclusions/vm/{id}` path allows you to get a global VM
@@ -191,7 +194,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, GlobalVMExclusionModel]
+        Error | GlobalVMExclusionModel
     """
 
     return (

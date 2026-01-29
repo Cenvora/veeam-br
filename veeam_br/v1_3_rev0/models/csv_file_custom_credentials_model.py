@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -17,19 +19,19 @@ class CSVFileCustomCredentialsModel:
     Attributes:
         use_master_credentials (bool): If `true`, master credentials are used to authenticate to the computers listed in
             a CSV file.
-        credentials_id (Union[Unset, UUID]): ID of the credentials record used to authenticate to the computer.
-        computer_name (Union[Unset, str]): DNS name or IP address of the computer.
+        credentials_id (UUID | Unset): ID of the credentials record used to authenticate to the computer.
+        computer_name (str | Unset): DNS name or IP address of the computer.
     """
 
     use_master_credentials: bool
-    credentials_id: Union[Unset, UUID] = UNSET
-    computer_name: Union[Unset, str] = UNSET
+    credentials_id: UUID | Unset = UNSET
+    computer_name: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         use_master_credentials = self.use_master_credentials
 
-        credentials_id: Union[Unset, str] = UNSET
+        credentials_id: str | Unset = UNSET
         if not isinstance(self.credentials_id, Unset):
             credentials_id = str(self.credentials_id)
 
@@ -55,7 +57,7 @@ class CSVFileCustomCredentialsModel:
         use_master_credentials = d.pop("useMasterCredentials")
 
         _credentials_id = d.pop("credentialsId", UNSET)
-        credentials_id: Union[Unset, UUID]
+        credentials_id: UUID | Unset
         if isinstance(_credentials_id, Unset):
             credentials_id = UNSET
         else:

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -16,11 +18,11 @@ class ViVMSnapshotReplicaFailoverSpec:
 
     Attributes:
         replica_point_ids (list[UUID]): Array of replica restore points.
-        reason (Union[Unset, str]): Operation reason.
+        reason (str | Unset): Operation reason.
     """
 
     replica_point_ids: list[UUID]
-    reason: Union[Unset, str] = UNSET
+    reason: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

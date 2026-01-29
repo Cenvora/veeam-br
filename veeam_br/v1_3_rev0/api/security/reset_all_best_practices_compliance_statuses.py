@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -27,8 +27,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[BestPracticesComplianceResult, Error]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> BestPracticesComplianceResult | Error | None:
     if response.status_code == 200:
         response_200 = BestPracticesComplianceResult.from_dict(response.json())
 
@@ -56,8 +56,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[BestPracticesComplianceResult, Error]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[BestPracticesComplianceResult | Error]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -68,9 +68,9 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.3-rev0",
-) -> Response[Union[BestPracticesComplianceResult, Error]]:
+) -> Response[BestPracticesComplianceResult | Error]:
     """Reset All Security & Compliance Analyzer Statuses
 
      The HTTP POST request to the `/api/v1/securityAnalyzer/bestPractices/resetAll` path allows you to
@@ -85,7 +85,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[BestPracticesComplianceResult, Error]]
+        Response[BestPracticesComplianceResult | Error]
     """
 
     kwargs = _get_kwargs(
@@ -101,9 +101,9 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Union[BestPracticesComplianceResult, Error]]:
+) -> BestPracticesComplianceResult | Error | None:
     """Reset All Security & Compliance Analyzer Statuses
 
      The HTTP POST request to the `/api/v1/securityAnalyzer/bestPractices/resetAll` path allows you to
@@ -118,7 +118,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[BestPracticesComplianceResult, Error]
+        BestPracticesComplianceResult | Error
     """
 
     return sync_detailed(
@@ -129,9 +129,9 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.3-rev0",
-) -> Response[Union[BestPracticesComplianceResult, Error]]:
+) -> Response[BestPracticesComplianceResult | Error]:
     """Reset All Security & Compliance Analyzer Statuses
 
      The HTTP POST request to the `/api/v1/securityAnalyzer/bestPractices/resetAll` path allows you to
@@ -146,7 +146,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[BestPracticesComplianceResult, Error]]
+        Response[BestPracticesComplianceResult | Error]
     """
 
     kwargs = _get_kwargs(
@@ -160,9 +160,9 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Union[BestPracticesComplianceResult, Error]]:
+) -> BestPracticesComplianceResult | Error | None:
     """Reset All Security & Compliance Analyzer Statuses
 
      The HTTP POST request to the `/api/v1/securityAnalyzer/bestPractices/resetAll` path allows you to
@@ -177,7 +177,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[BestPracticesComplianceResult, Error]
+        BestPracticesComplianceResult | Error
     """
 
     return (

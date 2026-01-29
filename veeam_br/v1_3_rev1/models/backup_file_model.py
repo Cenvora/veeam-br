@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -28,9 +30,8 @@ class BackupFileModel:
         dedup_ratio (int): Deduplication ratio of the backup file.
         compress_ratio (int): Compression ratio of the backup file.
         creation_time (datetime.datetime): Date and time the backup file was created.
-        restore_point_ids (Union[Unset, list[UUID]]): Array of IDs of the restore points associated with the backup
-            file.
-        gfs_periods (Union[Unset, list[EBackupFileGFSPeriod]]): Array of GFS flags assigned to the backup file.
+        restore_point_ids (list[UUID] | Unset): Array of IDs of the restore points associated with the backup file.
+        gfs_periods (list[EBackupFileGFSPeriod] | Unset): Array of GFS flags assigned to the backup file.
     """
 
     id: UUID
@@ -42,8 +43,8 @@ class BackupFileModel:
     dedup_ratio: int
     compress_ratio: int
     creation_time: datetime.datetime
-    restore_point_ids: Union[Unset, list[UUID]] = UNSET
-    gfs_periods: Union[Unset, list[EBackupFileGFSPeriod]] = UNSET
+    restore_point_ids: list[UUID] | Unset = UNSET
+    gfs_periods: list[EBackupFileGFSPeriod] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -65,14 +66,14 @@ class BackupFileModel:
 
         creation_time = self.creation_time.isoformat()
 
-        restore_point_ids: Union[Unset, list[str]] = UNSET
+        restore_point_ids: list[str] | Unset = UNSET
         if not isinstance(self.restore_point_ids, Unset):
             restore_point_ids = []
             for restore_point_ids_item_data in self.restore_point_ids:
                 restore_point_ids_item = str(restore_point_ids_item_data)
                 restore_point_ids.append(restore_point_ids_item)
 
-        gfs_periods: Union[Unset, list[str]] = UNSET
+        gfs_periods: list[str] | Unset = UNSET
         if not isinstance(self.gfs_periods, Unset):
             gfs_periods = []
             for gfs_periods_item_data in self.gfs_periods:
@@ -122,19 +123,23 @@ class BackupFileModel:
 
         creation_time = isoparse(d.pop("creationTime"))
 
-        restore_point_ids = []
         _restore_point_ids = d.pop("restorePointIds", UNSET)
-        for restore_point_ids_item_data in _restore_point_ids or []:
-            restore_point_ids_item = UUID(restore_point_ids_item_data)
+        restore_point_ids: list[UUID] | Unset = UNSET
+        if _restore_point_ids is not UNSET:
+            restore_point_ids = []
+            for restore_point_ids_item_data in _restore_point_ids:
+                restore_point_ids_item = UUID(restore_point_ids_item_data)
 
-            restore_point_ids.append(restore_point_ids_item)
+                restore_point_ids.append(restore_point_ids_item)
 
-        gfs_periods = []
         _gfs_periods = d.pop("gfsPeriods", UNSET)
-        for gfs_periods_item_data in _gfs_periods or []:
-            gfs_periods_item = EBackupFileGFSPeriod(gfs_periods_item_data)
+        gfs_periods: list[EBackupFileGFSPeriod] | Unset = UNSET
+        if _gfs_periods is not UNSET:
+            gfs_periods = []
+            for gfs_periods_item_data in _gfs_periods:
+                gfs_periods_item = EBackupFileGFSPeriod(gfs_periods_item_data)
 
-            gfs_periods.append(gfs_periods_item)
+                gfs_periods.append(gfs_periods_item)
 
         backup_file_model = cls(
             id=id,

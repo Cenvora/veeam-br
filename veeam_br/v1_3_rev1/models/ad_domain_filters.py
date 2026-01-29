@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,22 +16,21 @@ T = TypeVar("T", bound="ADDomainFilters")
 class ADDomainFilters:
     """
     Attributes:
-        skip (Union[Unset, int]): Number of Active Directory domains to skip.
-        limit (Union[Unset, int]): Maximum number of Active Directory domains to return.
-        order_column (Union[Unset, EADDomainFiltersOrderColumn]): Sorts Active Directory domains by one of the Active
+        skip (int | Unset): Number of Active Directory domains to skip.
+        limit (int | Unset): Maximum number of Active Directory domains to return.
+        order_column (EADDomainFiltersOrderColumn | Unset): Sorts Active Directory domains by one of the Active
             Directory domain parameters.
-        order_asc (Union[Unset, bool]): Sorts Active Directory domains in ascending order by the `orderColumn`
-            parameter.
-        name_filter (Union[Unset, str]): Filters Active Directory domains by the `nameFilter` pattern. The pattern can
-            match any Active Directory domain parameter. To substitute one or more characters, use the asterisk (*)
-            character at the beginning and/or at the end.
+        order_asc (bool | Unset): Sorts Active Directory domains in ascending order by the `orderColumn` parameter.
+        name_filter (str | Unset): Filters Active Directory domains by the `nameFilter` pattern. The pattern can match
+            any Active Directory domain parameter. To substitute one or more characters, use the asterisk (*) character at
+            the beginning and/or at the end.
     """
 
-    skip: Union[Unset, int] = UNSET
-    limit: Union[Unset, int] = UNSET
-    order_column: Union[Unset, EADDomainFiltersOrderColumn] = UNSET
-    order_asc: Union[Unset, bool] = UNSET
-    name_filter: Union[Unset, str] = UNSET
+    skip: int | Unset = UNSET
+    limit: int | Unset = UNSET
+    order_column: EADDomainFiltersOrderColumn | Unset = UNSET
+    order_asc: bool | Unset = UNSET
+    name_filter: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -37,7 +38,7 @@ class ADDomainFilters:
 
         limit = self.limit
 
-        order_column: Union[Unset, str] = UNSET
+        order_column: str | Unset = UNSET
         if not isinstance(self.order_column, Unset):
             order_column = self.order_column.value
 
@@ -69,7 +70,7 @@ class ADDomainFilters:
         limit = d.pop("limit", UNSET)
 
         _order_column = d.pop("orderColumn", UNSET)
-        order_column: Union[Unset, EADDomainFiltersOrderColumn]
+        order_column: EADDomainFiltersOrderColumn | Unset
         if isinstance(_order_column, Unset):
             order_column = UNSET
         else:

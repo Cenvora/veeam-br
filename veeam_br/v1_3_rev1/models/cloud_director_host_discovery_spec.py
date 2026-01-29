@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -17,14 +19,14 @@ class CloudDirectorHostDiscoverySpec:
     Attributes:
         url (str): URL of the VMware Cloud Director server.
         credentials_id (UUID): ID of the credentials used to connect to the server.
-        certificate_thumbprint (Union[Unset, str]): Certificate thumbprint used to verify the server identity. For
-            details on how to get the thumbprint, see [Request TLS Certificate or SSH
+        certificate_thumbprint (str | Unset): Certificate thumbprint used to verify the server identity. For details on
+            how to get the thumbprint, see [Request TLS Certificate or SSH
             Fingerprint](Connection#operation/GetConnectionCertificate).
     """
 
     url: str
     credentials_id: UUID
-    certificate_thumbprint: Union[Unset, str] = UNSET
+    certificate_thumbprint: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

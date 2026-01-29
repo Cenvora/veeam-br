@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar, cast
 
@@ -40,7 +42,7 @@ class ServerInfoModel:
     sql_server_version: str
     database_schema_version: str
     database_content_version: str
-    veeam_registration: "VeeamRegistrationInfo"
+    veeam_registration: VeeamRegistrationInfo
     platform: EVBRServerPlatform
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 

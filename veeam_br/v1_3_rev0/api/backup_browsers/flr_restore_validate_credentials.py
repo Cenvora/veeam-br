@@ -1,5 +1,6 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
@@ -23,7 +24,9 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": f"/api/v1/restore/flr/{session_id}/validateCredentials",
+        "url": "/api/v1/restore/flr/{session_id}/validateCredentials".format(
+            session_id=quote(str(session_id), safe=""),
+        ),
     }
 
     _kwargs["json"] = body.to_dict()
@@ -35,8 +38,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, FlrRestoreCredentialsValidationResult]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Error | FlrRestoreCredentialsValidationResult | None:
     if response.status_code == 200:
         response_200 = FlrRestoreCredentialsValidationResult.from_dict(response.json())
 
@@ -69,8 +72,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, FlrRestoreCredentialsValidationResult]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | FlrRestoreCredentialsValidationResult]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -82,10 +85,10 @@ def _build_response(
 def sync_detailed(
     session_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: FlrRestoreCredentialsValidationSpec,
     x_api_version: str = "1.3-rev0",
-) -> Response[Union[Error, FlrRestoreCredentialsValidationResult]]:
+) -> Response[Error | FlrRestoreCredentialsValidationResult]:
     """Validate Target Machine Credentials
 
      The HTTP POST request to the `/api/v1/restore/flr/{sessionId}/validateCredentials` path allows you
@@ -103,7 +106,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, FlrRestoreCredentialsValidationResult]]
+        Response[Error | FlrRestoreCredentialsValidationResult]
     """
 
     kwargs = _get_kwargs(
@@ -122,10 +125,10 @@ def sync_detailed(
 def sync(
     session_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: FlrRestoreCredentialsValidationSpec,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Union[Error, FlrRestoreCredentialsValidationResult]]:
+) -> Error | FlrRestoreCredentialsValidationResult | None:
     """Validate Target Machine Credentials
 
      The HTTP POST request to the `/api/v1/restore/flr/{sessionId}/validateCredentials` path allows you
@@ -143,7 +146,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, FlrRestoreCredentialsValidationResult]
+        Error | FlrRestoreCredentialsValidationResult
     """
 
     return sync_detailed(
@@ -157,10 +160,10 @@ def sync(
 async def asyncio_detailed(
     session_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: FlrRestoreCredentialsValidationSpec,
     x_api_version: str = "1.3-rev0",
-) -> Response[Union[Error, FlrRestoreCredentialsValidationResult]]:
+) -> Response[Error | FlrRestoreCredentialsValidationResult]:
     """Validate Target Machine Credentials
 
      The HTTP POST request to the `/api/v1/restore/flr/{sessionId}/validateCredentials` path allows you
@@ -178,7 +181,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, FlrRestoreCredentialsValidationResult]]
+        Response[Error | FlrRestoreCredentialsValidationResult]
     """
 
     kwargs = _get_kwargs(
@@ -195,10 +198,10 @@ async def asyncio_detailed(
 async def asyncio(
     session_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: FlrRestoreCredentialsValidationSpec,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Union[Error, FlrRestoreCredentialsValidationResult]]:
+) -> Error | FlrRestoreCredentialsValidationResult | None:
     """Validate Target Machine Credentials
 
      The HTTP POST request to the `/api/v1/restore/flr/{sessionId}/validateCredentials` path allows you
@@ -216,7 +219,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, FlrRestoreCredentialsValidationResult]
+        Error | FlrRestoreCredentialsValidationResult
     """
 
     return (

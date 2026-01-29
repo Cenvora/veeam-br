@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -22,35 +24,34 @@ class SuspiciousActivityEventsFilters:
     """SuspiciousActivityEventsFilters
 
     Attributes:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):
-        order_column (Union[Unset, ESuspiciousActivityEventsFiltersOrderColumn]):
-            ESuspiciousActivityEventsFiltersOrderColumn.
-        order_asc (Union[Unset, bool]):
-        type_filter (Union[Unset, ESuspiciousActivityType]): Event type.
-        detected_after_time_utc_filter (Union[Unset, datetime.datetime]):
-        detected_before_time_utc_filter (Union[Unset, datetime.datetime]):
-        backup_object_id_filter (Union[Unset, UUID]):
-        state_filter (Union[Unset, ESuspiciousActivityState]): Event state.
-        source_filter (Union[Unset, ESuspiciousActivitySourceType]): Event source type.
-        severity_filter (Union[Unset, ESuspiciousActivitySeverity]): Malware status.
-        created_by_filter (Union[Unset, str]):
-        engine_filter (Union[Unset, str]):
+        skip (int | Unset):
+        limit (int | Unset):
+        order_column (ESuspiciousActivityEventsFiltersOrderColumn | Unset): ESuspiciousActivityEventsFiltersOrderColumn.
+        order_asc (bool | Unset):
+        type_filter (ESuspiciousActivityType | Unset): Event type.
+        detected_after_time_utc_filter (datetime.datetime | Unset):
+        detected_before_time_utc_filter (datetime.datetime | Unset):
+        backup_object_id_filter (UUID | Unset):
+        state_filter (ESuspiciousActivityState | Unset): Event state.
+        source_filter (ESuspiciousActivitySourceType | Unset): Event source type.
+        severity_filter (ESuspiciousActivitySeverity | Unset): Malware status.
+        created_by_filter (str | Unset):
+        engine_filter (str | Unset):
     """
 
-    skip: Union[Unset, int] = UNSET
-    limit: Union[Unset, int] = UNSET
-    order_column: Union[Unset, ESuspiciousActivityEventsFiltersOrderColumn] = UNSET
-    order_asc: Union[Unset, bool] = UNSET
-    type_filter: Union[Unset, ESuspiciousActivityType] = UNSET
-    detected_after_time_utc_filter: Union[Unset, datetime.datetime] = UNSET
-    detected_before_time_utc_filter: Union[Unset, datetime.datetime] = UNSET
-    backup_object_id_filter: Union[Unset, UUID] = UNSET
-    state_filter: Union[Unset, ESuspiciousActivityState] = UNSET
-    source_filter: Union[Unset, ESuspiciousActivitySourceType] = UNSET
-    severity_filter: Union[Unset, ESuspiciousActivitySeverity] = UNSET
-    created_by_filter: Union[Unset, str] = UNSET
-    engine_filter: Union[Unset, str] = UNSET
+    skip: int | Unset = UNSET
+    limit: int | Unset = UNSET
+    order_column: ESuspiciousActivityEventsFiltersOrderColumn | Unset = UNSET
+    order_asc: bool | Unset = UNSET
+    type_filter: ESuspiciousActivityType | Unset = UNSET
+    detected_after_time_utc_filter: datetime.datetime | Unset = UNSET
+    detected_before_time_utc_filter: datetime.datetime | Unset = UNSET
+    backup_object_id_filter: UUID | Unset = UNSET
+    state_filter: ESuspiciousActivityState | Unset = UNSET
+    source_filter: ESuspiciousActivitySourceType | Unset = UNSET
+    severity_filter: ESuspiciousActivitySeverity | Unset = UNSET
+    created_by_filter: str | Unset = UNSET
+    engine_filter: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -58,37 +59,37 @@ class SuspiciousActivityEventsFilters:
 
         limit = self.limit
 
-        order_column: Union[Unset, str] = UNSET
+        order_column: str | Unset = UNSET
         if not isinstance(self.order_column, Unset):
             order_column = self.order_column.value
 
         order_asc = self.order_asc
 
-        type_filter: Union[Unset, str] = UNSET
+        type_filter: str | Unset = UNSET
         if not isinstance(self.type_filter, Unset):
             type_filter = self.type_filter.value
 
-        detected_after_time_utc_filter: Union[Unset, str] = UNSET
+        detected_after_time_utc_filter: str | Unset = UNSET
         if not isinstance(self.detected_after_time_utc_filter, Unset):
             detected_after_time_utc_filter = self.detected_after_time_utc_filter.isoformat()
 
-        detected_before_time_utc_filter: Union[Unset, str] = UNSET
+        detected_before_time_utc_filter: str | Unset = UNSET
         if not isinstance(self.detected_before_time_utc_filter, Unset):
             detected_before_time_utc_filter = self.detected_before_time_utc_filter.isoformat()
 
-        backup_object_id_filter: Union[Unset, str] = UNSET
+        backup_object_id_filter: str | Unset = UNSET
         if not isinstance(self.backup_object_id_filter, Unset):
             backup_object_id_filter = str(self.backup_object_id_filter)
 
-        state_filter: Union[Unset, str] = UNSET
+        state_filter: str | Unset = UNSET
         if not isinstance(self.state_filter, Unset):
             state_filter = self.state_filter.value
 
-        source_filter: Union[Unset, str] = UNSET
+        source_filter: str | Unset = UNSET
         if not isinstance(self.source_filter, Unset):
             source_filter = self.source_filter.value
 
-        severity_filter: Union[Unset, str] = UNSET
+        severity_filter: str | Unset = UNSET
         if not isinstance(self.severity_filter, Unset):
             severity_filter = self.severity_filter.value
 
@@ -136,7 +137,7 @@ class SuspiciousActivityEventsFilters:
         limit = d.pop("limit", UNSET)
 
         _order_column = d.pop("orderColumn", UNSET)
-        order_column: Union[Unset, ESuspiciousActivityEventsFiltersOrderColumn]
+        order_column: ESuspiciousActivityEventsFiltersOrderColumn | Unset
         if isinstance(_order_column, Unset):
             order_column = UNSET
         else:
@@ -145,49 +146,49 @@ class SuspiciousActivityEventsFilters:
         order_asc = d.pop("orderAsc", UNSET)
 
         _type_filter = d.pop("typeFilter", UNSET)
-        type_filter: Union[Unset, ESuspiciousActivityType]
+        type_filter: ESuspiciousActivityType | Unset
         if isinstance(_type_filter, Unset):
             type_filter = UNSET
         else:
             type_filter = ESuspiciousActivityType(_type_filter)
 
         _detected_after_time_utc_filter = d.pop("detectedAfterTimeUtcFilter", UNSET)
-        detected_after_time_utc_filter: Union[Unset, datetime.datetime]
+        detected_after_time_utc_filter: datetime.datetime | Unset
         if isinstance(_detected_after_time_utc_filter, Unset):
             detected_after_time_utc_filter = UNSET
         else:
             detected_after_time_utc_filter = isoparse(_detected_after_time_utc_filter)
 
         _detected_before_time_utc_filter = d.pop("detectedBeforeTimeUtcFilter", UNSET)
-        detected_before_time_utc_filter: Union[Unset, datetime.datetime]
+        detected_before_time_utc_filter: datetime.datetime | Unset
         if isinstance(_detected_before_time_utc_filter, Unset):
             detected_before_time_utc_filter = UNSET
         else:
             detected_before_time_utc_filter = isoparse(_detected_before_time_utc_filter)
 
         _backup_object_id_filter = d.pop("backupObjectIdFilter", UNSET)
-        backup_object_id_filter: Union[Unset, UUID]
+        backup_object_id_filter: UUID | Unset
         if isinstance(_backup_object_id_filter, Unset):
             backup_object_id_filter = UNSET
         else:
             backup_object_id_filter = UUID(_backup_object_id_filter)
 
         _state_filter = d.pop("stateFilter", UNSET)
-        state_filter: Union[Unset, ESuspiciousActivityState]
+        state_filter: ESuspiciousActivityState | Unset
         if isinstance(_state_filter, Unset):
             state_filter = UNSET
         else:
             state_filter = ESuspiciousActivityState(_state_filter)
 
         _source_filter = d.pop("sourceFilter", UNSET)
-        source_filter: Union[Unset, ESuspiciousActivitySourceType]
+        source_filter: ESuspiciousActivitySourceType | Unset
         if isinstance(_source_filter, Unset):
             source_filter = UNSET
         else:
             source_filter = ESuspiciousActivitySourceType(_source_filter)
 
         _severity_filter = d.pop("severityFilter", UNSET)
-        severity_filter: Union[Unset, ESuspiciousActivitySeverity]
+        severity_filter: ESuspiciousActivitySeverity | Unset
         if isinstance(_severity_filter, Unset):
             severity_filter = UNSET
         else:

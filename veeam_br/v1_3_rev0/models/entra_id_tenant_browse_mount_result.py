@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 
@@ -17,12 +19,12 @@ class EntraIdTenantBrowseMountResult:
     """Details on mount points.
 
     Attributes:
-        data (list['EntraIdTenantBrowseMountModel']): Array of mount points.
+        data (list[EntraIdTenantBrowseMountModel]): Array of mount points.
         pagination (PaginationResult): Pagination settings.
     """
 
-    data: list["EntraIdTenantBrowseMountModel"]
-    pagination: "PaginationResult"
+    data: list[EntraIdTenantBrowseMountModel]
+    pagination: PaginationResult
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

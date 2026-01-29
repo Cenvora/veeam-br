@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,35 +21,35 @@ class ProtectionGroupNotificationSettingsModel:
     """Notification settings.
 
     Attributes:
-        is_enabled (Union[Unset, bool]): If `true`, daily email notifications are enabled for this protection group.
-        recipients (Union[Unset, list[str]]): Array of recipient email addresses.
-        daily_send_time (Union[Unset, str]): Local time when the daily report must be sent.
-        notification_type (Union[Unset, EEmailNotificationType]): Type of email notification settings (global
-            notification settings specified for the backup server, or custom notification settings specified for this job).
-        custom_notification_settings (Union[Unset, EmailCustomNotificationType]): Custom notification settings.
+        is_enabled (bool | Unset): If `true`, daily email notifications are enabled for this protection group.
+        recipients (list[str] | Unset): Array of recipient email addresses.
+        daily_send_time (str | Unset): Local time when the daily report must be sent.
+        notification_type (EEmailNotificationType | Unset): Type of email notification settings (global notification
+            settings specified for the backup server, or custom notification settings specified for this job).
+        custom_notification_settings (EmailCustomNotificationType | Unset): Custom notification settings.
     """
 
-    is_enabled: Union[Unset, bool] = UNSET
-    recipients: Union[Unset, list[str]] = UNSET
-    daily_send_time: Union[Unset, str] = UNSET
-    notification_type: Union[Unset, EEmailNotificationType] = UNSET
-    custom_notification_settings: Union[Unset, "EmailCustomNotificationType"] = UNSET
+    is_enabled: bool | Unset = UNSET
+    recipients: list[str] | Unset = UNSET
+    daily_send_time: str | Unset = UNSET
+    notification_type: EEmailNotificationType | Unset = UNSET
+    custom_notification_settings: EmailCustomNotificationType | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         is_enabled = self.is_enabled
 
-        recipients: Union[Unset, list[str]] = UNSET
+        recipients: list[str] | Unset = UNSET
         if not isinstance(self.recipients, Unset):
             recipients = self.recipients
 
         daily_send_time = self.daily_send_time
 
-        notification_type: Union[Unset, str] = UNSET
+        notification_type: str | Unset = UNSET
         if not isinstance(self.notification_type, Unset):
             notification_type = self.notification_type.value
 
-        custom_notification_settings: Union[Unset, dict[str, Any]] = UNSET
+        custom_notification_settings: dict[str, Any] | Unset = UNSET
         if not isinstance(self.custom_notification_settings, Unset):
             custom_notification_settings = self.custom_notification_settings.to_dict()
 
@@ -79,14 +81,14 @@ class ProtectionGroupNotificationSettingsModel:
         daily_send_time = d.pop("dailySendTime", UNSET)
 
         _notification_type = d.pop("notificationType", UNSET)
-        notification_type: Union[Unset, EEmailNotificationType]
+        notification_type: EEmailNotificationType | Unset
         if isinstance(_notification_type, Unset):
             notification_type = UNSET
         else:
             notification_type = EEmailNotificationType(_notification_type)
 
         _custom_notification_settings = d.pop("customNotificationSettings", UNSET)
-        custom_notification_settings: Union[Unset, EmailCustomNotificationType]
+        custom_notification_settings: EmailCustomNotificationType | Unset
         if isinstance(_custom_notification_settings, Unset):
             custom_notification_settings = UNSET
         else:

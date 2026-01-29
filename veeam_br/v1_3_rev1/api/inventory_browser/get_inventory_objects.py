@@ -1,5 +1,6 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
+from urllib.parse import quote
 
 import httpx
 
@@ -14,8 +15,8 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     hostname: str,
     *,
-    body: InventoryBrowserFilters,
-    reset_cache: Union[Unset, bool] = UNSET,
+    body: InventoryBrowserFilters | Unset = UNSET,
+    reset_cache: bool | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -29,11 +30,14 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": f"/api/v1/inventory/{hostname}",
+        "url": "/api/v1/inventory/{hostname}".format(
+            hostname=quote(str(hostname), safe=""),
+        ),
         "params": params,
     }
 
-    _kwargs["json"] = body.to_dict()
+    if not isinstance(body, Unset):
+        _kwargs["json"] = body.to_dict()
 
     headers["Content-Type"] = "application/json"
 
@@ -42,8 +46,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, InventoryBrowserResult]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Error | InventoryBrowserResult | None:
     if response.status_code == 200:
         response_200 = InventoryBrowserResult.from_dict(response.json())
 
@@ -76,8 +80,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, InventoryBrowserResult]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | InventoryBrowserResult]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -89,11 +93,11 @@ def _build_response(
 def sync_detailed(
     hostname: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: InventoryBrowserFilters,
-    reset_cache: Union[Unset, bool] = UNSET,
+    client: AuthenticatedClient | Client,
+    body: InventoryBrowserFilters | Unset = UNSET,
+    reset_cache: bool | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Error, InventoryBrowserResult]]:
+) -> Response[Error | InventoryBrowserResult]:
     """Get Inventory Objects
 
      The HTTP POST request to the `/api/v1/inventory/{hostname}` endpoint gets an array of inventory
@@ -103,16 +107,16 @@ def sync_detailed(
 
     Args:
         hostname (str):
-        reset_cache (Union[Unset, bool]):
+        reset_cache (bool | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
-        body (InventoryBrowserFilters):
+        body (InventoryBrowserFilters | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, InventoryBrowserResult]]
+        Response[Error | InventoryBrowserResult]
     """
 
     kwargs = _get_kwargs(
@@ -132,11 +136,11 @@ def sync_detailed(
 def sync(
     hostname: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: InventoryBrowserFilters,
-    reset_cache: Union[Unset, bool] = UNSET,
+    client: AuthenticatedClient | Client,
+    body: InventoryBrowserFilters | Unset = UNSET,
+    reset_cache: bool | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Error, InventoryBrowserResult]]:
+) -> Error | InventoryBrowserResult | None:
     """Get Inventory Objects
 
      The HTTP POST request to the `/api/v1/inventory/{hostname}` endpoint gets an array of inventory
@@ -146,16 +150,16 @@ def sync(
 
     Args:
         hostname (str):
-        reset_cache (Union[Unset, bool]):
+        reset_cache (bool | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
-        body (InventoryBrowserFilters):
+        body (InventoryBrowserFilters | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, InventoryBrowserResult]
+        Error | InventoryBrowserResult
     """
 
     return sync_detailed(
@@ -170,11 +174,11 @@ def sync(
 async def asyncio_detailed(
     hostname: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: InventoryBrowserFilters,
-    reset_cache: Union[Unset, bool] = UNSET,
+    client: AuthenticatedClient | Client,
+    body: InventoryBrowserFilters | Unset = UNSET,
+    reset_cache: bool | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Error, InventoryBrowserResult]]:
+) -> Response[Error | InventoryBrowserResult]:
     """Get Inventory Objects
 
      The HTTP POST request to the `/api/v1/inventory/{hostname}` endpoint gets an array of inventory
@@ -184,16 +188,16 @@ async def asyncio_detailed(
 
     Args:
         hostname (str):
-        reset_cache (Union[Unset, bool]):
+        reset_cache (bool | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
-        body (InventoryBrowserFilters):
+        body (InventoryBrowserFilters | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, InventoryBrowserResult]]
+        Response[Error | InventoryBrowserResult]
     """
 
     kwargs = _get_kwargs(
@@ -211,11 +215,11 @@ async def asyncio_detailed(
 async def asyncio(
     hostname: str,
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: InventoryBrowserFilters,
-    reset_cache: Union[Unset, bool] = UNSET,
+    client: AuthenticatedClient | Client,
+    body: InventoryBrowserFilters | Unset = UNSET,
+    reset_cache: bool | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Error, InventoryBrowserResult]]:
+) -> Error | InventoryBrowserResult | None:
     """Get Inventory Objects
 
      The HTTP POST request to the `/api/v1/inventory/{hostname}` endpoint gets an array of inventory
@@ -225,16 +229,16 @@ async def asyncio(
 
     Args:
         hostname (str):
-        reset_cache (Union[Unset, bool]):
+        reset_cache (bool | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
-        body (InventoryBrowserFilters):
+        body (InventoryBrowserFilters | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, InventoryBrowserResult]
+        Error | InventoryBrowserResult
     """
 
     return (

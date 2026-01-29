@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 
@@ -17,12 +19,12 @@ class ProtectedComputerResult:
     """Details on protected computers.
 
     Attributes:
-        data (list['ProtectedComputerModel']): Array of protected computers.
+        data (list[ProtectedComputerModel]): Array of protected computers.
         pagination (PaginationResult): Pagination settings.
     """
 
-    data: list["ProtectedComputerModel"]
-    pagination: "PaginationResult"
+    data: list[ProtectedComputerModel]
+    pagination: PaginationResult
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

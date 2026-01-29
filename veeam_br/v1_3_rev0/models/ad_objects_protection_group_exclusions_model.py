@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -18,19 +20,19 @@ class ADObjectsProtectionGroupExclusionsModel:
     """Exclusion settings for Active Directory objects.
 
     Attributes:
-        exclude_v_ms (Union[Unset, bool]): If `true`, all VMs are excluded from the protection scope.
-        exclude_offline_computers (Union[Unset, bool]): If `true`, computers that have been offline for over 30 days are
+        exclude_v_ms (bool | Unset): If `true`, all VMs are excluded from the protection scope.
+        exclude_offline_computers (bool | Unset): If `true`, computers that have been offline for over 30 days are
             excluded from the protection scope.
-        exclude_selected_objects (Union[Unset, bool]): If `true`, the specified Active Directory objects are excluded
-            from the protection scope.
-        excluded_objects (Union[Unset, list['ADObjectModel']]): Array of Active Directory objects to be excluded from
-            the protection scope.
+        exclude_selected_objects (bool | Unset): If `true`, the specified Active Directory objects are excluded from the
+            protection scope.
+        excluded_objects (list[ADObjectModel] | Unset): Array of Active Directory objects to be excluded from the
+            protection scope.
     """
 
-    exclude_v_ms: Union[Unset, bool] = UNSET
-    exclude_offline_computers: Union[Unset, bool] = UNSET
-    exclude_selected_objects: Union[Unset, bool] = UNSET
-    excluded_objects: Union[Unset, list["ADObjectModel"]] = UNSET
+    exclude_v_ms: bool | Unset = UNSET
+    exclude_offline_computers: bool | Unset = UNSET
+    exclude_selected_objects: bool | Unset = UNSET
+    excluded_objects: list[ADObjectModel] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -40,7 +42,7 @@ class ADObjectsProtectionGroupExclusionsModel:
 
         exclude_selected_objects = self.exclude_selected_objects
 
-        excluded_objects: Union[Unset, list[dict[str, Any]]] = UNSET
+        excluded_objects: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.excluded_objects, Unset):
             excluded_objects = []
             for excluded_objects_item_data in self.excluded_objects:
@@ -72,12 +74,14 @@ class ADObjectsProtectionGroupExclusionsModel:
 
         exclude_selected_objects = d.pop("excludeSelectedObjects", UNSET)
 
-        excluded_objects = []
         _excluded_objects = d.pop("excludedObjects", UNSET)
-        for excluded_objects_item_data in _excluded_objects or []:
-            excluded_objects_item = ADObjectModel.from_dict(excluded_objects_item_data)
+        excluded_objects: list[ADObjectModel] | Unset = UNSET
+        if _excluded_objects is not UNSET:
+            excluded_objects = []
+            for excluded_objects_item_data in _excluded_objects:
+                excluded_objects_item = ADObjectModel.from_dict(excluded_objects_item_data)
 
-            excluded_objects.append(excluded_objects_item)
+                excluded_objects.append(excluded_objects_item)
 
         ad_objects_protection_group_exclusions_model = cls(
             exclude_v_ms=exclude_v_ms,

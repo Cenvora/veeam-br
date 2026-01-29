@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -32,8 +34,8 @@ class FlrTaskItemModel:
         initiator_name (str): Account that initiated the restore session.
         name (str): Restored item name.
         target_name (str): Target name of the restored item.
-        restore_point_id (Union[Unset, UUID]): Restore point ID.
-        restore_point_date (Union[Unset, datetime.datetime]): Date and time when the restore point was created.
+        restore_point_id (UUID | Unset): Restore point ID.
+        restore_point_date (datetime.datetime | Unset): Date and time when the restore point was created.
     """
 
     item_type: EFlrItemType
@@ -49,8 +51,8 @@ class FlrTaskItemModel:
     initiator_name: str
     name: str
     target_name: str
-    restore_point_id: Union[Unset, UUID] = UNSET
-    restore_point_date: Union[Unset, datetime.datetime] = UNSET
+    restore_point_id: UUID | Unset = UNSET
+    restore_point_date: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -80,11 +82,11 @@ class FlrTaskItemModel:
 
         target_name = self.target_name
 
-        restore_point_id: Union[Unset, str] = UNSET
+        restore_point_id: str | Unset = UNSET
         if not isinstance(self.restore_point_id, Unset):
             restore_point_id = str(self.restore_point_id)
 
-        restore_point_date: Union[Unset, str] = UNSET
+        restore_point_date: str | Unset = UNSET
         if not isinstance(self.restore_point_date, Unset):
             restore_point_date = self.restore_point_date.isoformat()
 
@@ -144,14 +146,14 @@ class FlrTaskItemModel:
         target_name = d.pop("targetName")
 
         _restore_point_id = d.pop("restorePointId", UNSET)
-        restore_point_id: Union[Unset, UUID]
+        restore_point_id: UUID | Unset
         if isinstance(_restore_point_id, Unset):
             restore_point_id = UNSET
         else:
             restore_point_id = UUID(_restore_point_id)
 
         _restore_point_date = d.pop("restorePointDate", UNSET)
-        restore_point_date: Union[Unset, datetime.datetime]
+        restore_point_date: datetime.datetime | Unset
         if isinstance(_restore_point_date, Unset):
             restore_point_date = UNSET
         else:

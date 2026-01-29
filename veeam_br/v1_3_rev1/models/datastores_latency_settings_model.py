@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -8,10 +10,7 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.agent_object_model import AgentObjectModel
-    from ..models.cloud_director_object_model import CloudDirectorObjectModel
-    from ..models.hyper_v_object_model import HyperVObjectModel
-    from ..models.vmware_object_model import VmwareObjectModel
+    from ..models.inventory_object_model import InventoryObjectModel
 
 
 T = TypeVar("T", bound="DatastoresLatencySettingsModel")
@@ -23,37 +22,24 @@ class DatastoresLatencySettingsModel:
 
     Attributes:
         id (UUID): ID of the datastore latency settings record.
-        storage_object (Union['AgentObjectModel', 'CloudDirectorObjectModel', 'HyperVObjectModel',
-            'VmwareObjectModel']): Inventory object properties.
-        latency_limit_ms (Union[Unset, int]): I/O latency threshold (in milliseconds) at which Veeam Backup &
-            Replication will stop assigning new tasks to the datastore or volume. Default: 20.
-        throttling_io_limit_ms (Union[Unset, int]): I/O latency speed limit (in milliseconds) at which Veeam Backup &
+        storage_object (InventoryObjectModel): Inventory object properties.
+        latency_limit_ms (int | Unset): I/O latency threshold (in milliseconds) at which Veeam Backup & Replication will
+            stop assigning new tasks to the datastore or volume. Default: 20.
+        throttling_io_limit_ms (int | Unset): I/O latency speed limit (in milliseconds) at which Veeam Backup &
             Replication will slow down read and write operations for the datastore or volume.<p>`latencyLimitMs` must not be
             greater than `throttlingIOLimitMs`.</p> Default: 30.
     """
 
     id: UUID
-    storage_object: Union["AgentObjectModel", "CloudDirectorObjectModel", "HyperVObjectModel", "VmwareObjectModel"]
-    latency_limit_ms: Union[Unset, int] = 20
-    throttling_io_limit_ms: Union[Unset, int] = 30
+    storage_object: InventoryObjectModel
+    latency_limit_ms: int | Unset = 20
+    throttling_io_limit_ms: int | Unset = 30
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.cloud_director_object_model import CloudDirectorObjectModel
-        from ..models.hyper_v_object_model import HyperVObjectModel
-        from ..models.vmware_object_model import VmwareObjectModel
-
         id = str(self.id)
 
-        storage_object: dict[str, Any]
-        if isinstance(self.storage_object, VmwareObjectModel):
-            storage_object = self.storage_object.to_dict()
-        elif isinstance(self.storage_object, CloudDirectorObjectModel):
-            storage_object = self.storage_object.to_dict()
-        elif isinstance(self.storage_object, HyperVObjectModel):
-            storage_object = self.storage_object.to_dict()
-        else:
-            storage_object = self.storage_object.to_dict()
+        storage_object = self.storage_object.to_dict()
 
         latency_limit_ms = self.latency_limit_ms
 
@@ -76,48 +62,12 @@ class DatastoresLatencySettingsModel:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.agent_object_model import AgentObjectModel
-        from ..models.cloud_director_object_model import CloudDirectorObjectModel
-        from ..models.hyper_v_object_model import HyperVObjectModel
-        from ..models.vmware_object_model import VmwareObjectModel
+        from ..models.inventory_object_model import InventoryObjectModel
 
         d = dict(src_dict)
         id = UUID(d.pop("id"))
 
-        def _parse_storage_object(
-            data: object,
-        ) -> Union["AgentObjectModel", "CloudDirectorObjectModel", "HyperVObjectModel", "VmwareObjectModel"]:
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_0 = VmwareObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_0
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_1 = CloudDirectorObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_1
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_2 = HyperVObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_2
-            except:  # noqa: E722
-                pass
-            if not isinstance(data, dict):
-                raise TypeError()
-            componentsschemas_inventory_object_model_type_3 = AgentObjectModel.from_dict(data)
-
-            return componentsschemas_inventory_object_model_type_3
-
-        storage_object = _parse_storage_object(d.pop("storageObject"))
+        storage_object = InventoryObjectModel.from_dict(d.pop("storageObject"))
 
         latency_limit_ms = d.pop("latencyLimitMs", UNSET)
 

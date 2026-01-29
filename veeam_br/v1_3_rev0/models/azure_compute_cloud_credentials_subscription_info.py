@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -17,12 +19,12 @@ class AzureComputeCloudCredentialsSubscriptionInfo:
     Attributes:
         id (UUID): ID that Veeam Backup & Replication assigned to the Azure subscription.
         azure_subscription_id (str): Original Azure subscription ID.
-        azure_subscription_name (Union[Unset, str]): Azure subscription name.
+        azure_subscription_name (str | Unset): Azure subscription name.
     """
 
     id: UUID
     azure_subscription_id: str
-    azure_subscription_name: Union[Unset, str] = UNSET
+    azure_subscription_name: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

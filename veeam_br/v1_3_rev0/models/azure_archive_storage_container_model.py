@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -16,12 +18,12 @@ class AzureArchiveStorageContainerModel:
     Attributes:
         container_name (str): Name of an Azure Archive container.
         folder_name (str): Name of the folder to which the object storage repository is mapped.
-        immutability_enabled (Union[Unset, bool]): If `true`, immutability is enabled for the container.
+        immutability_enabled (bool | Unset): If `true`, immutability is enabled for the container.
     """
 
     container_name: str
     folder_name: str
-    immutability_enabled: Union[Unset, bool] = UNSET
+    immutability_enabled: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

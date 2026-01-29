@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -18,14 +20,14 @@ class EntraIdTenantRestorePointSpec:
     """Restore point settings.
 
     Attributes:
-        skip (Union[Unset, int]): Number of restore points to skip.
-        limit (Union[Unset, int]): Maximum number of restore points to return.
-        sorting (Union[Unset, EntraIdTenantRestorePointSortingSpec]): Sorting options.
+        skip (int | Unset): Number of restore points to skip.
+        limit (int | Unset): Maximum number of restore points to return.
+        sorting (EntraIdTenantRestorePointSortingSpec | Unset): Sorting options.
     """
 
-    skip: Union[Unset, int] = UNSET
-    limit: Union[Unset, int] = UNSET
-    sorting: Union[Unset, "EntraIdTenantRestorePointSortingSpec"] = UNSET
+    skip: int | Unset = UNSET
+    limit: int | Unset = UNSET
+    sorting: EntraIdTenantRestorePointSortingSpec | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -33,7 +35,7 @@ class EntraIdTenantRestorePointSpec:
 
         limit = self.limit
 
-        sorting: Union[Unset, dict[str, Any]] = UNSET
+        sorting: dict[str, Any] | Unset = UNSET
         if not isinstance(self.sorting, Unset):
             sorting = self.sorting.to_dict()
 
@@ -59,7 +61,7 @@ class EntraIdTenantRestorePointSpec:
         limit = d.pop("limit", UNSET)
 
         _sorting = d.pop("sorting", UNSET)
-        sorting: Union[Unset, EntraIdTenantRestorePointSortingSpec]
+        sorting: EntraIdTenantRestorePointSortingSpec | Unset
         if isinstance(_sorting, Unset):
             sorting = UNSET
         else:

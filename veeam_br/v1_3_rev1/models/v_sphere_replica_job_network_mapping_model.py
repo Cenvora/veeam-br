@@ -1,14 +1,13 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 if TYPE_CHECKING:
-    from ..models.agent_object_model import AgentObjectModel
-    from ..models.cloud_director_object_model import CloudDirectorObjectModel
-    from ..models.hyper_v_object_model import HyperVObjectModel
-    from ..models.vmware_object_model import VmwareObjectModel
+    from ..models.inventory_object_model import InventoryObjectModel
 
 
 T = TypeVar("T", bound="VSphereReplicaJobNetworkMappingModel")
@@ -19,40 +18,18 @@ class VSphereReplicaJobNetworkMappingModel:
     """Network mapping rule.
 
     Attributes:
-        source_network (Union['AgentObjectModel', 'CloudDirectorObjectModel', 'HyperVObjectModel',
-            'VmwareObjectModel']): Inventory object properties.
-        target_network (Union['AgentObjectModel', 'CloudDirectorObjectModel', 'HyperVObjectModel',
-            'VmwareObjectModel']): Inventory object properties.
+        source_network (InventoryObjectModel): Inventory object properties.
+        target_network (InventoryObjectModel): Inventory object properties.
     """
 
-    source_network: Union["AgentObjectModel", "CloudDirectorObjectModel", "HyperVObjectModel", "VmwareObjectModel"]
-    target_network: Union["AgentObjectModel", "CloudDirectorObjectModel", "HyperVObjectModel", "VmwareObjectModel"]
+    source_network: InventoryObjectModel
+    target_network: InventoryObjectModel
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.cloud_director_object_model import CloudDirectorObjectModel
-        from ..models.hyper_v_object_model import HyperVObjectModel
-        from ..models.vmware_object_model import VmwareObjectModel
+        source_network = self.source_network.to_dict()
 
-        source_network: dict[str, Any]
-        if isinstance(self.source_network, VmwareObjectModel):
-            source_network = self.source_network.to_dict()
-        elif isinstance(self.source_network, CloudDirectorObjectModel):
-            source_network = self.source_network.to_dict()
-        elif isinstance(self.source_network, HyperVObjectModel):
-            source_network = self.source_network.to_dict()
-        else:
-            source_network = self.source_network.to_dict()
-
-        target_network: dict[str, Any]
-        if isinstance(self.target_network, VmwareObjectModel):
-            target_network = self.target_network.to_dict()
-        elif isinstance(self.target_network, CloudDirectorObjectModel):
-            target_network = self.target_network.to_dict()
-        elif isinstance(self.target_network, HyperVObjectModel):
-            target_network = self.target_network.to_dict()
-        else:
-            target_network = self.target_network.to_dict()
+        target_network = self.target_network.to_dict()
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -67,82 +44,12 @@ class VSphereReplicaJobNetworkMappingModel:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.agent_object_model import AgentObjectModel
-        from ..models.cloud_director_object_model import CloudDirectorObjectModel
-        from ..models.hyper_v_object_model import HyperVObjectModel
-        from ..models.vmware_object_model import VmwareObjectModel
+        from ..models.inventory_object_model import InventoryObjectModel
 
         d = dict(src_dict)
+        source_network = InventoryObjectModel.from_dict(d.pop("sourceNetwork"))
 
-        def _parse_source_network(
-            data: object,
-        ) -> Union["AgentObjectModel", "CloudDirectorObjectModel", "HyperVObjectModel", "VmwareObjectModel"]:
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_0 = VmwareObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_0
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_1 = CloudDirectorObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_1
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_2 = HyperVObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_2
-            except:  # noqa: E722
-                pass
-            if not isinstance(data, dict):
-                raise TypeError()
-            componentsschemas_inventory_object_model_type_3 = AgentObjectModel.from_dict(data)
-
-            return componentsschemas_inventory_object_model_type_3
-
-        source_network = _parse_source_network(d.pop("sourceNetwork"))
-
-        def _parse_target_network(
-            data: object,
-        ) -> Union["AgentObjectModel", "CloudDirectorObjectModel", "HyperVObjectModel", "VmwareObjectModel"]:
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_0 = VmwareObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_0
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_1 = CloudDirectorObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_1
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_2 = HyperVObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_2
-            except:  # noqa: E722
-                pass
-            if not isinstance(data, dict):
-                raise TypeError()
-            componentsschemas_inventory_object_model_type_3 = AgentObjectModel.from_dict(data)
-
-            return componentsschemas_inventory_object_model_type_3
-
-        target_network = _parse_target_network(d.pop("targetNetwork"))
+        target_network = InventoryObjectModel.from_dict(d.pop("targetNetwork"))
 
         v_sphere_replica_job_network_mapping_model = cls(
             source_network=source_network,

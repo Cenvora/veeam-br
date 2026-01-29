@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -19,24 +21,24 @@ class ViVMSnapshotReplicaChangeSwitchoverTimeFailbackSpec:
     """Settings for changing switchover time.
 
     Attributes:
-        replica_point_ids (Union[Unset, list[UUID]]): Array of replica restore points for which you want to change
-            switchover time.
-        failback_mode (Union[Unset, ReplicaFailbackModeSpec]): Failback mode.
+        replica_point_ids (list[UUID] | Unset): Array of replica restore points for which you want to change switchover
+            time.
+        failback_mode (ReplicaFailbackModeSpec | Unset): Failback mode.
     """
 
-    replica_point_ids: Union[Unset, list[UUID]] = UNSET
-    failback_mode: Union[Unset, "ReplicaFailbackModeSpec"] = UNSET
+    replica_point_ids: list[UUID] | Unset = UNSET
+    failback_mode: ReplicaFailbackModeSpec | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        replica_point_ids: Union[Unset, list[str]] = UNSET
+        replica_point_ids: list[str] | Unset = UNSET
         if not isinstance(self.replica_point_ids, Unset):
             replica_point_ids = []
             for replica_point_ids_item_data in self.replica_point_ids:
                 replica_point_ids_item = str(replica_point_ids_item_data)
                 replica_point_ids.append(replica_point_ids_item)
 
-        failback_mode: Union[Unset, dict[str, Any]] = UNSET
+        failback_mode: dict[str, Any] | Unset = UNSET
         if not isinstance(self.failback_mode, Unset):
             failback_mode = self.failback_mode.to_dict()
 
@@ -55,15 +57,17 @@ class ViVMSnapshotReplicaChangeSwitchoverTimeFailbackSpec:
         from ..models.replica_failback_mode_spec import ReplicaFailbackModeSpec
 
         d = dict(src_dict)
-        replica_point_ids = []
         _replica_point_ids = d.pop("replicaPointIds", UNSET)
-        for replica_point_ids_item_data in _replica_point_ids or []:
-            replica_point_ids_item = UUID(replica_point_ids_item_data)
+        replica_point_ids: list[UUID] | Unset = UNSET
+        if _replica_point_ids is not UNSET:
+            replica_point_ids = []
+            for replica_point_ids_item_data in _replica_point_ids:
+                replica_point_ids_item = UUID(replica_point_ids_item_data)
 
-            replica_point_ids.append(replica_point_ids_item)
+                replica_point_ids.append(replica_point_ids_item)
 
         _failback_mode = d.pop("failbackMode", UNSET)
-        failback_mode: Union[Unset, ReplicaFailbackModeSpec]
+        failback_mode: ReplicaFailbackModeSpec | Unset
         if isinstance(_failback_mode, Unset):
             failback_mode = UNSET
         else:

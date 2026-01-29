@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 
@@ -15,10 +17,10 @@ T = TypeVar("T", bound="EntraIdTenantCheckProductionItemsModel")
 class EntraIdTenantCheckProductionItemsModel:
     """
     Attributes:
-        items (list['EntraIdTenantProductionItemModel']): Array of items that exist in production.
+        items (list[EntraIdTenantProductionItemModel]): Array of items that exist in production.
     """
 
-    items: list["EntraIdTenantProductionItemModel"]
+    items: list[EntraIdTenantProductionItemModel]
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,20 +22,20 @@ class PlacementPolicyModel:
 
     Attributes:
         type_ (EPlacementPolicyType): Type of placement policy.
-        settings (Union[Unset, list['BackupPlacementSettingsModel']]): Placement policy settings.
-        enforce_strict_placement_policy (Union[Unset, bool]): If `true`, the backup job fails in case the placement
-            policy cannot be met.
+        settings (list[BackupPlacementSettingsModel] | Unset): Placement policy settings.
+        enforce_strict_placement_policy (bool | Unset): If `true`, the backup job fails in case the placement policy
+            cannot be met.
     """
 
     type_: EPlacementPolicyType
-    settings: Union[Unset, list["BackupPlacementSettingsModel"]] = UNSET
-    enforce_strict_placement_policy: Union[Unset, bool] = UNSET
+    settings: list[BackupPlacementSettingsModel] | Unset = UNSET
+    enforce_strict_placement_policy: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         type_ = self.type_.value
 
-        settings: Union[Unset, list[dict[str, Any]]] = UNSET
+        settings: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.settings, Unset):
             settings = []
             for settings_item_data in self.settings:
@@ -63,12 +65,14 @@ class PlacementPolicyModel:
         d = dict(src_dict)
         type_ = EPlacementPolicyType(d.pop("type"))
 
-        settings = []
         _settings = d.pop("settings", UNSET)
-        for settings_item_data in _settings or []:
-            settings_item = BackupPlacementSettingsModel.from_dict(settings_item_data)
+        settings: list[BackupPlacementSettingsModel] | Unset = UNSET
+        if _settings is not UNSET:
+            settings = []
+            for settings_item_data in _settings:
+                settings_item = BackupPlacementSettingsModel.from_dict(settings_item_data)
 
-            settings.append(settings_item)
+                settings.append(settings_item)
 
         enforce_strict_placement_policy = d.pop("enforceStrictPlacementPolicy", UNSET)
 

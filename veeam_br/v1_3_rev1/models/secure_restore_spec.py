@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -17,21 +19,21 @@ class SecureRestoreSpec:
     Attributes:
         antivirus_scan_enabled (bool): If `true`, Veeam Backup & Replication scans machine data with antivirus software
             before restoring the machine to the production environment.
-        virus_detection_action (Union[Unset, EVirusDetectionAction]): Action that Veeam Backup & Replication takes if
-            the antivirus software finds a threat.
-        entire_volume_scan_enabled (Union[Unset, bool]): If `true`, the antivirus continues machine scan after the first
+        virus_detection_action (EVirusDetectionAction | Unset): Action that Veeam Backup & Replication takes if the
+            antivirus software finds a threat.
+        entire_volume_scan_enabled (bool | Unset): If `true`, the antivirus continues machine scan after the first
             malware is found.
     """
 
     antivirus_scan_enabled: bool
-    virus_detection_action: Union[Unset, EVirusDetectionAction] = UNSET
-    entire_volume_scan_enabled: Union[Unset, bool] = UNSET
+    virus_detection_action: EVirusDetectionAction | Unset = UNSET
+    entire_volume_scan_enabled: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         antivirus_scan_enabled = self.antivirus_scan_enabled
 
-        virus_detection_action: Union[Unset, str] = UNSET
+        virus_detection_action: str | Unset = UNSET
         if not isinstance(self.virus_detection_action, Unset):
             virus_detection_action = self.virus_detection_action.value
 
@@ -57,7 +59,7 @@ class SecureRestoreSpec:
         antivirus_scan_enabled = d.pop("antivirusScanEnabled")
 
         _virus_detection_action = d.pop("virusDetectionAction", UNSET)
-        virus_detection_action: Union[Unset, EVirusDetectionAction]
+        virus_detection_action: EVirusDetectionAction | Unset
         if isinstance(_virus_detection_action, Unset):
             virus_detection_action = UNSET
         else:

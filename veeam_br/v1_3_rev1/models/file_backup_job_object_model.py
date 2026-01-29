@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -17,19 +19,19 @@ class FileBackupJobObjectModel:
     Attributes:
         file_server_id (UUID): File share ID. To get the ID, run the [Get All Unstructured Data Servers](Inventory-
             Browser#operation/GetAllUnstructuredDataServers) request.
-        path (Union[Unset, str]): Path to folders and files.
-        inclusion_mask (Union[Unset, list[str]]): Array of folders and files added to the file share backup job. Full
+        path (str | Unset): Path to folders and files.
+        inclusion_mask (list[str] | Unset): Array of folders and files added to the file share backup job. Full paths to
+            files and folders, environmental variables and file masks with the asterisk (*) and question mark (?) characters
+            can be used.
+        exclusion_mask (list[str] | Unset): Array of folders and files not added to the file share backup job. Full
             paths to files and folders, environmental variables and file masks with the asterisk (*) and question mark (?)
             characters can be used.
-        exclusion_mask (Union[Unset, list[str]]): Array of folders and files not added to the file share backup job.
-            Full paths to files and folders, environmental variables and file masks with the asterisk (*) and question mark
-            (?) characters can be used.
     """
 
     file_server_id: UUID
-    path: Union[Unset, str] = UNSET
-    inclusion_mask: Union[Unset, list[str]] = UNSET
-    exclusion_mask: Union[Unset, list[str]] = UNSET
+    path: str | Unset = UNSET
+    inclusion_mask: list[str] | Unset = UNSET
+    exclusion_mask: list[str] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -37,11 +39,11 @@ class FileBackupJobObjectModel:
 
         path = self.path
 
-        inclusion_mask: Union[Unset, list[str]] = UNSET
+        inclusion_mask: list[str] | Unset = UNSET
         if not isinstance(self.inclusion_mask, Unset):
             inclusion_mask = self.inclusion_mask
 
-        exclusion_mask: Union[Unset, list[str]] = UNSET
+        exclusion_mask: list[str] | Unset = UNSET
         if not isinstance(self.exclusion_mask, Unset):
             exclusion_mask = self.exclusion_mask
 

@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -17,30 +19,30 @@ T = TypeVar("T", bound="AuthorizationEventModel")
 class AuthorizationEventModel:
     """
     Attributes:
-        id (Union[Unset, UUID]): Event ID.
-        name (Union[Unset, str]): Event name.
-        description (Union[Unset, str]): Event description.
-        state (Union[Unset, EAuthorizationEventState]): Event state.
-        creation_time (Union[Unset, datetime.datetime]): Date and time when the event was created.
-        created_by (Union[Unset, str]): User initiated the event.
-        expiration_time (Union[Unset, datetime.datetime]): Date and time when the event expires.
-        processed_by (Union[Unset, str]): User processed the event.
-        processed_time (Union[Unset, datetime.datetime]): Date and time when the event was processed.
+        id (UUID | Unset): Event ID.
+        name (str | Unset): Event name.
+        description (str | Unset): Event description.
+        state (EAuthorizationEventState | Unset): Event state.
+        creation_time (datetime.datetime | Unset): Date and time when the event was created.
+        created_by (str | Unset): User initiated the event.
+        expiration_time (datetime.datetime | Unset): Date and time when the event expires.
+        processed_by (str | Unset): User processed the event.
+        processed_time (datetime.datetime | Unset): Date and time when the event was processed.
     """
 
-    id: Union[Unset, UUID] = UNSET
-    name: Union[Unset, str] = UNSET
-    description: Union[Unset, str] = UNSET
-    state: Union[Unset, EAuthorizationEventState] = UNSET
-    creation_time: Union[Unset, datetime.datetime] = UNSET
-    created_by: Union[Unset, str] = UNSET
-    expiration_time: Union[Unset, datetime.datetime] = UNSET
-    processed_by: Union[Unset, str] = UNSET
-    processed_time: Union[Unset, datetime.datetime] = UNSET
+    id: UUID | Unset = UNSET
+    name: str | Unset = UNSET
+    description: str | Unset = UNSET
+    state: EAuthorizationEventState | Unset = UNSET
+    creation_time: datetime.datetime | Unset = UNSET
+    created_by: str | Unset = UNSET
+    expiration_time: datetime.datetime | Unset = UNSET
+    processed_by: str | Unset = UNSET
+    processed_time: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        id: Union[Unset, str] = UNSET
+        id: str | Unset = UNSET
         if not isinstance(self.id, Unset):
             id = str(self.id)
 
@@ -48,23 +50,23 @@ class AuthorizationEventModel:
 
         description = self.description
 
-        state: Union[Unset, str] = UNSET
+        state: str | Unset = UNSET
         if not isinstance(self.state, Unset):
             state = self.state.value
 
-        creation_time: Union[Unset, str] = UNSET
+        creation_time: str | Unset = UNSET
         if not isinstance(self.creation_time, Unset):
             creation_time = self.creation_time.isoformat()
 
         created_by = self.created_by
 
-        expiration_time: Union[Unset, str] = UNSET
+        expiration_time: str | Unset = UNSET
         if not isinstance(self.expiration_time, Unset):
             expiration_time = self.expiration_time.isoformat()
 
         processed_by = self.processed_by
 
-        processed_time: Union[Unset, str] = UNSET
+        processed_time: str | Unset = UNSET
         if not isinstance(self.processed_time, Unset):
             processed_time = self.processed_time.isoformat()
 
@@ -96,7 +98,7 @@ class AuthorizationEventModel:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _id = d.pop("id", UNSET)
-        id: Union[Unset, UUID]
+        id: UUID | Unset
         if isinstance(_id, Unset):
             id = UNSET
         else:
@@ -107,14 +109,14 @@ class AuthorizationEventModel:
         description = d.pop("description", UNSET)
 
         _state = d.pop("state", UNSET)
-        state: Union[Unset, EAuthorizationEventState]
+        state: EAuthorizationEventState | Unset
         if isinstance(_state, Unset):
             state = UNSET
         else:
             state = EAuthorizationEventState(_state)
 
         _creation_time = d.pop("creationTime", UNSET)
-        creation_time: Union[Unset, datetime.datetime]
+        creation_time: datetime.datetime | Unset
         if isinstance(_creation_time, Unset):
             creation_time = UNSET
         else:
@@ -123,7 +125,7 @@ class AuthorizationEventModel:
         created_by = d.pop("createdBy", UNSET)
 
         _expiration_time = d.pop("expirationTime", UNSET)
-        expiration_time: Union[Unset, datetime.datetime]
+        expiration_time: datetime.datetime | Unset
         if isinstance(_expiration_time, Unset):
             expiration_time = UNSET
         else:
@@ -132,7 +134,7 @@ class AuthorizationEventModel:
         processed_by = d.pop("processedBy", UNSET)
 
         _processed_time = d.pop("processedTime", UNSET)
-        processed_time: Union[Unset, datetime.datetime]
+        processed_time: datetime.datetime | Unset
         if isinstance(_processed_time, Unset):
             processed_time = UNSET
         else:

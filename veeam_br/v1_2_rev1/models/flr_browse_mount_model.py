@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -24,13 +26,13 @@ class FlrBrowseMountModel:
         session_id (UUID): Restore session ID.
         type_ (EFlrType): Restore type.
         source_properties (FlrBrowseSourceProperties): Restore point settings.
-        properties (Union[Unset, FlrBrowseProperties]): Browser properties.
+        properties (FlrBrowseProperties | Unset): Browser properties.
     """
 
     session_id: UUID
     type_: EFlrType
-    source_properties: "FlrBrowseSourceProperties"
-    properties: Union[Unset, "FlrBrowseProperties"] = UNSET
+    source_properties: FlrBrowseSourceProperties
+    properties: FlrBrowseProperties | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -40,7 +42,7 @@ class FlrBrowseMountModel:
 
         source_properties = self.source_properties.to_dict()
 
-        properties: Union[Unset, dict[str, Any]] = UNSET
+        properties: dict[str, Any] | Unset = UNSET
         if not isinstance(self.properties, Unset):
             properties = self.properties.to_dict()
 
@@ -71,7 +73,7 @@ class FlrBrowseMountModel:
         source_properties = FlrBrowseSourceProperties.from_dict(d.pop("sourceProperties"))
 
         _properties = d.pop("properties", UNSET)
-        properties: Union[Unset, FlrBrowseProperties]
+        properties: FlrBrowseProperties | Unset
         if isinstance(_properties, Unset):
             properties = UNSET
         else:

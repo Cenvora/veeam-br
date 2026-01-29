@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,14 +16,14 @@ class ManagedHostNetworkSettingsModel:
     """Veeam Backup & Replication components installed on the server and ports used by the components.
 
     Attributes:
-        port_range_start (Union[Unset, int]): Start port used for data transfer.
-        port_range_end (Union[Unset, int]): End port used for data transfer.
-        server_side (Union[Unset, bool]): If `true`, the server is run on this side.
+        port_range_start (int | Unset): Start port used for data transfer.
+        port_range_end (int | Unset): End port used for data transfer.
+        server_side (bool | Unset): If `true`, the server is run on this side.
     """
 
-    port_range_start: Union[Unset, int] = UNSET
-    port_range_end: Union[Unset, int] = UNSET
-    server_side: Union[Unset, bool] = UNSET
+    port_range_start: int | Unset = UNSET
+    port_range_end: int | Unset = UNSET
+    server_side: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

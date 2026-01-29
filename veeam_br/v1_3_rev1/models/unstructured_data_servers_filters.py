@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,23 +17,23 @@ T = TypeVar("T", bound="UnstructuredDataServersFilters")
 class UnstructuredDataServersFilters:
     """
     Attributes:
-        skip (Union[Unset, int]): Number of unstructured data servers to skip.
-        limit (Union[Unset, int]): Maximum number of unstructured data servers to return.
-        order_column (Union[Unset, EUnstructuredDataServersFiltersOrderColumn]): Sorts unstructured data servers by one
-            of the unstructured data server parameters.
-        order_asc (Union[Unset, bool]): If `true`, sorts unstructured data servers in ascending order by the
-            `orderColumn` parameter.
-        name_filter (Union[Unset, str]): Filters unstructured data servers by name. To substitute one or more
-            characters, use the asterisk (*) character at the beginning, at the end or both.
-        type_filter (Union[Unset, list[EUnstructuredDataServerType]]):
+        skip (int | Unset): Number of unstructured data servers to skip.
+        limit (int | Unset): Maximum number of unstructured data servers to return.
+        order_column (EUnstructuredDataServersFiltersOrderColumn | Unset): Sorts unstructured data servers by one of the
+            unstructured data server parameters.
+        order_asc (bool | Unset): If `true`, sorts unstructured data servers in ascending order by the `orderColumn`
+            parameter.
+        name_filter (str | Unset): Filters unstructured data servers by name. To substitute one or more characters, use
+            the asterisk (*) character at the beginning, at the end or both.
+        type_filter (list[EUnstructuredDataServerType] | Unset):
     """
 
-    skip: Union[Unset, int] = UNSET
-    limit: Union[Unset, int] = UNSET
-    order_column: Union[Unset, EUnstructuredDataServersFiltersOrderColumn] = UNSET
-    order_asc: Union[Unset, bool] = UNSET
-    name_filter: Union[Unset, str] = UNSET
-    type_filter: Union[Unset, list[EUnstructuredDataServerType]] = UNSET
+    skip: int | Unset = UNSET
+    limit: int | Unset = UNSET
+    order_column: EUnstructuredDataServersFiltersOrderColumn | Unset = UNSET
+    order_asc: bool | Unset = UNSET
+    name_filter: str | Unset = UNSET
+    type_filter: list[EUnstructuredDataServerType] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -39,7 +41,7 @@ class UnstructuredDataServersFilters:
 
         limit = self.limit
 
-        order_column: Union[Unset, str] = UNSET
+        order_column: str | Unset = UNSET
         if not isinstance(self.order_column, Unset):
             order_column = self.order_column.value
 
@@ -47,7 +49,7 @@ class UnstructuredDataServersFilters:
 
         name_filter = self.name_filter
 
-        type_filter: Union[Unset, list[str]] = UNSET
+        type_filter: list[str] | Unset = UNSET
         if not isinstance(self.type_filter, Unset):
             type_filter = []
             for type_filter_item_data in self.type_filter:
@@ -80,7 +82,7 @@ class UnstructuredDataServersFilters:
         limit = d.pop("limit", UNSET)
 
         _order_column = d.pop("orderColumn", UNSET)
-        order_column: Union[Unset, EUnstructuredDataServersFiltersOrderColumn]
+        order_column: EUnstructuredDataServersFiltersOrderColumn | Unset
         if isinstance(_order_column, Unset):
             order_column = UNSET
         else:
@@ -90,12 +92,14 @@ class UnstructuredDataServersFilters:
 
         name_filter = d.pop("nameFilter", UNSET)
 
-        type_filter = []
         _type_filter = d.pop("typeFilter", UNSET)
-        for type_filter_item_data in _type_filter or []:
-            type_filter_item = EUnstructuredDataServerType(type_filter_item_data)
+        type_filter: list[EUnstructuredDataServerType] | Unset = UNSET
+        if _type_filter is not UNSET:
+            type_filter = []
+            for type_filter_item_data in _type_filter:
+                type_filter_item = EUnstructuredDataServerType(type_filter_item_data)
 
-            type_filter.append(type_filter_item)
+                type_filter.append(type_filter_item)
 
         unstructured_data_servers_filters = cls(
             skip=skip,

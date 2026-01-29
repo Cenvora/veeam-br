@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -33,8 +33,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[AzureInstantVMRecoveryMount, Error]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> AzureInstantVMRecoveryMount | Error | None:
     if response.status_code == 201:
         response_201 = AzureInstantVMRecoveryMount.from_dict(response.json())
 
@@ -72,8 +72,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[AzureInstantVMRecoveryMount, Error]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[AzureInstantVMRecoveryMount | Error]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -84,10 +84,10 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: AzureInstantVMRecoverySpec,
     x_api_version: str = "1.3-rev0",
-) -> Response[Union[AzureInstantVMRecoveryMount, Error]]:
+) -> Response[AzureInstantVMRecoveryMount | Error]:
     r"""Start Instant Recovery to Azure
 
      The HTTP POST request to the `/api/v1/restore/instantRecovery/azure/vm` path allows you to start
@@ -114,7 +114,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[AzureInstantVMRecoveryMount, Error]]
+        Response[AzureInstantVMRecoveryMount | Error]
     """
 
     kwargs = _get_kwargs(
@@ -131,10 +131,10 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: AzureInstantVMRecoverySpec,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Union[AzureInstantVMRecoveryMount, Error]]:
+) -> AzureInstantVMRecoveryMount | Error | None:
     r"""Start Instant Recovery to Azure
 
      The HTTP POST request to the `/api/v1/restore/instantRecovery/azure/vm` path allows you to start
@@ -161,7 +161,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[AzureInstantVMRecoveryMount, Error]
+        AzureInstantVMRecoveryMount | Error
     """
 
     return sync_detailed(
@@ -173,10 +173,10 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: AzureInstantVMRecoverySpec,
     x_api_version: str = "1.3-rev0",
-) -> Response[Union[AzureInstantVMRecoveryMount, Error]]:
+) -> Response[AzureInstantVMRecoveryMount | Error]:
     r"""Start Instant Recovery to Azure
 
      The HTTP POST request to the `/api/v1/restore/instantRecovery/azure/vm` path allows you to start
@@ -203,7 +203,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[AzureInstantVMRecoveryMount, Error]]
+        Response[AzureInstantVMRecoveryMount | Error]
     """
 
     kwargs = _get_kwargs(
@@ -218,10 +218,10 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: AzureInstantVMRecoverySpec,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Union[AzureInstantVMRecoveryMount, Error]]:
+) -> AzureInstantVMRecoveryMount | Error | None:
     r"""Start Instant Recovery to Azure
 
      The HTTP POST request to the `/api/v1/restore/instantRecovery/azure/vm` path allows you to start
@@ -248,7 +248,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[AzureInstantVMRecoveryMount, Error]
+        AzureInstantVMRecoveryMount | Error
     """
 
     return (

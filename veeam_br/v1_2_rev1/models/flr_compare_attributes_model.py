@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 
@@ -16,11 +18,11 @@ class FlrCompareAttributesModel:
     """
     Attributes:
         path (str): Path of the item.
-        attributes (list['FlrCompareAttributeModel']): Array of item attributes.
+        attributes (list[FlrCompareAttributeModel]): Array of item attributes.
     """
 
     path: str
-    attributes: list["FlrCompareAttributeModel"]
+    attributes: list[FlrCompareAttributeModel]
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

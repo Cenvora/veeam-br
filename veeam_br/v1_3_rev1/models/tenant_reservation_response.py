@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -21,23 +23,23 @@ class TenantReservationResponse:
 
     Attributes:
         azure_tenant_id (str): Tenant ID assigned by Microsoft Entra ID.
-        expiration (Union[Unset, datetime.datetime]): Date and time when the tenant reservation expires.
-        calculated_consumption (Union[Unset, TenantLoadCalculatorResponse]): Load calculator response.
+        expiration (datetime.datetime | Unset): Date and time when the tenant reservation expires.
+        calculated_consumption (TenantLoadCalculatorResponse | Unset): Load calculator response.
     """
 
     azure_tenant_id: str
-    expiration: Union[Unset, datetime.datetime] = UNSET
-    calculated_consumption: Union[Unset, "TenantLoadCalculatorResponse"] = UNSET
+    expiration: datetime.datetime | Unset = UNSET
+    calculated_consumption: TenantLoadCalculatorResponse | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         azure_tenant_id = self.azure_tenant_id
 
-        expiration: Union[Unset, str] = UNSET
+        expiration: str | Unset = UNSET
         if not isinstance(self.expiration, Unset):
             expiration = self.expiration.isoformat()
 
-        calculated_consumption: Union[Unset, dict[str, Any]] = UNSET
+        calculated_consumption: dict[str, Any] | Unset = UNSET
         if not isinstance(self.calculated_consumption, Unset):
             calculated_consumption = self.calculated_consumption.to_dict()
 
@@ -63,14 +65,14 @@ class TenantReservationResponse:
         azure_tenant_id = d.pop("azureTenantId")
 
         _expiration = d.pop("expiration", UNSET)
-        expiration: Union[Unset, datetime.datetime]
+        expiration: datetime.datetime | Unset
         if isinstance(_expiration, Unset):
             expiration = UNSET
         else:
             expiration = isoparse(_expiration)
 
         _calculated_consumption = d.pop("calculatedConsumption", UNSET)
-        calculated_consumption: Union[Unset, TenantLoadCalculatorResponse]
+        calculated_consumption: TenantLoadCalculatorResponse | Unset
         if isinstance(_calculated_consumption, Unset):
             calculated_consumption = UNSET
         else:

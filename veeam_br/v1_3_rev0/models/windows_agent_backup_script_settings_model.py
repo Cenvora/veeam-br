@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,18 +22,18 @@ class WindowsAgentBackupScriptSettingsModel:
 
     Attributes:
         script_processing_mode (EBackupScriptProcessingMode): Scenario for scripts execution.
-        snapshot_scripts (Union[Unset, BackupWindowsScriptModel]): Paths to pre-freeze and post-thaw scripts for
-            Microsoft Windows VMs.
+        snapshot_scripts (BackupWindowsScriptModel | Unset): Paths to pre-freeze and post-thaw scripts for Microsoft
+            Windows VMs.
     """
 
     script_processing_mode: EBackupScriptProcessingMode
-    snapshot_scripts: Union[Unset, "BackupWindowsScriptModel"] = UNSET
+    snapshot_scripts: BackupWindowsScriptModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         script_processing_mode = self.script_processing_mode.value
 
-        snapshot_scripts: Union[Unset, dict[str, Any]] = UNSET
+        snapshot_scripts: dict[str, Any] | Unset = UNSET
         if not isinstance(self.snapshot_scripts, Unset):
             snapshot_scripts = self.snapshot_scripts.to_dict()
 
@@ -55,7 +57,7 @@ class WindowsAgentBackupScriptSettingsModel:
         script_processing_mode = EBackupScriptProcessingMode(d.pop("scriptProcessingMode"))
 
         _snapshot_scripts = d.pop("snapshotScripts", UNSET)
-        snapshot_scripts: Union[Unset, BackupWindowsScriptModel]
+        snapshot_scripts: BackupWindowsScriptModel | Unset
         if isinstance(_snapshot_scripts, Unset):
             snapshot_scripts = UNSET
         else:

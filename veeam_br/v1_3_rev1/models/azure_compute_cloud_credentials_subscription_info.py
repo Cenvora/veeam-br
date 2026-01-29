@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -19,12 +21,12 @@ class AzureComputeCloudCredentialsSubscriptionInfo:
         azure_subscription_id (str): Original Microsoft Azure subscription ID. For more information, see [Microsoft
             documentation](https://learn.microsoft.com/en-us/azure/azure-portal/get-subscription-tenant-id#find-your-azure-
             subscription).
-        azure_subscription_name (Union[Unset, str]): Microsoft Azure subscription name.
+        azure_subscription_name (str | Unset): Microsoft Azure subscription name.
     """
 
     id: UUID
     azure_subscription_id: str
-    azure_subscription_name: Union[Unset, str] = UNSET
+    azure_subscription_name: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

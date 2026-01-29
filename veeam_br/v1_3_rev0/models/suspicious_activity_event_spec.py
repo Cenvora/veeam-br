@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -29,15 +31,15 @@ class SuspiciousActivityEventSpec:
             machine.</p>
         details (str): Event description.
         engine (str): Detection engine.
-        severity (Union[Unset, ECreatingSuspiciousActivitySeverity]): Malware status enum for creating suspicious
-            activity operation.
+        severity (ECreatingSuspiciousActivitySeverity | Unset): Malware status enum for creating suspicious activity
+            operation.
     """
 
     detection_time_utc: datetime.datetime
-    machine: "SuspiciousActivityMachineSpec"
+    machine: SuspiciousActivityMachineSpec
     details: str
     engine: str
-    severity: Union[Unset, ECreatingSuspiciousActivitySeverity] = UNSET
+    severity: ECreatingSuspiciousActivitySeverity | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -49,7 +51,7 @@ class SuspiciousActivityEventSpec:
 
         engine = self.engine
 
-        severity: Union[Unset, str] = UNSET
+        severity: str | Unset = UNSET
         if not isinstance(self.severity, Unset):
             severity = self.severity.value
 
@@ -82,7 +84,7 @@ class SuspiciousActivityEventSpec:
         engine = d.pop("engine")
 
         _severity = d.pop("severity", UNSET)
-        severity: Union[Unset, ECreatingSuspiciousActivitySeverity]
+        severity: ECreatingSuspiciousActivitySeverity | Unset
         if isinstance(_severity, Unset):
             severity = UNSET
         else:

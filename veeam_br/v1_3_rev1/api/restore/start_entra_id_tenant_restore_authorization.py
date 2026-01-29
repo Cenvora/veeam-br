@@ -1,5 +1,6 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
@@ -31,7 +32,9 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": f"/api/v1/restore/entraId/tenant/{session_id}/authCode/startAuthorization",
+        "url": "/api/v1/restore/entraId/tenant/{session_id}/authCode/startAuthorization".format(
+            session_id=quote(str(session_id), safe=""),
+        ),
         "params": params,
     }
 
@@ -40,8 +43,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[EntraIdTenantRestoreStartAuthorizationModel, Error]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> EntraIdTenantRestoreStartAuthorizationModel | Error | None:
     if response.status_code == 200:
         response_200 = EntraIdTenantRestoreStartAuthorizationModel.from_dict(response.json())
 
@@ -74,8 +77,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[EntraIdTenantRestoreStartAuthorizationModel, Error]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[EntraIdTenantRestoreStartAuthorizationModel | Error]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -87,11 +90,11 @@ def _build_response(
 def sync_detailed(
     session_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     vdc_session_id: str,
     redirect_uri: str,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[EntraIdTenantRestoreStartAuthorizationModel, Error]]:
+) -> Response[EntraIdTenantRestoreStartAuthorizationModel | Error]:
     r"""Get Redirect URI for Delegated Restore of Microsoft Entra ID Items
 
      The HTTP GET request to the `/api/v1/restore/entraId/tenant/{sessionId}/authCode/startAuthorization`
@@ -110,7 +113,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[EntraIdTenantRestoreStartAuthorizationModel, Error]]
+        Response[EntraIdTenantRestoreStartAuthorizationModel | Error]
     """
 
     kwargs = _get_kwargs(
@@ -130,11 +133,11 @@ def sync_detailed(
 def sync(
     session_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     vdc_session_id: str,
     redirect_uri: str,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[EntraIdTenantRestoreStartAuthorizationModel, Error]]:
+) -> EntraIdTenantRestoreStartAuthorizationModel | Error | None:
     r"""Get Redirect URI for Delegated Restore of Microsoft Entra ID Items
 
      The HTTP GET request to the `/api/v1/restore/entraId/tenant/{sessionId}/authCode/startAuthorization`
@@ -153,7 +156,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[EntraIdTenantRestoreStartAuthorizationModel, Error]
+        EntraIdTenantRestoreStartAuthorizationModel | Error
     """
 
     return sync_detailed(
@@ -168,11 +171,11 @@ def sync(
 async def asyncio_detailed(
     session_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     vdc_session_id: str,
     redirect_uri: str,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[EntraIdTenantRestoreStartAuthorizationModel, Error]]:
+) -> Response[EntraIdTenantRestoreStartAuthorizationModel | Error]:
     r"""Get Redirect URI for Delegated Restore of Microsoft Entra ID Items
 
      The HTTP GET request to the `/api/v1/restore/entraId/tenant/{sessionId}/authCode/startAuthorization`
@@ -191,7 +194,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[EntraIdTenantRestoreStartAuthorizationModel, Error]]
+        Response[EntraIdTenantRestoreStartAuthorizationModel | Error]
     """
 
     kwargs = _get_kwargs(
@@ -209,11 +212,11 @@ async def asyncio_detailed(
 async def asyncio(
     session_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     vdc_session_id: str,
     redirect_uri: str,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[EntraIdTenantRestoreStartAuthorizationModel, Error]]:
+) -> EntraIdTenantRestoreStartAuthorizationModel | Error | None:
     r"""Get Redirect URI for Delegated Restore of Microsoft Entra ID Items
 
      The HTTP GET request to the `/api/v1/restore/entraId/tenant/{sessionId}/authCode/startAuthorization`
@@ -232,7 +235,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[EntraIdTenantRestoreStartAuthorizationModel, Error]
+        EntraIdTenantRestoreStartAuthorizationModel | Error
     """
 
     return (

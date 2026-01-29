@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -16,37 +18,36 @@ class ProtectionGroupAdvancedWindowsSettingsModel:
     """Advanced settings for Veeam Agent for Microsoft Windows machines.
 
     Attributes:
-        throttling_enabled (Union[Unset, bool]): If `true`, bandwidth limit is enabled.
-        throttling_unit (Union[Unset, ESpeedUnit]): Traffic speed unit.
-        throttling_value (Union[Unset, int]): Bandwidth limit value.
-        restrict_backup_over_metered_connection (Union[Unset, bool]): If `true`, backup over metered connections is
-            disabled.
-        restrict_backup_over_vpn_connection (Union[Unset, bool]): If `true`, backup over VPN connections is disabled.
-        use_specified_wifi_networks (Union[Unset, bool]): If `true`, Veeam Backup & Replication will restrict the Wi-Fi
-            usage to specified networks.
-        wifi_networks (Union[Unset, list[str]]): An array of SSIDs of the allowed Wi-Fi networks.
-        agent_throttling_enabled (Union[Unset, bool]): If `true`, agent throttling is enabled.
-        agent_throttling_target (Union[Unset, EAgentThrottlingTargetType]): Agent throttling target type.
-        flr_without_admin_account_enabled (Union[Unset, bool]): If `true`, file-level restore without administrative
+        throttling_enabled (bool | Unset): If `true`, bandwidth limit is enabled.
+        throttling_unit (ESpeedUnit | Unset): Traffic speed unit.
+        throttling_value (int | Unset): Bandwidth limit value.
+        restrict_backup_over_metered_connection (bool | Unset): If `true`, backup over metered connections is disabled.
+        restrict_backup_over_vpn_connection (bool | Unset): If `true`, backup over VPN connections is disabled.
+        use_specified_wifi_networks (bool | Unset): If `true`, Veeam Backup & Replication will restrict the Wi-Fi usage
+            to specified networks.
+        wifi_networks (list[str] | Unset): An array of SSIDs of the allowed Wi-Fi networks.
+        agent_throttling_enabled (bool | Unset): If `true`, agent throttling is enabled.
+        agent_throttling_target (EAgentThrottlingTargetType | Unset): Agent throttling target type.
+        flr_without_admin_account_enabled (bool | Unset): If `true`, file-level restore without administrative
             privileges is enabled.
     """
 
-    throttling_enabled: Union[Unset, bool] = UNSET
-    throttling_unit: Union[Unset, ESpeedUnit] = UNSET
-    throttling_value: Union[Unset, int] = UNSET
-    restrict_backup_over_metered_connection: Union[Unset, bool] = UNSET
-    restrict_backup_over_vpn_connection: Union[Unset, bool] = UNSET
-    use_specified_wifi_networks: Union[Unset, bool] = UNSET
-    wifi_networks: Union[Unset, list[str]] = UNSET
-    agent_throttling_enabled: Union[Unset, bool] = UNSET
-    agent_throttling_target: Union[Unset, EAgentThrottlingTargetType] = UNSET
-    flr_without_admin_account_enabled: Union[Unset, bool] = UNSET
+    throttling_enabled: bool | Unset = UNSET
+    throttling_unit: ESpeedUnit | Unset = UNSET
+    throttling_value: int | Unset = UNSET
+    restrict_backup_over_metered_connection: bool | Unset = UNSET
+    restrict_backup_over_vpn_connection: bool | Unset = UNSET
+    use_specified_wifi_networks: bool | Unset = UNSET
+    wifi_networks: list[str] | Unset = UNSET
+    agent_throttling_enabled: bool | Unset = UNSET
+    agent_throttling_target: EAgentThrottlingTargetType | Unset = UNSET
+    flr_without_admin_account_enabled: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         throttling_enabled = self.throttling_enabled
 
-        throttling_unit: Union[Unset, str] = UNSET
+        throttling_unit: str | Unset = UNSET
         if not isinstance(self.throttling_unit, Unset):
             throttling_unit = self.throttling_unit.value
 
@@ -58,13 +59,13 @@ class ProtectionGroupAdvancedWindowsSettingsModel:
 
         use_specified_wifi_networks = self.use_specified_wifi_networks
 
-        wifi_networks: Union[Unset, list[str]] = UNSET
+        wifi_networks: list[str] | Unset = UNSET
         if not isinstance(self.wifi_networks, Unset):
             wifi_networks = self.wifi_networks
 
         agent_throttling_enabled = self.agent_throttling_enabled
 
-        agent_throttling_target: Union[Unset, str] = UNSET
+        agent_throttling_target: str | Unset = UNSET
         if not isinstance(self.agent_throttling_target, Unset):
             agent_throttling_target = self.agent_throttling_target.value
 
@@ -102,7 +103,7 @@ class ProtectionGroupAdvancedWindowsSettingsModel:
         throttling_enabled = d.pop("throttlingEnabled", UNSET)
 
         _throttling_unit = d.pop("throttlingUnit", UNSET)
-        throttling_unit: Union[Unset, ESpeedUnit]
+        throttling_unit: ESpeedUnit | Unset
         if isinstance(_throttling_unit, Unset):
             throttling_unit = UNSET
         else:
@@ -121,7 +122,7 @@ class ProtectionGroupAdvancedWindowsSettingsModel:
         agent_throttling_enabled = d.pop("agentThrottlingEnabled", UNSET)
 
         _agent_throttling_target = d.pop("agentThrottlingTarget", UNSET)
-        agent_throttling_target: Union[Unset, EAgentThrottlingTargetType]
+        agent_throttling_target: EAgentThrottlingTargetType | Unset
         if isinstance(_agent_throttling_target, Unset):
             agent_throttling_target = UNSET
         else:

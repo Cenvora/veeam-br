@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -7,8 +9,7 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.cloud_director_object_model import CloudDirectorObjectModel
-    from ..models.vmware_object_model import VmwareObjectModel
+    from ..models.inventory_object_model import InventoryObjectModel
 
 
 T = TypeVar("T", bound="ViVmSnapshotReplicaFailbackNetworkMappingModel")
@@ -18,31 +19,21 @@ T = TypeVar("T", bound="ViVmSnapshotReplicaFailbackNetworkMappingModel")
 class ViVmSnapshotReplicaFailbackNetworkMappingModel:
     """
     Attributes:
-        source_network (Union['CloudDirectorObjectModel', 'VmwareObjectModel', Unset]): Inventory object properties.
-        target_network (Union['CloudDirectorObjectModel', 'VmwareObjectModel', Unset]): Inventory object properties.
+        source_network (InventoryObjectModel | Unset): Inventory object properties.
+        target_network (InventoryObjectModel | Unset): Inventory object properties.
     """
 
-    source_network: Union["CloudDirectorObjectModel", "VmwareObjectModel", Unset] = UNSET
-    target_network: Union["CloudDirectorObjectModel", "VmwareObjectModel", Unset] = UNSET
+    source_network: InventoryObjectModel | Unset = UNSET
+    target_network: InventoryObjectModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.vmware_object_model import VmwareObjectModel
-
-        source_network: Union[Unset, dict[str, Any]]
-        if isinstance(self.source_network, Unset):
-            source_network = UNSET
-        elif isinstance(self.source_network, VmwareObjectModel):
-            source_network = self.source_network.to_dict()
-        else:
+        source_network: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.source_network, Unset):
             source_network = self.source_network.to_dict()
 
-        target_network: Union[Unset, dict[str, Any]]
-        if isinstance(self.target_network, Unset):
-            target_network = UNSET
-        elif isinstance(self.target_network, VmwareObjectModel):
-            target_network = self.target_network.to_dict()
-        else:
+        target_network: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.target_network, Unset):
             target_network = self.target_network.to_dict()
 
         field_dict: dict[str, Any] = {}
@@ -57,48 +48,22 @@ class ViVmSnapshotReplicaFailbackNetworkMappingModel:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.cloud_director_object_model import CloudDirectorObjectModel
-        from ..models.vmware_object_model import VmwareObjectModel
+        from ..models.inventory_object_model import InventoryObjectModel
 
         d = dict(src_dict)
+        _source_network = d.pop("sourceNetwork", UNSET)
+        source_network: InventoryObjectModel | Unset
+        if isinstance(_source_network, Unset):
+            source_network = UNSET
+        else:
+            source_network = InventoryObjectModel.from_dict(_source_network)
 
-        def _parse_source_network(data: object) -> Union["CloudDirectorObjectModel", "VmwareObjectModel", Unset]:
-            if isinstance(data, Unset):
-                return data
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_0 = VmwareObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_0
-            except:  # noqa: E722
-                pass
-            if not isinstance(data, dict):
-                raise TypeError()
-            componentsschemas_inventory_object_model_type_1 = CloudDirectorObjectModel.from_dict(data)
-
-            return componentsschemas_inventory_object_model_type_1
-
-        source_network = _parse_source_network(d.pop("sourceNetwork", UNSET))
-
-        def _parse_target_network(data: object) -> Union["CloudDirectorObjectModel", "VmwareObjectModel", Unset]:
-            if isinstance(data, Unset):
-                return data
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_0 = VmwareObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_0
-            except:  # noqa: E722
-                pass
-            if not isinstance(data, dict):
-                raise TypeError()
-            componentsschemas_inventory_object_model_type_1 = CloudDirectorObjectModel.from_dict(data)
-
-            return componentsschemas_inventory_object_model_type_1
-
-        target_network = _parse_target_network(d.pop("targetNetwork", UNSET))
+        _target_network = d.pop("targetNetwork", UNSET)
+        target_network: InventoryObjectModel | Unset
+        if isinstance(_target_network, Unset):
+            target_network = UNSET
+        else:
+            target_network = InventoryObjectModel.from_dict(_target_network)
 
         vi_vm_snapshot_replica_failback_network_mapping_model = cls(
             source_network=source_network,

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -14,29 +16,29 @@ T = TypeVar("T", bound="JobExportSpec")
 class JobExportSpec:
     """
     Attributes:
-        ids (Union[Unset, list[UUID]]): Array of job IDs.
-        types (Union[Unset, list[str]]): Array of job types.
-        names (Union[Unset, list[str]]): Array of job names. Wildcard characters are supported.
+        ids (list[UUID] | Unset): Array of job IDs.
+        types (list[str] | Unset): Array of job types.
+        names (list[str] | Unset): Array of job names. Wildcard characters are supported.
     """
 
-    ids: Union[Unset, list[UUID]] = UNSET
-    types: Union[Unset, list[str]] = UNSET
-    names: Union[Unset, list[str]] = UNSET
+    ids: list[UUID] | Unset = UNSET
+    types: list[str] | Unset = UNSET
+    names: list[str] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        ids: Union[Unset, list[str]] = UNSET
+        ids: list[str] | Unset = UNSET
         if not isinstance(self.ids, Unset):
             ids = []
             for ids_item_data in self.ids:
                 ids_item = str(ids_item_data)
                 ids.append(ids_item)
 
-        types: Union[Unset, list[str]] = UNSET
+        types: list[str] | Unset = UNSET
         if not isinstance(self.types, Unset):
             types = self.types
 
-        names: Union[Unset, list[str]] = UNSET
+        names: list[str] | Unset = UNSET
         if not isinstance(self.names, Unset):
             names = self.names
 
@@ -55,12 +57,14 @@ class JobExportSpec:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        ids = []
         _ids = d.pop("ids", UNSET)
-        for ids_item_data in _ids or []:
-            ids_item = UUID(ids_item_data)
+        ids: list[UUID] | Unset = UNSET
+        if _ids is not UNSET:
+            ids = []
+            for ids_item_data in _ids:
+                ids_item = UUID(ids_item_data)
 
-            ids.append(ids_item)
+                ids.append(ids_item)
 
         types = cast(list[str], d.pop("types", UNSET))
 

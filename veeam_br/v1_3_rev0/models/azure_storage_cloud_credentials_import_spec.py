@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,14 +21,14 @@ class AzureStorageCloudCredentialsImportSpec:
         unique_id (str): Unique ID that identifies the cloud credentials record.
         account (str): Name of the Azure storage account.
         shared_key (str): Shared key of the Azure storage account.
-        description (Union[Unset, str]): Description of the cloud credentials record.
+        description (str | Unset): Description of the cloud credentials record.
     """
 
     type_: ECloudCredentialsType
     unique_id: str
     account: str
     shared_key: str
-    description: Union[Unset, str] = UNSET
+    description: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

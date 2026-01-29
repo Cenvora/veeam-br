@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -27,8 +27,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[AuthorizationCodeModel, Error]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> AuthorizationCodeModel | Error | None:
     if response.status_code == 200:
         response_200 = AuthorizationCodeModel.from_dict(response.json())
 
@@ -56,8 +56,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[AuthorizationCodeModel, Error]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[AuthorizationCodeModel | Error]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -68,9 +68,9 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.2-rev1",
-) -> Response[Union[AuthorizationCodeModel, Error]]:
+) -> Response[AuthorizationCodeModel | Error]:
     """Get Authorization Code
 
      The HTTP POST request to the `/api/oauth2/authorization_code` path allows you to get an
@@ -86,7 +86,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[AuthorizationCodeModel, Error]]
+        Response[AuthorizationCodeModel | Error]
     """
 
     kwargs = _get_kwargs(
@@ -102,9 +102,9 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.2-rev1",
-) -> Optional[Union[AuthorizationCodeModel, Error]]:
+) -> AuthorizationCodeModel | Error | None:
     """Get Authorization Code
 
      The HTTP POST request to the `/api/oauth2/authorization_code` path allows you to get an
@@ -120,7 +120,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[AuthorizationCodeModel, Error]
+        AuthorizationCodeModel | Error
     """
 
     return sync_detailed(
@@ -131,9 +131,9 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.2-rev1",
-) -> Response[Union[AuthorizationCodeModel, Error]]:
+) -> Response[AuthorizationCodeModel | Error]:
     """Get Authorization Code
 
      The HTTP POST request to the `/api/oauth2/authorization_code` path allows you to get an
@@ -149,7 +149,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[AuthorizationCodeModel, Error]]
+        Response[AuthorizationCodeModel | Error]
     """
 
     kwargs = _get_kwargs(
@@ -163,9 +163,9 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.2-rev1",
-) -> Optional[Union[AuthorizationCodeModel, Error]]:
+) -> AuthorizationCodeModel | Error | None:
     """Get Authorization Code
 
      The HTTP POST request to the `/api/oauth2/authorization_code` path allows you to get an
@@ -181,7 +181,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[AuthorizationCodeModel, Error]
+        AuthorizationCodeModel | Error
     """
 
     return (

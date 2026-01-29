@@ -1,30 +1,20 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.ad_objects_protection_group_spec import ADObjectsProtectionGroupSpec
-from ...models.cloud_machines_protection_group_spec import CloudMachinesProtectionGroupSpec
-from ...models.csv_file_protection_group_spec import CSVFileProtectionGroupSpec
 from ...models.error import Error
-from ...models.individual_computers_protection_group_spec import IndividualComputersProtectionGroupSpec
-from ...models.pre_installed_agents_protection_group_spec import PreInstalledAgentsProtectionGroupSpec
+from ...models.protection_group_spec import ProtectionGroupSpec
 from ...models.session_model import SessionModel
 from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     *,
-    body: Union[
-        "ADObjectsProtectionGroupSpec",
-        "CSVFileProtectionGroupSpec",
-        "CloudMachinesProtectionGroupSpec",
-        "IndividualComputersProtectionGroupSpec",
-        "PreInstalledAgentsProtectionGroupSpec",
-    ],
-    perform_rescan: Union[Unset, bool] = False,
+    body: ProtectionGroupSpec,
+    perform_rescan: bool | Unset = False,
     x_api_version: str = "1.3-rev1",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -42,17 +32,7 @@ def _get_kwargs(
         "params": params,
     }
 
-    _kwargs["json"]: dict[str, Any]
-    if isinstance(body, IndividualComputersProtectionGroupSpec):
-        _kwargs["json"] = body.to_dict()
-    elif isinstance(body, ADObjectsProtectionGroupSpec):
-        _kwargs["json"] = body.to_dict()
-    elif isinstance(body, CSVFileProtectionGroupSpec):
-        _kwargs["json"] = body.to_dict()
-    elif isinstance(body, PreInstalledAgentsProtectionGroupSpec):
-        _kwargs["json"] = body.to_dict()
-    else:
-        _kwargs["json"] = body.to_dict()
+    _kwargs["json"] = body.to_dict()
 
     headers["Content-Type"] = "application/json"
 
@@ -60,9 +40,7 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, SessionModel]]:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Error | SessionModel | None:
     if response.status_code == 201:
         response_201 = SessionModel.from_dict(response.json())
 
@@ -95,8 +73,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, SessionModel]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | SessionModel]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -107,35 +85,27 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union[
-        "ADObjectsProtectionGroupSpec",
-        "CSVFileProtectionGroupSpec",
-        "CloudMachinesProtectionGroupSpec",
-        "IndividualComputersProtectionGroupSpec",
-        "PreInstalledAgentsProtectionGroupSpec",
-    ],
-    perform_rescan: Union[Unset, bool] = False,
+    client: AuthenticatedClient | Client,
+    body: ProtectionGroupSpec,
+    perform_rescan: bool | Unset = False,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Error, SessionModel]]:
+) -> Response[Error | SessionModel]:
     """Add Protection Group
 
      The HTTP POST request to the `/api/v1/agents/protectionGroups` endpoint adds a protection group to
     the physical infrastructure. <p>**Available to**&#58; Veeam Backup Administrator.</p>
 
     Args:
-        perform_rescan (Union[Unset, bool]):  Default: False.
+        perform_rescan (bool | Unset):  Default: False.
         x_api_version (str):  Default: '1.3-rev1'.
-        body (Union['ADObjectsProtectionGroupSpec', 'CSVFileProtectionGroupSpec',
-            'CloudMachinesProtectionGroupSpec', 'IndividualComputersProtectionGroupSpec',
-            'PreInstalledAgentsProtectionGroupSpec']): Protection group settings.
+        body (ProtectionGroupSpec): Protection group settings.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, SessionModel]]
+        Response[Error | SessionModel]
     """
 
     kwargs = _get_kwargs(
@@ -153,35 +123,27 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union[
-        "ADObjectsProtectionGroupSpec",
-        "CSVFileProtectionGroupSpec",
-        "CloudMachinesProtectionGroupSpec",
-        "IndividualComputersProtectionGroupSpec",
-        "PreInstalledAgentsProtectionGroupSpec",
-    ],
-    perform_rescan: Union[Unset, bool] = False,
+    client: AuthenticatedClient | Client,
+    body: ProtectionGroupSpec,
+    perform_rescan: bool | Unset = False,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Error, SessionModel]]:
+) -> Error | SessionModel | None:
     """Add Protection Group
 
      The HTTP POST request to the `/api/v1/agents/protectionGroups` endpoint adds a protection group to
     the physical infrastructure. <p>**Available to**&#58; Veeam Backup Administrator.</p>
 
     Args:
-        perform_rescan (Union[Unset, bool]):  Default: False.
+        perform_rescan (bool | Unset):  Default: False.
         x_api_version (str):  Default: '1.3-rev1'.
-        body (Union['ADObjectsProtectionGroupSpec', 'CSVFileProtectionGroupSpec',
-            'CloudMachinesProtectionGroupSpec', 'IndividualComputersProtectionGroupSpec',
-            'PreInstalledAgentsProtectionGroupSpec']): Protection group settings.
+        body (ProtectionGroupSpec): Protection group settings.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, SessionModel]
+        Error | SessionModel
     """
 
     return sync_detailed(
@@ -194,35 +156,27 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union[
-        "ADObjectsProtectionGroupSpec",
-        "CSVFileProtectionGroupSpec",
-        "CloudMachinesProtectionGroupSpec",
-        "IndividualComputersProtectionGroupSpec",
-        "PreInstalledAgentsProtectionGroupSpec",
-    ],
-    perform_rescan: Union[Unset, bool] = False,
+    client: AuthenticatedClient | Client,
+    body: ProtectionGroupSpec,
+    perform_rescan: bool | Unset = False,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Error, SessionModel]]:
+) -> Response[Error | SessionModel]:
     """Add Protection Group
 
      The HTTP POST request to the `/api/v1/agents/protectionGroups` endpoint adds a protection group to
     the physical infrastructure. <p>**Available to**&#58; Veeam Backup Administrator.</p>
 
     Args:
-        perform_rescan (Union[Unset, bool]):  Default: False.
+        perform_rescan (bool | Unset):  Default: False.
         x_api_version (str):  Default: '1.3-rev1'.
-        body (Union['ADObjectsProtectionGroupSpec', 'CSVFileProtectionGroupSpec',
-            'CloudMachinesProtectionGroupSpec', 'IndividualComputersProtectionGroupSpec',
-            'PreInstalledAgentsProtectionGroupSpec']): Protection group settings.
+        body (ProtectionGroupSpec): Protection group settings.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, SessionModel]]
+        Response[Error | SessionModel]
     """
 
     kwargs = _get_kwargs(
@@ -238,35 +192,27 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union[
-        "ADObjectsProtectionGroupSpec",
-        "CSVFileProtectionGroupSpec",
-        "CloudMachinesProtectionGroupSpec",
-        "IndividualComputersProtectionGroupSpec",
-        "PreInstalledAgentsProtectionGroupSpec",
-    ],
-    perform_rescan: Union[Unset, bool] = False,
+    client: AuthenticatedClient | Client,
+    body: ProtectionGroupSpec,
+    perform_rescan: bool | Unset = False,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Error, SessionModel]]:
+) -> Error | SessionModel | None:
     """Add Protection Group
 
      The HTTP POST request to the `/api/v1/agents/protectionGroups` endpoint adds a protection group to
     the physical infrastructure. <p>**Available to**&#58; Veeam Backup Administrator.</p>
 
     Args:
-        perform_rescan (Union[Unset, bool]):  Default: False.
+        perform_rescan (bool | Unset):  Default: False.
         x_api_version (str):  Default: '1.3-rev1'.
-        body (Union['ADObjectsProtectionGroupSpec', 'CSVFileProtectionGroupSpec',
-            'CloudMachinesProtectionGroupSpec', 'IndividualComputersProtectionGroupSpec',
-            'PreInstalledAgentsProtectionGroupSpec']): Protection group settings.
+        body (ProtectionGroupSpec): Protection group settings.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, SessionModel]
+        Error | SessionModel
     """
 
     return (

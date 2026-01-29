@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -14,12 +14,12 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     *,
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, ECloudCredentialsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, ECloudCredentialsType] = UNSET,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: ECloudCredentialsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: ECloudCredentialsType | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -31,7 +31,7 @@ def _get_kwargs(
 
     params["limit"] = limit
 
-    json_order_column: Union[Unset, str] = UNSET
+    json_order_column: str | Unset = UNSET
     if not isinstance(order_column, Unset):
         json_order_column = order_column.value
 
@@ -41,7 +41,7 @@ def _get_kwargs(
 
     params["nameFilter"] = name_filter
 
-    json_type_filter: Union[Unset, str] = UNSET
+    json_type_filter: str | Unset = UNSET
     if not isinstance(type_filter, Unset):
         json_type_filter = type_filter.value
 
@@ -60,8 +60,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[CloudCredentialsResult, Error]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> CloudCredentialsResult | Error | None:
     if response.status_code == 200:
         response_200 = CloudCredentialsResult.from_dict(response.json())
 
@@ -89,8 +89,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[CloudCredentialsResult, Error]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[CloudCredentialsResult | Error]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -101,15 +101,15 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, ECloudCredentialsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, ECloudCredentialsType] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: ECloudCredentialsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: ECloudCredentialsType | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[CloudCredentialsResult, Error]]:
+) -> Response[CloudCredentialsResult | Error]:
     """Get All Cloud Credentials
 
      The HTTP GET request to the `/api/v1/cloudCredentials` endpoint gets an array of credentials records
@@ -117,13 +117,13 @@ def sync_detailed(
     Security Administrator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, ECloudCredentialsFiltersOrderColumn]): Sorts cloud credentials
-            by one of the cloud credentials parameters.
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, ECloudCredentialsType]): Cloud credentials type.
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (ECloudCredentialsFiltersOrderColumn | Unset): Sorts cloud credentials by one
+            of the cloud credentials parameters.
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        type_filter (ECloudCredentialsType | Unset): Cloud credentials type.
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -131,7 +131,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[CloudCredentialsResult, Error]]
+        Response[CloudCredentialsResult | Error]
     """
 
     kwargs = _get_kwargs(
@@ -153,15 +153,15 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, ECloudCredentialsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, ECloudCredentialsType] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: ECloudCredentialsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: ECloudCredentialsType | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[CloudCredentialsResult, Error]]:
+) -> CloudCredentialsResult | Error | None:
     """Get All Cloud Credentials
 
      The HTTP GET request to the `/api/v1/cloudCredentials` endpoint gets an array of credentials records
@@ -169,13 +169,13 @@ def sync(
     Security Administrator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, ECloudCredentialsFiltersOrderColumn]): Sorts cloud credentials
-            by one of the cloud credentials parameters.
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, ECloudCredentialsType]): Cloud credentials type.
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (ECloudCredentialsFiltersOrderColumn | Unset): Sorts cloud credentials by one
+            of the cloud credentials parameters.
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        type_filter (ECloudCredentialsType | Unset): Cloud credentials type.
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -183,7 +183,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[CloudCredentialsResult, Error]
+        CloudCredentialsResult | Error
     """
 
     return sync_detailed(
@@ -200,15 +200,15 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, ECloudCredentialsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, ECloudCredentialsType] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: ECloudCredentialsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: ECloudCredentialsType | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[CloudCredentialsResult, Error]]:
+) -> Response[CloudCredentialsResult | Error]:
     """Get All Cloud Credentials
 
      The HTTP GET request to the `/api/v1/cloudCredentials` endpoint gets an array of credentials records
@@ -216,13 +216,13 @@ async def asyncio_detailed(
     Security Administrator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, ECloudCredentialsFiltersOrderColumn]): Sorts cloud credentials
-            by one of the cloud credentials parameters.
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, ECloudCredentialsType]): Cloud credentials type.
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (ECloudCredentialsFiltersOrderColumn | Unset): Sorts cloud credentials by one
+            of the cloud credentials parameters.
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        type_filter (ECloudCredentialsType | Unset): Cloud credentials type.
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -230,7 +230,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[CloudCredentialsResult, Error]]
+        Response[CloudCredentialsResult | Error]
     """
 
     kwargs = _get_kwargs(
@@ -250,15 +250,15 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, ECloudCredentialsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, ECloudCredentialsType] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: ECloudCredentialsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: ECloudCredentialsType | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[CloudCredentialsResult, Error]]:
+) -> CloudCredentialsResult | Error | None:
     """Get All Cloud Credentials
 
      The HTTP GET request to the `/api/v1/cloudCredentials` endpoint gets an array of credentials records
@@ -266,13 +266,13 @@ async def asyncio(
     Security Administrator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, ECloudCredentialsFiltersOrderColumn]): Sorts cloud credentials
-            by one of the cloud credentials parameters.
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, ECloudCredentialsType]): Cloud credentials type.
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (ECloudCredentialsFiltersOrderColumn | Unset): Sorts cloud credentials by one
+            of the cloud credentials parameters.
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        type_filter (ECloudCredentialsType | Unset): Cloud credentials type.
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -280,7 +280,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[CloudCredentialsResult, Error]
+        CloudCredentialsResult | Error
     """
 
     return (

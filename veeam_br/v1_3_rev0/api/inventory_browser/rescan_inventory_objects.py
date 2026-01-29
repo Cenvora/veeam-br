@@ -1,17 +1,13 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
+from urllib.parse import quote
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.common_task_model import CommonTaskModel
-from ...models.deployment_kit_task_model import DeploymentKitTaskModel
 from ...models.error import Error
-from ...models.flr_download_task_model import FlrDownloadTaskModel
-from ...models.flr_restore_task_model import FlrRestoreTaskModel
-from ...models.flr_search_task_model import FlrSearchTaskModel
-from ...models.hierarchy_rescan_task_model import HierarchyRescanTaskModel
+from ...models.task_model import TaskModel
 from ...types import Response
 
 
@@ -25,87 +21,18 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": f"/api/v1/inventory/{hostname}/rescan",
+        "url": "/api/v1/inventory/{hostname}/rescan".format(
+            hostname=quote(str(hostname), safe=""),
+        ),
     }
 
     _kwargs["headers"] = headers
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[
-    Union[
-        Error,
-        Union[
-            "CommonTaskModel",
-            "DeploymentKitTaskModel",
-            "FlrDownloadTaskModel",
-            "FlrRestoreTaskModel",
-            "FlrSearchTaskModel",
-            "HierarchyRescanTaskModel",
-        ],
-    ]
-]:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Error | TaskModel | None:
     if response.status_code == 201:
-
-        def _parse_response_201(
-            data: object,
-        ) -> Union[
-            "CommonTaskModel",
-            "DeploymentKitTaskModel",
-            "FlrDownloadTaskModel",
-            "FlrRestoreTaskModel",
-            "FlrSearchTaskModel",
-            "HierarchyRescanTaskModel",
-        ]:
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_task_model_type_0 = CommonTaskModel.from_dict(data)
-
-                return componentsschemas_task_model_type_0
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_task_model_type_1 = FlrRestoreTaskModel.from_dict(data)
-
-                return componentsschemas_task_model_type_1
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_task_model_type_2 = FlrDownloadTaskModel.from_dict(data)
-
-                return componentsschemas_task_model_type_2
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_task_model_type_3 = FlrSearchTaskModel.from_dict(data)
-
-                return componentsschemas_task_model_type_3
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_task_model_type_4 = HierarchyRescanTaskModel.from_dict(data)
-
-                return componentsschemas_task_model_type_4
-            except:  # noqa: E722
-                pass
-            if not isinstance(data, dict):
-                raise TypeError()
-            componentsschemas_task_model_type_5 = DeploymentKitTaskModel.from_dict(data)
-
-            return componentsschemas_task_model_type_5
-
-        response_201 = _parse_response_201(response.json())
+        response_201 = TaskModel.from_dict(response.json())
 
         return response_201
 
@@ -135,21 +62,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[
-    Union[
-        Error,
-        Union[
-            "CommonTaskModel",
-            "DeploymentKitTaskModel",
-            "FlrDownloadTaskModel",
-            "FlrRestoreTaskModel",
-            "FlrSearchTaskModel",
-            "HierarchyRescanTaskModel",
-        ],
-    ]
-]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[Error | TaskModel]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -161,21 +74,9 @@ def _build_response(
 def sync_detailed(
     hostname: str,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.3-rev0",
-) -> Response[
-    Union[
-        Error,
-        Union[
-            "CommonTaskModel",
-            "DeploymentKitTaskModel",
-            "FlrDownloadTaskModel",
-            "FlrRestoreTaskModel",
-            "FlrSearchTaskModel",
-            "HierarchyRescanTaskModel",
-        ],
-    ]
-]:
+) -> Response[Error | TaskModel]:
     """Rescan Inventory Objects
 
      The HTTP POST request to the `/api/v1/inventory/{hostname}/rescan` path allows you to rescan
@@ -191,7 +92,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, Union['CommonTaskModel', 'DeploymentKitTaskModel', 'FlrDownloadTaskModel', 'FlrRestoreTaskModel', 'FlrSearchTaskModel', 'HierarchyRescanTaskModel']]]
+        Response[Error | TaskModel]
     """
 
     kwargs = _get_kwargs(
@@ -209,21 +110,9 @@ def sync_detailed(
 def sync(
     hostname: str,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.3-rev0",
-) -> Optional[
-    Union[
-        Error,
-        Union[
-            "CommonTaskModel",
-            "DeploymentKitTaskModel",
-            "FlrDownloadTaskModel",
-            "FlrRestoreTaskModel",
-            "FlrSearchTaskModel",
-            "HierarchyRescanTaskModel",
-        ],
-    ]
-]:
+) -> Error | TaskModel | None:
     """Rescan Inventory Objects
 
      The HTTP POST request to the `/api/v1/inventory/{hostname}/rescan` path allows you to rescan
@@ -239,7 +128,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, Union['CommonTaskModel', 'DeploymentKitTaskModel', 'FlrDownloadTaskModel', 'FlrRestoreTaskModel', 'FlrSearchTaskModel', 'HierarchyRescanTaskModel']]
+        Error | TaskModel
     """
 
     return sync_detailed(
@@ -252,21 +141,9 @@ def sync(
 async def asyncio_detailed(
     hostname: str,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.3-rev0",
-) -> Response[
-    Union[
-        Error,
-        Union[
-            "CommonTaskModel",
-            "DeploymentKitTaskModel",
-            "FlrDownloadTaskModel",
-            "FlrRestoreTaskModel",
-            "FlrSearchTaskModel",
-            "HierarchyRescanTaskModel",
-        ],
-    ]
-]:
+) -> Response[Error | TaskModel]:
     """Rescan Inventory Objects
 
      The HTTP POST request to the `/api/v1/inventory/{hostname}/rescan` path allows you to rescan
@@ -282,7 +159,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, Union['CommonTaskModel', 'DeploymentKitTaskModel', 'FlrDownloadTaskModel', 'FlrRestoreTaskModel', 'FlrSearchTaskModel', 'HierarchyRescanTaskModel']]]
+        Response[Error | TaskModel]
     """
 
     kwargs = _get_kwargs(
@@ -298,21 +175,9 @@ async def asyncio_detailed(
 async def asyncio(
     hostname: str,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.3-rev0",
-) -> Optional[
-    Union[
-        Error,
-        Union[
-            "CommonTaskModel",
-            "DeploymentKitTaskModel",
-            "FlrDownloadTaskModel",
-            "FlrRestoreTaskModel",
-            "FlrSearchTaskModel",
-            "HierarchyRescanTaskModel",
-        ],
-    ]
-]:
+) -> Error | TaskModel | None:
     """Rescan Inventory Objects
 
      The HTTP POST request to the `/api/v1/inventory/{hostname}/rescan` path allows you to rescan
@@ -328,7 +193,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, Union['CommonTaskModel', 'DeploymentKitTaskModel', 'FlrDownloadTaskModel', 'FlrRestoreTaskModel', 'FlrSearchTaskModel', 'HierarchyRescanTaskModel']]
+        Error | TaskModel
     """
 
     return (

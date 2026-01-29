@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -16,20 +18,20 @@ class EntraIdTenantAdminUnitSortingBrowseSpec:
     """Sorting options.
 
     Attributes:
-        property_ (Union[Unset, EEntraIdTenantAdminUnitSortingProperty]): Sorting property.
-        direction (Union[Unset, ESortExpressionDirectionType]): Sorting order.
+        property_ (EEntraIdTenantAdminUnitSortingProperty | Unset): Sorting property.
+        direction (ESortExpressionDirectionType | Unset): Sorting order.
     """
 
-    property_: Union[Unset, EEntraIdTenantAdminUnitSortingProperty] = UNSET
-    direction: Union[Unset, ESortExpressionDirectionType] = UNSET
+    property_: EEntraIdTenantAdminUnitSortingProperty | Unset = UNSET
+    direction: ESortExpressionDirectionType | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        property_: Union[Unset, str] = UNSET
+        property_: str | Unset = UNSET
         if not isinstance(self.property_, Unset):
             property_ = self.property_.value
 
-        direction: Union[Unset, str] = UNSET
+        direction: str | Unset = UNSET
         if not isinstance(self.direction, Unset):
             direction = self.direction.value
 
@@ -47,14 +49,14 @@ class EntraIdTenantAdminUnitSortingBrowseSpec:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _property_ = d.pop("property", UNSET)
-        property_: Union[Unset, EEntraIdTenantAdminUnitSortingProperty]
+        property_: EEntraIdTenantAdminUnitSortingProperty | Unset
         if isinstance(_property_, Unset):
             property_ = UNSET
         else:
             property_ = EEntraIdTenantAdminUnitSortingProperty(_property_)
 
         _direction = d.pop("direction", UNSET)
-        direction: Union[Unset, ESortExpressionDirectionType]
+        direction: ESortExpressionDirectionType | Unset
         if isinstance(_direction, Unset):
             direction = UNSET
         else:

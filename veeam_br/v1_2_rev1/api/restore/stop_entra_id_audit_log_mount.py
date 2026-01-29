@@ -1,5 +1,6 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
@@ -21,16 +22,16 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": f"/api/v1/restore/entraId/auditLog/{session_id}/unmount",
+        "url": "/api/v1/restore/entraId/auditLog/{session_id}/unmount".format(
+            session_id=quote(str(session_id), safe=""),
+        ),
     }
 
     _kwargs["headers"] = headers
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, SessionModel]]:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Error | SessionModel | None:
     if response.status_code == 201:
         response_201 = SessionModel.from_dict(response.json())
 
@@ -63,8 +64,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, SessionModel]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | SessionModel]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -76,9 +77,9 @@ def _build_response(
 def sync_detailed(
     session_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.2-rev1",
-) -> Response[Union[Error, SessionModel]]:
+) -> Response[Error | SessionModel]:
     """Unmount Microsoft Entra ID Audit Logs
 
      The HTTP POST request to the `/api/v1/restore/entraId/auditLog/{sessionId}/unmount` path allows you
@@ -95,7 +96,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, SessionModel]]
+        Response[Error | SessionModel]
     """
 
     kwargs = _get_kwargs(
@@ -113,9 +114,9 @@ def sync_detailed(
 def sync(
     session_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.2-rev1",
-) -> Optional[Union[Error, SessionModel]]:
+) -> Error | SessionModel | None:
     """Unmount Microsoft Entra ID Audit Logs
 
      The HTTP POST request to the `/api/v1/restore/entraId/auditLog/{sessionId}/unmount` path allows you
@@ -132,7 +133,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, SessionModel]
+        Error | SessionModel
     """
 
     return sync_detailed(
@@ -145,9 +146,9 @@ def sync(
 async def asyncio_detailed(
     session_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.2-rev1",
-) -> Response[Union[Error, SessionModel]]:
+) -> Response[Error | SessionModel]:
     """Unmount Microsoft Entra ID Audit Logs
 
      The HTTP POST request to the `/api/v1/restore/entraId/auditLog/{sessionId}/unmount` path allows you
@@ -164,7 +165,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, SessionModel]]
+        Response[Error | SessionModel]
     """
 
     kwargs = _get_kwargs(
@@ -180,9 +181,9 @@ async def asyncio_detailed(
 async def asyncio(
     session_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.2-rev1",
-) -> Optional[Union[Error, SessionModel]]:
+) -> Error | SessionModel | None:
     """Unmount Microsoft Entra ID Audit Logs
 
      The HTTP POST request to the `/api/v1/restore/entraId/auditLog/{sessionId}/unmount` path allows you
@@ -199,7 +200,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, SessionModel]
+        Error | SessionModel
     """
 
     return (

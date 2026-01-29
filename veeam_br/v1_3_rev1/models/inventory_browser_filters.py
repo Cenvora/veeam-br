@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -7,9 +9,8 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.group_expression_model import GroupExpressionModel
+    from ..models.filter_expression_model import FilterExpressionModel
     from ..models.pagination_filter import PaginationFilter
-    from ..models.predicate_expression_model import PredicateExpressionModel
     from ..models.sort_expression_model import SortExpressionModel
 
 
@@ -20,12 +21,12 @@ T = TypeVar("T", bound="InventoryBrowserFilters")
 class InventoryBrowserFilters:
     """
     Attributes:
-        pagination (Union[Unset, PaginationFilter]): Pagination settings.
-        filter_ (Union['GroupExpressionModel', 'PredicateExpressionModel', Unset]): Filter settings.
-        sorting (Union[Unset, SortExpressionModel]): Sorting settings.
-        hierarchy_type (Union[Unset, str]): Hierarchy type. The possible values you can specify depend on the used
-            request. <p> <ul> <li>For the [Get All Servers](Inventory-Browser#operation/GetAllInventoryHosts) and [Get
-            Inventory Objects](Inventory-Browser#operation/GetInventoryObjects) requests, specify values depending on the
+        pagination (PaginationFilter | Unset): Pagination settings.
+        filter_ (FilterExpressionModel | Unset): Filter settings.
+        sorting (SortExpressionModel | Unset): Sorting settings.
+        hierarchy_type (str | Unset): Hierarchy type. The possible values you can specify depend on the used request.
+            <p> <ul> <li>For the [Get All Servers](Inventory-Browser#operation/GetAllInventoryHosts) and [Get Inventory
+            Objects](Inventory-Browser#operation/GetInventoryObjects) requests, specify values depending on the
             virtualization platform&#58; <ul> <li> For VMware vSphere&#58; *HostsAndClusters*, *DatastoresAndVms*,
             *HostsAndDatastores*, *VmsAndTemplates*, *VmsAndTags*, *Network* </li> <li> For VMware Cloud Director&#58;
             *VAppsAndVms*, *Network*, *StoragePolicies*, *Datastores* </li> <li> For Microsoft Hyper-V&#58; *HostsAndVMs*,
@@ -35,28 +36,22 @@ class InventoryBrowserFilters:
             *Clusters* </li> </ul>
     """
 
-    pagination: Union[Unset, "PaginationFilter"] = UNSET
-    filter_: Union["GroupExpressionModel", "PredicateExpressionModel", Unset] = UNSET
-    sorting: Union[Unset, "SortExpressionModel"] = UNSET
-    hierarchy_type: Union[Unset, str] = UNSET
+    pagination: PaginationFilter | Unset = UNSET
+    filter_: FilterExpressionModel | Unset = UNSET
+    sorting: SortExpressionModel | Unset = UNSET
+    hierarchy_type: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.predicate_expression_model import PredicateExpressionModel
-
-        pagination: Union[Unset, dict[str, Any]] = UNSET
+        pagination: dict[str, Any] | Unset = UNSET
         if not isinstance(self.pagination, Unset):
             pagination = self.pagination.to_dict()
 
-        filter_: Union[Unset, dict[str, Any]]
-        if isinstance(self.filter_, Unset):
-            filter_ = UNSET
-        elif isinstance(self.filter_, PredicateExpressionModel):
-            filter_ = self.filter_.to_dict()
-        else:
+        filter_: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.filter_, Unset):
             filter_ = self.filter_.to_dict()
 
-        sorting: Union[Unset, dict[str, Any]] = UNSET
+        sorting: dict[str, Any] | Unset = UNSET
         if not isinstance(self.sorting, Unset):
             sorting = self.sorting.to_dict()
 
@@ -78,40 +73,27 @@ class InventoryBrowserFilters:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.group_expression_model import GroupExpressionModel
+        from ..models.filter_expression_model import FilterExpressionModel
         from ..models.pagination_filter import PaginationFilter
-        from ..models.predicate_expression_model import PredicateExpressionModel
         from ..models.sort_expression_model import SortExpressionModel
 
         d = dict(src_dict)
         _pagination = d.pop("pagination", UNSET)
-        pagination: Union[Unset, PaginationFilter]
+        pagination: PaginationFilter | Unset
         if isinstance(_pagination, Unset):
             pagination = UNSET
         else:
             pagination = PaginationFilter.from_dict(_pagination)
 
-        def _parse_filter_(data: object) -> Union["GroupExpressionModel", "PredicateExpressionModel", Unset]:
-            if isinstance(data, Unset):
-                return data
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_filter_expression_model_type_0 = PredicateExpressionModel.from_dict(data)
-
-                return componentsschemas_filter_expression_model_type_0
-            except:  # noqa: E722
-                pass
-            if not isinstance(data, dict):
-                raise TypeError()
-            componentsschemas_filter_expression_model_type_1 = GroupExpressionModel.from_dict(data)
-
-            return componentsschemas_filter_expression_model_type_1
-
-        filter_ = _parse_filter_(d.pop("filter", UNSET))
+        _filter_ = d.pop("filter", UNSET)
+        filter_: FilterExpressionModel | Unset
+        if isinstance(_filter_, Unset):
+            filter_ = UNSET
+        else:
+            filter_ = FilterExpressionModel.from_dict(_filter_)
 
         _sorting = d.pop("sorting", UNSET)
-        sorting: Union[Unset, SortExpressionModel]
+        sorting: SortExpressionModel | Unset
         if isinstance(_sorting, Unset):
             sorting = UNSET
         else:

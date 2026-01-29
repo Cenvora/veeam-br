@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -17,11 +19,11 @@ class EntraIdTenantItemRecursiveComparisonSpec:
     Attributes:
         item_id (str): ID of a Conditional Access policy.
         old_restore_point_id (UUID): ID of an earlier restore point.
-        new_restore_point_id (Union[Unset, UUID]): ID of a later restore point. If you do not specify this property, the
-            item from the earlir restore point will be compared to the item in production.
-        show_unchanged_attributes (Union[Unset, bool]): If `true`, both changed and unchanged item properties are
-            returned. Otherwise, only changed ones.
-        reload_cache (Union[Unset, bool]): This property is only used when comparing the item to production
+        new_restore_point_id (UUID | Unset): ID of a later restore point. If you do not specify this property, the item
+            from the earlir restore point will be compared to the item in production.
+        show_unchanged_attributes (bool | Unset): If `true`, both changed and unchanged item properties are returned.
+            Otherwise, only changed ones.
+        reload_cache (bool | Unset): This property is only used when comparing the item to production
             (`newRestorePointId` must not be specified). <ul><li>If `true`, the mount session cache will be reset for this
             request and new data will be obtained from Microsoft Entra ID.</li> <li>If `false`, the data will be obtained
             from the cache.</li></ul> Resetting the cache slows down request processing but allows you to get up-to-date
@@ -30,9 +32,9 @@ class EntraIdTenantItemRecursiveComparisonSpec:
 
     item_id: str
     old_restore_point_id: UUID
-    new_restore_point_id: Union[Unset, UUID] = UNSET
-    show_unchanged_attributes: Union[Unset, bool] = UNSET
-    reload_cache: Union[Unset, bool] = UNSET
+    new_restore_point_id: UUID | Unset = UNSET
+    show_unchanged_attributes: bool | Unset = UNSET
+    reload_cache: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -40,7 +42,7 @@ class EntraIdTenantItemRecursiveComparisonSpec:
 
         old_restore_point_id = str(self.old_restore_point_id)
 
-        new_restore_point_id: Union[Unset, str] = UNSET
+        new_restore_point_id: str | Unset = UNSET
         if not isinstance(self.new_restore_point_id, Unset):
             new_restore_point_id = str(self.new_restore_point_id)
 
@@ -73,7 +75,7 @@ class EntraIdTenantItemRecursiveComparisonSpec:
         old_restore_point_id = UUID(d.pop("oldRestorePointId"))
 
         _new_restore_point_id = d.pop("newRestorePointId", UNSET)
-        new_restore_point_id: Union[Unset, UUID]
+        new_restore_point_id: UUID | Unset
         if isinstance(_new_restore_point_id, Unset):
             new_restore_point_id = UNSET
         else:

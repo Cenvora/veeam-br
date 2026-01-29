@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -15,14 +17,14 @@ class UnstructuredDataBrowseSourceProperties:
     """Properties of unstructured data backup.
 
     Attributes:
-        backup_id (Union[Unset, UUID]): Backup ID.
+        backup_id (UUID | Unset): Backup ID.
     """
 
-    backup_id: Union[Unset, UUID] = UNSET
+    backup_id: UUID | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        backup_id: Union[Unset, str] = UNSET
+        backup_id: str | Unset = UNSET
         if not isinstance(self.backup_id, Unset):
             backup_id = str(self.backup_id)
 
@@ -38,7 +40,7 @@ class UnstructuredDataBrowseSourceProperties:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _backup_id = d.pop("backupId", UNSET)
-        backup_id: Union[Unset, UUID]
+        backup_id: UUID | Unset
         if isinstance(_backup_id, Unset):
             backup_id = UNSET
         else:

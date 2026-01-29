@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,20 +22,20 @@ class AgentPrimaryStorageIntegrationSettingsModel:
     Attributes:
         is_enabled (bool): If `true`, the primary storage integration is enabled. In this case, storage snapshots
             (instead of VM snapshots) are used for VM data processing.
-        off_host_backup_proxies (Union[Unset, BackupProxiesSettingsModel]): Backup proxy settings.
-        failover_to_on_host_agent (Union[Unset, bool]): If `true`, Veeam Backup & Replication fails over to a backup
-            operation with a software VSS provider.
+        off_host_backup_proxies (BackupProxiesSettingsModel | Unset): Backup proxy settings.
+        failover_to_on_host_agent (bool | Unset): If `true`, Veeam Backup & Replication fails over to a backup operation
+            with a software VSS provider.
     """
 
     is_enabled: bool
-    off_host_backup_proxies: Union[Unset, "BackupProxiesSettingsModel"] = UNSET
-    failover_to_on_host_agent: Union[Unset, bool] = UNSET
+    off_host_backup_proxies: BackupProxiesSettingsModel | Unset = UNSET
+    failover_to_on_host_agent: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         is_enabled = self.is_enabled
 
-        off_host_backup_proxies: Union[Unset, dict[str, Any]] = UNSET
+        off_host_backup_proxies: dict[str, Any] | Unset = UNSET
         if not isinstance(self.off_host_backup_proxies, Unset):
             off_host_backup_proxies = self.off_host_backup_proxies.to_dict()
 
@@ -61,7 +63,7 @@ class AgentPrimaryStorageIntegrationSettingsModel:
         is_enabled = d.pop("isEnabled")
 
         _off_host_backup_proxies = d.pop("offHostBackupProxies", UNSET)
-        off_host_backup_proxies: Union[Unset, BackupProxiesSettingsModel]
+        off_host_backup_proxies: BackupProxiesSettingsModel | Unset
         if isinstance(_off_host_backup_proxies, Unset):
             off_host_backup_proxies = UNSET
         else:

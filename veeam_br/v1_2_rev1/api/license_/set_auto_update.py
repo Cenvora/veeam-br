@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -8,12 +8,12 @@ from ...client import AuthenticatedClient, Client
 from ...models.error import Error
 from ...models.installed_license_model import InstalledLicenseModel
 from ...models.license_auto_update_spec import LicenseAutoUpdateSpec
-from ...types import Response
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     *,
-    body: LicenseAutoUpdateSpec,
+    body: LicenseAutoUpdateSpec | Unset = UNSET,
     x_api_version: str = "1.2-rev1",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -24,7 +24,8 @@ def _get_kwargs(
         "url": "/api/v1/license/autoupdate",
     }
 
-    _kwargs["json"] = body.to_dict()
+    if not isinstance(body, Unset):
+        _kwargs["json"] = body.to_dict()
 
     headers["Content-Type"] = "application/json"
 
@@ -33,8 +34,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, InstalledLicenseModel]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Error | InstalledLicenseModel | None:
     if response.status_code == 200:
         response_200 = InstalledLicenseModel.from_dict(response.json())
 
@@ -67,8 +68,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, InstalledLicenseModel]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | InstalledLicenseModel]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -79,10 +80,10 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: LicenseAutoUpdateSpec,
+    client: AuthenticatedClient | Client,
+    body: LicenseAutoUpdateSpec | Unset = UNSET,
     x_api_version: str = "1.2-rev1",
-) -> Response[Union[Error, InstalledLicenseModel]]:
+) -> Response[Error | InstalledLicenseModel]:
     """Enable or Disable License Auto Update
 
      The HTTP POST request to the `/api/v1/license/autoupdate` allows you to enable or disable automatic
@@ -90,14 +91,14 @@ def sync_detailed(
 
     Args:
         x_api_version (str):  Default: '1.2-rev1'.
-        body (LicenseAutoUpdateSpec): Update the license automatically.
+        body (LicenseAutoUpdateSpec | Unset): Update the license automatically.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, InstalledLicenseModel]]
+        Response[Error | InstalledLicenseModel]
     """
 
     kwargs = _get_kwargs(
@@ -114,10 +115,10 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: LicenseAutoUpdateSpec,
+    client: AuthenticatedClient | Client,
+    body: LicenseAutoUpdateSpec | Unset = UNSET,
     x_api_version: str = "1.2-rev1",
-) -> Optional[Union[Error, InstalledLicenseModel]]:
+) -> Error | InstalledLicenseModel | None:
     """Enable or Disable License Auto Update
 
      The HTTP POST request to the `/api/v1/license/autoupdate` allows you to enable or disable automatic
@@ -125,14 +126,14 @@ def sync(
 
     Args:
         x_api_version (str):  Default: '1.2-rev1'.
-        body (LicenseAutoUpdateSpec): Update the license automatically.
+        body (LicenseAutoUpdateSpec | Unset): Update the license automatically.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, InstalledLicenseModel]
+        Error | InstalledLicenseModel
     """
 
     return sync_detailed(
@@ -144,10 +145,10 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: LicenseAutoUpdateSpec,
+    client: AuthenticatedClient | Client,
+    body: LicenseAutoUpdateSpec | Unset = UNSET,
     x_api_version: str = "1.2-rev1",
-) -> Response[Union[Error, InstalledLicenseModel]]:
+) -> Response[Error | InstalledLicenseModel]:
     """Enable or Disable License Auto Update
 
      The HTTP POST request to the `/api/v1/license/autoupdate` allows you to enable or disable automatic
@@ -155,14 +156,14 @@ async def asyncio_detailed(
 
     Args:
         x_api_version (str):  Default: '1.2-rev1'.
-        body (LicenseAutoUpdateSpec): Update the license automatically.
+        body (LicenseAutoUpdateSpec | Unset): Update the license automatically.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, InstalledLicenseModel]]
+        Response[Error | InstalledLicenseModel]
     """
 
     kwargs = _get_kwargs(
@@ -177,10 +178,10 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: LicenseAutoUpdateSpec,
+    client: AuthenticatedClient | Client,
+    body: LicenseAutoUpdateSpec | Unset = UNSET,
     x_api_version: str = "1.2-rev1",
-) -> Optional[Union[Error, InstalledLicenseModel]]:
+) -> Error | InstalledLicenseModel | None:
     """Enable or Disable License Auto Update
 
      The HTTP POST request to the `/api/v1/license/autoupdate` allows you to enable or disable automatic
@@ -188,14 +189,14 @@ async def asyncio(
 
     Args:
         x_api_version (str):  Default: '1.2-rev1'.
-        body (LicenseAutoUpdateSpec): Update the license automatically.
+        body (LicenseAutoUpdateSpec | Unset): Update the license automatically.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, InstalledLicenseModel]
+        Error | InstalledLicenseModel
     """
 
     return (

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -16,13 +18,13 @@ class EntraIdTenantMissingItemModel:
 
     Attributes:
         item_id (str): Item ID.
-        display_name (Union[Unset, str]): Item display name.
-        item_type (Union[Unset, EEntraIdTenantItemType]): Item type.
+        display_name (str | Unset): Item display name.
+        item_type (EEntraIdTenantItemType | Unset): Item type.
     """
 
     item_id: str
-    display_name: Union[Unset, str] = UNSET
-    item_type: Union[Unset, EEntraIdTenantItemType] = UNSET
+    display_name: str | Unset = UNSET
+    item_type: EEntraIdTenantItemType | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -30,7 +32,7 @@ class EntraIdTenantMissingItemModel:
 
         display_name = self.display_name
 
-        item_type: Union[Unset, str] = UNSET
+        item_type: str | Unset = UNSET
         if not isinstance(self.item_type, Unset):
             item_type = self.item_type.value
 
@@ -56,7 +58,7 @@ class EntraIdTenantMissingItemModel:
         display_name = d.pop("displayName", UNSET)
 
         _item_type = d.pop("itemType", UNSET)
-        item_type: Union[Unset, EEntraIdTenantItemType]
+        item_type: EEntraIdTenantItemType | Unset
         if isinstance(_item_type, Unset):
             item_type = UNSET
         else:

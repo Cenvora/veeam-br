@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -16,36 +18,35 @@ T = TypeVar("T", bound="RepositoriesFilters")
 class RepositoriesFilters:
     """
     Attributes:
-        skip (Union[Unset, int]): Number of repositories to skip.
-        limit (Union[Unset, int]): Maximum number of repositories to return.
-        order_column (Union[Unset, ERepositoryFiltersOrderColumn]): Sorts repositories by one of the repository
-            parameters.
-        order_asc (Union[Unset, bool]): If `true`, sorts repositories in ascending order by the `orderColumn` parameter.
-        name_filter (Union[Unset, str]): Filters repositories by the `nameFilter` pattern. The pattern can match any
+        skip (int | Unset): Number of repositories to skip.
+        limit (int | Unset): Maximum number of repositories to return.
+        order_column (ERepositoryFiltersOrderColumn | Unset): Sorts repositories by one of the repository parameters.
+        order_asc (bool | Unset): If `true`, sorts repositories in ascending order by the `orderColumn` parameter.
+        name_filter (str | Unset): Filters repositories by the `nameFilter` pattern. The pattern can match any
             repository parameter. To substitute one or more characters, use the asterisk (*) character at the beginning
             and/or at the end.
-        type_filter (Union[Unset, list[ERepositoryType]]):
-        host_id_filter (Union[Unset, UUID]): Filters repositories by ID of the backup server.
-        path_filter (Union[Unset, str]): Filters repositories by path to the folder where backup files are stored.
-        vmb_api_filter (Union[Unset, str]): Filters repositories by VM Backup API parameters converted to the base64
-            string. To obtain the string, call the `GetApiProductInfoString` method of VM Backup API.
-        vmb_api_platform (Union[Unset, UUID]): Filters repositories by ID of a platform that you use to communicate with
-            VM Backup API.
-        exclude_extents (Union[Unset, bool]): If `true`, filters out repositories that are a part of an extent for
-            Scale-Out repositories.
+        type_filter (list[ERepositoryType] | Unset):
+        host_id_filter (UUID | Unset): Filters repositories by ID of the backup server.
+        path_filter (str | Unset): Filters repositories by path to the folder where backup files are stored.
+        vmb_api_filter (str | Unset): Filters repositories by VM Backup API parameters converted to the base64 string.
+            To obtain the string, call the `GetApiProductInfoString` method of VM Backup API.
+        vmb_api_platform (UUID | Unset): Filters repositories by ID of a platform that you use to communicate with VM
+            Backup API.
+        exclude_extents (bool | Unset): If `true`, filters out repositories that are a part of an extent for Scale-Out
+            repositories.
     """
 
-    skip: Union[Unset, int] = UNSET
-    limit: Union[Unset, int] = UNSET
-    order_column: Union[Unset, ERepositoryFiltersOrderColumn] = UNSET
-    order_asc: Union[Unset, bool] = UNSET
-    name_filter: Union[Unset, str] = UNSET
-    type_filter: Union[Unset, list[ERepositoryType]] = UNSET
-    host_id_filter: Union[Unset, UUID] = UNSET
-    path_filter: Union[Unset, str] = UNSET
-    vmb_api_filter: Union[Unset, str] = UNSET
-    vmb_api_platform: Union[Unset, UUID] = UNSET
-    exclude_extents: Union[Unset, bool] = UNSET
+    skip: int | Unset = UNSET
+    limit: int | Unset = UNSET
+    order_column: ERepositoryFiltersOrderColumn | Unset = UNSET
+    order_asc: bool | Unset = UNSET
+    name_filter: str | Unset = UNSET
+    type_filter: list[ERepositoryType] | Unset = UNSET
+    host_id_filter: UUID | Unset = UNSET
+    path_filter: str | Unset = UNSET
+    vmb_api_filter: str | Unset = UNSET
+    vmb_api_platform: UUID | Unset = UNSET
+    exclude_extents: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -53,7 +54,7 @@ class RepositoriesFilters:
 
         limit = self.limit
 
-        order_column: Union[Unset, str] = UNSET
+        order_column: str | Unset = UNSET
         if not isinstance(self.order_column, Unset):
             order_column = self.order_column.value
 
@@ -61,14 +62,14 @@ class RepositoriesFilters:
 
         name_filter = self.name_filter
 
-        type_filter: Union[Unset, list[str]] = UNSET
+        type_filter: list[str] | Unset = UNSET
         if not isinstance(self.type_filter, Unset):
             type_filter = []
             for type_filter_item_data in self.type_filter:
                 type_filter_item = type_filter_item_data.value
                 type_filter.append(type_filter_item)
 
-        host_id_filter: Union[Unset, str] = UNSET
+        host_id_filter: str | Unset = UNSET
         if not isinstance(self.host_id_filter, Unset):
             host_id_filter = str(self.host_id_filter)
 
@@ -76,7 +77,7 @@ class RepositoriesFilters:
 
         vmb_api_filter = self.vmb_api_filter
 
-        vmb_api_platform: Union[Unset, str] = UNSET
+        vmb_api_platform: str | Unset = UNSET
         if not isinstance(self.vmb_api_platform, Unset):
             vmb_api_platform = str(self.vmb_api_platform)
 
@@ -118,7 +119,7 @@ class RepositoriesFilters:
         limit = d.pop("limit", UNSET)
 
         _order_column = d.pop("orderColumn", UNSET)
-        order_column: Union[Unset, ERepositoryFiltersOrderColumn]
+        order_column: ERepositoryFiltersOrderColumn | Unset
         if isinstance(_order_column, Unset):
             order_column = UNSET
         else:
@@ -128,15 +129,17 @@ class RepositoriesFilters:
 
         name_filter = d.pop("nameFilter", UNSET)
 
-        type_filter = []
         _type_filter = d.pop("typeFilter", UNSET)
-        for type_filter_item_data in _type_filter or []:
-            type_filter_item = ERepositoryType(type_filter_item_data)
+        type_filter: list[ERepositoryType] | Unset = UNSET
+        if _type_filter is not UNSET:
+            type_filter = []
+            for type_filter_item_data in _type_filter:
+                type_filter_item = ERepositoryType(type_filter_item_data)
 
-            type_filter.append(type_filter_item)
+                type_filter.append(type_filter_item)
 
         _host_id_filter = d.pop("hostIdFilter", UNSET)
-        host_id_filter: Union[Unset, UUID]
+        host_id_filter: UUID | Unset
         if isinstance(_host_id_filter, Unset):
             host_id_filter = UNSET
         else:
@@ -147,7 +150,7 @@ class RepositoriesFilters:
         vmb_api_filter = d.pop("vmbApiFilter", UNSET)
 
         _vmb_api_platform = d.pop("vmbApiPlatform", UNSET)
-        vmb_api_platform: Union[Unset, UUID]
+        vmb_api_platform: UUID | Unset
         if isinstance(_vmb_api_platform, Unset):
             vmb_api_platform = UNSET
         else:

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -7,10 +9,7 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.agent_object_model import AgentObjectModel
-    from ..models.cloud_director_object_model import CloudDirectorObjectModel
-    from ..models.hyper_v_object_model import HyperVObjectModel
-    from ..models.vmware_object_model import VmwareObjectModel
+    from ..models.inventory_object_model import InventoryObjectModel
 
 
 T = TypeVar("T", bound="RestoreTargetFolderSpec")
@@ -21,33 +20,20 @@ class RestoreTargetFolderSpec:
     """Destination VM folder.
 
     Attributes:
-        folder (Union['AgentObjectModel', 'CloudDirectorObjectModel', 'HyperVObjectModel', 'VmwareObjectModel']):
-            Inventory object properties.
-        vm_name (Union[Unset, str]): Name of the restored VM. Note that if you do not specify a value for this property,
-            Veeam Backup & Replication will use the original VM name.
-        restore_vm_tags (Union[Unset, bool]): If `true`, Veeam Backup & Replication restores tags that were assigned to
-            the original VMs, and assigns them to the restored VMs.
+        folder (InventoryObjectModel): Inventory object properties.
+        vm_name (str | Unset): Name of the restored VM. Note that if you do not specify a value for this property, Veeam
+            Backup & Replication will use the original VM name.
+        restore_vm_tags (bool | Unset): If `true`, Veeam Backup & Replication restores tags that were assigned to the
+            original VMs, and assigns them to the restored VMs.
     """
 
-    folder: Union["AgentObjectModel", "CloudDirectorObjectModel", "HyperVObjectModel", "VmwareObjectModel"]
-    vm_name: Union[Unset, str] = UNSET
-    restore_vm_tags: Union[Unset, bool] = UNSET
+    folder: InventoryObjectModel
+    vm_name: str | Unset = UNSET
+    restore_vm_tags: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.cloud_director_object_model import CloudDirectorObjectModel
-        from ..models.hyper_v_object_model import HyperVObjectModel
-        from ..models.vmware_object_model import VmwareObjectModel
-
-        folder: dict[str, Any]
-        if isinstance(self.folder, VmwareObjectModel):
-            folder = self.folder.to_dict()
-        elif isinstance(self.folder, CloudDirectorObjectModel):
-            folder = self.folder.to_dict()
-        elif isinstance(self.folder, HyperVObjectModel):
-            folder = self.folder.to_dict()
-        else:
-            folder = self.folder.to_dict()
+        folder = self.folder.to_dict()
 
         vm_name = self.vm_name
 
@@ -69,47 +55,10 @@ class RestoreTargetFolderSpec:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.agent_object_model import AgentObjectModel
-        from ..models.cloud_director_object_model import CloudDirectorObjectModel
-        from ..models.hyper_v_object_model import HyperVObjectModel
-        from ..models.vmware_object_model import VmwareObjectModel
+        from ..models.inventory_object_model import InventoryObjectModel
 
         d = dict(src_dict)
-
-        def _parse_folder(
-            data: object,
-        ) -> Union["AgentObjectModel", "CloudDirectorObjectModel", "HyperVObjectModel", "VmwareObjectModel"]:
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_0 = VmwareObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_0
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_1 = CloudDirectorObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_1
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_2 = HyperVObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_2
-            except:  # noqa: E722
-                pass
-            if not isinstance(data, dict):
-                raise TypeError()
-            componentsschemas_inventory_object_model_type_3 = AgentObjectModel.from_dict(data)
-
-            return componentsschemas_inventory_object_model_type_3
-
-        folder = _parse_folder(d.pop("folder"))
+        folder = InventoryObjectModel.from_dict(d.pop("folder"))
 
         vm_name = d.pop("vmName", UNSET)
 

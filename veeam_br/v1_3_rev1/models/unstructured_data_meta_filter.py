@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,14 +17,14 @@ class UnstructuredDataMetaFilter:
     """Metadata migration filter.
 
     Attributes:
-        migration_type (Union[Unset, EUnstructuredDataMetaMigrationType]): Metadata migration type.
+        migration_type (EUnstructuredDataMetaMigrationType | Unset): Metadata migration type.
     """
 
-    migration_type: Union[Unset, EUnstructuredDataMetaMigrationType] = UNSET
+    migration_type: EUnstructuredDataMetaMigrationType | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        migration_type: Union[Unset, str] = UNSET
+        migration_type: str | Unset = UNSET
         if not isinstance(self.migration_type, Unset):
             migration_type = self.migration_type.value
 
@@ -38,7 +40,7 @@ class UnstructuredDataMetaFilter:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _migration_type = d.pop("migrationType", UNSET)
-        migration_type: Union[Unset, EUnstructuredDataMetaMigrationType]
+        migration_type: EUnstructuredDataMetaMigrationType | Unset
         if isinstance(_migration_type, Unset):
             migration_type = UNSET
         else:

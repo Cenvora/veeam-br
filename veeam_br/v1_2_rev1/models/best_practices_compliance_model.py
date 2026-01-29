@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -18,14 +20,14 @@ class BestPracticesComplianceModel:
         id (UUID): Best practice ID.
         best_practice (str): Best practice name.
         status (EBestPracticeStatus): Best practice status.
-        note (Union[Unset, str]): Note that specifies the reason for suppressing the best practice compliance status
+        note (str | Unset): Note that specifies the reason for suppressing the best practice compliance status
             (excluding it from the analyzer checklist).
     """
 
     id: UUID
     best_practice: str
     status: EBestPracticeStatus
-    note: Union[Unset, str] = UNSET
+    note: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

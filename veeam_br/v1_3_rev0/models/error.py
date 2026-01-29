@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,12 +21,12 @@ class Error:
             be understood by programs that detect and handle errors by type.
         message (str): The error message contains a generic description of the error condition in English. It is
             intended for a human audience.
-        resource_id (Union[Unset, str]): ID of the object that is involved in the error (or empty).
+        resource_id (str | Unset): ID of the object that is involved in the error (or empty).
     """
 
     error_code: ErrorErrorCode
     message: str
-    resource_id: Union[Unset, str] = UNSET
+    resource_id: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

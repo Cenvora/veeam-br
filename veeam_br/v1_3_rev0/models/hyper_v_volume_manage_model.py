@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 
@@ -16,13 +18,13 @@ class HyperVVolumeManageModel:
     """Volume properties.
 
     Attributes:
-        volumes (list['HyperVVolumeObjectModel']): Array of volumes.
+        volumes (list[HyperVVolumeObjectModel]): Array of volumes.
         changed_block_tracking (bool): If `true`, CBT is enabled for this host. Default: False.
         failover_to_vss_provider (bool): If `true`, Veeam Backup & Replication uses the specified hardware VSS provider
             for volume snapshot creation. Default: True.
     """
 
-    volumes: list["HyperVVolumeObjectModel"]
+    volumes: list[HyperVVolumeObjectModel]
     changed_block_tracking: bool = False
     failover_to_vss_provider: bool = True
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)

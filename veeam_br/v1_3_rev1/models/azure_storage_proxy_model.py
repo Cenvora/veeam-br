@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -16,20 +18,20 @@ class AzureStorageProxyModel:
 
     Attributes:
         subscription_id (UUID): ID that Veeam Backup & Replication assigned to the Microsoft Azure subscription.
-        instance_size (Union[Unset, str]): Size of the appliance.
-        resource_group (Union[Unset, str]): Resource group associated with the proxy appliance.
-        virtual_network (Union[Unset, str]): Network to which the helper appliance is connected.
-        subnet (Union[Unset, str]): Subnet for the proxy appliance.
-        redirector_port (Union[Unset, int]): TCP port used to route requests between the proxy appliance and backup
+        instance_size (str | Unset): Size of the appliance.
+        resource_group (str | Unset): Resource group associated with the proxy appliance.
+        virtual_network (str | Unset): Network to which the helper appliance is connected.
+        subnet (str | Unset): Subnet for the proxy appliance.
+        redirector_port (int | Unset): TCP port used to route requests between the proxy appliance and backup
             infrastructure components.
     """
 
     subscription_id: UUID
-    instance_size: Union[Unset, str] = UNSET
-    resource_group: Union[Unset, str] = UNSET
-    virtual_network: Union[Unset, str] = UNSET
-    subnet: Union[Unset, str] = UNSET
-    redirector_port: Union[Unset, int] = UNSET
+    instance_size: str | Unset = UNSET
+    resource_group: str | Unset = UNSET
+    virtual_network: str | Unset = UNSET
+    subnet: str | Unset = UNSET
+    redirector_port: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

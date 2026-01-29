@@ -1,6 +1,7 @@
 import datetime
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
@@ -17,16 +18,16 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     id: UUID,
     *,
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EReplicaRestorePointsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    created_after_filter: Union[Unset, datetime.datetime] = UNSET,
-    created_before_filter: Union[Unset, datetime.datetime] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    platform_name_filter: Union[Unset, EPlatformType] = UNSET,
-    platform_id_filter: Union[Unset, UUID] = UNSET,
-    replica_id_filter: Union[Unset, UUID] = UNSET,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EReplicaRestorePointsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    created_after_filter: datetime.datetime | Unset = UNSET,
+    created_before_filter: datetime.datetime | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    platform_name_filter: EPlatformType | Unset = UNSET,
+    platform_id_filter: UUID | Unset = UNSET,
+    replica_id_filter: UUID | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -38,7 +39,7 @@ def _get_kwargs(
 
     params["limit"] = limit
 
-    json_order_column: Union[Unset, str] = UNSET
+    json_order_column: str | Unset = UNSET
     if not isinstance(order_column, Unset):
         json_order_column = order_column.value
 
@@ -46,30 +47,30 @@ def _get_kwargs(
 
     params["orderAsc"] = order_asc
 
-    json_created_after_filter: Union[Unset, str] = UNSET
+    json_created_after_filter: str | Unset = UNSET
     if not isinstance(created_after_filter, Unset):
         json_created_after_filter = created_after_filter.isoformat()
     params["createdAfterFilter"] = json_created_after_filter
 
-    json_created_before_filter: Union[Unset, str] = UNSET
+    json_created_before_filter: str | Unset = UNSET
     if not isinstance(created_before_filter, Unset):
         json_created_before_filter = created_before_filter.isoformat()
     params["createdBeforeFilter"] = json_created_before_filter
 
     params["nameFilter"] = name_filter
 
-    json_platform_name_filter: Union[Unset, str] = UNSET
+    json_platform_name_filter: str | Unset = UNSET
     if not isinstance(platform_name_filter, Unset):
         json_platform_name_filter = platform_name_filter.value
 
     params["platformNameFilter"] = json_platform_name_filter
 
-    json_platform_id_filter: Union[Unset, str] = UNSET
+    json_platform_id_filter: str | Unset = UNSET
     if not isinstance(platform_id_filter, Unset):
         json_platform_id_filter = str(platform_id_filter)
     params["platformIdFilter"] = json_platform_id_filter
 
-    json_replica_id_filter: Union[Unset, str] = UNSET
+    json_replica_id_filter: str | Unset = UNSET
     if not isinstance(replica_id_filter, Unset):
         json_replica_id_filter = str(replica_id_filter)
     params["replicaIdFilter"] = json_replica_id_filter
@@ -78,7 +79,9 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": f"/api/v1/replicas/{id}/replicaPoints",
+        "url": "/api/v1/replicas/{id}/replicaPoints".format(
+            id=quote(str(id), safe=""),
+        ),
         "params": params,
     }
 
@@ -87,8 +90,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, ReplicaPointsResult]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Error | ReplicaPointsResult | None:
     if response.status_code == 200:
         response_200 = ReplicaPointsResult.from_dict(response.json())
 
@@ -116,8 +119,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, ReplicaPointsResult]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | ReplicaPointsResult]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -129,19 +132,19 @@ def _build_response(
 def sync_detailed(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EReplicaRestorePointsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    created_after_filter: Union[Unset, datetime.datetime] = UNSET,
-    created_before_filter: Union[Unset, datetime.datetime] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    platform_name_filter: Union[Unset, EPlatformType] = UNSET,
-    platform_id_filter: Union[Unset, UUID] = UNSET,
-    replica_id_filter: Union[Unset, UUID] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EReplicaRestorePointsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    created_after_filter: datetime.datetime | Unset = UNSET,
+    created_before_filter: datetime.datetime | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    platform_name_filter: EPlatformType | Unset = UNSET,
+    platform_id_filter: UUID | Unset = UNSET,
+    replica_id_filter: UUID | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Error, ReplicaPointsResult]]:
+) -> Response[Error | ReplicaPointsResult]:
     """Get All Replica Restore Points
 
      The HTTP GET request to the `/api/v1/replicas/{id}/replicaPoints` endpoint gets an array of all
@@ -150,16 +153,16 @@ def sync_detailed(
 
     Args:
         id (UUID):
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EReplicaRestorePointsFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
-        created_after_filter (Union[Unset, datetime.datetime]):
-        created_before_filter (Union[Unset, datetime.datetime]):
-        name_filter (Union[Unset, str]):
-        platform_name_filter (Union[Unset, EPlatformType]): Platform type.
-        platform_id_filter (Union[Unset, UUID]):
-        replica_id_filter (Union[Unset, UUID]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EReplicaRestorePointsFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
+        created_after_filter (datetime.datetime | Unset):
+        created_before_filter (datetime.datetime | Unset):
+        name_filter (str | Unset):
+        platform_name_filter (EPlatformType | Unset): Platform type.
+        platform_id_filter (UUID | Unset):
+        replica_id_filter (UUID | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -167,7 +170,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, ReplicaPointsResult]]
+        Response[Error | ReplicaPointsResult]
     """
 
     kwargs = _get_kwargs(
@@ -195,19 +198,19 @@ def sync_detailed(
 def sync(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EReplicaRestorePointsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    created_after_filter: Union[Unset, datetime.datetime] = UNSET,
-    created_before_filter: Union[Unset, datetime.datetime] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    platform_name_filter: Union[Unset, EPlatformType] = UNSET,
-    platform_id_filter: Union[Unset, UUID] = UNSET,
-    replica_id_filter: Union[Unset, UUID] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EReplicaRestorePointsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    created_after_filter: datetime.datetime | Unset = UNSET,
+    created_before_filter: datetime.datetime | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    platform_name_filter: EPlatformType | Unset = UNSET,
+    platform_id_filter: UUID | Unset = UNSET,
+    replica_id_filter: UUID | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Error, ReplicaPointsResult]]:
+) -> Error | ReplicaPointsResult | None:
     """Get All Replica Restore Points
 
      The HTTP GET request to the `/api/v1/replicas/{id}/replicaPoints` endpoint gets an array of all
@@ -216,16 +219,16 @@ def sync(
 
     Args:
         id (UUID):
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EReplicaRestorePointsFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
-        created_after_filter (Union[Unset, datetime.datetime]):
-        created_before_filter (Union[Unset, datetime.datetime]):
-        name_filter (Union[Unset, str]):
-        platform_name_filter (Union[Unset, EPlatformType]): Platform type.
-        platform_id_filter (Union[Unset, UUID]):
-        replica_id_filter (Union[Unset, UUID]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EReplicaRestorePointsFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
+        created_after_filter (datetime.datetime | Unset):
+        created_before_filter (datetime.datetime | Unset):
+        name_filter (str | Unset):
+        platform_name_filter (EPlatformType | Unset): Platform type.
+        platform_id_filter (UUID | Unset):
+        replica_id_filter (UUID | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -233,7 +236,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, ReplicaPointsResult]
+        Error | ReplicaPointsResult
     """
 
     return sync_detailed(
@@ -256,19 +259,19 @@ def sync(
 async def asyncio_detailed(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EReplicaRestorePointsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    created_after_filter: Union[Unset, datetime.datetime] = UNSET,
-    created_before_filter: Union[Unset, datetime.datetime] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    platform_name_filter: Union[Unset, EPlatformType] = UNSET,
-    platform_id_filter: Union[Unset, UUID] = UNSET,
-    replica_id_filter: Union[Unset, UUID] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EReplicaRestorePointsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    created_after_filter: datetime.datetime | Unset = UNSET,
+    created_before_filter: datetime.datetime | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    platform_name_filter: EPlatformType | Unset = UNSET,
+    platform_id_filter: UUID | Unset = UNSET,
+    replica_id_filter: UUID | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Error, ReplicaPointsResult]]:
+) -> Response[Error | ReplicaPointsResult]:
     """Get All Replica Restore Points
 
      The HTTP GET request to the `/api/v1/replicas/{id}/replicaPoints` endpoint gets an array of all
@@ -277,16 +280,16 @@ async def asyncio_detailed(
 
     Args:
         id (UUID):
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EReplicaRestorePointsFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
-        created_after_filter (Union[Unset, datetime.datetime]):
-        created_before_filter (Union[Unset, datetime.datetime]):
-        name_filter (Union[Unset, str]):
-        platform_name_filter (Union[Unset, EPlatformType]): Platform type.
-        platform_id_filter (Union[Unset, UUID]):
-        replica_id_filter (Union[Unset, UUID]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EReplicaRestorePointsFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
+        created_after_filter (datetime.datetime | Unset):
+        created_before_filter (datetime.datetime | Unset):
+        name_filter (str | Unset):
+        platform_name_filter (EPlatformType | Unset): Platform type.
+        platform_id_filter (UUID | Unset):
+        replica_id_filter (UUID | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -294,7 +297,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, ReplicaPointsResult]]
+        Response[Error | ReplicaPointsResult]
     """
 
     kwargs = _get_kwargs(
@@ -320,19 +323,19 @@ async def asyncio_detailed(
 async def asyncio(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EReplicaRestorePointsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    created_after_filter: Union[Unset, datetime.datetime] = UNSET,
-    created_before_filter: Union[Unset, datetime.datetime] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    platform_name_filter: Union[Unset, EPlatformType] = UNSET,
-    platform_id_filter: Union[Unset, UUID] = UNSET,
-    replica_id_filter: Union[Unset, UUID] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EReplicaRestorePointsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    created_after_filter: datetime.datetime | Unset = UNSET,
+    created_before_filter: datetime.datetime | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    platform_name_filter: EPlatformType | Unset = UNSET,
+    platform_id_filter: UUID | Unset = UNSET,
+    replica_id_filter: UUID | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Error, ReplicaPointsResult]]:
+) -> Error | ReplicaPointsResult | None:
     """Get All Replica Restore Points
 
      The HTTP GET request to the `/api/v1/replicas/{id}/replicaPoints` endpoint gets an array of all
@@ -341,16 +344,16 @@ async def asyncio(
 
     Args:
         id (UUID):
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EReplicaRestorePointsFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
-        created_after_filter (Union[Unset, datetime.datetime]):
-        created_before_filter (Union[Unset, datetime.datetime]):
-        name_filter (Union[Unset, str]):
-        platform_name_filter (Union[Unset, EPlatformType]): Platform type.
-        platform_id_filter (Union[Unset, UUID]):
-        replica_id_filter (Union[Unset, UUID]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EReplicaRestorePointsFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
+        created_after_filter (datetime.datetime | Unset):
+        created_before_filter (datetime.datetime | Unset):
+        name_filter (str | Unset):
+        platform_name_filter (EPlatformType | Unset): Platform type.
+        platform_id_filter (UUID | Unset):
+        replica_id_filter (UUID | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -358,7 +361,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, ReplicaPointsResult]
+        Error | ReplicaPointsResult
     """
 
     return (

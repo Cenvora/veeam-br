@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -18,14 +20,14 @@ class GoogleCloudStorageRegionBrowserModel:
     """Google Cloud region.
 
     Attributes:
-        id (Union[Unset, str]): Region ID.
-        name (Union[Unset, str]): Region name.
-        buckets (Union[Unset, list['GoogleCloudStorageBucketBrowserModel']]): Array of buckets located in the region.
+        id (str | Unset): Region ID.
+        name (str | Unset): Region name.
+        buckets (list[GoogleCloudStorageBucketBrowserModel] | Unset): Array of buckets located in the region.
     """
 
-    id: Union[Unset, str] = UNSET
-    name: Union[Unset, str] = UNSET
-    buckets: Union[Unset, list["GoogleCloudStorageBucketBrowserModel"]] = UNSET
+    id: str | Unset = UNSET
+    name: str | Unset = UNSET
+    buckets: list[GoogleCloudStorageBucketBrowserModel] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -33,7 +35,7 @@ class GoogleCloudStorageRegionBrowserModel:
 
         name = self.name
 
-        buckets: Union[Unset, list[dict[str, Any]]] = UNSET
+        buckets: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.buckets, Unset):
             buckets = []
             for buckets_item_data in self.buckets:
@@ -61,12 +63,14 @@ class GoogleCloudStorageRegionBrowserModel:
 
         name = d.pop("name", UNSET)
 
-        buckets = []
         _buckets = d.pop("buckets", UNSET)
-        for buckets_item_data in _buckets or []:
-            buckets_item = GoogleCloudStorageBucketBrowserModel.from_dict(buckets_item_data)
+        buckets: list[GoogleCloudStorageBucketBrowserModel] | Unset = UNSET
+        if _buckets is not UNSET:
+            buckets = []
+            for buckets_item_data in _buckets:
+                buckets_item = GoogleCloudStorageBucketBrowserModel.from_dict(buckets_item_data)
 
-            buckets.append(buckets_item)
+                buckets.append(buckets_item)
 
         google_cloud_storage_region_browser_model = cls(
             id=id,

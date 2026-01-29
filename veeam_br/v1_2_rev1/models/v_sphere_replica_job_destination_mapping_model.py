@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -7,11 +9,10 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.cloud_director_object_model import CloudDirectorObjectModel
+    from ..models.inventory_object_model import InventoryObjectModel
     from ..models.v_sphere_replica_job_destination_files_mapping_model import (
         VSphereReplicaJobDestinationFilesMappingModel,
     )
-    from ..models.vmware_object_model import VmwareObjectModel
 
 
 T = TypeVar("T", bound="VSphereReplicaJobDestinationMappingModel")
@@ -22,34 +23,23 @@ class VSphereReplicaJobDestinationMappingModel:
     """Mapping rule.
 
     Attributes:
-        vm_object (Union['CloudDirectorObjectModel', 'VmwareObjectModel']): Inventory object properties.
-        configuration_files_datastore_mapping (Union['CloudDirectorObjectModel', 'VmwareObjectModel']): Inventory object
-            properties.
-        disk_files_mapping (Union[Unset, list['VSphereReplicaJobDestinationFilesMappingModel']]): Array of disk mapping
-            rules (disk name, disk datastore and provisioning type).
+        vm_object (InventoryObjectModel): Inventory object properties.
+        configuration_files_datastore_mapping (InventoryObjectModel): Inventory object properties.
+        disk_files_mapping (list[VSphereReplicaJobDestinationFilesMappingModel] | Unset): Array of disk mapping rules
+            (disk name, disk datastore and provisioning type).
     """
 
-    vm_object: Union["CloudDirectorObjectModel", "VmwareObjectModel"]
-    configuration_files_datastore_mapping: Union["CloudDirectorObjectModel", "VmwareObjectModel"]
-    disk_files_mapping: Union[Unset, list["VSphereReplicaJobDestinationFilesMappingModel"]] = UNSET
+    vm_object: InventoryObjectModel
+    configuration_files_datastore_mapping: InventoryObjectModel
+    disk_files_mapping: list[VSphereReplicaJobDestinationFilesMappingModel] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.vmware_object_model import VmwareObjectModel
+        vm_object = self.vm_object.to_dict()
 
-        vm_object: dict[str, Any]
-        if isinstance(self.vm_object, VmwareObjectModel):
-            vm_object = self.vm_object.to_dict()
-        else:
-            vm_object = self.vm_object.to_dict()
+        configuration_files_datastore_mapping = self.configuration_files_datastore_mapping.to_dict()
 
-        configuration_files_datastore_mapping: dict[str, Any]
-        if isinstance(self.configuration_files_datastore_mapping, VmwareObjectModel):
-            configuration_files_datastore_mapping = self.configuration_files_datastore_mapping.to_dict()
-        else:
-            configuration_files_datastore_mapping = self.configuration_files_datastore_mapping.to_dict()
-
-        disk_files_mapping: Union[Unset, list[dict[str, Any]]] = UNSET
+        disk_files_mapping: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.disk_files_mapping, Unset):
             disk_files_mapping = []
             for disk_files_mapping_item_data in self.disk_files_mapping:
@@ -71,60 +61,28 @@ class VSphereReplicaJobDestinationMappingModel:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.cloud_director_object_model import CloudDirectorObjectModel
+        from ..models.inventory_object_model import InventoryObjectModel
         from ..models.v_sphere_replica_job_destination_files_mapping_model import (
             VSphereReplicaJobDestinationFilesMappingModel,
         )
-        from ..models.vmware_object_model import VmwareObjectModel
 
         d = dict(src_dict)
+        vm_object = InventoryObjectModel.from_dict(d.pop("vmObject"))
 
-        def _parse_vm_object(data: object) -> Union["CloudDirectorObjectModel", "VmwareObjectModel"]:
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_0 = VmwareObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_0
-            except:  # noqa: E722
-                pass
-            if not isinstance(data, dict):
-                raise TypeError()
-            componentsschemas_inventory_object_model_type_1 = CloudDirectorObjectModel.from_dict(data)
-
-            return componentsschemas_inventory_object_model_type_1
-
-        vm_object = _parse_vm_object(d.pop("vmObject"))
-
-        def _parse_configuration_files_datastore_mapping(
-            data: object,
-        ) -> Union["CloudDirectorObjectModel", "VmwareObjectModel"]:
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_0 = VmwareObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_0
-            except:  # noqa: E722
-                pass
-            if not isinstance(data, dict):
-                raise TypeError()
-            componentsschemas_inventory_object_model_type_1 = CloudDirectorObjectModel.from_dict(data)
-
-            return componentsschemas_inventory_object_model_type_1
-
-        configuration_files_datastore_mapping = _parse_configuration_files_datastore_mapping(
+        configuration_files_datastore_mapping = InventoryObjectModel.from_dict(
             d.pop("configurationFilesDatastoreMapping")
         )
 
-        disk_files_mapping = []
         _disk_files_mapping = d.pop("diskFilesMapping", UNSET)
-        for disk_files_mapping_item_data in _disk_files_mapping or []:
-            disk_files_mapping_item = VSphereReplicaJobDestinationFilesMappingModel.from_dict(
-                disk_files_mapping_item_data
-            )
+        disk_files_mapping: list[VSphereReplicaJobDestinationFilesMappingModel] | Unset = UNSET
+        if _disk_files_mapping is not UNSET:
+            disk_files_mapping = []
+            for disk_files_mapping_item_data in _disk_files_mapping:
+                disk_files_mapping_item = VSphereReplicaJobDestinationFilesMappingModel.from_dict(
+                    disk_files_mapping_item_data
+                )
 
-            disk_files_mapping.append(disk_files_mapping_item)
+                disk_files_mapping.append(disk_files_mapping_item)
 
         v_sphere_replica_job_destination_mapping_model = cls(
             vm_object=vm_object,

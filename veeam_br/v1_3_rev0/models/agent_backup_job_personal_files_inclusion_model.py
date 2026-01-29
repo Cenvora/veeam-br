@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,31 +16,26 @@ class AgentBackupJobPersonalFilesInclusionModel:
     """Scope of personal data included in Agent backup job.
 
     Attributes:
-        desktop (Union[Unset, bool]): If `true`, data stored in the `Desktop` folder will be included in the backup
-            scope.
-        documents (Union[Unset, bool]): If `true`, data stored in the `Documents` folder will be included in the backup
-            scope.
-        pictures (Union[Unset, bool]): If `true`, data stored in the `Pictures` folder will be included in the backup
-            scope.
-        video (Union[Unset, bool]): If `true`, data stored in the `Video` folder will be included in the backup scope.
-        music (Union[Unset, bool]): If `true`, data stored in the `Music` folder will be included in the backup scope.
-        favorites (Union[Unset, bool]): If `true`, data stored in the `Favorites` folder will be included in the backup
-            scope.
-        downloads (Union[Unset, bool]): If `true`, data stored in the `Downloads` folder will be included in the backup
-            scope.
-        app_data (Union[Unset, bool]): If `true`, application data will be included in the backup scope.
-        other (Union[Unset, bool]): If `true`, data stored in custom locations will be included in the backup scope.
+        desktop (bool | Unset): If `true`, data stored in the `Desktop` folder will be included in the backup scope.
+        documents (bool | Unset): If `true`, data stored in the `Documents` folder will be included in the backup scope.
+        pictures (bool | Unset): If `true`, data stored in the `Pictures` folder will be included in the backup scope.
+        video (bool | Unset): If `true`, data stored in the `Video` folder will be included in the backup scope.
+        music (bool | Unset): If `true`, data stored in the `Music` folder will be included in the backup scope.
+        favorites (bool | Unset): If `true`, data stored in the `Favorites` folder will be included in the backup scope.
+        downloads (bool | Unset): If `true`, data stored in the `Downloads` folder will be included in the backup scope.
+        app_data (bool | Unset): If `true`, application data will be included in the backup scope.
+        other (bool | Unset): If `true`, data stored in custom locations will be included in the backup scope.
     """
 
-    desktop: Union[Unset, bool] = UNSET
-    documents: Union[Unset, bool] = UNSET
-    pictures: Union[Unset, bool] = UNSET
-    video: Union[Unset, bool] = UNSET
-    music: Union[Unset, bool] = UNSET
-    favorites: Union[Unset, bool] = UNSET
-    downloads: Union[Unset, bool] = UNSET
-    app_data: Union[Unset, bool] = UNSET
-    other: Union[Unset, bool] = UNSET
+    desktop: bool | Unset = UNSET
+    documents: bool | Unset = UNSET
+    pictures: bool | Unset = UNSET
+    video: bool | Unset = UNSET
+    music: bool | Unset = UNSET
+    favorites: bool | Unset = UNSET
+    downloads: bool | Unset = UNSET
+    app_data: bool | Unset = UNSET
+    other: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

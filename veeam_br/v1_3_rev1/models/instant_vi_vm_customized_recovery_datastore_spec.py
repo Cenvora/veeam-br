@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -7,10 +9,7 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.agent_object_model import AgentObjectModel
-    from ..models.cloud_director_object_model import CloudDirectorObjectModel
-    from ..models.hyper_v_object_model import HyperVObjectModel
-    from ..models.vmware_object_model import VmwareObjectModel
+    from ..models.inventory_object_model import InventoryObjectModel
 
 
 T = TypeVar("T", bound="InstantViVMCustomizedRecoveryDatastoreSpec")
@@ -23,33 +22,18 @@ class InstantViVMCustomizedRecoveryDatastoreSpec:
 
         Attributes:
             redirect_enabled (bool): If `true`, redo logs are redirected to `cacheDatastore`.
-            cache_datastore (Union['AgentObjectModel', 'CloudDirectorObjectModel', 'HyperVObjectModel', 'VmwareObjectModel',
-                Unset]): Inventory object properties.
+            cache_datastore (InventoryObjectModel | Unset): Inventory object properties.
     """
 
     redirect_enabled: bool
-    cache_datastore: Union[
-        "AgentObjectModel", "CloudDirectorObjectModel", "HyperVObjectModel", "VmwareObjectModel", Unset
-    ] = UNSET
+    cache_datastore: InventoryObjectModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.cloud_director_object_model import CloudDirectorObjectModel
-        from ..models.hyper_v_object_model import HyperVObjectModel
-        from ..models.vmware_object_model import VmwareObjectModel
-
         redirect_enabled = self.redirect_enabled
 
-        cache_datastore: Union[Unset, dict[str, Any]]
-        if isinstance(self.cache_datastore, Unset):
-            cache_datastore = UNSET
-        elif isinstance(self.cache_datastore, VmwareObjectModel):
-            cache_datastore = self.cache_datastore.to_dict()
-        elif isinstance(self.cache_datastore, CloudDirectorObjectModel):
-            cache_datastore = self.cache_datastore.to_dict()
-        elif isinstance(self.cache_datastore, HyperVObjectModel):
-            cache_datastore = self.cache_datastore.to_dict()
-        else:
+        cache_datastore: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.cache_datastore, Unset):
             cache_datastore = self.cache_datastore.to_dict()
 
         field_dict: dict[str, Any] = {}
@@ -66,50 +50,17 @@ class InstantViVMCustomizedRecoveryDatastoreSpec:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.agent_object_model import AgentObjectModel
-        from ..models.cloud_director_object_model import CloudDirectorObjectModel
-        from ..models.hyper_v_object_model import HyperVObjectModel
-        from ..models.vmware_object_model import VmwareObjectModel
+        from ..models.inventory_object_model import InventoryObjectModel
 
         d = dict(src_dict)
         redirect_enabled = d.pop("redirectEnabled")
 
-        def _parse_cache_datastore(
-            data: object,
-        ) -> Union["AgentObjectModel", "CloudDirectorObjectModel", "HyperVObjectModel", "VmwareObjectModel", Unset]:
-            if isinstance(data, Unset):
-                return data
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_0 = VmwareObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_0
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_1 = CloudDirectorObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_1
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_2 = HyperVObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_2
-            except:  # noqa: E722
-                pass
-            if not isinstance(data, dict):
-                raise TypeError()
-            componentsschemas_inventory_object_model_type_3 = AgentObjectModel.from_dict(data)
-
-            return componentsschemas_inventory_object_model_type_3
-
-        cache_datastore = _parse_cache_datastore(d.pop("cacheDatastore", UNSET))
+        _cache_datastore = d.pop("cacheDatastore", UNSET)
+        cache_datastore: InventoryObjectModel | Unset
+        if isinstance(_cache_datastore, Unset):
+            cache_datastore = UNSET
+        else:
+            cache_datastore = InventoryObjectModel.from_dict(_cache_datastore)
 
         instant_vi_vm_customized_recovery_datastore_spec = cls(
             redirect_enabled=redirect_enabled,

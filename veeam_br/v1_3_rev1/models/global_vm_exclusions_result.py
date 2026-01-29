@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 
@@ -17,12 +19,12 @@ class GlobalVMExclusionsResult:
     """Details on global VM exclusions.
 
     Attributes:
-        data (list['GlobalVMExclusionModel']): Array of global VM exclusions.
+        data (list[GlobalVMExclusionModel]): Array of global VM exclusions.
         pagination (PaginationResult): Pagination settings.
     """
 
-    data: list["GlobalVMExclusionModel"]
-    pagination: "PaginationResult"
+    data: list[GlobalVMExclusionModel]
+    pagination: PaginationResult
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

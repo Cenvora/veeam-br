@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,22 +16,21 @@ class HvRestoreTargetNameSpec:
     """Destination VM folder.
 
     Attributes:
-        vm_name (Union[Unset, str]): Name of the restored VM. Note that if you do not specify a value for this property,
-            Veeam Backup & Replication will use the original VM name.
-        preserve_uuid (Union[Unset, bool]): If `true`, the BIOS UUID of the source VM is used.
-        register_as_cluster_resource (Union[Unset, bool]): If `true`, the restored VM is configured as a cluster
-            resource. In this case, if the target host is offline or fails for any reason, the VM will fail over to another
-            node in the cluster.
-        overwrite_existing_vm (Union[Unset, bool]): If `true`, the existing VM with the same name is overwritten.
-        overwrite_existing_disks (Union[Unset, bool]): If `true`, the existing VM disks with the same names are
-            overwritten.
+        vm_name (str | Unset): Name of the restored VM. Note that if you do not specify a value for this property, Veeam
+            Backup & Replication will use the original VM name.
+        preserve_uuid (bool | Unset): If `true`, the BIOS UUID of the source VM is used.
+        register_as_cluster_resource (bool | Unset): If `true`, the restored VM is configured as a cluster resource. In
+            this case, if the target host is offline or fails for any reason, the VM will fail over to another node in the
+            cluster.
+        overwrite_existing_vm (bool | Unset): If `true`, the existing VM with the same name is overwritten.
+        overwrite_existing_disks (bool | Unset): If `true`, the existing VM disks with the same names are overwritten.
     """
 
-    vm_name: Union[Unset, str] = UNSET
-    preserve_uuid: Union[Unset, bool] = UNSET
-    register_as_cluster_resource: Union[Unset, bool] = UNSET
-    overwrite_existing_vm: Union[Unset, bool] = UNSET
-    overwrite_existing_disks: Union[Unset, bool] = UNSET
+    vm_name: str | Unset = UNSET
+    preserve_uuid: bool | Unset = UNSET
+    register_as_cluster_resource: bool | Unset = UNSET
+    overwrite_existing_vm: bool | Unset = UNSET
+    overwrite_existing_disks: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

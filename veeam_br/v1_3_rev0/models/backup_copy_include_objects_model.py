@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,23 +21,23 @@ class BackupCopyIncludeObjectsModel:
     """Included objects.
 
     Attributes:
-        jobs (Union[Unset, list['JobObjectModel']]): Array of jobs to be processed by the job.
-        repositories (Union[Unset, list['RepositoryObjectModel']]): Array of repositories processed by the job.
+        jobs (list[JobObjectModel] | Unset): Array of jobs to be processed by the job.
+        repositories (list[RepositoryObjectModel] | Unset): Array of repositories processed by the job.
     """
 
-    jobs: Union[Unset, list["JobObjectModel"]] = UNSET
-    repositories: Union[Unset, list["RepositoryObjectModel"]] = UNSET
+    jobs: list[JobObjectModel] | Unset = UNSET
+    repositories: list[RepositoryObjectModel] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        jobs: Union[Unset, list[dict[str, Any]]] = UNSET
+        jobs: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.jobs, Unset):
             jobs = []
             for jobs_item_data in self.jobs:
                 jobs_item = jobs_item_data.to_dict()
                 jobs.append(jobs_item)
 
-        repositories: Union[Unset, list[dict[str, Any]]] = UNSET
+        repositories: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.repositories, Unset):
             repositories = []
             for repositories_item_data in self.repositories:
@@ -58,19 +60,23 @@ class BackupCopyIncludeObjectsModel:
         from ..models.repository_object_model import RepositoryObjectModel
 
         d = dict(src_dict)
-        jobs = []
         _jobs = d.pop("jobs", UNSET)
-        for jobs_item_data in _jobs or []:
-            jobs_item = JobObjectModel.from_dict(jobs_item_data)
+        jobs: list[JobObjectModel] | Unset = UNSET
+        if _jobs is not UNSET:
+            jobs = []
+            for jobs_item_data in _jobs:
+                jobs_item = JobObjectModel.from_dict(jobs_item_data)
 
-            jobs.append(jobs_item)
+                jobs.append(jobs_item)
 
-        repositories = []
         _repositories = d.pop("repositories", UNSET)
-        for repositories_item_data in _repositories or []:
-            repositories_item = RepositoryObjectModel.from_dict(repositories_item_data)
+        repositories: list[RepositoryObjectModel] | Unset = UNSET
+        if _repositories is not UNSET:
+            repositories = []
+            for repositories_item_data in _repositories:
+                repositories_item = RepositoryObjectModel.from_dict(repositories_item_data)
 
-            repositories.append(repositories_item)
+                repositories.append(repositories_item)
 
         backup_copy_include_objects_model = cls(
             jobs=jobs,

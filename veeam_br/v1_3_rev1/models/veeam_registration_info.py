@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -17,19 +19,19 @@ class VeeamRegistrationInfo:
 
     Attributes:
         is_registered (bool): If `true`, the backup server is registered on the My Account portal.
-        expiration_date (Union[Unset, datetime.datetime]): Expiration date of registration on the My Account portal.
-        thumprint (Union[Unset, str]): Thumprint of the certificate that is uploaded to the My Account portal.
+        expiration_date (datetime.datetime | Unset): Expiration date of registration on the My Account portal.
+        thumprint (str | Unset): Thumprint of the certificate that is uploaded to the My Account portal.
     """
 
     is_registered: bool
-    expiration_date: Union[Unset, datetime.datetime] = UNSET
-    thumprint: Union[Unset, str] = UNSET
+    expiration_date: datetime.datetime | Unset = UNSET
+    thumprint: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         is_registered = self.is_registered
 
-        expiration_date: Union[Unset, str] = UNSET
+        expiration_date: str | Unset = UNSET
         if not isinstance(self.expiration_date, Unset):
             expiration_date = self.expiration_date.isoformat()
 
@@ -55,7 +57,7 @@ class VeeamRegistrationInfo:
         is_registered = d.pop("isRegistered")
 
         _expiration_date = d.pop("expirationDate", UNSET)
-        expiration_date: Union[Unset, datetime.datetime]
+        expiration_date: datetime.datetime | Unset
         if isinstance(_expiration_date, Unset):
             expiration_date = UNSET
         else:

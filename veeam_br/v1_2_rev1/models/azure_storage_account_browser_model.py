@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -13,18 +15,18 @@ T = TypeVar("T", bound="AzureStorageAccountBrowserModel")
 class AzureStorageAccountBrowserModel:
     """
     Attributes:
-        storage_account_name (Union[Unset, str]): Account name.
-        instance_sizes (Union[Unset, list[str]]): Array of available instance sizes.
+        storage_account_name (str | Unset): Account name.
+        instance_sizes (list[str] | Unset): Array of available instance sizes.
     """
 
-    storage_account_name: Union[Unset, str] = UNSET
-    instance_sizes: Union[Unset, list[str]] = UNSET
+    storage_account_name: str | Unset = UNSET
+    instance_sizes: list[str] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         storage_account_name = self.storage_account_name
 
-        instance_sizes: Union[Unset, list[str]] = UNSET
+        instance_sizes: list[str] | Unset = UNSET
         if not isinstance(self.instance_sizes, Unset):
             instance_sizes = self.instance_sizes
 

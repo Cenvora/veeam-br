@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -17,18 +19,18 @@ T = TypeVar("T", bound="ConnectionCertificateModel")
 class ConnectionCertificateModel:
     """
     Attributes:
-        fingerprint (Union[Unset, str]): SSH key fingerprint used to verify the server identity.
-        certificate (Union[Unset, CertificateModel]): Certificate settings.
+        fingerprint (str | Unset): SSH key fingerprint used to verify the server identity.
+        certificate (CertificateModel | Unset): Certificate settings.
     """
 
-    fingerprint: Union[Unset, str] = UNSET
-    certificate: Union[Unset, "CertificateModel"] = UNSET
+    fingerprint: str | Unset = UNSET
+    certificate: CertificateModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         fingerprint = self.fingerprint
 
-        certificate: Union[Unset, dict[str, Any]] = UNSET
+        certificate: dict[str, Any] | Unset = UNSET
         if not isinstance(self.certificate, Unset):
             certificate = self.certificate.to_dict()
 
@@ -50,7 +52,7 @@ class ConnectionCertificateModel:
         fingerprint = d.pop("fingerprint", UNSET)
 
         _certificate = d.pop("certificate", UNSET)
-        certificate: Union[Unset, CertificateModel]
+        certificate: CertificateModel | Unset
         if isinstance(_certificate, Unset):
             certificate = UNSET
         else:

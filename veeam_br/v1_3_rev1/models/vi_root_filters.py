@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,22 +16,22 @@ T = TypeVar("T", bound="ViRootFilters")
 class ViRootFilters:
     """
     Attributes:
-        skip (Union[Unset, int]): Number of VMware vSphere servers to skip.
-        limit (Union[Unset, int]): Maximum number of VMware vSphere servers to return.
-        order_column (Union[Unset, EViRootFiltersOrderColumn]): Sorts VMware vSphere servers by one of the VMware
-            vSphere server parameters.
-        order_asc (Union[Unset, bool]): If `true`, sorts VMware vSphere servers in ascending order by the `orderColumn`
+        skip (int | Unset): Number of VMware vSphere servers to skip.
+        limit (int | Unset): Maximum number of VMware vSphere servers to return.
+        order_column (EViRootFiltersOrderColumn | Unset): Sorts VMware vSphere servers by one of the VMware vSphere
+            server parameters.
+        order_asc (bool | Unset): If `true`, sorts VMware vSphere servers in ascending order by the `orderColumn`
             parameter.
-        name_filter (Union[Unset, str]): Filters VMware vSphere servers by the `nameFilter` pattern. The pattern can
-            match any VMware vSphere server parameter. To substitute one or more characters, use the asterisk (*) character
-            at the beginning and/or at the end.
+        name_filter (str | Unset): Filters VMware vSphere servers by the `nameFilter` pattern. The pattern can match any
+            VMware vSphere server parameter. To substitute one or more characters, use the asterisk (*) character at the
+            beginning and/or at the end.
     """
 
-    skip: Union[Unset, int] = UNSET
-    limit: Union[Unset, int] = UNSET
-    order_column: Union[Unset, EViRootFiltersOrderColumn] = UNSET
-    order_asc: Union[Unset, bool] = UNSET
-    name_filter: Union[Unset, str] = UNSET
+    skip: int | Unset = UNSET
+    limit: int | Unset = UNSET
+    order_column: EViRootFiltersOrderColumn | Unset = UNSET
+    order_asc: bool | Unset = UNSET
+    name_filter: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -37,7 +39,7 @@ class ViRootFilters:
 
         limit = self.limit
 
-        order_column: Union[Unset, str] = UNSET
+        order_column: str | Unset = UNSET
         if not isinstance(self.order_column, Unset):
             order_column = self.order_column.value
 
@@ -69,7 +71,7 @@ class ViRootFilters:
         limit = d.pop("limit", UNSET)
 
         _order_column = d.pop("orderColumn", UNSET)
-        order_column: Union[Unset, EViRootFiltersOrderColumn]
+        order_column: EViRootFiltersOrderColumn | Unset
         if isinstance(_order_column, Unset):
             order_column = UNSET
         else:

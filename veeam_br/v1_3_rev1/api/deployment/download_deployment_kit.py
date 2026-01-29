@@ -1,6 +1,7 @@
 from http import HTTPStatus
 from io import BytesIO
-from typing import Any, Optional, Union
+from typing import Any
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
@@ -21,16 +22,16 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": f"/api/v1/deployment/{task_id}/downloadKit",
+        "url": "/api/v1/deployment/{task_id}/downloadKit".format(
+            task_id=quote(str(task_id), safe=""),
+        ),
     }
 
     _kwargs["headers"] = headers
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, File]]:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Error | File | None:
     if response.status_code == 200:
         response_200 = File(payload=BytesIO(response.content))
 
@@ -62,9 +63,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, File]]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[Error | File]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -76,9 +75,9 @@ def _build_response(
 def sync_detailed(
     task_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Error, File]]:
+) -> Response[Error | File]:
     """Download Deployment Kit Package
 
      The HTTP GET request to the `/api/v1/deployment/{taskId}/downloadKit` endpoint downloads the
@@ -96,7 +95,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, File]]
+        Response[Error | File]
     """
 
     kwargs = _get_kwargs(
@@ -114,9 +113,9 @@ def sync_detailed(
 def sync(
     task_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Error, File]]:
+) -> Error | File | None:
     """Download Deployment Kit Package
 
      The HTTP GET request to the `/api/v1/deployment/{taskId}/downloadKit` endpoint downloads the
@@ -134,7 +133,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, File]
+        Error | File
     """
 
     return sync_detailed(
@@ -147,9 +146,9 @@ def sync(
 async def asyncio_detailed(
     task_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Error, File]]:
+) -> Response[Error | File]:
     """Download Deployment Kit Package
 
      The HTTP GET request to the `/api/v1/deployment/{taskId}/downloadKit` endpoint downloads the
@@ -167,7 +166,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, File]]
+        Response[Error | File]
     """
 
     kwargs = _get_kwargs(
@@ -183,9 +182,9 @@ async def asyncio_detailed(
 async def asyncio(
     task_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Error, File]]:
+) -> Error | File | None:
     """Download Deployment Kit Package
 
      The HTTP GET request to the `/api/v1/deployment/{taskId}/downloadKit` endpoint downloads the
@@ -203,7 +202,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, File]
+        Error | File
     """
 
     return (

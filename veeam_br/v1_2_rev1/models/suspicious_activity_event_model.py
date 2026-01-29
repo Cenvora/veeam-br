@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -34,7 +36,7 @@ class SuspiciousActivityEventModel:
         severity (ESuspiciousActivitySeverity): Malware status.
         created_by (str): User account created the event.
         engine (str): Detection engine.
-        machine (Union[Unset, SuspiciousActivityMachineModel]): Machine marked by the malware event.
+        machine (SuspiciousActivityMachineModel | Unset): Machine marked by the malware event.
     """
 
     id: UUID
@@ -46,7 +48,7 @@ class SuspiciousActivityEventModel:
     severity: ESuspiciousActivitySeverity
     created_by: str
     engine: str
-    machine: Union[Unset, "SuspiciousActivityMachineModel"] = UNSET
+    machine: SuspiciousActivityMachineModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -68,7 +70,7 @@ class SuspiciousActivityEventModel:
 
         engine = self.engine
 
-        machine: Union[Unset, dict[str, Any]] = UNSET
+        machine: dict[str, Any] | Unset = UNSET
         if not isinstance(self.machine, Unset):
             machine = self.machine.to_dict()
 
@@ -116,7 +118,7 @@ class SuspiciousActivityEventModel:
         engine = d.pop("engine")
 
         _machine = d.pop("machine", UNSET)
-        machine: Union[Unset, SuspiciousActivityMachineModel]
+        machine: SuspiciousActivityMachineModel | Unset
         if isinstance(_machine, Unset):
             machine = UNSET
         else:

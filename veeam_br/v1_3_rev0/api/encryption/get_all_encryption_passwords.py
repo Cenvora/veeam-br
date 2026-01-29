@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -13,11 +13,11 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     *,
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EEncryptionPasswordsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    hint_filter: Union[Unset, str] = UNSET,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EEncryptionPasswordsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    hint_filter: str | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -29,7 +29,7 @@ def _get_kwargs(
 
     params["limit"] = limit
 
-    json_order_column: Union[Unset, str] = UNSET
+    json_order_column: str | Unset = UNSET
     if not isinstance(order_column, Unset):
         json_order_column = order_column.value
 
@@ -52,8 +52,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[EncryptionPasswordsResult, Error]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> EncryptionPasswordsResult | Error | None:
     if response.status_code == 200:
         response_200 = EncryptionPasswordsResult.from_dict(response.json())
 
@@ -81,8 +81,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[EncryptionPasswordsResult, Error]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[EncryptionPasswordsResult | Error]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -93,14 +93,14 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EEncryptionPasswordsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    hint_filter: Union[Unset, str] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EEncryptionPasswordsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    hint_filter: str | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Response[Union[EncryptionPasswordsResult, Error]]:
+) -> Response[EncryptionPasswordsResult | Error]:
     """Get All Encryption Passwords
 
      The HTTP GET request to the `/api/v1/encryptionPasswords` path allows you to get an array of all
@@ -108,11 +108,11 @@ def sync_detailed(
     Veeam Security Administrator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EEncryptionPasswordsFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
-        hint_filter (Union[Unset, str]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EEncryptionPasswordsFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
+        hint_filter (str | Unset):
         x_api_version (str):  Default: '1.3-rev0'.
 
     Raises:
@@ -120,7 +120,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[EncryptionPasswordsResult, Error]]
+        Response[EncryptionPasswordsResult | Error]
     """
 
     kwargs = _get_kwargs(
@@ -141,14 +141,14 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EEncryptionPasswordsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    hint_filter: Union[Unset, str] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EEncryptionPasswordsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    hint_filter: str | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Union[EncryptionPasswordsResult, Error]]:
+) -> EncryptionPasswordsResult | Error | None:
     """Get All Encryption Passwords
 
      The HTTP GET request to the `/api/v1/encryptionPasswords` path allows you to get an array of all
@@ -156,11 +156,11 @@ def sync(
     Veeam Security Administrator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EEncryptionPasswordsFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
-        hint_filter (Union[Unset, str]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EEncryptionPasswordsFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
+        hint_filter (str | Unset):
         x_api_version (str):  Default: '1.3-rev0'.
 
     Raises:
@@ -168,7 +168,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[EncryptionPasswordsResult, Error]
+        EncryptionPasswordsResult | Error
     """
 
     return sync_detailed(
@@ -184,14 +184,14 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EEncryptionPasswordsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    hint_filter: Union[Unset, str] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EEncryptionPasswordsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    hint_filter: str | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Response[Union[EncryptionPasswordsResult, Error]]:
+) -> Response[EncryptionPasswordsResult | Error]:
     """Get All Encryption Passwords
 
      The HTTP GET request to the `/api/v1/encryptionPasswords` path allows you to get an array of all
@@ -199,11 +199,11 @@ async def asyncio_detailed(
     Veeam Security Administrator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EEncryptionPasswordsFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
-        hint_filter (Union[Unset, str]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EEncryptionPasswordsFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
+        hint_filter (str | Unset):
         x_api_version (str):  Default: '1.3-rev0'.
 
     Raises:
@@ -211,7 +211,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[EncryptionPasswordsResult, Error]]
+        Response[EncryptionPasswordsResult | Error]
     """
 
     kwargs = _get_kwargs(
@@ -230,14 +230,14 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EEncryptionPasswordsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    hint_filter: Union[Unset, str] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EEncryptionPasswordsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    hint_filter: str | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Union[EncryptionPasswordsResult, Error]]:
+) -> EncryptionPasswordsResult | Error | None:
     """Get All Encryption Passwords
 
      The HTTP GET request to the `/api/v1/encryptionPasswords` path allows you to get an array of all
@@ -245,11 +245,11 @@ async def asyncio(
     Veeam Security Administrator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EEncryptionPasswordsFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
-        hint_filter (Union[Unset, str]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EEncryptionPasswordsFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
+        hint_filter (str | Unset):
         x_api_version (str):  Default: '1.3-rev0'.
 
     Raises:
@@ -257,7 +257,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[EncryptionPasswordsResult, Error]
+        EncryptionPasswordsResult | Error
     """
 
     return (

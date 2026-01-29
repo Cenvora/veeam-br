@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,18 +21,18 @@ class BackupApplicationAwareProcessingModel:
 
     Attributes:
         is_enabled (bool): If `true`, application-aware processing is enabled.
-        app_settings (Union[Unset, list['BackupApplicationSettingsModel']]): Array of VMware vSphere objects and their
+        app_settings (list[BackupApplicationSettingsModel] | Unset): Array of VMware vSphere objects and their
             application settings.
     """
 
     is_enabled: bool
-    app_settings: Union[Unset, list["BackupApplicationSettingsModel"]] = UNSET
+    app_settings: list[BackupApplicationSettingsModel] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         is_enabled = self.is_enabled
 
-        app_settings: Union[Unset, list[dict[str, Any]]] = UNSET
+        app_settings: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.app_settings, Unset):
             app_settings = []
             for app_settings_item_data in self.app_settings:
@@ -56,12 +58,14 @@ class BackupApplicationAwareProcessingModel:
         d = dict(src_dict)
         is_enabled = d.pop("isEnabled")
 
-        app_settings = []
         _app_settings = d.pop("appSettings", UNSET)
-        for app_settings_item_data in _app_settings or []:
-            app_settings_item = BackupApplicationSettingsModel.from_dict(app_settings_item_data)
+        app_settings: list[BackupApplicationSettingsModel] | Unset = UNSET
+        if _app_settings is not UNSET:
+            app_settings = []
+            for app_settings_item_data in _app_settings:
+                app_settings_item = BackupApplicationSettingsModel.from_dict(app_settings_item_data)
 
-            app_settings.append(app_settings_item)
+                app_settings.append(app_settings_item)
 
         backup_application_aware_processing_model = cls(
             is_enabled=is_enabled,

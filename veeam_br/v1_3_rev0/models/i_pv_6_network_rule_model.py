@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,8 +21,8 @@ class IPv6NetworkRuleModel:
         target_i_pv_6_address (str): IP address of the replica.
         target_subnet_prefix_length (int): Target subnet prefix length.
         target_default_gateway (str): Defaul gateway address.
-        preferred_dns_server (Union[Unset, str]): Preferred DNS server address.
-        alternate_dns_server (Union[Unset, str]): Alternate WINS server address.
+        preferred_dns_server (str | Unset): Preferred DNS server address.
+        alternate_dns_server (str | Unset): Alternate WINS server address.
     """
 
     source_i_pv_6_address: str
@@ -28,8 +30,8 @@ class IPv6NetworkRuleModel:
     target_i_pv_6_address: str
     target_subnet_prefix_length: int
     target_default_gateway: str
-    preferred_dns_server: Union[Unset, str] = UNSET
-    alternate_dns_server: Union[Unset, str] = UNSET
+    preferred_dns_server: str | Unset = UNSET
+    alternate_dns_server: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

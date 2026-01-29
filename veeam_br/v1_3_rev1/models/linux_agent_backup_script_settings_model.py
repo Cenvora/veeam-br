@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,25 +21,24 @@ class LinuxAgentBackupScriptSettingsModel:
     """Pre-freeze and post-thaw scripts.
 
     Attributes:
-        is_execution_enabled (Union[Unset, bool]): If `true`, execution of the scripts is enabled.
-        job_scripts (Union[Unset, BackupJobScriptModel]): Paths to pre-freeze and post-thaw scripts.
-        snapshot_scripts (Union[Unset, BackupLinuxScriptModel]): Paths to pre-freeze and post-thaw scripts for Linux
-            VMs.
+        is_execution_enabled (bool | Unset): If `true`, execution of the scripts is enabled.
+        job_scripts (BackupJobScriptModel | Unset): Paths to pre-freeze and post-thaw scripts.
+        snapshot_scripts (BackupLinuxScriptModel | Unset): Paths to pre-freeze and post-thaw scripts for Linux VMs.
     """
 
-    is_execution_enabled: Union[Unset, bool] = UNSET
-    job_scripts: Union[Unset, "BackupJobScriptModel"] = UNSET
-    snapshot_scripts: Union[Unset, "BackupLinuxScriptModel"] = UNSET
+    is_execution_enabled: bool | Unset = UNSET
+    job_scripts: BackupJobScriptModel | Unset = UNSET
+    snapshot_scripts: BackupLinuxScriptModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         is_execution_enabled = self.is_execution_enabled
 
-        job_scripts: Union[Unset, dict[str, Any]] = UNSET
+        job_scripts: dict[str, Any] | Unset = UNSET
         if not isinstance(self.job_scripts, Unset):
             job_scripts = self.job_scripts.to_dict()
 
-        snapshot_scripts: Union[Unset, dict[str, Any]] = UNSET
+        snapshot_scripts: dict[str, Any] | Unset = UNSET
         if not isinstance(self.snapshot_scripts, Unset):
             snapshot_scripts = self.snapshot_scripts.to_dict()
 
@@ -62,14 +63,14 @@ class LinuxAgentBackupScriptSettingsModel:
         is_execution_enabled = d.pop("isExecutionEnabled", UNSET)
 
         _job_scripts = d.pop("jobScripts", UNSET)
-        job_scripts: Union[Unset, BackupJobScriptModel]
+        job_scripts: BackupJobScriptModel | Unset
         if isinstance(_job_scripts, Unset):
             job_scripts = UNSET
         else:
             job_scripts = BackupJobScriptModel.from_dict(_job_scripts)
 
         _snapshot_scripts = d.pop("snapshotScripts", UNSET)
-        snapshot_scripts: Union[Unset, BackupLinuxScriptModel]
+        snapshot_scripts: BackupLinuxScriptModel | Unset
         if isinstance(_snapshot_scripts, Unset):
             snapshot_scripts = UNSET
         else:

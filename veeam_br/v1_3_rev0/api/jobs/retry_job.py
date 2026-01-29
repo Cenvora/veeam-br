@@ -1,5 +1,6 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
@@ -9,13 +10,13 @@ from ...client import AuthenticatedClient, Client
 from ...models.error import Error
 from ...models.job_retry_spec import JobRetrySpec
 from ...models.session_model import SessionModel
-from ...types import Response
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     id: UUID,
     *,
-    body: JobRetrySpec,
+    body: JobRetrySpec | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -23,10 +24,13 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": f"/api/v1/jobs/{id}/retry",
+        "url": "/api/v1/jobs/{id}/retry".format(
+            id=quote(str(id), safe=""),
+        ),
     }
 
-    _kwargs["json"] = body.to_dict()
+    if not isinstance(body, Unset):
+        _kwargs["json"] = body.to_dict()
 
     headers["Content-Type"] = "application/json"
 
@@ -34,9 +38,7 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, SessionModel]]:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Error | SessionModel | None:
     if response.status_code == 201:
         response_201 = SessionModel.from_dict(response.json())
 
@@ -74,8 +76,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, SessionModel]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | SessionModel]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -87,10 +89,10 @@ def _build_response(
 def sync_detailed(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: JobRetrySpec,
+    client: AuthenticatedClient | Client,
+    body: JobRetrySpec | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Response[Union[Error, SessionModel]]:
+) -> Response[Error | SessionModel]:
     """Retry Job
 
      The HTTP POST request to the `/api/v1/jobs/{id}/retry` path allows you to retry a job that has the
@@ -100,14 +102,14 @@ def sync_detailed(
     Args:
         id (UUID):
         x_api_version (str):  Default: '1.3-rev0'.
-        body (JobRetrySpec): Job retry settings.
+        body (JobRetrySpec | Unset): Job retry settings.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, SessionModel]]
+        Response[Error | SessionModel]
     """
 
     kwargs = _get_kwargs(
@@ -126,10 +128,10 @@ def sync_detailed(
 def sync(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: JobRetrySpec,
+    client: AuthenticatedClient | Client,
+    body: JobRetrySpec | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Union[Error, SessionModel]]:
+) -> Error | SessionModel | None:
     """Retry Job
 
      The HTTP POST request to the `/api/v1/jobs/{id}/retry` path allows you to retry a job that has the
@@ -139,14 +141,14 @@ def sync(
     Args:
         id (UUID):
         x_api_version (str):  Default: '1.3-rev0'.
-        body (JobRetrySpec): Job retry settings.
+        body (JobRetrySpec | Unset): Job retry settings.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, SessionModel]
+        Error | SessionModel
     """
 
     return sync_detailed(
@@ -160,10 +162,10 @@ def sync(
 async def asyncio_detailed(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: JobRetrySpec,
+    client: AuthenticatedClient | Client,
+    body: JobRetrySpec | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Response[Union[Error, SessionModel]]:
+) -> Response[Error | SessionModel]:
     """Retry Job
 
      The HTTP POST request to the `/api/v1/jobs/{id}/retry` path allows you to retry a job that has the
@@ -173,14 +175,14 @@ async def asyncio_detailed(
     Args:
         id (UUID):
         x_api_version (str):  Default: '1.3-rev0'.
-        body (JobRetrySpec): Job retry settings.
+        body (JobRetrySpec | Unset): Job retry settings.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, SessionModel]]
+        Response[Error | SessionModel]
     """
 
     kwargs = _get_kwargs(
@@ -197,10 +199,10 @@ async def asyncio_detailed(
 async def asyncio(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: JobRetrySpec,
+    client: AuthenticatedClient | Client,
+    body: JobRetrySpec | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Union[Error, SessionModel]]:
+) -> Error | SessionModel | None:
     """Retry Job
 
      The HTTP POST request to the `/api/v1/jobs/{id}/retry` path allows you to retry a job that has the
@@ -210,14 +212,14 @@ async def asyncio(
     Args:
         id (UUID):
         x_api_version (str):  Default: '1.3-rev0'.
-        body (JobRetrySpec): Job retry settings.
+        body (JobRetrySpec | Unset): Job retry settings.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, SessionModel]
+        Error | SessionModel
     """
 
     return (

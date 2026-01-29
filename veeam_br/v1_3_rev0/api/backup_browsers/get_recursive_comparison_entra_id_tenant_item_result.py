@@ -1,5 +1,6 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
@@ -24,7 +25,10 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": f"/api/v1/backupBrowser/entraIdTenant/{session_id}/recursiveCompare/{compare_session_id}/result",
+        "url": "/api/v1/backupBrowser/entraIdTenant/{session_id}/recursiveCompare/{compare_session_id}/result".format(
+            session_id=quote(str(session_id), safe=""),
+            compare_session_id=quote(str(compare_session_id), safe=""),
+        ),
     }
 
     _kwargs["headers"] = headers
@@ -32,8 +36,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[EntraIdTenantItemRecursiveComparisonSessionModel, Error]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> EntraIdTenantItemRecursiveComparisonSessionModel | Error | None:
     if response.status_code == 200:
         response_200 = EntraIdTenantItemRecursiveComparisonSessionModel.from_dict(response.json())
 
@@ -66,8 +70,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[EntraIdTenantItemRecursiveComparisonSessionModel, Error]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[EntraIdTenantItemRecursiveComparisonSessionModel | Error]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -80,9 +84,9 @@ def sync_detailed(
     session_id: UUID,
     compare_session_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.3-rev0",
-) -> Response[Union[EntraIdTenantItemRecursiveComparisonSessionModel, Error]]:
+) -> Response[EntraIdTenantItemRecursiveComparisonSessionModel | Error]:
     """Get Comparison Results for Microsoft Entra ID Conditional Access Policy
 
      The HTTP GET request to the
@@ -101,7 +105,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[EntraIdTenantItemRecursiveComparisonSessionModel, Error]]
+        Response[EntraIdTenantItemRecursiveComparisonSessionModel | Error]
     """
 
     kwargs = _get_kwargs(
@@ -121,9 +125,9 @@ def sync(
     session_id: UUID,
     compare_session_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Union[EntraIdTenantItemRecursiveComparisonSessionModel, Error]]:
+) -> EntraIdTenantItemRecursiveComparisonSessionModel | Error | None:
     """Get Comparison Results for Microsoft Entra ID Conditional Access Policy
 
      The HTTP GET request to the
@@ -142,7 +146,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[EntraIdTenantItemRecursiveComparisonSessionModel, Error]
+        EntraIdTenantItemRecursiveComparisonSessionModel | Error
     """
 
     return sync_detailed(
@@ -157,9 +161,9 @@ async def asyncio_detailed(
     session_id: UUID,
     compare_session_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.3-rev0",
-) -> Response[Union[EntraIdTenantItemRecursiveComparisonSessionModel, Error]]:
+) -> Response[EntraIdTenantItemRecursiveComparisonSessionModel | Error]:
     """Get Comparison Results for Microsoft Entra ID Conditional Access Policy
 
      The HTTP GET request to the
@@ -178,7 +182,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[EntraIdTenantItemRecursiveComparisonSessionModel, Error]]
+        Response[EntraIdTenantItemRecursiveComparisonSessionModel | Error]
     """
 
     kwargs = _get_kwargs(
@@ -196,9 +200,9 @@ async def asyncio(
     session_id: UUID,
     compare_session_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Union[EntraIdTenantItemRecursiveComparisonSessionModel, Error]]:
+) -> EntraIdTenantItemRecursiveComparisonSessionModel | Error | None:
     """Get Comparison Results for Microsoft Entra ID Conditional Access Policy
 
      The HTTP GET request to the
@@ -217,7 +221,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[EntraIdTenantItemRecursiveComparisonSessionModel, Error]
+        EntraIdTenantItemRecursiveComparisonSessionModel | Error
     """
 
     return (

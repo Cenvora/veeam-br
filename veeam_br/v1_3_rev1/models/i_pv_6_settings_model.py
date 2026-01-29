@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,17 +17,17 @@ class IPv6SettingsModel:
 
     Attributes:
         ip_address (str): Helper appliance IP address.
-        prefix_length (Union[Unset, int]): Subnet prefix length.
-        default_gateway (Union[Unset, str]): Default gateway address.
-        preferred_dns_server (Union[Unset, str]): Preferred DNS server address.
-        alternate_dns_server (Union[Unset, str]): Alternate DNS server address.
+        prefix_length (int | Unset): Subnet prefix length.
+        default_gateway (str | Unset): Default gateway address.
+        preferred_dns_server (str | Unset): Preferred DNS server address.
+        alternate_dns_server (str | Unset): Alternate DNS server address.
     """
 
     ip_address: str
-    prefix_length: Union[Unset, int] = UNSET
-    default_gateway: Union[Unset, str] = UNSET
-    preferred_dns_server: Union[Unset, str] = UNSET
-    alternate_dns_server: Union[Unset, str] = UNSET
+    prefix_length: int | Unset = UNSET
+    default_gateway: str | Unset = UNSET
+    preferred_dns_server: str | Unset = UNSET
+    alternate_dns_server: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

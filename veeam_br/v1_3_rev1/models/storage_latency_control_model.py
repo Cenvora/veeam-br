@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,17 +22,17 @@ class StorageLatencyControlModel:
     Attributes:
         storage_latency_control_enabled (bool): If `true`, storage latency control is enabled. In this case, you must
             specify the `storageLatencyControlOptions` property. Default: False.
-        storage_latency_control_options (Union[Unset, StorageLatencyControlOptions]): Latency control options.
+        storage_latency_control_options (StorageLatencyControlOptions | Unset): Latency control options.
     """
 
     storage_latency_control_enabled: bool = False
-    storage_latency_control_options: Union[Unset, "StorageLatencyControlOptions"] = UNSET
+    storage_latency_control_options: StorageLatencyControlOptions | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         storage_latency_control_enabled = self.storage_latency_control_enabled
 
-        storage_latency_control_options: Union[Unset, dict[str, Any]] = UNSET
+        storage_latency_control_options: dict[str, Any] | Unset = UNSET
         if not isinstance(self.storage_latency_control_options, Unset):
             storage_latency_control_options = self.storage_latency_control_options.to_dict()
 
@@ -54,7 +56,7 @@ class StorageLatencyControlModel:
         storage_latency_control_enabled = d.pop("storageLatencyControlEnabled")
 
         _storage_latency_control_options = d.pop("storageLatencyControlOptions", UNSET)
-        storage_latency_control_options: Union[Unset, StorageLatencyControlOptions]
+        storage_latency_control_options: StorageLatencyControlOptions | Unset
         if isinstance(_storage_latency_control_options, Unset):
             storage_latency_control_options = UNSET
         else:

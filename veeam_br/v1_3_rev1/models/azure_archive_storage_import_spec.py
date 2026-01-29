@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -27,16 +29,16 @@ class AzureArchiveStorageImportSpec:
         type_ (ERepositoryType): Repository type.
         account (AzureArchiveStorageAccountImportModel): Account used to access the Microsoft Azure Archive storage.
         container (AzureArchiveStorageContainerModel): Microsoft Azure Archive container where backup data is stored.
-        proxy_appliance (Union[Unset, AzureStorageProxyModel]): Microsoft Azure storage proxy appliance.
+        proxy_appliance (AzureStorageProxyModel | Unset): Microsoft Azure storage proxy appliance.
     """
 
     name: str
     description: str
     unique_id: str
     type_: ERepositoryType
-    account: "AzureArchiveStorageAccountImportModel"
-    container: "AzureArchiveStorageContainerModel"
-    proxy_appliance: Union[Unset, "AzureStorageProxyModel"] = UNSET
+    account: AzureArchiveStorageAccountImportModel
+    container: AzureArchiveStorageContainerModel
+    proxy_appliance: AzureStorageProxyModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -52,7 +54,7 @@ class AzureArchiveStorageImportSpec:
 
         container = self.container.to_dict()
 
-        proxy_appliance: Union[Unset, dict[str, Any]] = UNSET
+        proxy_appliance: dict[str, Any] | Unset = UNSET
         if not isinstance(self.proxy_appliance, Unset):
             proxy_appliance = self.proxy_appliance.to_dict()
 
@@ -93,7 +95,7 @@ class AzureArchiveStorageImportSpec:
         container = AzureArchiveStorageContainerModel.from_dict(d.pop("container"))
 
         _proxy_appliance = d.pop("proxyAppliance", UNSET)
-        proxy_appliance: Union[Unset, AzureStorageProxyModel]
+        proxy_appliance: AzureStorageProxyModel | Unset
         if isinstance(_proxy_appliance, Unset):
             proxy_appliance = UNSET
         else:

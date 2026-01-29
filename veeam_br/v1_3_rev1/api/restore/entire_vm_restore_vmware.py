@@ -1,12 +1,11 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.entire_vi_vm_customized_restore_spec import EntireViVMCustomizedRestoreSpec
-from ...models.entire_vi_vm_original_location_restore_spec import EntireViVMOriginalLocationRestoreSpec
+from ...models.entire_vi_vm_restore_spec import EntireViVMRestoreSpec
 from ...models.error import Error
 from ...models.session_model import SessionModel
 from ...types import Response
@@ -14,7 +13,7 @@ from ...types import Response
 
 def _get_kwargs(
     *,
-    body: Union["EntireViVMCustomizedRestoreSpec", "EntireViVMOriginalLocationRestoreSpec"],
+    body: EntireViVMRestoreSpec,
     x_api_version: str = "1.3-rev1",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -25,11 +24,7 @@ def _get_kwargs(
         "url": "/api/v1/restore/vmRestore/vSphere",
     }
 
-    _kwargs["json"]: dict[str, Any]
-    if isinstance(body, EntireViVMOriginalLocationRestoreSpec):
-        _kwargs["json"] = body.to_dict()
-    else:
-        _kwargs["json"] = body.to_dict()
+    _kwargs["json"] = body.to_dict()
 
     headers["Content-Type"] = "application/json"
 
@@ -37,9 +32,7 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, SessionModel]]:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Error | SessionModel | None:
     if response.status_code == 201:
         response_201 = SessionModel.from_dict(response.json())
 
@@ -77,8 +70,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, SessionModel]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | SessionModel]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -89,10 +82,10 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union["EntireViVMCustomizedRestoreSpec", "EntireViVMOriginalLocationRestoreSpec"],
+    client: AuthenticatedClient | Client,
+    body: EntireViVMRestoreSpec,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Error, SessionModel]]:
+) -> Response[Error | SessionModel]:
     """Restore Entire VMware vSphere VM
 
      The HTTP POST request to the `/api/v1/restore/vmRestore/vSphere` endpoint performs entire VM restore
@@ -102,15 +95,14 @@ def sync_detailed(
 
     Args:
         x_api_version (str):  Default: '1.3-rev1'.
-        body (Union['EntireViVMCustomizedRestoreSpec', 'EntireViVMOriginalLocationRestoreSpec']):
-            Entire VM restore settings.
+        body (EntireViVMRestoreSpec): Entire VM restore settings.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, SessionModel]]
+        Response[Error | SessionModel]
     """
 
     kwargs = _get_kwargs(
@@ -127,10 +119,10 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union["EntireViVMCustomizedRestoreSpec", "EntireViVMOriginalLocationRestoreSpec"],
+    client: AuthenticatedClient | Client,
+    body: EntireViVMRestoreSpec,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Error, SessionModel]]:
+) -> Error | SessionModel | None:
     """Restore Entire VMware vSphere VM
 
      The HTTP POST request to the `/api/v1/restore/vmRestore/vSphere` endpoint performs entire VM restore
@@ -140,15 +132,14 @@ def sync(
 
     Args:
         x_api_version (str):  Default: '1.3-rev1'.
-        body (Union['EntireViVMCustomizedRestoreSpec', 'EntireViVMOriginalLocationRestoreSpec']):
-            Entire VM restore settings.
+        body (EntireViVMRestoreSpec): Entire VM restore settings.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, SessionModel]
+        Error | SessionModel
     """
 
     return sync_detailed(
@@ -160,10 +151,10 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union["EntireViVMCustomizedRestoreSpec", "EntireViVMOriginalLocationRestoreSpec"],
+    client: AuthenticatedClient | Client,
+    body: EntireViVMRestoreSpec,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Error, SessionModel]]:
+) -> Response[Error | SessionModel]:
     """Restore Entire VMware vSphere VM
 
      The HTTP POST request to the `/api/v1/restore/vmRestore/vSphere` endpoint performs entire VM restore
@@ -173,15 +164,14 @@ async def asyncio_detailed(
 
     Args:
         x_api_version (str):  Default: '1.3-rev1'.
-        body (Union['EntireViVMCustomizedRestoreSpec', 'EntireViVMOriginalLocationRestoreSpec']):
-            Entire VM restore settings.
+        body (EntireViVMRestoreSpec): Entire VM restore settings.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, SessionModel]]
+        Response[Error | SessionModel]
     """
 
     kwargs = _get_kwargs(
@@ -196,10 +186,10 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union["EntireViVMCustomizedRestoreSpec", "EntireViVMOriginalLocationRestoreSpec"],
+    client: AuthenticatedClient | Client,
+    body: EntireViVMRestoreSpec,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Error, SessionModel]]:
+) -> Error | SessionModel | None:
     """Restore Entire VMware vSphere VM
 
      The HTTP POST request to the `/api/v1/restore/vmRestore/vSphere` endpoint performs entire VM restore
@@ -209,15 +199,14 @@ async def asyncio(
 
     Args:
         x_api_version (str):  Default: '1.3-rev1'.
-        body (Union['EntireViVMCustomizedRestoreSpec', 'EntireViVMOriginalLocationRestoreSpec']):
-            Entire VM restore settings.
+        body (EntireViVMRestoreSpec): Entire VM restore settings.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, SessionModel]
+        Error | SessionModel
     """
 
     return (

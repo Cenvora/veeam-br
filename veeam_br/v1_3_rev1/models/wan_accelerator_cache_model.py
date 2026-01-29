@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -16,14 +18,14 @@ class WANAcceleratorCacheModel:
     data (for target WAN accelerator).
 
         Attributes:
-            cache_folder (Union[Unset, str]): Path to the cache folder.
-            cache_size (Union[Unset, int]): Cache size.
-            cache_size_unit (Union[Unset, EWANAcceleratorCacheSizeUnit]): Cache size unit.
+            cache_folder (str | Unset): Path to the cache folder.
+            cache_size (int | Unset): Cache size.
+            cache_size_unit (EWANAcceleratorCacheSizeUnit | Unset): Cache size unit.
     """
 
-    cache_folder: Union[Unset, str] = UNSET
-    cache_size: Union[Unset, int] = UNSET
-    cache_size_unit: Union[Unset, EWANAcceleratorCacheSizeUnit] = UNSET
+    cache_folder: str | Unset = UNSET
+    cache_size: int | Unset = UNSET
+    cache_size_unit: EWANAcceleratorCacheSizeUnit | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -31,7 +33,7 @@ class WANAcceleratorCacheModel:
 
         cache_size = self.cache_size
 
-        cache_size_unit: Union[Unset, str] = UNSET
+        cache_size_unit: str | Unset = UNSET
         if not isinstance(self.cache_size_unit, Unset):
             cache_size_unit = self.cache_size_unit.value
 
@@ -55,7 +57,7 @@ class WANAcceleratorCacheModel:
         cache_size = d.pop("cacheSize", UNSET)
 
         _cache_size_unit = d.pop("cacheSizeUnit", UNSET)
-        cache_size_unit: Union[Unset, EWANAcceleratorCacheSizeUnit]
+        cache_size_unit: EWANAcceleratorCacheSizeUnit | Unset
         if isinstance(_cache_size_unit, Unset):
             cache_size_unit = UNSET
         else:

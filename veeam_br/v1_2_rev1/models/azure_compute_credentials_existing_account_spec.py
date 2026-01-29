@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 
@@ -22,8 +24,8 @@ class AzureComputeCredentialsExistingAccountSpec:
             authentication, specify client secret. For certificate-based authentication, specify certificate and password.
     """
 
-    deployment: "AzureComputeCloudCredentialsDeploymentModel"
-    subscription: "AzureComputeCloudCredentialsSubscriptionSpec"
+    deployment: AzureComputeCloudCredentialsDeploymentModel
+    subscription: AzureComputeCloudCredentialsSubscriptionSpec
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

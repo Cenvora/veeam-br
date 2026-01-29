@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -17,15 +19,15 @@ class JobStartSpec:
     Attributes:
         perform_active_full (bool): If `true`, Veeam Backup & Replication will perform an active full backup. Default:
             False.
-        start_chained_jobs (Union[Unset, bool]): If `true`, Veeam Backup & Replication will start chained jobs as well.
+        start_chained_jobs (bool | Unset): If `true`, Veeam Backup & Replication will start chained jobs as well.
             Default: False.
-        sync_restore_points (Union[Unset, EBackupCopyRestorePoints]): Restore point type for syncing backup copy jobs
-            with the immediate copy mode.
+        sync_restore_points (EBackupCopyRestorePoints | Unset): Restore point type for syncing backup copy jobs with the
+            immediate copy mode.
     """
 
     perform_active_full: bool = False
-    start_chained_jobs: Union[Unset, bool] = False
-    sync_restore_points: Union[Unset, EBackupCopyRestorePoints] = UNSET
+    start_chained_jobs: bool | Unset = False
+    sync_restore_points: EBackupCopyRestorePoints | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -33,7 +35,7 @@ class JobStartSpec:
 
         start_chained_jobs = self.start_chained_jobs
 
-        sync_restore_points: Union[Unset, str] = UNSET
+        sync_restore_points: str | Unset = UNSET
         if not isinstance(self.sync_restore_points, Unset):
             sync_restore_points = self.sync_restore_points.value
 
@@ -59,7 +61,7 @@ class JobStartSpec:
         start_chained_jobs = d.pop("startChainedJobs", UNSET)
 
         _sync_restore_points = d.pop("syncRestorePoints", UNSET)
-        sync_restore_points: Union[Unset, EBackupCopyRestorePoints]
+        sync_restore_points: EBackupCopyRestorePoints | Unset
         if isinstance(_sync_restore_points, Unset):
             sync_restore_points = UNSET
         else:

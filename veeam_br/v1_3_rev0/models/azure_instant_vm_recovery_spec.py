@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -31,21 +33,21 @@ class AzureInstantVMRecoverySpec:
         resource_group (AzureComputeResourceGroupModel): Microsoft Azure resource group.
         network (AzureComputeNetworkModel): Microsoft Azure VM network settings.
         appliance (AzureInstantVMRecoveryApplianceModel): Helper appliance for Instant Recovery to Azure.
-        name (Union[Unset, AzureComputeNameModel]): Name of Microsoft Azure VM.
-        reason (Union[Unset, str]): Reason for performing Instant Recovery to Azure.
-        verify_vm_boot (Union[Unset, bool]): If `true`, Veeam Backup & Replication will verify whether the restored VM
-            has booted properly.
+        name (AzureComputeNameModel | Unset): Name of Microsoft Azure VM.
+        reason (str | Unset): Reason for performing Instant Recovery to Azure.
+        verify_vm_boot (bool | Unset): If `true`, Veeam Backup & Replication will verify whether the restored VM has
+            booted properly.
     """
 
     restore_point_id: UUID
-    subscription: "AzureComputeSubscriptionModel"
-    vm_size: "AzureComputeVMSizeModel"
-    resource_group: "AzureComputeResourceGroupModel"
-    network: "AzureComputeNetworkModel"
-    appliance: "AzureInstantVMRecoveryApplianceModel"
-    name: Union[Unset, "AzureComputeNameModel"] = UNSET
-    reason: Union[Unset, str] = UNSET
-    verify_vm_boot: Union[Unset, bool] = UNSET
+    subscription: AzureComputeSubscriptionModel
+    vm_size: AzureComputeVMSizeModel
+    resource_group: AzureComputeResourceGroupModel
+    network: AzureComputeNetworkModel
+    appliance: AzureInstantVMRecoveryApplianceModel
+    name: AzureComputeNameModel | Unset = UNSET
+    reason: str | Unset = UNSET
+    verify_vm_boot: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -61,7 +63,7 @@ class AzureInstantVMRecoverySpec:
 
         appliance = self.appliance.to_dict()
 
-        name: Union[Unset, dict[str, Any]] = UNSET
+        name: dict[str, Any] | Unset = UNSET
         if not isinstance(self.name, Unset):
             name = self.name.to_dict()
 
@@ -113,7 +115,7 @@ class AzureInstantVMRecoverySpec:
         appliance = AzureInstantVMRecoveryApplianceModel.from_dict(d.pop("appliance"))
 
         _name = d.pop("name", UNSET)
-        name: Union[Unset, AzureComputeNameModel]
+        name: AzureComputeNameModel | Unset
         if isinstance(_name, Unset):
             name = UNSET
         else:

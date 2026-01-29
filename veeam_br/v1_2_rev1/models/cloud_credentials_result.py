@@ -1,15 +1,13 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 if TYPE_CHECKING:
-    from ..models.amazon_cloud_credentials_model import AmazonCloudCredentialsModel
-    from ..models.azure_compute_cloud_credentials_model import AzureComputeCloudCredentialsModel
-    from ..models.azure_storage_cloud_credentials_model import AzureStorageCloudCredentialsModel
-    from ..models.google_cloud_credentials_model import GoogleCloudCredentialsModel
-    from ..models.google_cloud_service_credentials_model import GoogleCloudServiceCredentialsModel
+    from ..models.cloud_credentials_model import CloudCredentialsModel
     from ..models.pagination_result import PaginationResult
 
 
@@ -20,44 +18,18 @@ T = TypeVar("T", bound="CloudCredentialsResult")
 class CloudCredentialsResult:
     """
     Attributes:
-        data (list[Union['AmazonCloudCredentialsModel', 'AzureComputeCloudCredentialsModel',
-            'AzureStorageCloudCredentialsModel', 'GoogleCloudCredentialsModel', 'GoogleCloudServiceCredentialsModel']]):
-            Array of cloud credentials.
+        data (list[CloudCredentialsModel]): Array of cloud credentials.
         pagination (PaginationResult): Pagination settings.
     """
 
-    data: list[
-        Union[
-            "AmazonCloudCredentialsModel",
-            "AzureComputeCloudCredentialsModel",
-            "AzureStorageCloudCredentialsModel",
-            "GoogleCloudCredentialsModel",
-            "GoogleCloudServiceCredentialsModel",
-        ]
-    ]
-    pagination: "PaginationResult"
+    data: list[CloudCredentialsModel]
+    pagination: PaginationResult
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.amazon_cloud_credentials_model import AmazonCloudCredentialsModel
-        from ..models.azure_compute_cloud_credentials_model import AzureComputeCloudCredentialsModel
-        from ..models.azure_storage_cloud_credentials_model import AzureStorageCloudCredentialsModel
-        from ..models.google_cloud_credentials_model import GoogleCloudCredentialsModel
-
         data = []
         for data_item_data in self.data:
-            data_item: dict[str, Any]
-            if isinstance(data_item_data, AmazonCloudCredentialsModel):
-                data_item = data_item_data.to_dict()
-            elif isinstance(data_item_data, AzureStorageCloudCredentialsModel):
-                data_item = data_item_data.to_dict()
-            elif isinstance(data_item_data, AzureComputeCloudCredentialsModel):
-                data_item = data_item_data.to_dict()
-            elif isinstance(data_item_data, GoogleCloudCredentialsModel):
-                data_item = data_item_data.to_dict()
-            else:
-                data_item = data_item_data.to_dict()
-
+            data_item = data_item_data.to_dict()
             data.append(data_item)
 
         pagination = self.pagination.to_dict()
@@ -75,66 +47,14 @@ class CloudCredentialsResult:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.amazon_cloud_credentials_model import AmazonCloudCredentialsModel
-        from ..models.azure_compute_cloud_credentials_model import AzureComputeCloudCredentialsModel
-        from ..models.azure_storage_cloud_credentials_model import AzureStorageCloudCredentialsModel
-        from ..models.google_cloud_credentials_model import GoogleCloudCredentialsModel
-        from ..models.google_cloud_service_credentials_model import GoogleCloudServiceCredentialsModel
+        from ..models.cloud_credentials_model import CloudCredentialsModel
         from ..models.pagination_result import PaginationResult
 
         d = dict(src_dict)
         data = []
         _data = d.pop("data")
         for data_item_data in _data:
-
-            def _parse_data_item(
-                data: object,
-            ) -> Union[
-                "AmazonCloudCredentialsModel",
-                "AzureComputeCloudCredentialsModel",
-                "AzureStorageCloudCredentialsModel",
-                "GoogleCloudCredentialsModel",
-                "GoogleCloudServiceCredentialsModel",
-            ]:
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    componentsschemas_cloud_credentials_model_type_0 = AmazonCloudCredentialsModel.from_dict(data)
-
-                    return componentsschemas_cloud_credentials_model_type_0
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    componentsschemas_cloud_credentials_model_type_1 = AzureStorageCloudCredentialsModel.from_dict(data)
-
-                    return componentsschemas_cloud_credentials_model_type_1
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    componentsschemas_cloud_credentials_model_type_2 = AzureComputeCloudCredentialsModel.from_dict(data)
-
-                    return componentsschemas_cloud_credentials_model_type_2
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    componentsschemas_cloud_credentials_model_type_3 = GoogleCloudCredentialsModel.from_dict(data)
-
-                    return componentsschemas_cloud_credentials_model_type_3
-                except:  # noqa: E722
-                    pass
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_cloud_credentials_model_type_4 = GoogleCloudServiceCredentialsModel.from_dict(data)
-
-                return componentsschemas_cloud_credentials_model_type_4
-
-            data_item = _parse_data_item(data_item_data)
+            data_item = CloudCredentialsModel.from_dict(data_item_data)
 
             data.append(data_item)
 

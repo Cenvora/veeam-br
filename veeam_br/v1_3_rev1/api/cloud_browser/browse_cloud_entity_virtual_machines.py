@@ -1,22 +1,20 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.aws_machines_browser_model import AWSMachinesBrowserModel
-from ...models.aws_machines_browser_spec import AWSMachinesBrowserSpec
-from ...models.azure_machines_browser_model import AzureMachinesBrowserModel
-from ...models.azure_machines_browser_spec import AzureMachinesBrowserSpec
+from ...models.cloud_browser_virtual_machines_model import CloudBrowserVirtualMachinesModel
+from ...models.cloud_browser_virtual_machines_spec import CloudBrowserVirtualMachinesSpec
 from ...models.error import Error
 from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     *,
-    body: Union["AWSMachinesBrowserSpec", "AzureMachinesBrowserSpec"],
-    reset_cache: Union[Unset, bool] = UNSET,
+    body: CloudBrowserVirtualMachinesSpec | Unset = UNSET,
+    reset_cache: bool | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -34,10 +32,7 @@ def _get_kwargs(
         "params": params,
     }
 
-    _kwargs["json"]: dict[str, Any]
-    if isinstance(body, AzureMachinesBrowserSpec):
-        _kwargs["json"] = body.to_dict()
-    else:
+    if not isinstance(body, Unset):
         _kwargs["json"] = body.to_dict()
 
     headers["Content-Type"] = "application/json"
@@ -47,28 +42,10 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, Union["AWSMachinesBrowserModel", "AzureMachinesBrowserModel"]]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> CloudBrowserVirtualMachinesModel | Error | None:
     if response.status_code == 200:
-
-        def _parse_response_200(data: object) -> Union["AWSMachinesBrowserModel", "AzureMachinesBrowserModel"]:
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_cloud_browser_virtual_machines_model_type_0 = AzureMachinesBrowserModel.from_dict(
-                    data
-                )
-
-                return componentsschemas_cloud_browser_virtual_machines_model_type_0
-            except:  # noqa: E722
-                pass
-            if not isinstance(data, dict):
-                raise TypeError()
-            componentsschemas_cloud_browser_virtual_machines_model_type_1 = AWSMachinesBrowserModel.from_dict(data)
-
-            return componentsschemas_cloud_browser_virtual_machines_model_type_1
-
-        response_200 = _parse_response_200(response.json())
+        response_200 = CloudBrowserVirtualMachinesModel.from_dict(response.json())
 
         return response_200
 
@@ -99,8 +76,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, Union["AWSMachinesBrowserModel", "AzureMachinesBrowserModel"]]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[CloudBrowserVirtualMachinesModel | Error]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -111,11 +88,11 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union["AWSMachinesBrowserSpec", "AzureMachinesBrowserSpec"],
-    reset_cache: Union[Unset, bool] = UNSET,
+    client: AuthenticatedClient | Client,
+    body: CloudBrowserVirtualMachinesSpec | Unset = UNSET,
+    reset_cache: bool | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Error, Union["AWSMachinesBrowserModel", "AzureMachinesBrowserModel"]]]:
+) -> Response[CloudBrowserVirtualMachinesModel | Error]:
     """Get Cloud Virtual Machines
 
      The HTTP POST request to the `/api/v1/cloudBrowser/virtualMachines` endpoint browses cloud virtual
@@ -124,17 +101,16 @@ def sync_detailed(
     Veeam Backup Administrator.</p>
 
     Args:
-        reset_cache (Union[Unset, bool]):
+        reset_cache (bool | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
-        body (Union['AWSMachinesBrowserSpec', 'AzureMachinesBrowserSpec']): Cloud resource
-            settings.
+        body (CloudBrowserVirtualMachinesSpec | Unset): Cloud resource settings.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, Union['AWSMachinesBrowserModel', 'AzureMachinesBrowserModel']]]
+        Response[CloudBrowserVirtualMachinesModel | Error]
     """
 
     kwargs = _get_kwargs(
@@ -152,11 +128,11 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union["AWSMachinesBrowserSpec", "AzureMachinesBrowserSpec"],
-    reset_cache: Union[Unset, bool] = UNSET,
+    client: AuthenticatedClient | Client,
+    body: CloudBrowserVirtualMachinesSpec | Unset = UNSET,
+    reset_cache: bool | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Error, Union["AWSMachinesBrowserModel", "AzureMachinesBrowserModel"]]]:
+) -> CloudBrowserVirtualMachinesModel | Error | None:
     """Get Cloud Virtual Machines
 
      The HTTP POST request to the `/api/v1/cloudBrowser/virtualMachines` endpoint browses cloud virtual
@@ -165,17 +141,16 @@ def sync(
     Veeam Backup Administrator.</p>
 
     Args:
-        reset_cache (Union[Unset, bool]):
+        reset_cache (bool | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
-        body (Union['AWSMachinesBrowserSpec', 'AzureMachinesBrowserSpec']): Cloud resource
-            settings.
+        body (CloudBrowserVirtualMachinesSpec | Unset): Cloud resource settings.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, Union['AWSMachinesBrowserModel', 'AzureMachinesBrowserModel']]
+        CloudBrowserVirtualMachinesModel | Error
     """
 
     return sync_detailed(
@@ -188,11 +163,11 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union["AWSMachinesBrowserSpec", "AzureMachinesBrowserSpec"],
-    reset_cache: Union[Unset, bool] = UNSET,
+    client: AuthenticatedClient | Client,
+    body: CloudBrowserVirtualMachinesSpec | Unset = UNSET,
+    reset_cache: bool | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Error, Union["AWSMachinesBrowserModel", "AzureMachinesBrowserModel"]]]:
+) -> Response[CloudBrowserVirtualMachinesModel | Error]:
     """Get Cloud Virtual Machines
 
      The HTTP POST request to the `/api/v1/cloudBrowser/virtualMachines` endpoint browses cloud virtual
@@ -201,17 +176,16 @@ async def asyncio_detailed(
     Veeam Backup Administrator.</p>
 
     Args:
-        reset_cache (Union[Unset, bool]):
+        reset_cache (bool | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
-        body (Union['AWSMachinesBrowserSpec', 'AzureMachinesBrowserSpec']): Cloud resource
-            settings.
+        body (CloudBrowserVirtualMachinesSpec | Unset): Cloud resource settings.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, Union['AWSMachinesBrowserModel', 'AzureMachinesBrowserModel']]]
+        Response[CloudBrowserVirtualMachinesModel | Error]
     """
 
     kwargs = _get_kwargs(
@@ -227,11 +201,11 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union["AWSMachinesBrowserSpec", "AzureMachinesBrowserSpec"],
-    reset_cache: Union[Unset, bool] = UNSET,
+    client: AuthenticatedClient | Client,
+    body: CloudBrowserVirtualMachinesSpec | Unset = UNSET,
+    reset_cache: bool | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Error, Union["AWSMachinesBrowserModel", "AzureMachinesBrowserModel"]]]:
+) -> CloudBrowserVirtualMachinesModel | Error | None:
     """Get Cloud Virtual Machines
 
      The HTTP POST request to the `/api/v1/cloudBrowser/virtualMachines` endpoint browses cloud virtual
@@ -240,17 +214,16 @@ async def asyncio(
     Veeam Backup Administrator.</p>
 
     Args:
-        reset_cache (Union[Unset, bool]):
+        reset_cache (bool | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
-        body (Union['AWSMachinesBrowserSpec', 'AzureMachinesBrowserSpec']): Cloud resource
-            settings.
+        body (CloudBrowserVirtualMachinesSpec | Unset): Cloud resource settings.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, Union['AWSMachinesBrowserModel', 'AzureMachinesBrowserModel']]
+        CloudBrowserVirtualMachinesModel | Error
     """
 
     return (

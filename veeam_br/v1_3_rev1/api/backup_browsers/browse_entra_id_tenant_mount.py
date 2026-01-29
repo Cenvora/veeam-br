@@ -1,22 +1,14 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.entra_id_tenant_admin_unit_browse_spec import EntraIdTenantAdminUnitBrowseSpec
-from ...models.entra_id_tenant_application_browse_spec import EntraIdTenantApplicationBrowseSpec
-from ...models.entra_id_tenant_bitlocker_key_browse_spec import EntraIdTenantBitlockerKeyBrowseSpec
 from ...models.entra_id_tenant_browse_result import EntraIdTenantBrowseResult
-from ...models.entra_id_tenant_conditional_access_policy_browse_spec import (
-    EntraIdTenantConditionalAccessPolicyBrowseSpec,
-)
-from ...models.entra_id_tenant_device_configuration_browse_spec import EntraIdTenantDeviceConfigurationBrowseSpec
-from ...models.entra_id_tenant_group_browse_spec import EntraIdTenantGroupBrowseSpec
-from ...models.entra_id_tenant_role_browse_spec import EntraIdTenantRoleBrowseSpec
-from ...models.entra_id_tenant_user_browse_spec import EntraIdTenantUserBrowseSpec
+from ...models.entra_id_tenant_browse_spec import EntraIdTenantBrowseSpec
 from ...models.error import Error
 from ...types import Response
 
@@ -24,16 +16,7 @@ from ...types import Response
 def _get_kwargs(
     backup_id: UUID,
     *,
-    body: Union[
-        "EntraIdTenantAdminUnitBrowseSpec",
-        "EntraIdTenantApplicationBrowseSpec",
-        "EntraIdTenantBitlockerKeyBrowseSpec",
-        "EntraIdTenantConditionalAccessPolicyBrowseSpec",
-        "EntraIdTenantDeviceConfigurationBrowseSpec",
-        "EntraIdTenantGroupBrowseSpec",
-        "EntraIdTenantRoleBrowseSpec",
-        "EntraIdTenantUserBrowseSpec",
-    ],
+    body: EntraIdTenantBrowseSpec,
     x_api_version: str = "1.3-rev1",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -41,26 +24,12 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": f"/api/v1/backupBrowser/entraIdTenant/{backup_id}/browse",
+        "url": "/api/v1/backupBrowser/entraIdTenant/{backup_id}/browse".format(
+            backup_id=quote(str(backup_id), safe=""),
+        ),
     }
 
-    _kwargs["json"]: dict[str, Any]
-    if isinstance(body, EntraIdTenantUserBrowseSpec):
-        _kwargs["json"] = body.to_dict()
-    elif isinstance(body, EntraIdTenantGroupBrowseSpec):
-        _kwargs["json"] = body.to_dict()
-    elif isinstance(body, EntraIdTenantAdminUnitBrowseSpec):
-        _kwargs["json"] = body.to_dict()
-    elif isinstance(body, EntraIdTenantRoleBrowseSpec):
-        _kwargs["json"] = body.to_dict()
-    elif isinstance(body, EntraIdTenantApplicationBrowseSpec):
-        _kwargs["json"] = body.to_dict()
-    elif isinstance(body, EntraIdTenantDeviceConfigurationBrowseSpec):
-        _kwargs["json"] = body.to_dict()
-    elif isinstance(body, EntraIdTenantBitlockerKeyBrowseSpec):
-        _kwargs["json"] = body.to_dict()
-    else:
-        _kwargs["json"] = body.to_dict()
+    _kwargs["json"] = body.to_dict()
 
     headers["Content-Type"] = "application/json"
 
@@ -69,8 +38,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[EntraIdTenantBrowseResult, Error]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> EntraIdTenantBrowseResult | Error | None:
     if response.status_code == 200:
         response_200 = EntraIdTenantBrowseResult.from_dict(response.json())
 
@@ -103,8 +72,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[EntraIdTenantBrowseResult, Error]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[EntraIdTenantBrowseResult | Error]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -116,19 +85,10 @@ def _build_response(
 def sync_detailed(
     backup_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union[
-        "EntraIdTenantAdminUnitBrowseSpec",
-        "EntraIdTenantApplicationBrowseSpec",
-        "EntraIdTenantBitlockerKeyBrowseSpec",
-        "EntraIdTenantConditionalAccessPolicyBrowseSpec",
-        "EntraIdTenantDeviceConfigurationBrowseSpec",
-        "EntraIdTenantGroupBrowseSpec",
-        "EntraIdTenantRoleBrowseSpec",
-        "EntraIdTenantUserBrowseSpec",
-    ],
+    client: AuthenticatedClient | Client,
+    body: EntraIdTenantBrowseSpec,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[EntraIdTenantBrowseResult, Error]]:
+) -> Response[EntraIdTenantBrowseResult | Error]:
     """Get Microsoft Entra ID Items
 
      The HTTP POST request to the `/api/v1/backupBrowser/entraIdTenant/{backupId}/browse` endpoint
@@ -140,18 +100,14 @@ def sync_detailed(
     Args:
         backup_id (UUID):
         x_api_version (str):  Default: '1.3-rev1'.
-        body (Union['EntraIdTenantAdminUnitBrowseSpec', 'EntraIdTenantApplicationBrowseSpec',
-            'EntraIdTenantBitlockerKeyBrowseSpec', 'EntraIdTenantConditionalAccessPolicyBrowseSpec',
-            'EntraIdTenantDeviceConfigurationBrowseSpec', 'EntraIdTenantGroupBrowseSpec',
-            'EntraIdTenantRoleBrowseSpec', 'EntraIdTenantUserBrowseSpec']): Settings for Microsoft
-            Entra ID tenant.
+        body (EntraIdTenantBrowseSpec): Settings for Microsoft Entra ID tenant.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[EntraIdTenantBrowseResult, Error]]
+        Response[EntraIdTenantBrowseResult | Error]
     """
 
     kwargs = _get_kwargs(
@@ -170,19 +126,10 @@ def sync_detailed(
 def sync(
     backup_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union[
-        "EntraIdTenantAdminUnitBrowseSpec",
-        "EntraIdTenantApplicationBrowseSpec",
-        "EntraIdTenantBitlockerKeyBrowseSpec",
-        "EntraIdTenantConditionalAccessPolicyBrowseSpec",
-        "EntraIdTenantDeviceConfigurationBrowseSpec",
-        "EntraIdTenantGroupBrowseSpec",
-        "EntraIdTenantRoleBrowseSpec",
-        "EntraIdTenantUserBrowseSpec",
-    ],
+    client: AuthenticatedClient | Client,
+    body: EntraIdTenantBrowseSpec,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[EntraIdTenantBrowseResult, Error]]:
+) -> EntraIdTenantBrowseResult | Error | None:
     """Get Microsoft Entra ID Items
 
      The HTTP POST request to the `/api/v1/backupBrowser/entraIdTenant/{backupId}/browse` endpoint
@@ -194,18 +141,14 @@ def sync(
     Args:
         backup_id (UUID):
         x_api_version (str):  Default: '1.3-rev1'.
-        body (Union['EntraIdTenantAdminUnitBrowseSpec', 'EntraIdTenantApplicationBrowseSpec',
-            'EntraIdTenantBitlockerKeyBrowseSpec', 'EntraIdTenantConditionalAccessPolicyBrowseSpec',
-            'EntraIdTenantDeviceConfigurationBrowseSpec', 'EntraIdTenantGroupBrowseSpec',
-            'EntraIdTenantRoleBrowseSpec', 'EntraIdTenantUserBrowseSpec']): Settings for Microsoft
-            Entra ID tenant.
+        body (EntraIdTenantBrowseSpec): Settings for Microsoft Entra ID tenant.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[EntraIdTenantBrowseResult, Error]
+        EntraIdTenantBrowseResult | Error
     """
 
     return sync_detailed(
@@ -219,19 +162,10 @@ def sync(
 async def asyncio_detailed(
     backup_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union[
-        "EntraIdTenantAdminUnitBrowseSpec",
-        "EntraIdTenantApplicationBrowseSpec",
-        "EntraIdTenantBitlockerKeyBrowseSpec",
-        "EntraIdTenantConditionalAccessPolicyBrowseSpec",
-        "EntraIdTenantDeviceConfigurationBrowseSpec",
-        "EntraIdTenantGroupBrowseSpec",
-        "EntraIdTenantRoleBrowseSpec",
-        "EntraIdTenantUserBrowseSpec",
-    ],
+    client: AuthenticatedClient | Client,
+    body: EntraIdTenantBrowseSpec,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[EntraIdTenantBrowseResult, Error]]:
+) -> Response[EntraIdTenantBrowseResult | Error]:
     """Get Microsoft Entra ID Items
 
      The HTTP POST request to the `/api/v1/backupBrowser/entraIdTenant/{backupId}/browse` endpoint
@@ -243,18 +177,14 @@ async def asyncio_detailed(
     Args:
         backup_id (UUID):
         x_api_version (str):  Default: '1.3-rev1'.
-        body (Union['EntraIdTenantAdminUnitBrowseSpec', 'EntraIdTenantApplicationBrowseSpec',
-            'EntraIdTenantBitlockerKeyBrowseSpec', 'EntraIdTenantConditionalAccessPolicyBrowseSpec',
-            'EntraIdTenantDeviceConfigurationBrowseSpec', 'EntraIdTenantGroupBrowseSpec',
-            'EntraIdTenantRoleBrowseSpec', 'EntraIdTenantUserBrowseSpec']): Settings for Microsoft
-            Entra ID tenant.
+        body (EntraIdTenantBrowseSpec): Settings for Microsoft Entra ID tenant.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[EntraIdTenantBrowseResult, Error]]
+        Response[EntraIdTenantBrowseResult | Error]
     """
 
     kwargs = _get_kwargs(
@@ -271,19 +201,10 @@ async def asyncio_detailed(
 async def asyncio(
     backup_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union[
-        "EntraIdTenantAdminUnitBrowseSpec",
-        "EntraIdTenantApplicationBrowseSpec",
-        "EntraIdTenantBitlockerKeyBrowseSpec",
-        "EntraIdTenantConditionalAccessPolicyBrowseSpec",
-        "EntraIdTenantDeviceConfigurationBrowseSpec",
-        "EntraIdTenantGroupBrowseSpec",
-        "EntraIdTenantRoleBrowseSpec",
-        "EntraIdTenantUserBrowseSpec",
-    ],
+    client: AuthenticatedClient | Client,
+    body: EntraIdTenantBrowseSpec,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[EntraIdTenantBrowseResult, Error]]:
+) -> EntraIdTenantBrowseResult | Error | None:
     """Get Microsoft Entra ID Items
 
      The HTTP POST request to the `/api/v1/backupBrowser/entraIdTenant/{backupId}/browse` endpoint
@@ -295,18 +216,14 @@ async def asyncio(
     Args:
         backup_id (UUID):
         x_api_version (str):  Default: '1.3-rev1'.
-        body (Union['EntraIdTenantAdminUnitBrowseSpec', 'EntraIdTenantApplicationBrowseSpec',
-            'EntraIdTenantBitlockerKeyBrowseSpec', 'EntraIdTenantConditionalAccessPolicyBrowseSpec',
-            'EntraIdTenantDeviceConfigurationBrowseSpec', 'EntraIdTenantGroupBrowseSpec',
-            'EntraIdTenantRoleBrowseSpec', 'EntraIdTenantUserBrowseSpec']): Settings for Microsoft
-            Entra ID tenant.
+        body (EntraIdTenantBrowseSpec): Settings for Microsoft Entra ID tenant.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[EntraIdTenantBrowseResult, Error]
+        EntraIdTenantBrowseResult | Error
     """
 
     return (

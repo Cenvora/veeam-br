@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 
@@ -18,14 +20,14 @@ class AzureLocationBrowserModel:
 
     Attributes:
         location (str): Location name.
-        storage_accounts (list['AzureStorageAccountBrowserModel']): Array of storage accounts associated with the
+        storage_accounts (list[AzureStorageAccountBrowserModel]): Array of storage accounts associated with the
             location.
-        resource_groups (list['AzureResourceGroupBrowserModel']): Array of Azure resource groups.
+        resource_groups (list[AzureResourceGroupBrowserModel]): Array of Azure resource groups.
     """
 
     location: str
-    storage_accounts: list["AzureStorageAccountBrowserModel"]
-    resource_groups: list["AzureResourceGroupBrowserModel"]
+    storage_accounts: list[AzureStorageAccountBrowserModel]
+    resource_groups: list[AzureResourceGroupBrowserModel]
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

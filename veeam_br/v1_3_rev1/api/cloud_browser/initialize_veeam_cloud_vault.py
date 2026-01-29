@@ -1,16 +1,12 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.amazon_cloud_credentials_model import AmazonCloudCredentialsModel
-from ...models.azure_compute_cloud_credentials_model import AzureComputeCloudCredentialsModel
-from ...models.azure_storage_cloud_credentials_model import AzureStorageCloudCredentialsModel
+from ...models.cloud_credentials_model import CloudCredentialsModel
 from ...models.error import Error
-from ...models.google_cloud_credentials_model import GoogleCloudCredentialsModel
-from ...models.google_cloud_service_credentials_model import GoogleCloudServiceCredentialsModel
 from ...models.veeam_data_cloud_vault_initialize_spec import VeeamDataCloudVaultInitializeSpec
 from ...types import Response
 
@@ -37,69 +33,10 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[
-    Union[
-        Error,
-        Union[
-            "AmazonCloudCredentialsModel",
-            "AzureComputeCloudCredentialsModel",
-            "AzureStorageCloudCredentialsModel",
-            "GoogleCloudCredentialsModel",
-            "GoogleCloudServiceCredentialsModel",
-        ],
-    ]
-]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> CloudCredentialsModel | Error | None:
     if response.status_code == 200:
-
-        def _parse_response_200(
-            data: object,
-        ) -> Union[
-            "AmazonCloudCredentialsModel",
-            "AzureComputeCloudCredentialsModel",
-            "AzureStorageCloudCredentialsModel",
-            "GoogleCloudCredentialsModel",
-            "GoogleCloudServiceCredentialsModel",
-        ]:
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_cloud_credentials_model_type_0 = AmazonCloudCredentialsModel.from_dict(data)
-
-                return componentsschemas_cloud_credentials_model_type_0
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_cloud_credentials_model_type_1 = AzureStorageCloudCredentialsModel.from_dict(data)
-
-                return componentsschemas_cloud_credentials_model_type_1
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_cloud_credentials_model_type_2 = AzureComputeCloudCredentialsModel.from_dict(data)
-
-                return componentsschemas_cloud_credentials_model_type_2
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_cloud_credentials_model_type_3 = GoogleCloudCredentialsModel.from_dict(data)
-
-                return componentsschemas_cloud_credentials_model_type_3
-            except:  # noqa: E722
-                pass
-            if not isinstance(data, dict):
-                raise TypeError()
-            componentsschemas_cloud_credentials_model_type_4 = GoogleCloudServiceCredentialsModel.from_dict(data)
-
-            return componentsschemas_cloud_credentials_model_type_4
-
-        response_200 = _parse_response_200(response.json())
+        response_200 = CloudCredentialsModel.from_dict(response.json())
 
         return response_200
 
@@ -130,19 +67,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[
-    Union[
-        Error,
-        Union[
-            "AmazonCloudCredentialsModel",
-            "AzureComputeCloudCredentialsModel",
-            "AzureStorageCloudCredentialsModel",
-            "GoogleCloudCredentialsModel",
-            "GoogleCloudServiceCredentialsModel",
-        ],
-    ]
-]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[CloudCredentialsModel | Error]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -153,21 +79,10 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: VeeamDataCloudVaultInitializeSpec,
     x_api_version: str = "1.3-rev1",
-) -> Response[
-    Union[
-        Error,
-        Union[
-            "AmazonCloudCredentialsModel",
-            "AzureComputeCloudCredentialsModel",
-            "AzureStorageCloudCredentialsModel",
-            "GoogleCloudCredentialsModel",
-            "GoogleCloudServiceCredentialsModel",
-        ],
-    ]
-]:
+) -> Response[CloudCredentialsModel | Error]:
     """Add Veeam Data Cloud Vault
 
      The HTTP POST request to the `/api/v1/cloudBrowser/initializeVault` endpoint generates a credential
@@ -184,7 +99,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, Union['AmazonCloudCredentialsModel', 'AzureComputeCloudCredentialsModel', 'AzureStorageCloudCredentialsModel', 'GoogleCloudCredentialsModel', 'GoogleCloudServiceCredentialsModel']]]
+        Response[CloudCredentialsModel | Error]
     """
 
     kwargs = _get_kwargs(
@@ -201,21 +116,10 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: VeeamDataCloudVaultInitializeSpec,
     x_api_version: str = "1.3-rev1",
-) -> Optional[
-    Union[
-        Error,
-        Union[
-            "AmazonCloudCredentialsModel",
-            "AzureComputeCloudCredentialsModel",
-            "AzureStorageCloudCredentialsModel",
-            "GoogleCloudCredentialsModel",
-            "GoogleCloudServiceCredentialsModel",
-        ],
-    ]
-]:
+) -> CloudCredentialsModel | Error | None:
     """Add Veeam Data Cloud Vault
 
      The HTTP POST request to the `/api/v1/cloudBrowser/initializeVault` endpoint generates a credential
@@ -232,7 +136,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, Union['AmazonCloudCredentialsModel', 'AzureComputeCloudCredentialsModel', 'AzureStorageCloudCredentialsModel', 'GoogleCloudCredentialsModel', 'GoogleCloudServiceCredentialsModel']]
+        CloudCredentialsModel | Error
     """
 
     return sync_detailed(
@@ -244,21 +148,10 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: VeeamDataCloudVaultInitializeSpec,
     x_api_version: str = "1.3-rev1",
-) -> Response[
-    Union[
-        Error,
-        Union[
-            "AmazonCloudCredentialsModel",
-            "AzureComputeCloudCredentialsModel",
-            "AzureStorageCloudCredentialsModel",
-            "GoogleCloudCredentialsModel",
-            "GoogleCloudServiceCredentialsModel",
-        ],
-    ]
-]:
+) -> Response[CloudCredentialsModel | Error]:
     """Add Veeam Data Cloud Vault
 
      The HTTP POST request to the `/api/v1/cloudBrowser/initializeVault` endpoint generates a credential
@@ -275,7 +168,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, Union['AmazonCloudCredentialsModel', 'AzureComputeCloudCredentialsModel', 'AzureStorageCloudCredentialsModel', 'GoogleCloudCredentialsModel', 'GoogleCloudServiceCredentialsModel']]]
+        Response[CloudCredentialsModel | Error]
     """
 
     kwargs = _get_kwargs(
@@ -290,21 +183,10 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: VeeamDataCloudVaultInitializeSpec,
     x_api_version: str = "1.3-rev1",
-) -> Optional[
-    Union[
-        Error,
-        Union[
-            "AmazonCloudCredentialsModel",
-            "AzureComputeCloudCredentialsModel",
-            "AzureStorageCloudCredentialsModel",
-            "GoogleCloudCredentialsModel",
-            "GoogleCloudServiceCredentialsModel",
-        ],
-    ]
-]:
+) -> CloudCredentialsModel | Error | None:
     """Add Veeam Data Cloud Vault
 
      The HTTP POST request to the `/api/v1/cloudBrowser/initializeVault` endpoint generates a credential
@@ -321,7 +203,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, Union['AmazonCloudCredentialsModel', 'AzureComputeCloudCredentialsModel', 'AzureStorageCloudCredentialsModel', 'GoogleCloudCredentialsModel', 'GoogleCloudServiceCredentialsModel']]
+        CloudCredentialsModel | Error
     """
 
     return (

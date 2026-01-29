@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,23 +17,23 @@ class AzureComputeBrowserFilters:
     also the response time.
 
         Attributes:
-            show_all_storage_accounts (Union[Unset, bool]): If `true`, the result contains compute resorces for all storage
+            show_all_storage_accounts (bool | Unset): If `true`, the result contains compute resorces for all storage
                 accounts. If *false*, the result contains compute resorces available for the specified storage account only.
                 Default: False.
-            subscription_id (Union[Unset, str]): Filters compute resorces by ID that Veeam Backup & Replication assigned to
-                the Azure subscription.
-            location (Union[Unset, str]): Filters compute resorces by Azure location name.
-            has_networks (Union[Unset, bool]): If `true`, the result contains Azure resource groups with virtual networks
-                only. Default: False.
-            show_all_instance_sizes (Union[Unset, bool]): If `true`, the result contains all records of instanceSizes
-                available for the given subscription and location. Default: False.
+            subscription_id (str | Unset): Filters compute resorces by ID that Veeam Backup & Replication assigned to the
+                Azure subscription.
+            location (str | Unset): Filters compute resorces by Azure location name.
+            has_networks (bool | Unset): If `true`, the result contains Azure resource groups with virtual networks only.
+                Default: False.
+            show_all_instance_sizes (bool | Unset): If `true`, the result contains all records of instanceSizes available
+                for the given subscription and location. Default: False.
     """
 
-    show_all_storage_accounts: Union[Unset, bool] = False
-    subscription_id: Union[Unset, str] = UNSET
-    location: Union[Unset, str] = UNSET
-    has_networks: Union[Unset, bool] = False
-    show_all_instance_sizes: Union[Unset, bool] = False
+    show_all_storage_accounts: bool | Unset = False
+    subscription_id: str | Unset = UNSET
+    location: str | Unset = UNSET
+    has_networks: bool | Unset = False
+    show_all_instance_sizes: bool | Unset = False
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

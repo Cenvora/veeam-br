@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -21,19 +23,19 @@ class EntraIdTenantRestoreSessionModel:
         id (UUID): Restore session ID.
         name (str): Restore session name.
         state (EEntraIdTenantRestoreSessionState): Session state.
-        creation_time (Union[Unset, datetime.datetime]): Date and time when the session was created.
-        end_time (Union[Unset, datetime.datetime]): Date and time when the session was stopped.
-        reason (Union[Unset, str]): Reason for restoring Microsoft Entra ID items.
-        parent_session_id (Union[Unset, UUID]): Mount session ID.
+        creation_time (datetime.datetime | Unset): Date and time when the session was created.
+        end_time (datetime.datetime | Unset): Date and time when the session was stopped.
+        reason (str | Unset): Reason for restoring Microsoft Entra ID items.
+        parent_session_id (UUID | Unset): Mount session ID.
     """
 
     id: UUID
     name: str
     state: EEntraIdTenantRestoreSessionState
-    creation_time: Union[Unset, datetime.datetime] = UNSET
-    end_time: Union[Unset, datetime.datetime] = UNSET
-    reason: Union[Unset, str] = UNSET
-    parent_session_id: Union[Unset, UUID] = UNSET
+    creation_time: datetime.datetime | Unset = UNSET
+    end_time: datetime.datetime | Unset = UNSET
+    reason: str | Unset = UNSET
+    parent_session_id: UUID | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -43,17 +45,17 @@ class EntraIdTenantRestoreSessionModel:
 
         state = self.state.value
 
-        creation_time: Union[Unset, str] = UNSET
+        creation_time: str | Unset = UNSET
         if not isinstance(self.creation_time, Unset):
             creation_time = self.creation_time.isoformat()
 
-        end_time: Union[Unset, str] = UNSET
+        end_time: str | Unset = UNSET
         if not isinstance(self.end_time, Unset):
             end_time = self.end_time.isoformat()
 
         reason = self.reason
 
-        parent_session_id: Union[Unset, str] = UNSET
+        parent_session_id: str | Unset = UNSET
         if not isinstance(self.parent_session_id, Unset):
             parent_session_id = str(self.parent_session_id)
 
@@ -87,14 +89,14 @@ class EntraIdTenantRestoreSessionModel:
         state = EEntraIdTenantRestoreSessionState(d.pop("state"))
 
         _creation_time = d.pop("creationTime", UNSET)
-        creation_time: Union[Unset, datetime.datetime]
+        creation_time: datetime.datetime | Unset
         if isinstance(_creation_time, Unset):
             creation_time = UNSET
         else:
             creation_time = isoparse(_creation_time)
 
         _end_time = d.pop("endTime", UNSET)
-        end_time: Union[Unset, datetime.datetime]
+        end_time: datetime.datetime | Unset
         if isinstance(_end_time, Unset):
             end_time = UNSET
         else:
@@ -103,7 +105,7 @@ class EntraIdTenantRestoreSessionModel:
         reason = d.pop("reason", UNSET)
 
         _parent_session_id = d.pop("parentSessionId", UNSET)
-        parent_session_id: Union[Unset, UUID]
+        parent_session_id: UUID | Unset
         if isinstance(_parent_session_id, Unset):
             parent_session_id = UNSET
         else:

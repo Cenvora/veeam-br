@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -16,12 +18,12 @@ class BackupProxyImportModel:
     Attributes:
         name (str): Name of the backup proxy.
         type_ (EBackupProxyImportType):
-        unique_id (Union[Unset, str]): Unique ID assigned to the backup proxy.
+        unique_id (str | Unset): Unique ID assigned to the backup proxy.
     """
 
     name: str
     type_: EBackupProxyImportType
-    unique_id: Union[Unset, str] = UNSET
+    unique_id: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 
@@ -16,12 +18,12 @@ T = TypeVar("T", bound="BackupsResult")
 class BackupsResult:
     """
     Attributes:
-        data (list['BackupModel']): Array of backups.
+        data (list[BackupModel]): Array of backups.
         pagination (PaginationResult): Pagination settings.
     """
 
-    data: list["BackupModel"]
-    pagination: "PaginationResult"
+    data: list[BackupModel]
+    pagination: PaginationResult
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 
@@ -16,10 +18,10 @@ class HostOptionalComponents:
     """Optional components to be installed on the server.
 
     Attributes:
-        optional_components (list['OptionalComponentModel']): Array of optional components.
+        optional_components (list[OptionalComponentModel]): Array of optional components.
     """
 
-    optional_components: list["OptionalComponentModel"]
+    optional_components: list[OptionalComponentModel]
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

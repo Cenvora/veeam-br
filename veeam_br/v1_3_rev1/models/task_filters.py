@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,32 +21,32 @@ T = TypeVar("T", bound="TaskFilters")
 class TaskFilters:
     """
     Attributes:
-        skip (Union[Unset, int]): Number of tasks to skip.
-        limit (Union[Unset, int]): Maximum number of tasks to return.
-        order_column (Union[Unset, ETaskFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        created_after_filter (Union[Unset, datetime.datetime]):
-        created_before_filter (Union[Unset, datetime.datetime]):
-        ended_after_filter (Union[Unset, datetime.datetime]):
-        ended_before_filter (Union[Unset, datetime.datetime]):
-        type_filter (Union[Unset, ETaskType]): Task type.
-        state_filter (Union[Unset, ETaskState]): Task state.
-        result_filter (Union[Unset, ETaskResult]): Task result.
+        skip (int | Unset): Number of tasks to skip.
+        limit (int | Unset): Maximum number of tasks to return.
+        order_column (ETaskFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        created_after_filter (datetime.datetime | Unset):
+        created_before_filter (datetime.datetime | Unset):
+        ended_after_filter (datetime.datetime | Unset):
+        ended_before_filter (datetime.datetime | Unset):
+        type_filter (ETaskType | Unset): Task type.
+        state_filter (ETaskState | Unset): Task state.
+        result_filter (ETaskResult | Unset): Task result.
     """
 
-    skip: Union[Unset, int] = UNSET
-    limit: Union[Unset, int] = UNSET
-    order_column: Union[Unset, ETaskFiltersOrderColumn] = UNSET
-    order_asc: Union[Unset, bool] = UNSET
-    name_filter: Union[Unset, str] = UNSET
-    created_after_filter: Union[Unset, datetime.datetime] = UNSET
-    created_before_filter: Union[Unset, datetime.datetime] = UNSET
-    ended_after_filter: Union[Unset, datetime.datetime] = UNSET
-    ended_before_filter: Union[Unset, datetime.datetime] = UNSET
-    type_filter: Union[Unset, ETaskType] = UNSET
-    state_filter: Union[Unset, ETaskState] = UNSET
-    result_filter: Union[Unset, ETaskResult] = UNSET
+    skip: int | Unset = UNSET
+    limit: int | Unset = UNSET
+    order_column: ETaskFiltersOrderColumn | Unset = UNSET
+    order_asc: bool | Unset = UNSET
+    name_filter: str | Unset = UNSET
+    created_after_filter: datetime.datetime | Unset = UNSET
+    created_before_filter: datetime.datetime | Unset = UNSET
+    ended_after_filter: datetime.datetime | Unset = UNSET
+    ended_before_filter: datetime.datetime | Unset = UNSET
+    type_filter: ETaskType | Unset = UNSET
+    state_filter: ETaskState | Unset = UNSET
+    result_filter: ETaskResult | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -52,7 +54,7 @@ class TaskFilters:
 
         limit = self.limit
 
-        order_column: Union[Unset, str] = UNSET
+        order_column: str | Unset = UNSET
         if not isinstance(self.order_column, Unset):
             order_column = self.order_column.value
 
@@ -60,31 +62,31 @@ class TaskFilters:
 
         name_filter = self.name_filter
 
-        created_after_filter: Union[Unset, str] = UNSET
+        created_after_filter: str | Unset = UNSET
         if not isinstance(self.created_after_filter, Unset):
             created_after_filter = self.created_after_filter.isoformat()
 
-        created_before_filter: Union[Unset, str] = UNSET
+        created_before_filter: str | Unset = UNSET
         if not isinstance(self.created_before_filter, Unset):
             created_before_filter = self.created_before_filter.isoformat()
 
-        ended_after_filter: Union[Unset, str] = UNSET
+        ended_after_filter: str | Unset = UNSET
         if not isinstance(self.ended_after_filter, Unset):
             ended_after_filter = self.ended_after_filter.isoformat()
 
-        ended_before_filter: Union[Unset, str] = UNSET
+        ended_before_filter: str | Unset = UNSET
         if not isinstance(self.ended_before_filter, Unset):
             ended_before_filter = self.ended_before_filter.isoformat()
 
-        type_filter: Union[Unset, str] = UNSET
+        type_filter: str | Unset = UNSET
         if not isinstance(self.type_filter, Unset):
             type_filter = self.type_filter.value
 
-        state_filter: Union[Unset, str] = UNSET
+        state_filter: str | Unset = UNSET
         if not isinstance(self.state_filter, Unset):
             state_filter = self.state_filter.value
 
-        result_filter: Union[Unset, str] = UNSET
+        result_filter: str | Unset = UNSET
         if not isinstance(self.result_filter, Unset):
             result_filter = self.result_filter.value
 
@@ -126,7 +128,7 @@ class TaskFilters:
         limit = d.pop("limit", UNSET)
 
         _order_column = d.pop("orderColumn", UNSET)
-        order_column: Union[Unset, ETaskFiltersOrderColumn]
+        order_column: ETaskFiltersOrderColumn | Unset
         if isinstance(_order_column, Unset):
             order_column = UNSET
         else:
@@ -137,49 +139,49 @@ class TaskFilters:
         name_filter = d.pop("nameFilter", UNSET)
 
         _created_after_filter = d.pop("createdAfterFilter", UNSET)
-        created_after_filter: Union[Unset, datetime.datetime]
+        created_after_filter: datetime.datetime | Unset
         if isinstance(_created_after_filter, Unset):
             created_after_filter = UNSET
         else:
             created_after_filter = isoparse(_created_after_filter)
 
         _created_before_filter = d.pop("createdBeforeFilter", UNSET)
-        created_before_filter: Union[Unset, datetime.datetime]
+        created_before_filter: datetime.datetime | Unset
         if isinstance(_created_before_filter, Unset):
             created_before_filter = UNSET
         else:
             created_before_filter = isoparse(_created_before_filter)
 
         _ended_after_filter = d.pop("endedAfterFilter", UNSET)
-        ended_after_filter: Union[Unset, datetime.datetime]
+        ended_after_filter: datetime.datetime | Unset
         if isinstance(_ended_after_filter, Unset):
             ended_after_filter = UNSET
         else:
             ended_after_filter = isoparse(_ended_after_filter)
 
         _ended_before_filter = d.pop("endedBeforeFilter", UNSET)
-        ended_before_filter: Union[Unset, datetime.datetime]
+        ended_before_filter: datetime.datetime | Unset
         if isinstance(_ended_before_filter, Unset):
             ended_before_filter = UNSET
         else:
             ended_before_filter = isoparse(_ended_before_filter)
 
         _type_filter = d.pop("typeFilter", UNSET)
-        type_filter: Union[Unset, ETaskType]
+        type_filter: ETaskType | Unset
         if isinstance(_type_filter, Unset):
             type_filter = UNSET
         else:
             type_filter = ETaskType(_type_filter)
 
         _state_filter = d.pop("stateFilter", UNSET)
-        state_filter: Union[Unset, ETaskState]
+        state_filter: ETaskState | Unset
         if isinstance(_state_filter, Unset):
             state_filter = UNSET
         else:
             state_filter = ETaskState(_state_filter)
 
         _result_filter = d.pop("resultFilter", UNSET)
-        result_filter: Union[Unset, ETaskResult]
+        result_filter: ETaskResult | Unset
         if isinstance(_result_filter, Unset):
             result_filter = UNSET
         else:

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,17 +16,16 @@ class HealthCheckRepairOptions:
     """Settings for repair of unstructured data backup or backup job.
 
     Attributes:
-        remove_non_repairable_data_if_needed (Union[Unset, bool]): If `true`, data that cannot be repaired will be
-            removed.
-        restore_primary_from_archive_if_needed (Union[Unset, bool]): If `true`, Veeam Backup & Replication will repair
-            the primary data by restoring data from the archive.
-        restore_archive_from_primary_if_needed (Union[Unset, bool]): If `true`, Veeam Backup & Replication will repair
-            the archive data by restoring data from the primary backup.
+        remove_non_repairable_data_if_needed (bool | Unset): If `true`, data that cannot be repaired will be removed.
+        restore_primary_from_archive_if_needed (bool | Unset): If `true`, Veeam Backup & Replication will repair the
+            primary data by restoring data from the archive.
+        restore_archive_from_primary_if_needed (bool | Unset): If `true`, Veeam Backup & Replication will repair the
+            archive data by restoring data from the primary backup.
     """
 
-    remove_non_repairable_data_if_needed: Union[Unset, bool] = UNSET
-    restore_primary_from_archive_if_needed: Union[Unset, bool] = UNSET
-    restore_archive_from_primary_if_needed: Union[Unset, bool] = UNSET
+    remove_non_repairable_data_if_needed: bool | Unset = UNSET
+    restore_primary_from_archive_if_needed: bool | Unset = UNSET
+    restore_archive_from_primary_if_needed: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

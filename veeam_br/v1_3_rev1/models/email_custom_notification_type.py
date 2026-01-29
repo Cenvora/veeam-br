@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,24 +16,22 @@ class EmailCustomNotificationType:
     """Custom notification settings.
 
     Attributes:
-        subject (Union[Unset, str]): Notification subject. Use the following variables in the subject:<ul> <li>*%Time%*
-            — completion time</li> <li>*%JobName%* — job name</li> <li>*%JobResult%* — job result</li> <li>*%ObjectCount%* —
+        subject (str | Unset): Notification subject. Use the following variables in the subject:<ul> <li>*%Time%* —
+            completion time</li> <li>*%JobName%* — job name</li> <li>*%JobResult%* — job result</li> <li>*%ObjectCount%* —
             number of VMs in the job</li> <li>*%Issues%* — number of VMs in the job that have finished with the Warning or
             Failed status</li></ul>
-        notify_on_success (Union[Unset, bool]): If `true`, email notifications are sent when the job completes
-            successfully.
-        notify_on_warning (Union[Unset, bool]): If `true`, email notifications are sent when the job completes with a
-            warning.
-        notify_on_error (Union[Unset, bool]): If `true`, email notifications are sent when the job fails.
-        suppress_notification_until_last_retry (Union[Unset, bool]): If `true`, email notifications are sent about the
-            final job status only (not per every job retry).
+        notify_on_success (bool | Unset): If `true`, email notifications are sent when the job completes successfully.
+        notify_on_warning (bool | Unset): If `true`, email notifications are sent when the job completes with a warning.
+        notify_on_error (bool | Unset): If `true`, email notifications are sent when the job fails.
+        suppress_notification_until_last_retry (bool | Unset): If `true`, email notifications are sent about the final
+            job status only (not per every job retry).
     """
 
-    subject: Union[Unset, str] = UNSET
-    notify_on_success: Union[Unset, bool] = UNSET
-    notify_on_warning: Union[Unset, bool] = UNSET
-    notify_on_error: Union[Unset, bool] = UNSET
-    suppress_notification_until_last_retry: Union[Unset, bool] = UNSET
+    subject: str | Unset = UNSET
+    notify_on_success: bool | Unset = UNSET
+    notify_on_warning: bool | Unset = UNSET
+    notify_on_error: bool | Unset = UNSET
+    suppress_notification_until_last_retry: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

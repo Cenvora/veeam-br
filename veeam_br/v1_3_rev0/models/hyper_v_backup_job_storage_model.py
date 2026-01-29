@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -25,15 +27,15 @@ class HyperVBackupJobStorageModel:
         backup_repository_id (UUID): Backup repository ID.
         backup_proxies (HyperVBackupProxiesSettingsModel): Microsoft Hyper-V backup proxy settings.
         retention_policy (BackupJobRetentionPolicySettingsModel): Retention policy settings.
-        gfs_policy (Union[Unset, GFSPolicySettingsModel]): GFS retention policy settings.
-        advanced_settings (Union[Unset, HyperVBackupJobAdvancedSettingsModel]): Advanced backup job settings.
+        gfs_policy (GFSPolicySettingsModel | Unset): GFS retention policy settings.
+        advanced_settings (HyperVBackupJobAdvancedSettingsModel | Unset): Advanced backup job settings.
     """
 
     backup_repository_id: UUID
-    backup_proxies: "HyperVBackupProxiesSettingsModel"
-    retention_policy: "BackupJobRetentionPolicySettingsModel"
-    gfs_policy: Union[Unset, "GFSPolicySettingsModel"] = UNSET
-    advanced_settings: Union[Unset, "HyperVBackupJobAdvancedSettingsModel"] = UNSET
+    backup_proxies: HyperVBackupProxiesSettingsModel
+    retention_policy: BackupJobRetentionPolicySettingsModel
+    gfs_policy: GFSPolicySettingsModel | Unset = UNSET
+    advanced_settings: HyperVBackupJobAdvancedSettingsModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -43,11 +45,11 @@ class HyperVBackupJobStorageModel:
 
         retention_policy = self.retention_policy.to_dict()
 
-        gfs_policy: Union[Unset, dict[str, Any]] = UNSET
+        gfs_policy: dict[str, Any] | Unset = UNSET
         if not isinstance(self.gfs_policy, Unset):
             gfs_policy = self.gfs_policy.to_dict()
 
-        advanced_settings: Union[Unset, dict[str, Any]] = UNSET
+        advanced_settings: dict[str, Any] | Unset = UNSET
         if not isinstance(self.advanced_settings, Unset):
             advanced_settings = self.advanced_settings.to_dict()
 
@@ -82,14 +84,14 @@ class HyperVBackupJobStorageModel:
         retention_policy = BackupJobRetentionPolicySettingsModel.from_dict(d.pop("retentionPolicy"))
 
         _gfs_policy = d.pop("gfsPolicy", UNSET)
-        gfs_policy: Union[Unset, GFSPolicySettingsModel]
+        gfs_policy: GFSPolicySettingsModel | Unset
         if isinstance(_gfs_policy, Unset):
             gfs_policy = UNSET
         else:
             gfs_policy = GFSPolicySettingsModel.from_dict(_gfs_policy)
 
         _advanced_settings = d.pop("advancedSettings", UNSET)
-        advanced_settings: Union[Unset, HyperVBackupJobAdvancedSettingsModel]
+        advanced_settings: HyperVBackupJobAdvancedSettingsModel | Unset
         if isinstance(_advanced_settings, Unset):
             advanced_settings = UNSET
         else:

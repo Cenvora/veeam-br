@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -28,19 +30,19 @@ class AmazonSnowballEdgeStorageImportSpec:
         account (AmazonSnowballEdgeStorageAccountImportModel): AWS account used to access the AWS Snowball Edge storage.
         bucket (AmazonSnowballEdgeStorageBucketModel): Amazon S3 bucket.
         mount_server (MountServersSettingsImportSpec): Import settings for mount servers.
-        enable_task_limit (Union[Unset, bool]): If `true`, the maximum number of concurrent tasks is limited.
-        max_task_count (Union[Unset, int]): Maximum number of concurrent tasks.
+        enable_task_limit (bool | Unset): If `true`, the maximum number of concurrent tasks is limited.
+        max_task_count (int | Unset): Maximum number of concurrent tasks.
     """
 
     name: str
     description: str
     unique_id: str
     type_: ERepositoryType
-    account: "AmazonSnowballEdgeStorageAccountImportModel"
-    bucket: "AmazonSnowballEdgeStorageBucketModel"
-    mount_server: "MountServersSettingsImportSpec"
-    enable_task_limit: Union[Unset, bool] = UNSET
-    max_task_count: Union[Unset, int] = UNSET
+    account: AmazonSnowballEdgeStorageAccountImportModel
+    bucket: AmazonSnowballEdgeStorageBucketModel
+    mount_server: MountServersSettingsImportSpec
+    enable_task_limit: bool | Unset = UNSET
+    max_task_count: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

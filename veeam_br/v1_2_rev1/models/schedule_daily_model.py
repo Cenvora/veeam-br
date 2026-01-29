@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -17,15 +19,15 @@ class ScheduleDailyModel:
 
     Attributes:
         is_enabled (bool): If `true`, daily schedule is enabled. Default: True.
-        local_time (Union[Unset, str]): Local time when the job must start.
-        daily_kind (Union[Unset, EDailyKinds]): Kind of daily scheduling scheme.
-        days (Union[Unset, list[EDayOfWeek]]): Days of the week when the job must start.
+        local_time (str | Unset): Local time when the job must start.
+        daily_kind (EDailyKinds | Unset): Kind of daily scheduling scheme.
+        days (list[EDayOfWeek] | Unset): Days of the week when the job must start.
     """
 
     is_enabled: bool = True
-    local_time: Union[Unset, str] = UNSET
-    daily_kind: Union[Unset, EDailyKinds] = UNSET
-    days: Union[Unset, list[EDayOfWeek]] = UNSET
+    local_time: str | Unset = UNSET
+    daily_kind: EDailyKinds | Unset = UNSET
+    days: list[EDayOfWeek] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -33,11 +35,11 @@ class ScheduleDailyModel:
 
         local_time = self.local_time
 
-        daily_kind: Union[Unset, str] = UNSET
+        daily_kind: str | Unset = UNSET
         if not isinstance(self.daily_kind, Unset):
             daily_kind = self.daily_kind.value
 
-        days: Union[Unset, list[str]] = UNSET
+        days: list[str] | Unset = UNSET
         if not isinstance(self.days, Unset):
             days = []
             for days_item_data in self.days:
@@ -68,18 +70,20 @@ class ScheduleDailyModel:
         local_time = d.pop("localTime", UNSET)
 
         _daily_kind = d.pop("dailyKind", UNSET)
-        daily_kind: Union[Unset, EDailyKinds]
+        daily_kind: EDailyKinds | Unset
         if isinstance(_daily_kind, Unset):
             daily_kind = UNSET
         else:
             daily_kind = EDailyKinds(_daily_kind)
 
-        days = []
         _days = d.pop("days", UNSET)
-        for days_item_data in _days or []:
-            days_item = EDayOfWeek(days_item_data)
+        days: list[EDayOfWeek] | Unset = UNSET
+        if _days is not UNSET:
+            days = []
+            for days_item_data in _days:
+                days_item = EDayOfWeek(days_item_data)
 
-            days.append(days_item)
+                days.append(days_item)
 
         schedule_daily_model = cls(
             is_enabled=is_enabled,

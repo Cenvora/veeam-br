@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,20 +16,20 @@ class LinuxHostSSHSettingsModel:
     """SSH settings.
 
     Attributes:
-        ssh_time_out_ms (Union[Unset, int]): SSH timeout, in ms. If a task targeted at the server is inactive after the
+        ssh_time_out_ms (int | Unset): SSH timeout, in ms. If a task targeted at the server is inactive after the
             timeout, the task is terminated.
-        port_range_start (Union[Unset, int]): Start port used for data transfer.
-        port_range_end (Union[Unset, int]): End port used for data transfer.
-        server_side (Union[Unset, bool]): If `true`, the server is run on this side.
-        management_port (Union[Unset, int]): Port used as a control channel from the Veeam Backup & Replication console
-            to the Linux server.
+        port_range_start (int | Unset): Start port used for data transfer.
+        port_range_end (int | Unset): End port used for data transfer.
+        server_side (bool | Unset): If `true`, the server is run on this side.
+        management_port (int | Unset): Port used as a control channel from the Veeam Backup & Replication console to the
+            Linux server.
     """
 
-    ssh_time_out_ms: Union[Unset, int] = UNSET
-    port_range_start: Union[Unset, int] = UNSET
-    port_range_end: Union[Unset, int] = UNSET
-    server_side: Union[Unset, bool] = UNSET
-    management_port: Union[Unset, int] = UNSET
+    ssh_time_out_ms: int | Unset = UNSET
+    port_range_start: int | Unset = UNSET
+    port_range_end: int | Unset = UNSET
+    server_side: bool | Unset = UNSET
+    management_port: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

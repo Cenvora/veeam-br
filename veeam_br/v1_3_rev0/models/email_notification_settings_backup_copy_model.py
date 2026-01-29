@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -21,41 +23,41 @@ class EmailNotificationSettingsBackupCopyModel:
 
     Attributes:
         is_enabled (bool): If `true`, email notifications are enabled for this job.
-        recipients (Union[Unset, list[str]]): Array of recipient email addresses.
-        daily_report_summarylocal_time (Union[Unset, str]): Time when daily report summary is sent.
-        notification_type (Union[Unset, EEmailNotificationType]): Type of email notification settings (global
-            notification settings specified for the backup server, or custom notification settings specified for this job).
-        custom_notification_settings (Union[Unset, EmailCustomNotificationType]): Custom notification settings.
-        notifications_schedule (Union[Unset, EEmailNotificationSchedule]): For the immediate copy mode - settings for
-            email notifications schedule.
+        recipients (list[str] | Unset): Array of recipient email addresses.
+        daily_report_summarylocal_time (str | Unset): Time when daily report summary is sent.
+        notification_type (EEmailNotificationType | Unset): Type of email notification settings (global notification
+            settings specified for the backup server, or custom notification settings specified for this job).
+        custom_notification_settings (EmailCustomNotificationType | Unset): Custom notification settings.
+        notifications_schedule (EEmailNotificationSchedule | Unset): For the immediate copy mode - settings for email
+            notifications schedule.
     """
 
     is_enabled: bool
-    recipients: Union[Unset, list[str]] = UNSET
-    daily_report_summarylocal_time: Union[Unset, str] = UNSET
-    notification_type: Union[Unset, EEmailNotificationType] = UNSET
-    custom_notification_settings: Union[Unset, "EmailCustomNotificationType"] = UNSET
-    notifications_schedule: Union[Unset, EEmailNotificationSchedule] = UNSET
+    recipients: list[str] | Unset = UNSET
+    daily_report_summarylocal_time: str | Unset = UNSET
+    notification_type: EEmailNotificationType | Unset = UNSET
+    custom_notification_settings: EmailCustomNotificationType | Unset = UNSET
+    notifications_schedule: EEmailNotificationSchedule | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         is_enabled = self.is_enabled
 
-        recipients: Union[Unset, list[str]] = UNSET
+        recipients: list[str] | Unset = UNSET
         if not isinstance(self.recipients, Unset):
             recipients = self.recipients
 
         daily_report_summarylocal_time = self.daily_report_summarylocal_time
 
-        notification_type: Union[Unset, str] = UNSET
+        notification_type: str | Unset = UNSET
         if not isinstance(self.notification_type, Unset):
             notification_type = self.notification_type.value
 
-        custom_notification_settings: Union[Unset, dict[str, Any]] = UNSET
+        custom_notification_settings: dict[str, Any] | Unset = UNSET
         if not isinstance(self.custom_notification_settings, Unset):
             custom_notification_settings = self.custom_notification_settings.to_dict()
 
-        notifications_schedule: Union[Unset, str] = UNSET
+        notifications_schedule: str | Unset = UNSET
         if not isinstance(self.notifications_schedule, Unset):
             notifications_schedule = self.notifications_schedule.value
 
@@ -91,21 +93,21 @@ class EmailNotificationSettingsBackupCopyModel:
         daily_report_summarylocal_time = d.pop("dailyReportSummarylocalTime", UNSET)
 
         _notification_type = d.pop("notificationType", UNSET)
-        notification_type: Union[Unset, EEmailNotificationType]
+        notification_type: EEmailNotificationType | Unset
         if isinstance(_notification_type, Unset):
             notification_type = UNSET
         else:
             notification_type = EEmailNotificationType(_notification_type)
 
         _custom_notification_settings = d.pop("customNotificationSettings", UNSET)
-        custom_notification_settings: Union[Unset, EmailCustomNotificationType]
+        custom_notification_settings: EmailCustomNotificationType | Unset
         if isinstance(_custom_notification_settings, Unset):
             custom_notification_settings = UNSET
         else:
             custom_notification_settings = EmailCustomNotificationType.from_dict(_custom_notification_settings)
 
         _notifications_schedule = d.pop("notificationsSchedule", UNSET)
-        notifications_schedule: Union[Unset, EEmailNotificationSchedule]
+        notifications_schedule: EEmailNotificationSchedule | Unset
         if isinstance(_notifications_schedule, Unset):
             notifications_schedule = UNSET
         else:

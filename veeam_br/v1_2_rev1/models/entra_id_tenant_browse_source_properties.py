@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -16,19 +18,19 @@ class EntraIdTenantBrowseSourceProperties:
 
     Attributes:
         backup_id (UUID): ID of a Microsoft Entra ID tenant backup.
-        tenant_id (Union[Unset, UUID]): Tenant ID assigned by Microsoft Entra ID.
-        tenant_name (Union[Unset, str]): Microsoft Entra ID tenant name.
+        tenant_id (UUID | Unset): Tenant ID assigned by Microsoft Entra ID.
+        tenant_name (str | Unset): Microsoft Entra ID tenant name.
     """
 
     backup_id: UUID
-    tenant_id: Union[Unset, UUID] = UNSET
-    tenant_name: Union[Unset, str] = UNSET
+    tenant_id: UUID | Unset = UNSET
+    tenant_name: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         backup_id = str(self.backup_id)
 
-        tenant_id: Union[Unset, str] = UNSET
+        tenant_id: str | Unset = UNSET
         if not isinstance(self.tenant_id, Unset):
             tenant_id = str(self.tenant_id)
 
@@ -54,7 +56,7 @@ class EntraIdTenantBrowseSourceProperties:
         backup_id = UUID(d.pop("backupId"))
 
         _tenant_id = d.pop("tenantId", UNSET)
-        tenant_id: Union[Unset, UUID]
+        tenant_id: UUID | Unset
         if isinstance(_tenant_id, Unset):
             tenant_id = UNSET
         else:

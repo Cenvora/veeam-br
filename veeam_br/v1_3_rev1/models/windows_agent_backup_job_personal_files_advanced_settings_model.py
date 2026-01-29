@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,24 +16,24 @@ class WindowsAgentBackupJobPersonalFilesAdvancedSettingsModel:
     """Advanced settings for personal data backed up with Veeam Agent for Microsoft Windows backup job.
 
     Attributes:
-        include_masks (Union[Unset, list[str]]): Array of file names and/or masks for file types that you want to
-            include in the backup scope.
-        exclude_masks (Union[Unset, list[str]]): Array of file names and/or masks for file types that you want to
-            exclude from the backup scope.
-        exclude_one_drive (Union[Unset, bool]): If `true`, the backup job excludes data stored in the OneDrive folder.
+        include_masks (list[str] | Unset): Array of file names and/or masks for file types that you want to include in
+            the backup scope.
+        exclude_masks (list[str] | Unset): Array of file names and/or masks for file types that you want to exclude from
+            the backup scope.
+        exclude_one_drive (bool | Unset): If `true`, the backup job excludes data stored in the OneDrive folder.
     """
 
-    include_masks: Union[Unset, list[str]] = UNSET
-    exclude_masks: Union[Unset, list[str]] = UNSET
-    exclude_one_drive: Union[Unset, bool] = UNSET
+    include_masks: list[str] | Unset = UNSET
+    exclude_masks: list[str] | Unset = UNSET
+    exclude_one_drive: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        include_masks: Union[Unset, list[str]] = UNSET
+        include_masks: list[str] | Unset = UNSET
         if not isinstance(self.include_masks, Unset):
             include_masks = self.include_masks
 
-        exclude_masks: Union[Unset, list[str]] = UNSET
+        exclude_masks: list[str] | Unset = UNSET
         if not isinstance(self.exclude_masks, Unset):
             exclude_masks = self.exclude_masks
 

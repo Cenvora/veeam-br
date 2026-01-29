@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,12 +21,12 @@ class YaraRulesResult:
     """Details on YARA rules.
 
     Attributes:
-        data (list['YaraRuleModel']): Array of YARA rule file names.
-        pagination (Union[Unset, PaginationResult]): Pagination settings.
+        data (list[YaraRuleModel]): Array of YARA rule file names.
+        pagination (PaginationResult | Unset): Pagination settings.
     """
 
-    data: list["YaraRuleModel"]
-    pagination: Union[Unset, "PaginationResult"] = UNSET
+    data: list[YaraRuleModel]
+    pagination: PaginationResult | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -33,7 +35,7 @@ class YaraRulesResult:
             data_item = data_item_data.to_dict()
             data.append(data_item)
 
-        pagination: Union[Unset, dict[str, Any]] = UNSET
+        pagination: dict[str, Any] | Unset = UNSET
         if not isinstance(self.pagination, Unset):
             pagination = self.pagination.to_dict()
 
@@ -63,7 +65,7 @@ class YaraRulesResult:
             data.append(data_item)
 
         _pagination = d.pop("pagination", UNSET)
-        pagination: Union[Unset, PaginationResult]
+        pagination: PaginationResult | Unset
         if isinstance(_pagination, Unset):
             pagination = UNSET
         else:

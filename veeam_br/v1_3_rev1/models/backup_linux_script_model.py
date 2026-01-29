@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,12 +16,12 @@ class BackupLinuxScriptModel:
     """Paths to pre-freeze and post-thaw scripts for Linux VMs.
 
     Attributes:
-        pre_freeze_script (Union[Unset, str]): Path to a pre-freeze script.
-        post_thaw_script (Union[Unset, str]): Path to a post-thaw script.
+        pre_freeze_script (str | Unset): Path to a pre-freeze script.
+        post_thaw_script (str | Unset): Path to a post-thaw script.
     """
 
-    pre_freeze_script: Union[Unset, str] = UNSET
-    post_thaw_script: Union[Unset, str] = UNSET
+    pre_freeze_script: str | Unset = UNSET
+    post_thaw_script: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

@@ -1,35 +1,19 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.amazon_s3_browser_destination_spec import AmazonS3BrowserDestinationSpec
-from ...models.amazon_snowball_edge_browser_destination_spec import AmazonSnowballEdgeBrowserDestinationSpec
-from ...models.azure_blob_browser_destination_spec import AzureBlobBrowserDestinationSpec
-from ...models.azure_data_box_browser_destination_spec import AzureDataBoxBrowserDestinationSpec
+from ...models.cloud_browser_new_folder_spec import CloudBrowserNewFolderSpec
 from ...models.empty_success_response import EmptySuccessResponse
 from ...models.error import Error
-from ...models.google_cloud_storage_browser_destination_spec import GoogleCloudStorageBrowserDestinationSpec
-from ...models.ibm_cloud_storage_browser_destination_spec import IBMCloudStorageBrowserDestinationSpec
-from ...models.s3_compatible_browser_destination_spec import S3CompatibleBrowserDestinationSpec
-from ...models.wasabi_cloud_storage_browser_destination_spec import WasabiCloudStorageBrowserDestinationSpec
-from ...types import Response
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     *,
-    body: Union[
-        "AmazonS3BrowserDestinationSpec",
-        "AmazonSnowballEdgeBrowserDestinationSpec",
-        "AzureBlobBrowserDestinationSpec",
-        "AzureDataBoxBrowserDestinationSpec",
-        "GoogleCloudStorageBrowserDestinationSpec",
-        "IBMCloudStorageBrowserDestinationSpec",
-        "S3CompatibleBrowserDestinationSpec",
-        "WasabiCloudStorageBrowserDestinationSpec",
-    ],
+    body: CloudBrowserNewFolderSpec | Unset = UNSET,
     x_api_version: str = "1.2-rev1",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -40,22 +24,7 @@ def _get_kwargs(
         "url": "/api/v1/cloudBrowser/newFolder",
     }
 
-    _kwargs["json"]: dict[str, Any]
-    if isinstance(body, AzureBlobBrowserDestinationSpec):
-        _kwargs["json"] = body.to_dict()
-    elif isinstance(body, AzureDataBoxBrowserDestinationSpec):
-        _kwargs["json"] = body.to_dict()
-    elif isinstance(body, AmazonS3BrowserDestinationSpec):
-        _kwargs["json"] = body.to_dict()
-    elif isinstance(body, S3CompatibleBrowserDestinationSpec):
-        _kwargs["json"] = body.to_dict()
-    elif isinstance(body, AmazonSnowballEdgeBrowserDestinationSpec):
-        _kwargs["json"] = body.to_dict()
-    elif isinstance(body, GoogleCloudStorageBrowserDestinationSpec):
-        _kwargs["json"] = body.to_dict()
-    elif isinstance(body, IBMCloudStorageBrowserDestinationSpec):
-        _kwargs["json"] = body.to_dict()
-    else:
+    if not isinstance(body, Unset):
         _kwargs["json"] = body.to_dict()
 
     headers["Content-Type"] = "application/json"
@@ -65,8 +34,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[EmptySuccessResponse, Error]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> EmptySuccessResponse | Error | None:
     if response.status_code == 201:
         response_201 = EmptySuccessResponse.from_dict(response.json())
 
@@ -99,8 +68,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[EmptySuccessResponse, Error]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[EmptySuccessResponse | Error]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -111,19 +80,10 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union[
-        "AmazonS3BrowserDestinationSpec",
-        "AmazonSnowballEdgeBrowserDestinationSpec",
-        "AzureBlobBrowserDestinationSpec",
-        "AzureDataBoxBrowserDestinationSpec",
-        "GoogleCloudStorageBrowserDestinationSpec",
-        "IBMCloudStorageBrowserDestinationSpec",
-        "S3CompatibleBrowserDestinationSpec",
-        "WasabiCloudStorageBrowserDestinationSpec",
-    ],
+    client: AuthenticatedClient | Client,
+    body: CloudBrowserNewFolderSpec | Unset = UNSET,
     x_api_version: str = "1.2-rev1",
-) -> Response[Union[EmptySuccessResponse, Error]]:
+) -> Response[EmptySuccessResponse | Error]:
     r"""New Folder
 
      The HTTP POST request to the `/api/v1/cloudBrowser/newFolder` path allows you to create a new folder
@@ -133,17 +93,14 @@ def sync_detailed(
 
     Args:
         x_api_version (str):  Default: '1.2-rev1'.
-        body (Union['AmazonS3BrowserDestinationSpec', 'AmazonSnowballEdgeBrowserDestinationSpec',
-            'AzureBlobBrowserDestinationSpec', 'AzureDataBoxBrowserDestinationSpec',
-            'GoogleCloudStorageBrowserDestinationSpec', 'IBMCloudStorageBrowserDestinationSpec',
-            'S3CompatibleBrowserDestinationSpec', 'WasabiCloudStorageBrowserDestinationSpec']):
+        body (CloudBrowserNewFolderSpec | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[EmptySuccessResponse, Error]]
+        Response[EmptySuccessResponse | Error]
     """
 
     kwargs = _get_kwargs(
@@ -160,19 +117,10 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union[
-        "AmazonS3BrowserDestinationSpec",
-        "AmazonSnowballEdgeBrowserDestinationSpec",
-        "AzureBlobBrowserDestinationSpec",
-        "AzureDataBoxBrowserDestinationSpec",
-        "GoogleCloudStorageBrowserDestinationSpec",
-        "IBMCloudStorageBrowserDestinationSpec",
-        "S3CompatibleBrowserDestinationSpec",
-        "WasabiCloudStorageBrowserDestinationSpec",
-    ],
+    client: AuthenticatedClient | Client,
+    body: CloudBrowserNewFolderSpec | Unset = UNSET,
     x_api_version: str = "1.2-rev1",
-) -> Optional[Union[EmptySuccessResponse, Error]]:
+) -> EmptySuccessResponse | Error | None:
     r"""New Folder
 
      The HTTP POST request to the `/api/v1/cloudBrowser/newFolder` path allows you to create a new folder
@@ -182,17 +130,14 @@ def sync(
 
     Args:
         x_api_version (str):  Default: '1.2-rev1'.
-        body (Union['AmazonS3BrowserDestinationSpec', 'AmazonSnowballEdgeBrowserDestinationSpec',
-            'AzureBlobBrowserDestinationSpec', 'AzureDataBoxBrowserDestinationSpec',
-            'GoogleCloudStorageBrowserDestinationSpec', 'IBMCloudStorageBrowserDestinationSpec',
-            'S3CompatibleBrowserDestinationSpec', 'WasabiCloudStorageBrowserDestinationSpec']):
+        body (CloudBrowserNewFolderSpec | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[EmptySuccessResponse, Error]
+        EmptySuccessResponse | Error
     """
 
     return sync_detailed(
@@ -204,19 +149,10 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union[
-        "AmazonS3BrowserDestinationSpec",
-        "AmazonSnowballEdgeBrowserDestinationSpec",
-        "AzureBlobBrowserDestinationSpec",
-        "AzureDataBoxBrowserDestinationSpec",
-        "GoogleCloudStorageBrowserDestinationSpec",
-        "IBMCloudStorageBrowserDestinationSpec",
-        "S3CompatibleBrowserDestinationSpec",
-        "WasabiCloudStorageBrowserDestinationSpec",
-    ],
+    client: AuthenticatedClient | Client,
+    body: CloudBrowserNewFolderSpec | Unset = UNSET,
     x_api_version: str = "1.2-rev1",
-) -> Response[Union[EmptySuccessResponse, Error]]:
+) -> Response[EmptySuccessResponse | Error]:
     r"""New Folder
 
      The HTTP POST request to the `/api/v1/cloudBrowser/newFolder` path allows you to create a new folder
@@ -226,17 +162,14 @@ async def asyncio_detailed(
 
     Args:
         x_api_version (str):  Default: '1.2-rev1'.
-        body (Union['AmazonS3BrowserDestinationSpec', 'AmazonSnowballEdgeBrowserDestinationSpec',
-            'AzureBlobBrowserDestinationSpec', 'AzureDataBoxBrowserDestinationSpec',
-            'GoogleCloudStorageBrowserDestinationSpec', 'IBMCloudStorageBrowserDestinationSpec',
-            'S3CompatibleBrowserDestinationSpec', 'WasabiCloudStorageBrowserDestinationSpec']):
+        body (CloudBrowserNewFolderSpec | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[EmptySuccessResponse, Error]]
+        Response[EmptySuccessResponse | Error]
     """
 
     kwargs = _get_kwargs(
@@ -251,19 +184,10 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union[
-        "AmazonS3BrowserDestinationSpec",
-        "AmazonSnowballEdgeBrowserDestinationSpec",
-        "AzureBlobBrowserDestinationSpec",
-        "AzureDataBoxBrowserDestinationSpec",
-        "GoogleCloudStorageBrowserDestinationSpec",
-        "IBMCloudStorageBrowserDestinationSpec",
-        "S3CompatibleBrowserDestinationSpec",
-        "WasabiCloudStorageBrowserDestinationSpec",
-    ],
+    client: AuthenticatedClient | Client,
+    body: CloudBrowserNewFolderSpec | Unset = UNSET,
     x_api_version: str = "1.2-rev1",
-) -> Optional[Union[EmptySuccessResponse, Error]]:
+) -> EmptySuccessResponse | Error | None:
     r"""New Folder
 
      The HTTP POST request to the `/api/v1/cloudBrowser/newFolder` path allows you to create a new folder
@@ -273,17 +197,14 @@ async def asyncio(
 
     Args:
         x_api_version (str):  Default: '1.2-rev1'.
-        body (Union['AmazonS3BrowserDestinationSpec', 'AmazonSnowballEdgeBrowserDestinationSpec',
-            'AzureBlobBrowserDestinationSpec', 'AzureDataBoxBrowserDestinationSpec',
-            'GoogleCloudStorageBrowserDestinationSpec', 'IBMCloudStorageBrowserDestinationSpec',
-            'S3CompatibleBrowserDestinationSpec', 'WasabiCloudStorageBrowserDestinationSpec']):
+        body (CloudBrowserNewFolderSpec | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[EmptySuccessResponse, Error]
+        EmptySuccessResponse | Error
     """
 
     return (

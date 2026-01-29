@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -16,11 +18,11 @@ class WindowsAgentBackupJobVolumeObjectModel:
 
     Attributes:
         type_ (EWindowsVolumeType): Volume type of the Windows machine.
-        path (Union[Unset, str]): Path to the volume object.
+        path (str | Unset): Path to the volume object.
     """
 
     type_: EWindowsVolumeType
-    path: Union[Unset, str] = UNSET
+    path: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

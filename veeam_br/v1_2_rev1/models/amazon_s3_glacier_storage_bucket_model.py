@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -17,16 +19,16 @@ class AmazonS3GlacierStorageBucketModel:
         region_id (str): ID of a region where the Amazon S3 bucket is located.
         bucket_name (str): Name of an Amazon S3 Glacier bucket.
         folder_name (str): Name of the folder that the object storage repository is mapped to.
-        immutability_enabled (Union[Unset, bool]): If `true`, storage immutability is enabled.
-        use_deep_archive (Union[Unset, bool]): If `true`, Glacier Deep Archive is used for backups with the retention
-            policy over 180 days.
+        immutability_enabled (bool | Unset): If `true`, storage immutability is enabled.
+        use_deep_archive (bool | Unset): If `true`, Glacier Deep Archive is used for backups with the retention policy
+            over 180 days.
     """
 
     region_id: str
     bucket_name: str
     folder_name: str
-    immutability_enabled: Union[Unset, bool] = UNSET
-    use_deep_archive: Union[Unset, bool] = UNSET
+    immutability_enabled: bool | Unset = UNSET
+    use_deep_archive: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

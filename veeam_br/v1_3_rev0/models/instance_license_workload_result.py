@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 
@@ -17,13 +19,13 @@ class InstanceLicenseWorkloadResult:
     """Details on workloads covered by instance licenses.
 
     Attributes:
-        data (list['InstanceLicenseWorkloadModel']): Array of objects containing details on workloads covered by
-            instance licenses.
+        data (list[InstanceLicenseWorkloadModel]): Array of objects containing details on workloads covered by instance
+            licenses.
         pagination (PaginationResult): Pagination settings.
     """
 
-    data: list["InstanceLicenseWorkloadModel"]
-    pagination: "PaginationResult"
+    data: list[InstanceLicenseWorkloadModel]
+    pagination: PaginationResult
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

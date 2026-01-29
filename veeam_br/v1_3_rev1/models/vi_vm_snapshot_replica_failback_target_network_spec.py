@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -21,22 +23,21 @@ class ViVMSnapshotReplicaFailbackTargetNetworkSpec:
     """Network settings.
 
     Attributes:
-        replica_point_id (Union[Unset, UUID]): Restore point ID.
-        networks (Union[Unset, list['ViVmSnapshotReplicaFailbackNetworkMappingModel']]): Array of network mapping rules.
-            To get a network object, run the [Get Inventory Objects](Inventory-Browser#operation/GetInventoryObjects)
-            request.
+        replica_point_id (UUID | Unset): Restore point ID.
+        networks (list[ViVmSnapshotReplicaFailbackNetworkMappingModel] | Unset): Array of network mapping rules. To get
+            a network object, run the [Get Inventory Objects](Inventory-Browser#operation/GetInventoryObjects) request.
     """
 
-    replica_point_id: Union[Unset, UUID] = UNSET
-    networks: Union[Unset, list["ViVmSnapshotReplicaFailbackNetworkMappingModel"]] = UNSET
+    replica_point_id: UUID | Unset = UNSET
+    networks: list[ViVmSnapshotReplicaFailbackNetworkMappingModel] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        replica_point_id: Union[Unset, str] = UNSET
+        replica_point_id: str | Unset = UNSET
         if not isinstance(self.replica_point_id, Unset):
             replica_point_id = str(self.replica_point_id)
 
-        networks: Union[Unset, list[dict[str, Any]]] = UNSET
+        networks: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.networks, Unset):
             networks = []
             for networks_item_data in self.networks:
@@ -61,18 +62,20 @@ class ViVMSnapshotReplicaFailbackTargetNetworkSpec:
 
         d = dict(src_dict)
         _replica_point_id = d.pop("replicaPointId", UNSET)
-        replica_point_id: Union[Unset, UUID]
+        replica_point_id: UUID | Unset
         if isinstance(_replica_point_id, Unset):
             replica_point_id = UNSET
         else:
             replica_point_id = UUID(_replica_point_id)
 
-        networks = []
         _networks = d.pop("networks", UNSET)
-        for networks_item_data in _networks or []:
-            networks_item = ViVmSnapshotReplicaFailbackNetworkMappingModel.from_dict(networks_item_data)
+        networks: list[ViVmSnapshotReplicaFailbackNetworkMappingModel] | Unset = UNSET
+        if _networks is not UNSET:
+            networks = []
+            for networks_item_data in _networks:
+                networks_item = ViVmSnapshotReplicaFailbackNetworkMappingModel.from_dict(networks_item_data)
 
-            networks.append(networks_item)
+                networks.append(networks_item)
 
         vi_vm_snapshot_replica_failback_target_network_spec = cls(
             replica_point_id=replica_point_id,

@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from io import BytesIO
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,15 +17,15 @@ class UploadingStreamSpec:
     """Upload settings for Microsoft Entra ID items.
 
     Attributes:
-        data (Union[Unset, File]): CSV file that contains a list of IDs of Microsoft Entra ID items that you want to
-            upload. For users, you can also specify a list of user principal names.
+        data (File | Unset): CSV file that contains a list of IDs of Microsoft Entra ID items that you want to upload.
+            For users, you can also specify a list of user principal names.
     """
 
-    data: Union[Unset, File] = UNSET
+    data: File | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        data: Union[Unset, FileTypes] = UNSET
+        data: FileTypes | Unset = UNSET
         if not isinstance(self.data, Unset):
             data = self.data.to_tuple()
 
@@ -39,7 +41,7 @@ class UploadingStreamSpec:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _data = d.pop("data", UNSET)
-        data: Union[Unset, File]
+        data: File | Unset
         if isinstance(_data, Unset):
             data = UNSET
         else:

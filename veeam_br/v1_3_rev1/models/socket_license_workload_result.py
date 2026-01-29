@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 
@@ -17,12 +19,12 @@ class SocketLicenseWorkloadResult:
     """Details on hosts covered by socket licenses.
 
     Attributes:
-        data (list['SocketLicenseWorkloadModel']): Array of licensed hosts.
+        data (list[SocketLicenseWorkloadModel]): Array of licensed hosts.
         pagination (PaginationResult): Pagination settings.
     """
 
-    data: list["SocketLicenseWorkloadModel"]
-    pagination: "PaginationResult"
+    data: list[SocketLicenseWorkloadModel]
+    pagination: PaginationResult
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

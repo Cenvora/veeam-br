@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 
@@ -17,12 +19,12 @@ class InstantHvVMRecoveryMountsResult:
     """Details on VM mount points.
 
     Attributes:
-        data (list['InstantHvVMRecoveryMount']): Array of VM mount points.
+        data (list[InstantHvVMRecoveryMount]): Array of VM mount points.
         pagination (PaginationResult): Pagination settings.
     """
 
-    data: list["InstantHvVMRecoveryMount"]
-    pagination: "PaginationResult"
+    data: list[InstantHvVMRecoveryMount]
+    pagination: PaginationResult
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

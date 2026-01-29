@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,12 +16,12 @@ class AzureDataBoxStorageContainerModel:
     """Azure Data Box container where backup data is stored.
 
     Attributes:
-        container_name (Union[Unset, str]): Container name.
-        folder_name (Union[Unset, str]): Name of the folder that the object storage repository is mapped to.
+        container_name (str | Unset): Container name.
+        folder_name (str | Unset): Name of the folder that the object storage repository is mapped to.
     """
 
-    container_name: Union[Unset, str] = UNSET
-    folder_name: Union[Unset, str] = UNSET
+    container_name: str | Unset = UNSET
+    folder_name: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

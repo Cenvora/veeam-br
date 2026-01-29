@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -21,27 +23,26 @@ class UnstructuredDataRestoreOptionsModel:
     Attributes:
         restore_point_id (UUID): Restore point ID. To get the ID, run the [Get All Restore Points](Restore-
             Points#operation/GetAllObjectRestorePoints) request.
-        mount_server_id (Union[Unset, UUID]): Mount server ID. The ID is the same as the ID of the managed server that
-            was assigned a mount server role. To obtain the ID, run the [Get Mount Servers](Mount-
+        mount_server_id (UUID | Unset): Mount server ID. The ID is the same as the ID of the managed server that was
+            assigned a mount server role. To obtain the ID, run the [Get Mount Servers](Mount-
             Servers#operation/GetAllMountServers) request.<p> Do not specify this parameter if you have set the
             `autoSelectMountServers` property to `true`.
-        permissions (Union[Unset, UnstructuredDataRestorePermissionsModel]): Permissions for Instant File Share
-            Recovery.
+        permissions (UnstructuredDataRestorePermissionsModel | Unset): Permissions for Instant File Share Recovery.
     """
 
     restore_point_id: UUID
-    mount_server_id: Union[Unset, UUID] = UNSET
-    permissions: Union[Unset, "UnstructuredDataRestorePermissionsModel"] = UNSET
+    mount_server_id: UUID | Unset = UNSET
+    permissions: UnstructuredDataRestorePermissionsModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         restore_point_id = str(self.restore_point_id)
 
-        mount_server_id: Union[Unset, str] = UNSET
+        mount_server_id: str | Unset = UNSET
         if not isinstance(self.mount_server_id, Unset):
             mount_server_id = str(self.mount_server_id)
 
-        permissions: Union[Unset, dict[str, Any]] = UNSET
+        permissions: dict[str, Any] | Unset = UNSET
         if not isinstance(self.permissions, Unset):
             permissions = self.permissions.to_dict()
 
@@ -67,14 +68,14 @@ class UnstructuredDataRestoreOptionsModel:
         restore_point_id = UUID(d.pop("restorePointId"))
 
         _mount_server_id = d.pop("mountServerId", UNSET)
-        mount_server_id: Union[Unset, UUID]
+        mount_server_id: UUID | Unset
         if isinstance(_mount_server_id, Unset):
             mount_server_id = UNSET
         else:
             mount_server_id = UUID(_mount_server_id)
 
         _permissions = d.pop("permissions", UNSET)
-        permissions: Union[Unset, UnstructuredDataRestorePermissionsModel]
+        permissions: UnstructuredDataRestorePermissionsModel | Unset
         if isinstance(_permissions, Unset):
             permissions = UNSET
         else:

@@ -1,33 +1,19 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.amazon_cloud_credentials_model import AmazonCloudCredentialsModel
-from ...models.amazon_cloud_credentials_spec import AmazonCloudCredentialsSpec
-from ...models.azure_compute_cloud_credentials_model import AzureComputeCloudCredentialsModel
-from ...models.azure_compute_cloud_credentials_spec import AzureComputeCloudCredentialsSpec
-from ...models.azure_storage_cloud_credentials_model import AzureStorageCloudCredentialsModel
-from ...models.azure_storage_cloud_credentials_spec import AzureStorageCloudCredentialsSpec
+from ...models.cloud_credentials_model import CloudCredentialsModel
+from ...models.cloud_credentials_spec import CloudCredentialsSpec
 from ...models.error import Error
-from ...models.google_cloud_credentials_model import GoogleCloudCredentialsModel
-from ...models.google_cloud_credentials_spec import GoogleCloudCredentialsSpec
-from ...models.google_cloud_service_credentials_model import GoogleCloudServiceCredentialsModel
-from ...models.google_cloud_service_credentials_spec import GoogleCloudServiceCredentialsSpec
 from ...types import Response
 
 
 def _get_kwargs(
     *,
-    body: Union[
-        "AmazonCloudCredentialsSpec",
-        "AzureComputeCloudCredentialsSpec",
-        "AzureStorageCloudCredentialsSpec",
-        "GoogleCloudCredentialsSpec",
-        "GoogleCloudServiceCredentialsSpec",
-    ],
+    body: CloudCredentialsSpec,
     x_api_version: str = "1.3-rev1",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -38,17 +24,7 @@ def _get_kwargs(
         "url": "/api/v1/cloudCredentials",
     }
 
-    _kwargs["json"]: dict[str, Any]
-    if isinstance(body, AmazonCloudCredentialsSpec):
-        _kwargs["json"] = body.to_dict()
-    elif isinstance(body, AzureStorageCloudCredentialsSpec):
-        _kwargs["json"] = body.to_dict()
-    elif isinstance(body, AzureComputeCloudCredentialsSpec):
-        _kwargs["json"] = body.to_dict()
-    elif isinstance(body, GoogleCloudCredentialsSpec):
-        _kwargs["json"] = body.to_dict()
-    else:
-        _kwargs["json"] = body.to_dict()
+    _kwargs["json"] = body.to_dict()
 
     headers["Content-Type"] = "application/json"
 
@@ -57,69 +33,10 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[
-    Union[
-        Error,
-        Union[
-            "AmazonCloudCredentialsModel",
-            "AzureComputeCloudCredentialsModel",
-            "AzureStorageCloudCredentialsModel",
-            "GoogleCloudCredentialsModel",
-            "GoogleCloudServiceCredentialsModel",
-        ],
-    ]
-]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> CloudCredentialsModel | Error | None:
     if response.status_code == 201:
-
-        def _parse_response_201(
-            data: object,
-        ) -> Union[
-            "AmazonCloudCredentialsModel",
-            "AzureComputeCloudCredentialsModel",
-            "AzureStorageCloudCredentialsModel",
-            "GoogleCloudCredentialsModel",
-            "GoogleCloudServiceCredentialsModel",
-        ]:
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_cloud_credentials_model_type_0 = AmazonCloudCredentialsModel.from_dict(data)
-
-                return componentsschemas_cloud_credentials_model_type_0
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_cloud_credentials_model_type_1 = AzureStorageCloudCredentialsModel.from_dict(data)
-
-                return componentsschemas_cloud_credentials_model_type_1
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_cloud_credentials_model_type_2 = AzureComputeCloudCredentialsModel.from_dict(data)
-
-                return componentsschemas_cloud_credentials_model_type_2
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_cloud_credentials_model_type_3 = GoogleCloudCredentialsModel.from_dict(data)
-
-                return componentsschemas_cloud_credentials_model_type_3
-            except:  # noqa: E722
-                pass
-            if not isinstance(data, dict):
-                raise TypeError()
-            componentsschemas_cloud_credentials_model_type_4 = GoogleCloudServiceCredentialsModel.from_dict(data)
-
-            return componentsschemas_cloud_credentials_model_type_4
-
-        response_201 = _parse_response_201(response.json())
+        response_201 = CloudCredentialsModel.from_dict(response.json())
 
         return response_201
 
@@ -150,19 +67,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[
-    Union[
-        Error,
-        Union[
-            "AmazonCloudCredentialsModel",
-            "AzureComputeCloudCredentialsModel",
-            "AzureStorageCloudCredentialsModel",
-            "GoogleCloudCredentialsModel",
-            "GoogleCloudServiceCredentialsModel",
-        ],
-    ]
-]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[CloudCredentialsModel | Error]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -173,27 +79,10 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union[
-        "AmazonCloudCredentialsSpec",
-        "AzureComputeCloudCredentialsSpec",
-        "AzureStorageCloudCredentialsSpec",
-        "GoogleCloudCredentialsSpec",
-        "GoogleCloudServiceCredentialsSpec",
-    ],
+    client: AuthenticatedClient | Client,
+    body: CloudCredentialsSpec,
     x_api_version: str = "1.3-rev1",
-) -> Response[
-    Union[
-        Error,
-        Union[
-            "AmazonCloudCredentialsModel",
-            "AzureComputeCloudCredentialsModel",
-            "AzureStorageCloudCredentialsModel",
-            "GoogleCloudCredentialsModel",
-            "GoogleCloudServiceCredentialsModel",
-        ],
-    ]
-]:
+) -> Response[CloudCredentialsModel | Error]:
     """Add Cloud Credentials Record
 
      The HTTP POST request to the `/api/v1/cloudCredentials` endpoint adds a credentials record used to
@@ -202,16 +91,14 @@ def sync_detailed(
 
     Args:
         x_api_version (str):  Default: '1.3-rev1'.
-        body (Union['AmazonCloudCredentialsSpec', 'AzureComputeCloudCredentialsSpec',
-            'AzureStorageCloudCredentialsSpec', 'GoogleCloudCredentialsSpec',
-            'GoogleCloudServiceCredentialsSpec']): Cloud credentials settings.
+        body (CloudCredentialsSpec): Cloud credentials settings.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, Union['AmazonCloudCredentialsModel', 'AzureComputeCloudCredentialsModel', 'AzureStorageCloudCredentialsModel', 'GoogleCloudCredentialsModel', 'GoogleCloudServiceCredentialsModel']]]
+        Response[CloudCredentialsModel | Error]
     """
 
     kwargs = _get_kwargs(
@@ -228,27 +115,10 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union[
-        "AmazonCloudCredentialsSpec",
-        "AzureComputeCloudCredentialsSpec",
-        "AzureStorageCloudCredentialsSpec",
-        "GoogleCloudCredentialsSpec",
-        "GoogleCloudServiceCredentialsSpec",
-    ],
+    client: AuthenticatedClient | Client,
+    body: CloudCredentialsSpec,
     x_api_version: str = "1.3-rev1",
-) -> Optional[
-    Union[
-        Error,
-        Union[
-            "AmazonCloudCredentialsModel",
-            "AzureComputeCloudCredentialsModel",
-            "AzureStorageCloudCredentialsModel",
-            "GoogleCloudCredentialsModel",
-            "GoogleCloudServiceCredentialsModel",
-        ],
-    ]
-]:
+) -> CloudCredentialsModel | Error | None:
     """Add Cloud Credentials Record
 
      The HTTP POST request to the `/api/v1/cloudCredentials` endpoint adds a credentials record used to
@@ -257,16 +127,14 @@ def sync(
 
     Args:
         x_api_version (str):  Default: '1.3-rev1'.
-        body (Union['AmazonCloudCredentialsSpec', 'AzureComputeCloudCredentialsSpec',
-            'AzureStorageCloudCredentialsSpec', 'GoogleCloudCredentialsSpec',
-            'GoogleCloudServiceCredentialsSpec']): Cloud credentials settings.
+        body (CloudCredentialsSpec): Cloud credentials settings.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, Union['AmazonCloudCredentialsModel', 'AzureComputeCloudCredentialsModel', 'AzureStorageCloudCredentialsModel', 'GoogleCloudCredentialsModel', 'GoogleCloudServiceCredentialsModel']]
+        CloudCredentialsModel | Error
     """
 
     return sync_detailed(
@@ -278,27 +146,10 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union[
-        "AmazonCloudCredentialsSpec",
-        "AzureComputeCloudCredentialsSpec",
-        "AzureStorageCloudCredentialsSpec",
-        "GoogleCloudCredentialsSpec",
-        "GoogleCloudServiceCredentialsSpec",
-    ],
+    client: AuthenticatedClient | Client,
+    body: CloudCredentialsSpec,
     x_api_version: str = "1.3-rev1",
-) -> Response[
-    Union[
-        Error,
-        Union[
-            "AmazonCloudCredentialsModel",
-            "AzureComputeCloudCredentialsModel",
-            "AzureStorageCloudCredentialsModel",
-            "GoogleCloudCredentialsModel",
-            "GoogleCloudServiceCredentialsModel",
-        ],
-    ]
-]:
+) -> Response[CloudCredentialsModel | Error]:
     """Add Cloud Credentials Record
 
      The HTTP POST request to the `/api/v1/cloudCredentials` endpoint adds a credentials record used to
@@ -307,16 +158,14 @@ async def asyncio_detailed(
 
     Args:
         x_api_version (str):  Default: '1.3-rev1'.
-        body (Union['AmazonCloudCredentialsSpec', 'AzureComputeCloudCredentialsSpec',
-            'AzureStorageCloudCredentialsSpec', 'GoogleCloudCredentialsSpec',
-            'GoogleCloudServiceCredentialsSpec']): Cloud credentials settings.
+        body (CloudCredentialsSpec): Cloud credentials settings.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, Union['AmazonCloudCredentialsModel', 'AzureComputeCloudCredentialsModel', 'AzureStorageCloudCredentialsModel', 'GoogleCloudCredentialsModel', 'GoogleCloudServiceCredentialsModel']]]
+        Response[CloudCredentialsModel | Error]
     """
 
     kwargs = _get_kwargs(
@@ -331,27 +180,10 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union[
-        "AmazonCloudCredentialsSpec",
-        "AzureComputeCloudCredentialsSpec",
-        "AzureStorageCloudCredentialsSpec",
-        "GoogleCloudCredentialsSpec",
-        "GoogleCloudServiceCredentialsSpec",
-    ],
+    client: AuthenticatedClient | Client,
+    body: CloudCredentialsSpec,
     x_api_version: str = "1.3-rev1",
-) -> Optional[
-    Union[
-        Error,
-        Union[
-            "AmazonCloudCredentialsModel",
-            "AzureComputeCloudCredentialsModel",
-            "AzureStorageCloudCredentialsModel",
-            "GoogleCloudCredentialsModel",
-            "GoogleCloudServiceCredentialsModel",
-        ],
-    ]
-]:
+) -> CloudCredentialsModel | Error | None:
     """Add Cloud Credentials Record
 
      The HTTP POST request to the `/api/v1/cloudCredentials` endpoint adds a credentials record used to
@@ -360,16 +192,14 @@ async def asyncio(
 
     Args:
         x_api_version (str):  Default: '1.3-rev1'.
-        body (Union['AmazonCloudCredentialsSpec', 'AzureComputeCloudCredentialsSpec',
-            'AzureStorageCloudCredentialsSpec', 'GoogleCloudCredentialsSpec',
-            'GoogleCloudServiceCredentialsSpec']): Cloud credentials settings.
+        body (CloudCredentialsSpec): Cloud credentials settings.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, Union['AmazonCloudCredentialsModel', 'AzureComputeCloudCredentialsModel', 'AzureStorageCloudCredentialsModel', 'GoogleCloudCredentialsModel', 'GoogleCloudServiceCredentialsModel']]
+        CloudCredentialsModel | Error
     """
 
     return (

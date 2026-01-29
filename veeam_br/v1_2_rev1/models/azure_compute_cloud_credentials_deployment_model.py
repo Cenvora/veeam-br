@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -18,17 +20,17 @@ class AzureComputeCloudCredentialsDeploymentModel:
     Attributes:
         deployment_type (EAzureComputeCredentialsDeploymentType): Deployment type (global Microsoft Azure or Microsoft
             Azure Stack Hub).
-        region (Union[Unset, EAzureRegionType]): Microsoft Azure region.
+        region (EAzureRegionType | Unset): Microsoft Azure region.
     """
 
     deployment_type: EAzureComputeCredentialsDeploymentType
-    region: Union[Unset, EAzureRegionType] = UNSET
+    region: EAzureRegionType | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         deployment_type = self.deployment_type.value
 
-        region: Union[Unset, str] = UNSET
+        region: str | Unset = UNSET
         if not isinstance(self.region, Unset):
             region = self.region.value
 
@@ -50,7 +52,7 @@ class AzureComputeCloudCredentialsDeploymentModel:
         deployment_type = EAzureComputeCredentialsDeploymentType(d.pop("deploymentType"))
 
         _region = d.pop("region", UNSET)
-        region: Union[Unset, EAzureRegionType]
+        region: EAzureRegionType | Unset
         if isinstance(_region, Unset):
             region = UNSET
         else:

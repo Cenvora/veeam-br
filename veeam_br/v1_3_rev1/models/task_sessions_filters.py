@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -24,50 +26,48 @@ T = TypeVar("T", bound="TaskSessionsFilters")
 class TaskSessionsFilters:
     """
     Attributes:
-        skip (Union[Unset, int]): Number of task sessions to skip.
-        limit (Union[Unset, int]): Maximum number of task sessions to return.
-        order_column (Union[Unset, ETaskSessionsFiltersOrderColumn]): Sorts task sessions according to one of the
-            parameters.
-        order_asc (Union[Unset, bool]): If `true`, sorts task sessions in ascending order by the `orderColumn`
-            parameter.
-        name_filter (Union[Unset, str]): Filters sessions by the `nameFilter` pattern. The pattern can match any session
+        skip (int | Unset): Number of task sessions to skip.
+        limit (int | Unset): Maximum number of task sessions to return.
+        order_column (ETaskSessionsFiltersOrderColumn | Unset): Sorts task sessions according to one of the parameters.
+        order_asc (bool | Unset): If `true`, sorts task sessions in ascending order by the `orderColumn` parameter.
+        name_filter (str | Unset): Filters sessions by the `nameFilter` pattern. The pattern can match any session
             parameter. To substitute one or more characters, use the asterisk (*) character at the beginning, at the end or
             both.
-        type_filter (Union[Unset, ETaskSessionType]): Task session type.
-        session_type_filter (Union[Unset, ESessionType]): Type of the session.
-        created_after_filter (Union[Unset, datetime.datetime]): Returns task sessions that are created after the
-            specified date and time.
-        created_before_filter (Union[Unset, datetime.datetime]): Returns task sessions created before the specified date
+        type_filter (ETaskSessionType | Unset): Task session type.
+        session_type_filter (ESessionType | Unset): Type of the session.
+        created_after_filter (datetime.datetime | Unset): Returns task sessions that are created after the specified
+            date and time.
+        created_before_filter (datetime.datetime | Unset): Returns task sessions created before the specified date and
+            time.
+        ended_after_filter (datetime.datetime | Unset): Returns task sessions that finished after the specified date and
+            time.
+        ended_before_filter (datetime.datetime | Unset): Returns task sessions that finished before the specified date
             and time.
-        ended_after_filter (Union[Unset, datetime.datetime]): Returns task sessions that finished after the specified
-            date and time.
-        ended_before_filter (Union[Unset, datetime.datetime]): Returns task sessions that finished before the specified
-            date and time.
-        state_filter (Union[Unset, ESessionState]): State of the session.
-        result_filter (Union[Unset, ESessionResult]): Result status.
-        scan_type_filter (Union[Unset, EAntivirusScanType]): Type of antivirus scan.
-        scan_result_filter (Union[Unset, EAntivirusScanResult]): Antivirus scan result.
-        scan_state_filter (Union[Unset, EAntivirusScanState]): State of the antivirus scan.
-        session_id_filter (Union[Unset, UUID]): Returns the task sessions with the specified session ID.
+        state_filter (ESessionState | Unset): State of the session.
+        result_filter (ESessionResult | Unset): Result status.
+        scan_type_filter (EAntivirusScanType | Unset): Type of antivirus scan.
+        scan_result_filter (EAntivirusScanResult | Unset): Antivirus scan result.
+        scan_state_filter (EAntivirusScanState | Unset): State of the antivirus scan.
+        session_id_filter (UUID | Unset): Returns the task sessions with the specified session ID.
     """
 
-    skip: Union[Unset, int] = UNSET
-    limit: Union[Unset, int] = UNSET
-    order_column: Union[Unset, ETaskSessionsFiltersOrderColumn] = UNSET
-    order_asc: Union[Unset, bool] = UNSET
-    name_filter: Union[Unset, str] = UNSET
-    type_filter: Union[Unset, ETaskSessionType] = UNSET
-    session_type_filter: Union[Unset, ESessionType] = UNSET
-    created_after_filter: Union[Unset, datetime.datetime] = UNSET
-    created_before_filter: Union[Unset, datetime.datetime] = UNSET
-    ended_after_filter: Union[Unset, datetime.datetime] = UNSET
-    ended_before_filter: Union[Unset, datetime.datetime] = UNSET
-    state_filter: Union[Unset, ESessionState] = UNSET
-    result_filter: Union[Unset, ESessionResult] = UNSET
-    scan_type_filter: Union[Unset, EAntivirusScanType] = UNSET
-    scan_result_filter: Union[Unset, EAntivirusScanResult] = UNSET
-    scan_state_filter: Union[Unset, EAntivirusScanState] = UNSET
-    session_id_filter: Union[Unset, UUID] = UNSET
+    skip: int | Unset = UNSET
+    limit: int | Unset = UNSET
+    order_column: ETaskSessionsFiltersOrderColumn | Unset = UNSET
+    order_asc: bool | Unset = UNSET
+    name_filter: str | Unset = UNSET
+    type_filter: ETaskSessionType | Unset = UNSET
+    session_type_filter: ESessionType | Unset = UNSET
+    created_after_filter: datetime.datetime | Unset = UNSET
+    created_before_filter: datetime.datetime | Unset = UNSET
+    ended_after_filter: datetime.datetime | Unset = UNSET
+    ended_before_filter: datetime.datetime | Unset = UNSET
+    state_filter: ESessionState | Unset = UNSET
+    result_filter: ESessionResult | Unset = UNSET
+    scan_type_filter: EAntivirusScanType | Unset = UNSET
+    scan_result_filter: EAntivirusScanResult | Unset = UNSET
+    scan_state_filter: EAntivirusScanState | Unset = UNSET
+    session_id_filter: UUID | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -75,7 +75,7 @@ class TaskSessionsFilters:
 
         limit = self.limit
 
-        order_column: Union[Unset, str] = UNSET
+        order_column: str | Unset = UNSET
         if not isinstance(self.order_column, Unset):
             order_column = self.order_column.value
 
@@ -83,51 +83,51 @@ class TaskSessionsFilters:
 
         name_filter = self.name_filter
 
-        type_filter: Union[Unset, str] = UNSET
+        type_filter: str | Unset = UNSET
         if not isinstance(self.type_filter, Unset):
             type_filter = self.type_filter.value
 
-        session_type_filter: Union[Unset, str] = UNSET
+        session_type_filter: str | Unset = UNSET
         if not isinstance(self.session_type_filter, Unset):
             session_type_filter = self.session_type_filter.value
 
-        created_after_filter: Union[Unset, str] = UNSET
+        created_after_filter: str | Unset = UNSET
         if not isinstance(self.created_after_filter, Unset):
             created_after_filter = self.created_after_filter.isoformat()
 
-        created_before_filter: Union[Unset, str] = UNSET
+        created_before_filter: str | Unset = UNSET
         if not isinstance(self.created_before_filter, Unset):
             created_before_filter = self.created_before_filter.isoformat()
 
-        ended_after_filter: Union[Unset, str] = UNSET
+        ended_after_filter: str | Unset = UNSET
         if not isinstance(self.ended_after_filter, Unset):
             ended_after_filter = self.ended_after_filter.isoformat()
 
-        ended_before_filter: Union[Unset, str] = UNSET
+        ended_before_filter: str | Unset = UNSET
         if not isinstance(self.ended_before_filter, Unset):
             ended_before_filter = self.ended_before_filter.isoformat()
 
-        state_filter: Union[Unset, str] = UNSET
+        state_filter: str | Unset = UNSET
         if not isinstance(self.state_filter, Unset):
             state_filter = self.state_filter.value
 
-        result_filter: Union[Unset, str] = UNSET
+        result_filter: str | Unset = UNSET
         if not isinstance(self.result_filter, Unset):
             result_filter = self.result_filter.value
 
-        scan_type_filter: Union[Unset, str] = UNSET
+        scan_type_filter: str | Unset = UNSET
         if not isinstance(self.scan_type_filter, Unset):
             scan_type_filter = self.scan_type_filter.value
 
-        scan_result_filter: Union[Unset, str] = UNSET
+        scan_result_filter: str | Unset = UNSET
         if not isinstance(self.scan_result_filter, Unset):
             scan_result_filter = self.scan_result_filter.value
 
-        scan_state_filter: Union[Unset, str] = UNSET
+        scan_state_filter: str | Unset = UNSET
         if not isinstance(self.scan_state_filter, Unset):
             scan_state_filter = self.scan_state_filter.value
 
-        session_id_filter: Union[Unset, str] = UNSET
+        session_id_filter: str | Unset = UNSET
         if not isinstance(self.session_id_filter, Unset):
             session_id_filter = str(self.session_id_filter)
 
@@ -179,7 +179,7 @@ class TaskSessionsFilters:
         limit = d.pop("limit", UNSET)
 
         _order_column = d.pop("orderColumn", UNSET)
-        order_column: Union[Unset, ETaskSessionsFiltersOrderColumn]
+        order_column: ETaskSessionsFiltersOrderColumn | Unset
         if isinstance(_order_column, Unset):
             order_column = UNSET
         else:
@@ -190,84 +190,84 @@ class TaskSessionsFilters:
         name_filter = d.pop("nameFilter", UNSET)
 
         _type_filter = d.pop("typeFilter", UNSET)
-        type_filter: Union[Unset, ETaskSessionType]
+        type_filter: ETaskSessionType | Unset
         if isinstance(_type_filter, Unset):
             type_filter = UNSET
         else:
             type_filter = ETaskSessionType(_type_filter)
 
         _session_type_filter = d.pop("sessionTypeFilter", UNSET)
-        session_type_filter: Union[Unset, ESessionType]
+        session_type_filter: ESessionType | Unset
         if isinstance(_session_type_filter, Unset):
             session_type_filter = UNSET
         else:
             session_type_filter = ESessionType(_session_type_filter)
 
         _created_after_filter = d.pop("createdAfterFilter", UNSET)
-        created_after_filter: Union[Unset, datetime.datetime]
+        created_after_filter: datetime.datetime | Unset
         if isinstance(_created_after_filter, Unset):
             created_after_filter = UNSET
         else:
             created_after_filter = isoparse(_created_after_filter)
 
         _created_before_filter = d.pop("createdBeforeFilter", UNSET)
-        created_before_filter: Union[Unset, datetime.datetime]
+        created_before_filter: datetime.datetime | Unset
         if isinstance(_created_before_filter, Unset):
             created_before_filter = UNSET
         else:
             created_before_filter = isoparse(_created_before_filter)
 
         _ended_after_filter = d.pop("endedAfterFilter", UNSET)
-        ended_after_filter: Union[Unset, datetime.datetime]
+        ended_after_filter: datetime.datetime | Unset
         if isinstance(_ended_after_filter, Unset):
             ended_after_filter = UNSET
         else:
             ended_after_filter = isoparse(_ended_after_filter)
 
         _ended_before_filter = d.pop("endedBeforeFilter", UNSET)
-        ended_before_filter: Union[Unset, datetime.datetime]
+        ended_before_filter: datetime.datetime | Unset
         if isinstance(_ended_before_filter, Unset):
             ended_before_filter = UNSET
         else:
             ended_before_filter = isoparse(_ended_before_filter)
 
         _state_filter = d.pop("stateFilter", UNSET)
-        state_filter: Union[Unset, ESessionState]
+        state_filter: ESessionState | Unset
         if isinstance(_state_filter, Unset):
             state_filter = UNSET
         else:
             state_filter = ESessionState(_state_filter)
 
         _result_filter = d.pop("resultFilter", UNSET)
-        result_filter: Union[Unset, ESessionResult]
+        result_filter: ESessionResult | Unset
         if isinstance(_result_filter, Unset):
             result_filter = UNSET
         else:
             result_filter = ESessionResult(_result_filter)
 
         _scan_type_filter = d.pop("scanTypeFilter", UNSET)
-        scan_type_filter: Union[Unset, EAntivirusScanType]
+        scan_type_filter: EAntivirusScanType | Unset
         if isinstance(_scan_type_filter, Unset):
             scan_type_filter = UNSET
         else:
             scan_type_filter = EAntivirusScanType(_scan_type_filter)
 
         _scan_result_filter = d.pop("scanResultFilter", UNSET)
-        scan_result_filter: Union[Unset, EAntivirusScanResult]
+        scan_result_filter: EAntivirusScanResult | Unset
         if isinstance(_scan_result_filter, Unset):
             scan_result_filter = UNSET
         else:
             scan_result_filter = EAntivirusScanResult(_scan_result_filter)
 
         _scan_state_filter = d.pop("scanStateFilter", UNSET)
-        scan_state_filter: Union[Unset, EAntivirusScanState]
+        scan_state_filter: EAntivirusScanState | Unset
         if isinstance(_scan_state_filter, Unset):
             scan_state_filter = UNSET
         else:
             scan_state_filter = EAntivirusScanState(_scan_state_filter)
 
         _session_id_filter = d.pop("sessionIdFilter", UNSET)
-        session_id_filter: Union[Unset, UUID]
+        session_id_filter: UUID | Unset
         if isinstance(_session_id_filter, Unset):
             session_id_filter = UNSET
         else:

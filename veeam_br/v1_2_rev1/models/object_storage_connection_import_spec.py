@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -16,18 +18,18 @@ class ObjectStorageConnectionImportSpec:
 
     Attributes:
         connection_type (ERepositoryConnectionType): Repository connection type (direct or through a gateway server).
-        gateway_servers (Union[Unset, list[str]]): Array of gateway server IDs. The value is *null* if the connection
-            type is *Direct*.
+        gateway_servers (list[str] | Unset): Array of gateway server IDs. The value is *null* if the connection type is
+            *Direct*.
     """
 
     connection_type: ERepositoryConnectionType
-    gateway_servers: Union[Unset, list[str]] = UNSET
+    gateway_servers: list[str] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         connection_type = self.connection_type.value
 
-        gateway_servers: Union[Unset, list[str]] = UNSET
+        gateway_servers: list[str] | Unset = UNSET
         if not isinstance(self.gateway_servers, Unset):
             gateway_servers = self.gateway_servers
 

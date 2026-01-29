@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,21 +22,21 @@ class LinuxAgentBackupJobFilesModel:
     """Backup scope settings for Veeam Agent for Linux backup jobs.
 
     Attributes:
-        custom_files (Union[Unset, list[str]]): Array of directory paths that will be included in the backup scope.
-        advanced_settings (Union[Unset, LinuxAgentBackupJobFilesAdvancedSettingsModel]): Advanced settings for files
-            backed up with Veeam Agent for Linux backup job.
+        custom_files (list[str] | Unset): Array of directory paths that will be included in the backup scope.
+        advanced_settings (LinuxAgentBackupJobFilesAdvancedSettingsModel | Unset): Advanced settings for files backed up
+            with Veeam Agent for Linux backup job.
     """
 
-    custom_files: Union[Unset, list[str]] = UNSET
-    advanced_settings: Union[Unset, "LinuxAgentBackupJobFilesAdvancedSettingsModel"] = UNSET
+    custom_files: list[str] | Unset = UNSET
+    advanced_settings: LinuxAgentBackupJobFilesAdvancedSettingsModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        custom_files: Union[Unset, list[str]] = UNSET
+        custom_files: list[str] | Unset = UNSET
         if not isinstance(self.custom_files, Unset):
             custom_files = self.custom_files
 
-        advanced_settings: Union[Unset, dict[str, Any]] = UNSET
+        advanced_settings: dict[str, Any] | Unset = UNSET
         if not isinstance(self.advanced_settings, Unset):
             advanced_settings = self.advanced_settings.to_dict()
 
@@ -58,7 +60,7 @@ class LinuxAgentBackupJobFilesModel:
         custom_files = cast(list[str], d.pop("customFiles", UNSET))
 
         _advanced_settings = d.pop("advancedSettings", UNSET)
-        advanced_settings: Union[Unset, LinuxAgentBackupJobFilesAdvancedSettingsModel]
+        advanced_settings: LinuxAgentBackupJobFilesAdvancedSettingsModel | Unset
         if isinstance(_advanced_settings, Unset):
             advanced_settings = UNSET
         else:

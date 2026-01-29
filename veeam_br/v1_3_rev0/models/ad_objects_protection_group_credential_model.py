@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -23,13 +25,13 @@ class ADObjectsProtectionGroupCredentialModel:
             a protection scope.
         use_custom_credentials (bool): If `true`, custom credentials are used for authenticating with the specified
             Active Directory objects.
-        custom_credentials (Union[Unset, list['ADObjectCustomCredentialsModel']]): Array of credentials for
-            authenticating to the specified Active Directory objects.
+        custom_credentials (list[ADObjectCustomCredentialsModel] | Unset): Array of credentials for authenticating to
+            the specified Active Directory objects.
     """
 
     master_credentials_id: UUID
     use_custom_credentials: bool
-    custom_credentials: Union[Unset, list["ADObjectCustomCredentialsModel"]] = UNSET
+    custom_credentials: list[ADObjectCustomCredentialsModel] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -37,7 +39,7 @@ class ADObjectsProtectionGroupCredentialModel:
 
         use_custom_credentials = self.use_custom_credentials
 
-        custom_credentials: Union[Unset, list[dict[str, Any]]] = UNSET
+        custom_credentials: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.custom_credentials, Unset):
             custom_credentials = []
             for custom_credentials_item_data in self.custom_credentials:
@@ -66,12 +68,14 @@ class ADObjectsProtectionGroupCredentialModel:
 
         use_custom_credentials = d.pop("useCustomCredentials")
 
-        custom_credentials = []
         _custom_credentials = d.pop("customCredentials", UNSET)
-        for custom_credentials_item_data in _custom_credentials or []:
-            custom_credentials_item = ADObjectCustomCredentialsModel.from_dict(custom_credentials_item_data)
+        custom_credentials: list[ADObjectCustomCredentialsModel] | Unset = UNSET
+        if _custom_credentials is not UNSET:
+            custom_credentials = []
+            for custom_credentials_item_data in _custom_credentials:
+                custom_credentials_item = ADObjectCustomCredentialsModel.from_dict(custom_credentials_item_data)
 
-            custom_credentials.append(custom_credentials_item)
+                custom_credentials.append(custom_credentials_item)
 
         ad_objects_protection_group_credential_model = cls(
             master_credentials_id=master_credentials_id,

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,11 +16,11 @@ class FlrCompareAttributesSpec:
     """
     Attributes:
         path (str): Path to the item whose attributes you want to compare.
-        show_unchanged_attributes (Union[Unset, bool]): If `true`, unchanged item attributes are also returned.
+        show_unchanged_attributes (bool | Unset): If `true`, unchanged item attributes are also returned.
     """
 
     path: str
-    show_unchanged_attributes: Union[Unset, bool] = UNSET
+    show_unchanged_attributes: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

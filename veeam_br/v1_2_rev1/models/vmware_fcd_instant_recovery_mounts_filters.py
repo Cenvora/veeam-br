@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -17,20 +19,20 @@ T = TypeVar("T", bound="VmwareFcdInstantRecoveryMountsFilters")
 class VmwareFcdInstantRecoveryMountsFilters:
     """
     Attributes:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):
-        order_column (Union[Unset, EVmwareFcdInstantRecoveryMountsFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        state_filter (Union[Unset, EInstantRecoveryMountState]): Mount state.
+        skip (int | Unset):
+        limit (int | Unset):
+        order_column (EVmwareFcdInstantRecoveryMountsFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        state_filter (EInstantRecoveryMountState | Unset): Mount state.
     """
 
-    skip: Union[Unset, int] = UNSET
-    limit: Union[Unset, int] = UNSET
-    order_column: Union[Unset, EVmwareFcdInstantRecoveryMountsFiltersOrderColumn] = UNSET
-    order_asc: Union[Unset, bool] = UNSET
-    name_filter: Union[Unset, str] = UNSET
-    state_filter: Union[Unset, EInstantRecoveryMountState] = UNSET
+    skip: int | Unset = UNSET
+    limit: int | Unset = UNSET
+    order_column: EVmwareFcdInstantRecoveryMountsFiltersOrderColumn | Unset = UNSET
+    order_asc: bool | Unset = UNSET
+    name_filter: str | Unset = UNSET
+    state_filter: EInstantRecoveryMountState | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -38,7 +40,7 @@ class VmwareFcdInstantRecoveryMountsFilters:
 
         limit = self.limit
 
-        order_column: Union[Unset, str] = UNSET
+        order_column: str | Unset = UNSET
         if not isinstance(self.order_column, Unset):
             order_column = self.order_column.value
 
@@ -46,7 +48,7 @@ class VmwareFcdInstantRecoveryMountsFilters:
 
         name_filter = self.name_filter
 
-        state_filter: Union[Unset, str] = UNSET
+        state_filter: str | Unset = UNSET
         if not isinstance(self.state_filter, Unset):
             state_filter = self.state_filter.value
 
@@ -76,7 +78,7 @@ class VmwareFcdInstantRecoveryMountsFilters:
         limit = d.pop("limit", UNSET)
 
         _order_column = d.pop("orderColumn", UNSET)
-        order_column: Union[Unset, EVmwareFcdInstantRecoveryMountsFiltersOrderColumn]
+        order_column: EVmwareFcdInstantRecoveryMountsFiltersOrderColumn | Unset
         if isinstance(_order_column, Unset):
             order_column = UNSET
         else:
@@ -87,7 +89,7 @@ class VmwareFcdInstantRecoveryMountsFilters:
         name_filter = d.pop("nameFilter", UNSET)
 
         _state_filter = d.pop("stateFilter", UNSET)
-        state_filter: Union[Unset, EInstantRecoveryMountState]
+        state_filter: EInstantRecoveryMountState | Unset
         if isinstance(_state_filter, Unset):
             state_filter = UNSET
         else:

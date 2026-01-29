@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
@@ -22,14 +24,14 @@ class UserModel:
         id (UUID): User or group ID.
         name (str): User or group name.
         type_ (EUserType): User or group type.
-        roles (list['RoleModel']): Array of roles assigned to the user or group.
+        roles (list[RoleModel]): Array of roles assigned to the user or group.
         is_service_account (bool): If `true`, the user or group is a service account.
     """
 
     id: UUID
     name: str
     type_: EUserType
-    roles: list["RoleModel"]
+    roles: list[RoleModel]
     is_service_account: bool
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 

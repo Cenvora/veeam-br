@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -26,16 +28,16 @@ class AmazonS3GlacierStorageImportSpec:
         type_ (ERepositoryType): Repository type.
         account (AmazonS3StorageAccountImportModel): Account used to access the Amazon S3 storage.
         bucket (AmazonS3GlacierStorageBucketModel): Amazon S3 Glacier bucket where backup data is stored.
-        proxy_appliance (Union[Unset, AmazonS3StorageProxyApplianceModel]): Amazon S3 proxy appliance.
+        proxy_appliance (AmazonS3StorageProxyApplianceModel | Unset): Amazon S3 proxy appliance.
     """
 
     name: str
     description: str
     unique_id: str
     type_: ERepositoryType
-    account: "AmazonS3StorageAccountImportModel"
-    bucket: "AmazonS3GlacierStorageBucketModel"
-    proxy_appliance: Union[Unset, "AmazonS3StorageProxyApplianceModel"] = UNSET
+    account: AmazonS3StorageAccountImportModel
+    bucket: AmazonS3GlacierStorageBucketModel
+    proxy_appliance: AmazonS3StorageProxyApplianceModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -51,7 +53,7 @@ class AmazonS3GlacierStorageImportSpec:
 
         bucket = self.bucket.to_dict()
 
-        proxy_appliance: Union[Unset, dict[str, Any]] = UNSET
+        proxy_appliance: dict[str, Any] | Unset = UNSET
         if not isinstance(self.proxy_appliance, Unset):
             proxy_appliance = self.proxy_appliance.to_dict()
 
@@ -92,7 +94,7 @@ class AmazonS3GlacierStorageImportSpec:
         bucket = AmazonS3GlacierStorageBucketModel.from_dict(d.pop("bucket"))
 
         _proxy_appliance = d.pop("proxyAppliance", UNSET)
-        proxy_appliance: Union[Unset, AmazonS3StorageProxyApplianceModel]
+        proxy_appliance: AmazonS3StorageProxyApplianceModel | Unset
         if isinstance(_proxy_appliance, Unset):
             proxy_appliance = UNSET
         else:

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,12 +17,12 @@ class HyperVGuestQuiescenceSettingsModel:
 
     Attributes:
         is_enabled (bool): If `true`, Microsoft Hyper-V guest quiescence is used.
-        crash_consistent_backup (Union[Unset, bool]): If `true`, Veeam Backup & Replication will create a crash-
-            consistent backup of a VM.
+        crash_consistent_backup (bool | Unset): If `true`, Veeam Backup & Replication will create a crash-consistent
+            backup of a VM.
     """
 
     is_enabled: bool
-    crash_consistent_backup: Union[Unset, bool] = UNSET
+    crash_consistent_backup: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

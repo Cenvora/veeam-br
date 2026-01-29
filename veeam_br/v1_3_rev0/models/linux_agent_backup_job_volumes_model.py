@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 
@@ -16,10 +18,10 @@ class LinuxAgentBackupJobVolumesModel:
     """Details on volume objects.
 
     Attributes:
-        volume_object (list['LinuxAgentBackupJobVolumeObjectModel']): Array of volume objects.
+        volume_object (list[LinuxAgentBackupJobVolumeObjectModel]): Array of volume objects.
     """
 
-    volume_object: list["LinuxAgentBackupJobVolumeObjectModel"]
+    volume_object: list[LinuxAgentBackupJobVolumeObjectModel]
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -18,21 +20,21 @@ class SuspiciousActivityMachineSpec:
     addresses and domain name and will not be able to identify the machine.</p>
 
         Attributes:
-            fqdn (Union[Unset, str]): Fully Qualified Domain Name of the machine.
-            ipv4 (Union[Unset, str]): IPv4 address of machine.
-            ipv6 (Union[Unset, str]): IPv6 address of the machine.
-            uuid (Union[Unset, str]): BIOS UUID of the machine. Specify the UUID in the 8-4-4-4-12 format&#58; xxxxxxxx-
-                xxxx-xxxx-xxxx-xxxxxxxxxxxx.
-            backup_object_id (Union[Unset, UUID]): Backup object ID of the machine.
-            restore_point_id (Union[Unset, UUID]): Restore point ID of the backed up machine.
+            fqdn (str | Unset): Fully Qualified Domain Name of the machine.
+            ipv4 (str | Unset): IPv4 address of machine.
+            ipv6 (str | Unset): IPv6 address of the machine.
+            uuid (str | Unset): BIOS UUID of the machine. Specify the UUID in the 8-4-4-4-12 format&#58; xxxxxxxx-xxxx-xxxx-
+                xxxx-xxxxxxxxxxxx.
+            backup_object_id (UUID | Unset): Backup object ID of the machine.
+            restore_point_id (UUID | Unset): Restore point ID of the backed up machine.
     """
 
-    fqdn: Union[Unset, str] = UNSET
-    ipv4: Union[Unset, str] = UNSET
-    ipv6: Union[Unset, str] = UNSET
-    uuid: Union[Unset, str] = UNSET
-    backup_object_id: Union[Unset, UUID] = UNSET
-    restore_point_id: Union[Unset, UUID] = UNSET
+    fqdn: str | Unset = UNSET
+    ipv4: str | Unset = UNSET
+    ipv6: str | Unset = UNSET
+    uuid: str | Unset = UNSET
+    backup_object_id: UUID | Unset = UNSET
+    restore_point_id: UUID | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -44,11 +46,11 @@ class SuspiciousActivityMachineSpec:
 
         uuid = self.uuid
 
-        backup_object_id: Union[Unset, str] = UNSET
+        backup_object_id: str | Unset = UNSET
         if not isinstance(self.backup_object_id, Unset):
             backup_object_id = str(self.backup_object_id)
 
-        restore_point_id: Union[Unset, str] = UNSET
+        restore_point_id: str | Unset = UNSET
         if not isinstance(self.restore_point_id, Unset):
             restore_point_id = str(self.restore_point_id)
 
@@ -82,14 +84,14 @@ class SuspiciousActivityMachineSpec:
         uuid = d.pop("uuid", UNSET)
 
         _backup_object_id = d.pop("backupObjectId", UNSET)
-        backup_object_id: Union[Unset, UUID]
+        backup_object_id: UUID | Unset
         if isinstance(_backup_object_id, Unset):
             backup_object_id = UNSET
         else:
             backup_object_id = UUID(_backup_object_id)
 
         _restore_point_id = d.pop("restorePointId", UNSET)
-        restore_point_id: Union[Unset, UUID]
+        restore_point_id: UUID | Unset
         if isinstance(_restore_point_id, Unset):
             restore_point_id = UNSET
         else:

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 
@@ -17,12 +19,12 @@ class ScaleOutRepositoriesResult:
     """Details on scale-out backup repositories.
 
     Attributes:
-        data (list['ScaleOutRepositoryModel']): Array of scale-out backup repositories.
+        data (list[ScaleOutRepositoryModel]): Array of scale-out backup repositories.
         pagination (PaginationResult): Pagination settings.
     """
 
-    data: list["ScaleOutRepositoryModel"]
-    pagination: "PaginationResult"
+    data: list[ScaleOutRepositoryModel]
+    pagination: PaginationResult
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -16,17 +18,17 @@ class InitialSeedingModel:
 
     Attributes:
         is_enabled (bool): If `true`, replica seeding is enabled.
-        repository_id (Union[Unset, UUID]): ID of a backup repository where VM backup is stored.
+        repository_id (UUID | Unset): ID of a backup repository where VM backup is stored.
     """
 
     is_enabled: bool
-    repository_id: Union[Unset, UUID] = UNSET
+    repository_id: UUID | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         is_enabled = self.is_enabled
 
-        repository_id: Union[Unset, str] = UNSET
+        repository_id: str | Unset = UNSET
         if not isinstance(self.repository_id, Unset):
             repository_id = str(self.repository_id)
 
@@ -48,7 +50,7 @@ class InitialSeedingModel:
         is_enabled = d.pop("isEnabled")
 
         _repository_id = d.pop("repositoryId", UNSET)
-        repository_id: Union[Unset, UUID]
+        repository_id: UUID | Unset
         if isinstance(_repository_id, Unset):
             repository_id = UNSET
         else:

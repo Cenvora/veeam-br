@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -17,17 +19,17 @@ class SortExpressionModel:
     Attributes:
         property_ (str): Name of an `InventoryObjectModel` property by which you want to sort the result. Possible
             values&#58; *platform*, *size*, *hostName*, *name*, *type*, *objectId*, *urn*.
-        direction (Union[Unset, ESortExpressionDirectionType]): Sorting order.
+        direction (ESortExpressionDirectionType | Unset): Sorting order.
     """
 
     property_: str
-    direction: Union[Unset, ESortExpressionDirectionType] = UNSET
+    direction: ESortExpressionDirectionType | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         property_ = self.property_
 
-        direction: Union[Unset, str] = UNSET
+        direction: str | Unset = UNSET
         if not isinstance(self.direction, Unset):
             direction = self.direction.value
 
@@ -49,7 +51,7 @@ class SortExpressionModel:
         property_ = d.pop("property")
 
         _direction = d.pop("direction", UNSET)
-        direction: Union[Unset, ESortExpressionDirectionType]
+        direction: ESortExpressionDirectionType | Unset
         if isinstance(_direction, Unset):
             direction = UNSET
         else:

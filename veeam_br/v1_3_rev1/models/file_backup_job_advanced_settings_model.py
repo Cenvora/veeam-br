@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -23,47 +25,46 @@ class FileBackupJobAdvancedSettingsModel:
     """Advanced settings for file share backup job.
 
     Attributes:
-        file_versions (Union[Unset, BackupItemVersionsSettingsModel]): Settings for version-based retention policy.
-        acl_handling (Union[Unset, ACLHandlingSettingsModel]): ACL handling settings.
-        storage_data (Union[Unset, FileBackupStorageSettingsModel]): Storage settings for file share backup.
-        backup_health (Union[Unset, BackupHealthCheckSettingsModels]): Health check settings for the latest restore
-            point in the backup chain.
-        scripts (Union[Unset, JobScriptsSettingsModel]): Script settings.<ul><li>`preCommand` — script executed before
-            the job</li><li>`postCommand` — script executed after the job</li></ul>
-        notifications (Union[Unset, FileBackupNotificationSettingsModel]): Notification settings for file share backup
-            job.
+        file_versions (BackupItemVersionsSettingsModel | Unset): Settings for version-based retention policy.
+        acl_handling (ACLHandlingSettingsModel | Unset): ACL handling settings.
+        storage_data (FileBackupStorageSettingsModel | Unset): Storage settings for file share backup.
+        backup_health (BackupHealthCheckSettingsModels | Unset): Health check settings for the latest restore point in
+            the backup chain.
+        scripts (JobScriptsSettingsModel | Unset): Script settings.<ul><li>`preCommand` — script executed before the
+            job</li><li>`postCommand` — script executed after the job</li></ul>
+        notifications (FileBackupNotificationSettingsModel | Unset): Notification settings for file share backup job.
     """
 
-    file_versions: Union[Unset, "BackupItemVersionsSettingsModel"] = UNSET
-    acl_handling: Union[Unset, "ACLHandlingSettingsModel"] = UNSET
-    storage_data: Union[Unset, "FileBackupStorageSettingsModel"] = UNSET
-    backup_health: Union[Unset, "BackupHealthCheckSettingsModels"] = UNSET
-    scripts: Union[Unset, "JobScriptsSettingsModel"] = UNSET
-    notifications: Union[Unset, "FileBackupNotificationSettingsModel"] = UNSET
+    file_versions: BackupItemVersionsSettingsModel | Unset = UNSET
+    acl_handling: ACLHandlingSettingsModel | Unset = UNSET
+    storage_data: FileBackupStorageSettingsModel | Unset = UNSET
+    backup_health: BackupHealthCheckSettingsModels | Unset = UNSET
+    scripts: JobScriptsSettingsModel | Unset = UNSET
+    notifications: FileBackupNotificationSettingsModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        file_versions: Union[Unset, dict[str, Any]] = UNSET
+        file_versions: dict[str, Any] | Unset = UNSET
         if not isinstance(self.file_versions, Unset):
             file_versions = self.file_versions.to_dict()
 
-        acl_handling: Union[Unset, dict[str, Any]] = UNSET
+        acl_handling: dict[str, Any] | Unset = UNSET
         if not isinstance(self.acl_handling, Unset):
             acl_handling = self.acl_handling.to_dict()
 
-        storage_data: Union[Unset, dict[str, Any]] = UNSET
+        storage_data: dict[str, Any] | Unset = UNSET
         if not isinstance(self.storage_data, Unset):
             storage_data = self.storage_data.to_dict()
 
-        backup_health: Union[Unset, dict[str, Any]] = UNSET
+        backup_health: dict[str, Any] | Unset = UNSET
         if not isinstance(self.backup_health, Unset):
             backup_health = self.backup_health.to_dict()
 
-        scripts: Union[Unset, dict[str, Any]] = UNSET
+        scripts: dict[str, Any] | Unset = UNSET
         if not isinstance(self.scripts, Unset):
             scripts = self.scripts.to_dict()
 
-        notifications: Union[Unset, dict[str, Any]] = UNSET
+        notifications: dict[str, Any] | Unset = UNSET
         if not isinstance(self.notifications, Unset):
             notifications = self.notifications.to_dict()
 
@@ -96,42 +97,42 @@ class FileBackupJobAdvancedSettingsModel:
 
         d = dict(src_dict)
         _file_versions = d.pop("fileVersions", UNSET)
-        file_versions: Union[Unset, BackupItemVersionsSettingsModel]
+        file_versions: BackupItemVersionsSettingsModel | Unset
         if isinstance(_file_versions, Unset):
             file_versions = UNSET
         else:
             file_versions = BackupItemVersionsSettingsModel.from_dict(_file_versions)
 
         _acl_handling = d.pop("aclHandling", UNSET)
-        acl_handling: Union[Unset, ACLHandlingSettingsModel]
+        acl_handling: ACLHandlingSettingsModel | Unset
         if isinstance(_acl_handling, Unset):
             acl_handling = UNSET
         else:
             acl_handling = ACLHandlingSettingsModel.from_dict(_acl_handling)
 
         _storage_data = d.pop("storageData", UNSET)
-        storage_data: Union[Unset, FileBackupStorageSettingsModel]
+        storage_data: FileBackupStorageSettingsModel | Unset
         if isinstance(_storage_data, Unset):
             storage_data = UNSET
         else:
             storage_data = FileBackupStorageSettingsModel.from_dict(_storage_data)
 
         _backup_health = d.pop("backupHealth", UNSET)
-        backup_health: Union[Unset, BackupHealthCheckSettingsModels]
+        backup_health: BackupHealthCheckSettingsModels | Unset
         if isinstance(_backup_health, Unset):
             backup_health = UNSET
         else:
             backup_health = BackupHealthCheckSettingsModels.from_dict(_backup_health)
 
         _scripts = d.pop("scripts", UNSET)
-        scripts: Union[Unset, JobScriptsSettingsModel]
+        scripts: JobScriptsSettingsModel | Unset
         if isinstance(_scripts, Unset):
             scripts = UNSET
         else:
             scripts = JobScriptsSettingsModel.from_dict(_scripts)
 
         _notifications = d.pop("notifications", UNSET)
-        notifications: Union[Unset, FileBackupNotificationSettingsModel]
+        notifications: FileBackupNotificationSettingsModel | Unset
         if isinstance(_notifications, Unset):
             notifications = UNSET
         else:

@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -17,11 +19,11 @@ class ServerTimeModel:
 
     Attributes:
         server_time (datetime.datetime): Current date and time on the backup server.
-        time_zone (Union[Unset, str]): Time zone where the backup server is located.
+        time_zone (str | Unset): Time zone where the backup server is located.
     """
 
     server_time: datetime.datetime
-    time_zone: Union[Unset, str] = UNSET
+    time_zone: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

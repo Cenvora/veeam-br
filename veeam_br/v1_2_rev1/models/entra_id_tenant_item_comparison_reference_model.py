@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 
@@ -20,12 +22,12 @@ class EntraIdTenantItemComparisonReferenceModel:
     Attributes:
         reference_type (str): Reference type.
         reference_type_display_name (str): Display name of the reference type.
-        values (list['EntraIdTenantItemComparisonReferenceValueModel']): Array of values.
+        values (list[EntraIdTenantItemComparisonReferenceValueModel]): Array of values.
     """
 
     reference_type: str
     reference_type_display_name: str
-    values: list["EntraIdTenantItemComparisonReferenceValueModel"]
+    values: list[EntraIdTenantItemComparisonReferenceValueModel]
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

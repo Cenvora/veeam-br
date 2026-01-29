@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,16 +16,16 @@ T = TypeVar("T", bound="FlrBrowseMountFilters")
 class FlrBrowseMountFilters:
     """
     Attributes:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):
-        order_column (Union[Unset, EFlrBrowseMountFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
+        skip (int | Unset):
+        limit (int | Unset):
+        order_column (EFlrBrowseMountFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
     """
 
-    skip: Union[Unset, int] = UNSET
-    limit: Union[Unset, int] = UNSET
-    order_column: Union[Unset, EFlrBrowseMountFiltersOrderColumn] = UNSET
-    order_asc: Union[Unset, bool] = UNSET
+    skip: int | Unset = UNSET
+    limit: int | Unset = UNSET
+    order_column: EFlrBrowseMountFiltersOrderColumn | Unset = UNSET
+    order_asc: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -31,7 +33,7 @@ class FlrBrowseMountFilters:
 
         limit = self.limit
 
-        order_column: Union[Unset, str] = UNSET
+        order_column: str | Unset = UNSET
         if not isinstance(self.order_column, Unset):
             order_column = self.order_column.value
 
@@ -59,7 +61,7 @@ class FlrBrowseMountFilters:
         limit = d.pop("limit", UNSET)
 
         _order_column = d.pop("orderColumn", UNSET)
-        order_column: Union[Unset, EFlrBrowseMountFiltersOrderColumn]
+        order_column: EFlrBrowseMountFiltersOrderColumn | Unset
         if isinstance(_order_column, Unset):
             order_column = UNSET
         else:

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -18,21 +20,21 @@ T = TypeVar("T", bound="WANAcceleratorSpec")
 class WANAcceleratorSpec:
     """
     Attributes:
-        server (Union[Unset, WANAcceleratorServerModel]): Microsoft Windows server used as a WAN accelerator.
-        cache (Union[Unset, WANAcceleratorCacheModel]): Cache settings. Cache is used for storing service files (for
-            source and target WAN accelerators) and global cache data (for target WAN accelerator).
+        server (WANAcceleratorServerModel | Unset): Microsoft Windows server used as a WAN accelerator.
+        cache (WANAcceleratorCacheModel | Unset): Cache settings. Cache is used for storing service files (for source
+            and target WAN accelerators) and global cache data (for target WAN accelerator).
     """
 
-    server: Union[Unset, "WANAcceleratorServerModel"] = UNSET
-    cache: Union[Unset, "WANAcceleratorCacheModel"] = UNSET
+    server: WANAcceleratorServerModel | Unset = UNSET
+    cache: WANAcceleratorCacheModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        server: Union[Unset, dict[str, Any]] = UNSET
+        server: dict[str, Any] | Unset = UNSET
         if not isinstance(self.server, Unset):
             server = self.server.to_dict()
 
-        cache: Union[Unset, dict[str, Any]] = UNSET
+        cache: dict[str, Any] | Unset = UNSET
         if not isinstance(self.cache, Unset):
             cache = self.cache.to_dict()
 
@@ -53,14 +55,14 @@ class WANAcceleratorSpec:
 
         d = dict(src_dict)
         _server = d.pop("server", UNSET)
-        server: Union[Unset, WANAcceleratorServerModel]
+        server: WANAcceleratorServerModel | Unset
         if isinstance(_server, Unset):
             server = UNSET
         else:
             server = WANAcceleratorServerModel.from_dict(_server)
 
         _cache = d.pop("cache", UNSET)
-        cache: Union[Unset, WANAcceleratorCacheModel]
+        cache: WANAcceleratorCacheModel | Unset
         if isinstance(_cache, Unset):
             cache = UNSET
         else:

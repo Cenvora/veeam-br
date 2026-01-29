@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,17 +21,17 @@ class ConfigBackupNotificationsModel:
 
     Attributes:
         snmp_enabled (bool): If `true`, SNMP traps are enabled for this job.
-        smtp_settings (Union[Unset, ConfigBackupSMTPSettigsModel]): Email notification settings.
+        smtp_settings (ConfigBackupSMTPSettigsModel | Unset): Email notification settings.
     """
 
     snmp_enabled: bool
-    smtp_settings: Union[Unset, "ConfigBackupSMTPSettigsModel"] = UNSET
+    smtp_settings: ConfigBackupSMTPSettigsModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         snmp_enabled = self.snmp_enabled
 
-        smtp_settings: Union[Unset, dict[str, Any]] = UNSET
+        smtp_settings: dict[str, Any] | Unset = UNSET
         if not isinstance(self.smtp_settings, Unset):
             smtp_settings = self.smtp_settings.to_dict()
 
@@ -53,7 +55,7 @@ class ConfigBackupNotificationsModel:
         snmp_enabled = d.pop("SNMPEnabled")
 
         _smtp_settings = d.pop("SMTPSettings", UNSET)
-        smtp_settings: Union[Unset, ConfigBackupSMTPSettigsModel]
+        smtp_settings: ConfigBackupSMTPSettigsModel | Unset
         if isinstance(_smtp_settings, Unset):
             smtp_settings = UNSET
         else:

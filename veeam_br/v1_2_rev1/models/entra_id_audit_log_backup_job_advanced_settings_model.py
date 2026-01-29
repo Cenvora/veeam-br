@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -21,34 +23,34 @@ class EntraIDAuditLogBackupJobAdvancedSettingsModel:
     """Advanced settings.
 
     Attributes:
-        storage_data (Union[Unset, EntraIDBackupStorageSettingsModel]): Storage settings.
-        backup_health (Union[Unset, BackupHealthCheckSettingsModels]): Health check settings for the latest restore
-            point in the backup chain.
-        scripts (Union[Unset, JobScriptsSettingsModel]): Script settings.<ul><li>`preCommand` — script executed before
-            the job</li><li>`postCommand` — script executed after the job</li></ul>
-        notifications (Union[Unset, EntraIDAuditLogNotificationSettingsModel]): Notification settings.
+        storage_data (EntraIDBackupStorageSettingsModel | Unset): Storage settings.
+        backup_health (BackupHealthCheckSettingsModels | Unset): Health check settings for the latest restore point in
+            the backup chain.
+        scripts (JobScriptsSettingsModel | Unset): Script settings.<ul><li>`preCommand` — script executed before the
+            job</li><li>`postCommand` — script executed after the job</li></ul>
+        notifications (EntraIDAuditLogNotificationSettingsModel | Unset): Notification settings.
     """
 
-    storage_data: Union[Unset, "EntraIDBackupStorageSettingsModel"] = UNSET
-    backup_health: Union[Unset, "BackupHealthCheckSettingsModels"] = UNSET
-    scripts: Union[Unset, "JobScriptsSettingsModel"] = UNSET
-    notifications: Union[Unset, "EntraIDAuditLogNotificationSettingsModel"] = UNSET
+    storage_data: EntraIDBackupStorageSettingsModel | Unset = UNSET
+    backup_health: BackupHealthCheckSettingsModels | Unset = UNSET
+    scripts: JobScriptsSettingsModel | Unset = UNSET
+    notifications: EntraIDAuditLogNotificationSettingsModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        storage_data: Union[Unset, dict[str, Any]] = UNSET
+        storage_data: dict[str, Any] | Unset = UNSET
         if not isinstance(self.storage_data, Unset):
             storage_data = self.storage_data.to_dict()
 
-        backup_health: Union[Unset, dict[str, Any]] = UNSET
+        backup_health: dict[str, Any] | Unset = UNSET
         if not isinstance(self.backup_health, Unset):
             backup_health = self.backup_health.to_dict()
 
-        scripts: Union[Unset, dict[str, Any]] = UNSET
+        scripts: dict[str, Any] | Unset = UNSET
         if not isinstance(self.scripts, Unset):
             scripts = self.scripts.to_dict()
 
-        notifications: Union[Unset, dict[str, Any]] = UNSET
+        notifications: dict[str, Any] | Unset = UNSET
         if not isinstance(self.notifications, Unset):
             notifications = self.notifications.to_dict()
 
@@ -75,28 +77,28 @@ class EntraIDAuditLogBackupJobAdvancedSettingsModel:
 
         d = dict(src_dict)
         _storage_data = d.pop("storageData", UNSET)
-        storage_data: Union[Unset, EntraIDBackupStorageSettingsModel]
+        storage_data: EntraIDBackupStorageSettingsModel | Unset
         if isinstance(_storage_data, Unset):
             storage_data = UNSET
         else:
             storage_data = EntraIDBackupStorageSettingsModel.from_dict(_storage_data)
 
         _backup_health = d.pop("backupHealth", UNSET)
-        backup_health: Union[Unset, BackupHealthCheckSettingsModels]
+        backup_health: BackupHealthCheckSettingsModels | Unset
         if isinstance(_backup_health, Unset):
             backup_health = UNSET
         else:
             backup_health = BackupHealthCheckSettingsModels.from_dict(_backup_health)
 
         _scripts = d.pop("scripts", UNSET)
-        scripts: Union[Unset, JobScriptsSettingsModel]
+        scripts: JobScriptsSettingsModel | Unset
         if isinstance(_scripts, Unset):
             scripts = UNSET
         else:
             scripts = JobScriptsSettingsModel.from_dict(_scripts)
 
         _notifications = d.pop("notifications", UNSET)
-        notifications: Union[Unset, EntraIDAuditLogNotificationSettingsModel]
+        notifications: EntraIDAuditLogNotificationSettingsModel | Unset
         if isinstance(_notifications, Unset):
             notifications = UNSET
         else:

@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -20,30 +22,30 @@ class ReplicaRestorePointsFilters:
     """Filters for replica restore points.
 
     Attributes:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):
-        order_column (Union[Unset, EReplicaRestorePointsFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
-        created_after_filter (Union[Unset, datetime.datetime]):
-        created_before_filter (Union[Unset, datetime.datetime]):
-        name_filter (Union[Unset, str]):
-        platform_name_filter (Union[Unset, EPlatformType]): Platform type.
-        platform_id_filter (Union[Unset, UUID]):
-        replica_id_filter (Union[Unset, UUID]):
-        malware_status_filter (Union[Unset, ESuspiciousActivitySeverity]): Malware status.
+        skip (int | Unset):
+        limit (int | Unset):
+        order_column (EReplicaRestorePointsFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
+        created_after_filter (datetime.datetime | Unset):
+        created_before_filter (datetime.datetime | Unset):
+        name_filter (str | Unset):
+        platform_name_filter (EPlatformType | Unset): Platform type.
+        platform_id_filter (UUID | Unset):
+        replica_id_filter (UUID | Unset):
+        malware_status_filter (ESuspiciousActivitySeverity | Unset): Malware status.
     """
 
-    skip: Union[Unset, int] = UNSET
-    limit: Union[Unset, int] = UNSET
-    order_column: Union[Unset, EReplicaRestorePointsFiltersOrderColumn] = UNSET
-    order_asc: Union[Unset, bool] = UNSET
-    created_after_filter: Union[Unset, datetime.datetime] = UNSET
-    created_before_filter: Union[Unset, datetime.datetime] = UNSET
-    name_filter: Union[Unset, str] = UNSET
-    platform_name_filter: Union[Unset, EPlatformType] = UNSET
-    platform_id_filter: Union[Unset, UUID] = UNSET
-    replica_id_filter: Union[Unset, UUID] = UNSET
-    malware_status_filter: Union[Unset, ESuspiciousActivitySeverity] = UNSET
+    skip: int | Unset = UNSET
+    limit: int | Unset = UNSET
+    order_column: EReplicaRestorePointsFiltersOrderColumn | Unset = UNSET
+    order_asc: bool | Unset = UNSET
+    created_after_filter: datetime.datetime | Unset = UNSET
+    created_before_filter: datetime.datetime | Unset = UNSET
+    name_filter: str | Unset = UNSET
+    platform_name_filter: EPlatformType | Unset = UNSET
+    platform_id_filter: UUID | Unset = UNSET
+    replica_id_filter: UUID | Unset = UNSET
+    malware_status_filter: ESuspiciousActivitySeverity | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -51,35 +53,35 @@ class ReplicaRestorePointsFilters:
 
         limit = self.limit
 
-        order_column: Union[Unset, str] = UNSET
+        order_column: str | Unset = UNSET
         if not isinstance(self.order_column, Unset):
             order_column = self.order_column.value
 
         order_asc = self.order_asc
 
-        created_after_filter: Union[Unset, str] = UNSET
+        created_after_filter: str | Unset = UNSET
         if not isinstance(self.created_after_filter, Unset):
             created_after_filter = self.created_after_filter.isoformat()
 
-        created_before_filter: Union[Unset, str] = UNSET
+        created_before_filter: str | Unset = UNSET
         if not isinstance(self.created_before_filter, Unset):
             created_before_filter = self.created_before_filter.isoformat()
 
         name_filter = self.name_filter
 
-        platform_name_filter: Union[Unset, str] = UNSET
+        platform_name_filter: str | Unset = UNSET
         if not isinstance(self.platform_name_filter, Unset):
             platform_name_filter = self.platform_name_filter.value
 
-        platform_id_filter: Union[Unset, str] = UNSET
+        platform_id_filter: str | Unset = UNSET
         if not isinstance(self.platform_id_filter, Unset):
             platform_id_filter = str(self.platform_id_filter)
 
-        replica_id_filter: Union[Unset, str] = UNSET
+        replica_id_filter: str | Unset = UNSET
         if not isinstance(self.replica_id_filter, Unset):
             replica_id_filter = str(self.replica_id_filter)
 
-        malware_status_filter: Union[Unset, str] = UNSET
+        malware_status_filter: str | Unset = UNSET
         if not isinstance(self.malware_status_filter, Unset):
             malware_status_filter = self.malware_status_filter.value
 
@@ -119,7 +121,7 @@ class ReplicaRestorePointsFilters:
         limit = d.pop("limit", UNSET)
 
         _order_column = d.pop("orderColumn", UNSET)
-        order_column: Union[Unset, EReplicaRestorePointsFiltersOrderColumn]
+        order_column: EReplicaRestorePointsFiltersOrderColumn | Unset
         if isinstance(_order_column, Unset):
             order_column = UNSET
         else:
@@ -128,14 +130,14 @@ class ReplicaRestorePointsFilters:
         order_asc = d.pop("orderAsc", UNSET)
 
         _created_after_filter = d.pop("createdAfterFilter", UNSET)
-        created_after_filter: Union[Unset, datetime.datetime]
+        created_after_filter: datetime.datetime | Unset
         if isinstance(_created_after_filter, Unset):
             created_after_filter = UNSET
         else:
             created_after_filter = isoparse(_created_after_filter)
 
         _created_before_filter = d.pop("createdBeforeFilter", UNSET)
-        created_before_filter: Union[Unset, datetime.datetime]
+        created_before_filter: datetime.datetime | Unset
         if isinstance(_created_before_filter, Unset):
             created_before_filter = UNSET
         else:
@@ -144,28 +146,28 @@ class ReplicaRestorePointsFilters:
         name_filter = d.pop("nameFilter", UNSET)
 
         _platform_name_filter = d.pop("platformNameFilter", UNSET)
-        platform_name_filter: Union[Unset, EPlatformType]
+        platform_name_filter: EPlatformType | Unset
         if isinstance(_platform_name_filter, Unset):
             platform_name_filter = UNSET
         else:
             platform_name_filter = EPlatformType(_platform_name_filter)
 
         _platform_id_filter = d.pop("platformIdFilter", UNSET)
-        platform_id_filter: Union[Unset, UUID]
+        platform_id_filter: UUID | Unset
         if isinstance(_platform_id_filter, Unset):
             platform_id_filter = UNSET
         else:
             platform_id_filter = UUID(_platform_id_filter)
 
         _replica_id_filter = d.pop("replicaIdFilter", UNSET)
-        replica_id_filter: Union[Unset, UUID]
+        replica_id_filter: UUID | Unset
         if isinstance(_replica_id_filter, Unset):
             replica_id_filter = UNSET
         else:
             replica_id_filter = UUID(_replica_id_filter)
 
         _malware_status_filter = d.pop("malwareStatusFilter", UNSET)
-        malware_status_filter: Union[Unset, ESuspiciousActivitySeverity]
+        malware_status_filter: ESuspiciousActivitySeverity | Unset
         if isinstance(_malware_status_filter, Unset):
             malware_status_filter = UNSET
         else:

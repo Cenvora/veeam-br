@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,23 +17,23 @@ class UnstructuredDataShareRestoreOptionsModel:
     """Restore options for restoring entire file share.
 
     Attributes:
-        rollback (Union[Unset, bool]): If `true`, the file share will be rolled back to the state as of a specific
-            restore point.
-        overwrite_mode (Union[Unset, EUnstructuredDataRestoreOverwriteMode]): Overwrite mode.
-        restore_permissions (Union[Unset, bool]): If `true`, the restored files will keep their original ownership and
+        rollback (bool | Unset): If `true`, the file share will be rolled back to the state as of a specific restore
+            point.
+        overwrite_mode (EUnstructuredDataRestoreOverwriteMode | Unset): Overwrite mode.
+        restore_permissions (bool | Unset): If `true`, the restored files will keep their original ownership and
             security permissions. If `false`, Veeam Backup & Replication will change the security settings. The user account
             under which the Veeam Backup Service runs will be set as the owner of the restored objects.
     """
 
-    rollback: Union[Unset, bool] = UNSET
-    overwrite_mode: Union[Unset, EUnstructuredDataRestoreOverwriteMode] = UNSET
-    restore_permissions: Union[Unset, bool] = UNSET
+    rollback: bool | Unset = UNSET
+    overwrite_mode: EUnstructuredDataRestoreOverwriteMode | Unset = UNSET
+    restore_permissions: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         rollback = self.rollback
 
-        overwrite_mode: Union[Unset, str] = UNSET
+        overwrite_mode: str | Unset = UNSET
         if not isinstance(self.overwrite_mode, Unset):
             overwrite_mode = self.overwrite_mode.value
 
@@ -55,7 +57,7 @@ class UnstructuredDataShareRestoreOptionsModel:
         rollback = d.pop("rollback", UNSET)
 
         _overwrite_mode = d.pop("overwriteMode", UNSET)
-        overwrite_mode: Union[Unset, EUnstructuredDataRestoreOverwriteMode]
+        overwrite_mode: EUnstructuredDataRestoreOverwriteMode | Unset
         if isinstance(_overwrite_mode, Unset):
             overwrite_mode = UNSET
         else:

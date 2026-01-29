@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 
@@ -17,12 +19,12 @@ class VmwareFcdInstantRecoveryMountsResult:
     """Details on FCD mount points.
 
     Attributes:
-        data (list['VmwareFcdInstantRecoveryMount']): Array of FCD mount points.
+        data (list[VmwareFcdInstantRecoveryMount]): Array of FCD mount points.
         pagination (PaginationResult): Pagination settings.
     """
 
-    data: list["VmwareFcdInstantRecoveryMount"]
-    pagination: "PaginationResult"
+    data: list[VmwareFcdInstantRecoveryMount]
+    pagination: PaginationResult
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

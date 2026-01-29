@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,11 +16,11 @@ class PrivateKeyChangeSpec:
     """
     Attributes:
         private_key (str): New private key.
-        passphrase (Union[Unset, str]): Passphrase that protects the private key.
+        passphrase (str | Unset): Passphrase that protects the private key.
     """
 
     private_key: str
-    passphrase: Union[Unset, str] = UNSET
+    passphrase: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

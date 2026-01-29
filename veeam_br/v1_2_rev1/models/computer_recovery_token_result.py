@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 
@@ -16,12 +18,12 @@ T = TypeVar("T", bound="ComputerRecoveryTokenResult")
 class ComputerRecoveryTokenResult:
     """
     Attributes:
-        data (list['ComputerRecoveryTokenModel']): Array of recovery tokens.
+        data (list[ComputerRecoveryTokenModel]): Array of recovery tokens.
         pagination (PaginationResult): Pagination settings.
     """
 
-    data: list["ComputerRecoveryTokenModel"]
-    pagination: "PaginationResult"
+    data: list[ComputerRecoveryTokenModel]
+    pagination: PaginationResult
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

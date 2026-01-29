@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,18 +22,18 @@ class AzureComputeVMSizeModel:
     Attributes:
         instance_size (str): Azure VM size identifier, indicating the VM CPU, memory, and storage capabilities. For
             example, `Standard_F4s_v2` provides 4 CPU cores, 8 GB RAM, and premium SSD support.
-        disks (Union[Unset, list['AzureComputeVMDiskConfigurationModel']]): Array of objects containing settings for
-            Microsoft Azure VM disks.
+        disks (list[AzureComputeVMDiskConfigurationModel] | Unset): Array of objects containing settings for Microsoft
+            Azure VM disks.
     """
 
     instance_size: str
-    disks: Union[Unset, list["AzureComputeVMDiskConfigurationModel"]] = UNSET
+    disks: list[AzureComputeVMDiskConfigurationModel] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         instance_size = self.instance_size
 
-        disks: Union[Unset, list[dict[str, Any]]] = UNSET
+        disks: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.disks, Unset):
             disks = []
             for disks_item_data in self.disks:
@@ -57,12 +59,14 @@ class AzureComputeVMSizeModel:
         d = dict(src_dict)
         instance_size = d.pop("instanceSize")
 
-        disks = []
         _disks = d.pop("disks", UNSET)
-        for disks_item_data in _disks or []:
-            disks_item = AzureComputeVMDiskConfigurationModel.from_dict(disks_item_data)
+        disks: list[AzureComputeVMDiskConfigurationModel] | Unset = UNSET
+        if _disks is not UNSET:
+            disks = []
+            for disks_item_data in _disks:
+                disks_item = AzureComputeVMDiskConfigurationModel.from_dict(disks_item_data)
 
-            disks.append(disks_item)
+                disks.append(disks_item)
 
         azure_compute_vm_size_model = cls(
             instance_size=instance_size,

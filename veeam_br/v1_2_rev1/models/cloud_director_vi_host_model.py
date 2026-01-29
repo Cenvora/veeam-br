@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -17,13 +19,13 @@ class CloudDirectorViHostModel:
         vi_server_name (str):
         vi_credentials_id (UUID):
         cloud_director_vi_server_name (str):
-        certificate_thumbprint (Union[Unset, str]):
+        certificate_thumbprint (str | Unset):
     """
 
     vi_server_name: str
     vi_credentials_id: UUID
     cloud_director_vi_server_name: str
-    certificate_thumbprint: Union[Unset, str] = UNSET
+    certificate_thumbprint: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

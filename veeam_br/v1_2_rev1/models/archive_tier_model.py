@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -20,28 +22,28 @@ class ArchiveTierModel:
 
     Attributes:
         is_enabled (bool): If `true`, the archive tier is enabled.
-        extent_id (Union[Unset, UUID]): ID of an object storage repository added as an archive extent.
-        archive_period_days (Union[Unset, int]): Number of days after which backup chains on the capacity extent are
-            moved to the archive extent. Specify *0* to offload inactive backup chains on the same day they are created.
-        advanced_settings (Union[Unset, ArchiveTierAdvancedSettingsModel]): Advanced settings of the archive tier.
+        extent_id (UUID | Unset): ID of an object storage repository added as an archive extent.
+        archive_period_days (int | Unset): Number of days after which backup chains on the capacity extent are moved to
+            the archive extent. Specify *0* to offload inactive backup chains on the same day they are created.
+        advanced_settings (ArchiveTierAdvancedSettingsModel | Unset): Advanced settings of the archive tier.
     """
 
     is_enabled: bool
-    extent_id: Union[Unset, UUID] = UNSET
-    archive_period_days: Union[Unset, int] = UNSET
-    advanced_settings: Union[Unset, "ArchiveTierAdvancedSettingsModel"] = UNSET
+    extent_id: UUID | Unset = UNSET
+    archive_period_days: int | Unset = UNSET
+    advanced_settings: ArchiveTierAdvancedSettingsModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         is_enabled = self.is_enabled
 
-        extent_id: Union[Unset, str] = UNSET
+        extent_id: str | Unset = UNSET
         if not isinstance(self.extent_id, Unset):
             extent_id = str(self.extent_id)
 
         archive_period_days = self.archive_period_days
 
-        advanced_settings: Union[Unset, dict[str, Any]] = UNSET
+        advanced_settings: dict[str, Any] | Unset = UNSET
         if not isinstance(self.advanced_settings, Unset):
             advanced_settings = self.advanced_settings.to_dict()
 
@@ -69,7 +71,7 @@ class ArchiveTierModel:
         is_enabled = d.pop("isEnabled")
 
         _extent_id = d.pop("extentId", UNSET)
-        extent_id: Union[Unset, UUID]
+        extent_id: UUID | Unset
         if isinstance(_extent_id, Unset):
             extent_id = UNSET
         else:
@@ -78,7 +80,7 @@ class ArchiveTierModel:
         archive_period_days = d.pop("archivePeriodDays", UNSET)
 
         _advanced_settings = d.pop("advancedSettings", UNSET)
-        advanced_settings: Union[Unset, ArchiveTierAdvancedSettingsModel]
+        advanced_settings: ArchiveTierAdvancedSettingsModel | Unset
         if isinstance(_advanced_settings, Unset):
             advanced_settings = UNSET
         else:

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -16,17 +18,17 @@ class RepositoryShareGatewayModel:
 
     Attributes:
         auto_select_enabled (bool): If `true`, Veeam Backup & Replication automatically selects a gateway server.
-        gateway_server_ids (Union[Unset, list[UUID]]): Array of gateway server IDs.
+        gateway_server_ids (list[UUID] | Unset): Array of gateway server IDs.
     """
 
     auto_select_enabled: bool
-    gateway_server_ids: Union[Unset, list[UUID]] = UNSET
+    gateway_server_ids: list[UUID] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         auto_select_enabled = self.auto_select_enabled
 
-        gateway_server_ids: Union[Unset, list[str]] = UNSET
+        gateway_server_ids: list[str] | Unset = UNSET
         if not isinstance(self.gateway_server_ids, Unset):
             gateway_server_ids = []
             for gateway_server_ids_item_data in self.gateway_server_ids:
@@ -50,12 +52,14 @@ class RepositoryShareGatewayModel:
         d = dict(src_dict)
         auto_select_enabled = d.pop("autoSelectEnabled")
 
-        gateway_server_ids = []
         _gateway_server_ids = d.pop("gatewayServerIds", UNSET)
-        for gateway_server_ids_item_data in _gateway_server_ids or []:
-            gateway_server_ids_item = UUID(gateway_server_ids_item_data)
+        gateway_server_ids: list[UUID] | Unset = UNSET
+        if _gateway_server_ids is not UNSET:
+            gateway_server_ids = []
+            for gateway_server_ids_item_data in _gateway_server_ids:
+                gateway_server_ids_item = UUID(gateway_server_ids_item_data)
 
-            gateway_server_ids.append(gateway_server_ids_item)
+                gateway_server_ids.append(gateway_server_ids_item)
 
         repository_share_gateway_model = cls(
             auto_select_enabled=auto_select_enabled,

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,21 +21,21 @@ class AdvancedProtectionGroupSettingsModel:
     """Advanced settings for the protection group.
 
     Attributes:
-        windows_agent_settings (Union[Unset, ProtectionGroupAdvancedWindowsSettingsModel]): Advanced settings for Veeam
-            Agent for Microsoft Windows machines.
-        notifications (Union[Unset, ProtectionGroupNotificationSettingsModel]): Notification settings.
+        windows_agent_settings (ProtectionGroupAdvancedWindowsSettingsModel | Unset): Advanced settings for Veeam Agent
+            for Microsoft Windows machines.
+        notifications (ProtectionGroupNotificationSettingsModel | Unset): Notification settings.
     """
 
-    windows_agent_settings: Union[Unset, "ProtectionGroupAdvancedWindowsSettingsModel"] = UNSET
-    notifications: Union[Unset, "ProtectionGroupNotificationSettingsModel"] = UNSET
+    windows_agent_settings: ProtectionGroupAdvancedWindowsSettingsModel | Unset = UNSET
+    notifications: ProtectionGroupNotificationSettingsModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        windows_agent_settings: Union[Unset, dict[str, Any]] = UNSET
+        windows_agent_settings: dict[str, Any] | Unset = UNSET
         if not isinstance(self.windows_agent_settings, Unset):
             windows_agent_settings = self.windows_agent_settings.to_dict()
 
-        notifications: Union[Unset, dict[str, Any]] = UNSET
+        notifications: dict[str, Any] | Unset = UNSET
         if not isinstance(self.notifications, Unset):
             notifications = self.notifications.to_dict()
 
@@ -56,14 +58,14 @@ class AdvancedProtectionGroupSettingsModel:
 
         d = dict(src_dict)
         _windows_agent_settings = d.pop("windowsAgentSettings", UNSET)
-        windows_agent_settings: Union[Unset, ProtectionGroupAdvancedWindowsSettingsModel]
+        windows_agent_settings: ProtectionGroupAdvancedWindowsSettingsModel | Unset
         if isinstance(_windows_agent_settings, Unset):
             windows_agent_settings = UNSET
         else:
             windows_agent_settings = ProtectionGroupAdvancedWindowsSettingsModel.from_dict(_windows_agent_settings)
 
         _notifications = d.pop("notifications", UNSET)
-        notifications: Union[Unset, ProtectionGroupNotificationSettingsModel]
+        notifications: ProtectionGroupNotificationSettingsModel | Unset
         if isinstance(_notifications, Unset):
             notifications = UNSET
         else:

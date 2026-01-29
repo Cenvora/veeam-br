@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -13,11 +15,11 @@ T = TypeVar("T", bound="CloudBrowserRequestOptions")
 class CloudBrowserRequestOptions:
     """
     Attributes:
-        reset_cache (Union[Unset, bool]): If `true`, the cache will be reset for this request. Resetting the cache slows
-            down request processing but it allows you to get up-to-date data.
+        reset_cache (bool | Unset): If `true`, the cache will be reset for this request. Resetting the cache slows down
+            request processing but it allows you to get up-to-date data.
     """
 
-    reset_cache: Union[Unset, bool] = UNSET
+    reset_cache: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

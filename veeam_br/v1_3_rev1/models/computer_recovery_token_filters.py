@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -16,22 +18,22 @@ T = TypeVar("T", bound="ComputerRecoveryTokenFilters")
 class ComputerRecoveryTokenFilters:
     """
     Attributes:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):
-        order_column (Union[Unset, EComputerRecoveryTokenFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        expiration_date_before (Union[Unset, datetime.datetime]):
-        expiration_date_after (Union[Unset, datetime.datetime]):
+        skip (int | Unset):
+        limit (int | Unset):
+        order_column (EComputerRecoveryTokenFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        expiration_date_before (datetime.datetime | Unset):
+        expiration_date_after (datetime.datetime | Unset):
     """
 
-    skip: Union[Unset, int] = UNSET
-    limit: Union[Unset, int] = UNSET
-    order_column: Union[Unset, EComputerRecoveryTokenFiltersOrderColumn] = UNSET
-    order_asc: Union[Unset, bool] = UNSET
-    name_filter: Union[Unset, str] = UNSET
-    expiration_date_before: Union[Unset, datetime.datetime] = UNSET
-    expiration_date_after: Union[Unset, datetime.datetime] = UNSET
+    skip: int | Unset = UNSET
+    limit: int | Unset = UNSET
+    order_column: EComputerRecoveryTokenFiltersOrderColumn | Unset = UNSET
+    order_asc: bool | Unset = UNSET
+    name_filter: str | Unset = UNSET
+    expiration_date_before: datetime.datetime | Unset = UNSET
+    expiration_date_after: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -39,7 +41,7 @@ class ComputerRecoveryTokenFilters:
 
         limit = self.limit
 
-        order_column: Union[Unset, str] = UNSET
+        order_column: str | Unset = UNSET
         if not isinstance(self.order_column, Unset):
             order_column = self.order_column.value
 
@@ -47,11 +49,11 @@ class ComputerRecoveryTokenFilters:
 
         name_filter = self.name_filter
 
-        expiration_date_before: Union[Unset, str] = UNSET
+        expiration_date_before: str | Unset = UNSET
         if not isinstance(self.expiration_date_before, Unset):
             expiration_date_before = self.expiration_date_before.isoformat()
 
-        expiration_date_after: Union[Unset, str] = UNSET
+        expiration_date_after: str | Unset = UNSET
         if not isinstance(self.expiration_date_after, Unset):
             expiration_date_after = self.expiration_date_after.isoformat()
 
@@ -83,7 +85,7 @@ class ComputerRecoveryTokenFilters:
         limit = d.pop("limit", UNSET)
 
         _order_column = d.pop("orderColumn", UNSET)
-        order_column: Union[Unset, EComputerRecoveryTokenFiltersOrderColumn]
+        order_column: EComputerRecoveryTokenFiltersOrderColumn | Unset
         if isinstance(_order_column, Unset):
             order_column = UNSET
         else:
@@ -94,14 +96,14 @@ class ComputerRecoveryTokenFilters:
         name_filter = d.pop("nameFilter", UNSET)
 
         _expiration_date_before = d.pop("expirationDateBefore", UNSET)
-        expiration_date_before: Union[Unset, datetime.datetime]
+        expiration_date_before: datetime.datetime | Unset
         if isinstance(_expiration_date_before, Unset):
             expiration_date_before = UNSET
         else:
             expiration_date_before = isoparse(_expiration_date_before)
 
         _expiration_date_after = d.pop("expirationDateAfter", UNSET)
-        expiration_date_after: Union[Unset, datetime.datetime]
+        expiration_date_after: datetime.datetime | Unset
         if isinstance(_expiration_date_after, Unset):
             expiration_date_after = UNSET
         else:

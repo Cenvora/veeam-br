@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -21,49 +23,48 @@ class ProtectionGroupOptionsModel:
     """Protection group options.
 
     Attributes:
-        rescan_schedule (Union[Unset, ProtectionGroupOptionsRescanScheduleModel]): Rescan schedule settings for the
-            protection group.
-        distribution_server_id (Union[Unset, UUID]): ID of the Windows distribution server from which agent packages are
-            deployed.
-        distribution_repository_id (Union[Unset, UUID]): ID of the object storage distribution repository from which
-            agent packages are deployed.
-        install_backup_agent (Union[Unset, bool]): If `true`, the distribution server will deploy packages to the
-            discovered computers in the protection group.
-        install_cbt_driver (Union[Unset, bool]): If `true`, Changed Block Tracking driver will be deployed to the
-            discovered computers protected with Veeam Agent for Microsoft Windows.
-        install_application_plugins (Union[Unset, bool]): If `true`, application plugins will be deployed to all the
-            discovered computers in the protection group.
-        application_plugins (Union[Unset, list[EApplicationPluginType]]): Array of application plug-ins.
-        update_automatically (Union[Unset, bool]): If `true`, agents and plugins will be automatically upgraded on
-            discovered computers.
-        reboot_if_required (Union[Unset, bool]): If `true`, Veeam Backup & Replication will reboot a protected computer
-            if required.
-        advanced_settings (Union[Unset, AdvancedProtectionGroupSettingsModel]): Advanced settings for the protection
+        rescan_schedule (ProtectionGroupOptionsRescanScheduleModel | Unset): Rescan schedule settings for the protection
             group.
+        distribution_server_id (UUID | Unset): ID of the Windows distribution server from which agent packages are
+            deployed.
+        distribution_repository_id (UUID | Unset): ID of the object storage distribution repository from which agent
+            packages are deployed.
+        install_backup_agent (bool | Unset): If `true`, the distribution server will deploy packages to the discovered
+            computers in the protection group.
+        install_cbt_driver (bool | Unset): If `true`, Changed Block Tracking driver will be deployed to the discovered
+            computers protected with Veeam Agent for Microsoft Windows.
+        install_application_plugins (bool | Unset): If `true`, application plugins will be deployed to all the
+            discovered computers in the protection group.
+        application_plugins (list[EApplicationPluginType] | Unset): Array of application plug-ins.
+        update_automatically (bool | Unset): If `true`, agents and plugins will be automatically upgraded on discovered
+            computers.
+        reboot_if_required (bool | Unset): If `true`, Veeam Backup & Replication will reboot a protected computer if
+            required.
+        advanced_settings (AdvancedProtectionGroupSettingsModel | Unset): Advanced settings for the protection group.
     """
 
-    rescan_schedule: Union[Unset, "ProtectionGroupOptionsRescanScheduleModel"] = UNSET
-    distribution_server_id: Union[Unset, UUID] = UNSET
-    distribution_repository_id: Union[Unset, UUID] = UNSET
-    install_backup_agent: Union[Unset, bool] = UNSET
-    install_cbt_driver: Union[Unset, bool] = UNSET
-    install_application_plugins: Union[Unset, bool] = UNSET
-    application_plugins: Union[Unset, list[EApplicationPluginType]] = UNSET
-    update_automatically: Union[Unset, bool] = UNSET
-    reboot_if_required: Union[Unset, bool] = UNSET
-    advanced_settings: Union[Unset, "AdvancedProtectionGroupSettingsModel"] = UNSET
+    rescan_schedule: ProtectionGroupOptionsRescanScheduleModel | Unset = UNSET
+    distribution_server_id: UUID | Unset = UNSET
+    distribution_repository_id: UUID | Unset = UNSET
+    install_backup_agent: bool | Unset = UNSET
+    install_cbt_driver: bool | Unset = UNSET
+    install_application_plugins: bool | Unset = UNSET
+    application_plugins: list[EApplicationPluginType] | Unset = UNSET
+    update_automatically: bool | Unset = UNSET
+    reboot_if_required: bool | Unset = UNSET
+    advanced_settings: AdvancedProtectionGroupSettingsModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        rescan_schedule: Union[Unset, dict[str, Any]] = UNSET
+        rescan_schedule: dict[str, Any] | Unset = UNSET
         if not isinstance(self.rescan_schedule, Unset):
             rescan_schedule = self.rescan_schedule.to_dict()
 
-        distribution_server_id: Union[Unset, str] = UNSET
+        distribution_server_id: str | Unset = UNSET
         if not isinstance(self.distribution_server_id, Unset):
             distribution_server_id = str(self.distribution_server_id)
 
-        distribution_repository_id: Union[Unset, str] = UNSET
+        distribution_repository_id: str | Unset = UNSET
         if not isinstance(self.distribution_repository_id, Unset):
             distribution_repository_id = str(self.distribution_repository_id)
 
@@ -73,7 +74,7 @@ class ProtectionGroupOptionsModel:
 
         install_application_plugins = self.install_application_plugins
 
-        application_plugins: Union[Unset, list[str]] = UNSET
+        application_plugins: list[str] | Unset = UNSET
         if not isinstance(self.application_plugins, Unset):
             application_plugins = []
             for application_plugins_item_data in self.application_plugins:
@@ -84,7 +85,7 @@ class ProtectionGroupOptionsModel:
 
         reboot_if_required = self.reboot_if_required
 
-        advanced_settings: Union[Unset, dict[str, Any]] = UNSET
+        advanced_settings: dict[str, Any] | Unset = UNSET
         if not isinstance(self.advanced_settings, Unset):
             advanced_settings = self.advanced_settings.to_dict()
 
@@ -121,21 +122,21 @@ class ProtectionGroupOptionsModel:
 
         d = dict(src_dict)
         _rescan_schedule = d.pop("rescanSchedule", UNSET)
-        rescan_schedule: Union[Unset, ProtectionGroupOptionsRescanScheduleModel]
+        rescan_schedule: ProtectionGroupOptionsRescanScheduleModel | Unset
         if isinstance(_rescan_schedule, Unset):
             rescan_schedule = UNSET
         else:
             rescan_schedule = ProtectionGroupOptionsRescanScheduleModel.from_dict(_rescan_schedule)
 
         _distribution_server_id = d.pop("distributionServerId", UNSET)
-        distribution_server_id: Union[Unset, UUID]
+        distribution_server_id: UUID | Unset
         if isinstance(_distribution_server_id, Unset):
             distribution_server_id = UNSET
         else:
             distribution_server_id = UUID(_distribution_server_id)
 
         _distribution_repository_id = d.pop("distributionRepositoryId", UNSET)
-        distribution_repository_id: Union[Unset, UUID]
+        distribution_repository_id: UUID | Unset
         if isinstance(_distribution_repository_id, Unset):
             distribution_repository_id = UNSET
         else:
@@ -147,19 +148,21 @@ class ProtectionGroupOptionsModel:
 
         install_application_plugins = d.pop("installApplicationPlugins", UNSET)
 
-        application_plugins = []
         _application_plugins = d.pop("applicationPlugins", UNSET)
-        for application_plugins_item_data in _application_plugins or []:
-            application_plugins_item = EApplicationPluginType(application_plugins_item_data)
+        application_plugins: list[EApplicationPluginType] | Unset = UNSET
+        if _application_plugins is not UNSET:
+            application_plugins = []
+            for application_plugins_item_data in _application_plugins:
+                application_plugins_item = EApplicationPluginType(application_plugins_item_data)
 
-            application_plugins.append(application_plugins_item)
+                application_plugins.append(application_plugins_item)
 
         update_automatically = d.pop("updateAutomatically", UNSET)
 
         reboot_if_required = d.pop("rebootIfRequired", UNSET)
 
         _advanced_settings = d.pop("advancedSettings", UNSET)
-        advanced_settings: Union[Unset, AdvancedProtectionGroupSettingsModel]
+        advanced_settings: AdvancedProtectionGroupSettingsModel | Unset
         if isinstance(_advanced_settings, Unset):
             advanced_settings = UNSET
         else:

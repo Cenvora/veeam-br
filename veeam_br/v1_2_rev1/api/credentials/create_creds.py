@@ -1,21 +1,19 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...models.credentials_model import CredentialsModel
+from ...models.credentials_spec import CredentialsSpec
 from ...models.error import Error
-from ...models.linux_credentials_model import LinuxCredentialsModel
-from ...models.linux_credentials_spec import LinuxCredentialsSpec
-from ...models.standard_credentials_model import StandardCredentialsModel
-from ...models.standard_credentials_spec import StandardCredentialsSpec
 from ...types import Response
 
 
 def _get_kwargs(
     *,
-    body: Union["LinuxCredentialsSpec", "StandardCredentialsSpec"],
+    body: CredentialsSpec,
     x_api_version: str = "1.2-rev1",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -26,11 +24,7 @@ def _get_kwargs(
         "url": "/api/v1/credentials",
     }
 
-    _kwargs["json"]: dict[str, Any]
-    if isinstance(body, StandardCredentialsSpec):
-        _kwargs["json"] = body.to_dict()
-    else:
-        _kwargs["json"] = body.to_dict()
+    _kwargs["json"] = body.to_dict()
 
     headers["Content-Type"] = "application/json"
 
@@ -39,26 +33,10 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, Union["LinuxCredentialsModel", "StandardCredentialsModel"]]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> CredentialsModel | Error | None:
     if response.status_code == 201:
-
-        def _parse_response_201(data: object) -> Union["LinuxCredentialsModel", "StandardCredentialsModel"]:
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_credentials_model_type_0 = StandardCredentialsModel.from_dict(data)
-
-                return componentsschemas_credentials_model_type_0
-            except:  # noqa: E722
-                pass
-            if not isinstance(data, dict):
-                raise TypeError()
-            componentsschemas_credentials_model_type_1 = LinuxCredentialsModel.from_dict(data)
-
-            return componentsschemas_credentials_model_type_1
-
-        response_201 = _parse_response_201(response.json())
+        response_201 = CredentialsModel.from_dict(response.json())
 
         return response_201
 
@@ -89,8 +67,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, Union["LinuxCredentialsModel", "StandardCredentialsModel"]]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[CredentialsModel | Error]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -101,10 +79,10 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union["LinuxCredentialsSpec", "StandardCredentialsSpec"],
+    client: AuthenticatedClient | Client,
+    body: CredentialsSpec,
     x_api_version: str = "1.2-rev1",
-) -> Response[Union[Error, Union["LinuxCredentialsModel", "StandardCredentialsModel"]]]:
+) -> Response[CredentialsModel | Error]:
     """Add Credentials Record
 
      The HTTP POST request to the `/api/v1/credentials` path allows you to add a credentials
@@ -112,14 +90,14 @@ def sync_detailed(
 
     Args:
         x_api_version (str):  Default: '1.2-rev1'.
-        body (Union['LinuxCredentialsSpec', 'StandardCredentialsSpec']):
+        body (CredentialsSpec):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, Union['LinuxCredentialsModel', 'StandardCredentialsModel']]]
+        Response[CredentialsModel | Error]
     """
 
     kwargs = _get_kwargs(
@@ -136,10 +114,10 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union["LinuxCredentialsSpec", "StandardCredentialsSpec"],
+    client: AuthenticatedClient | Client,
+    body: CredentialsSpec,
     x_api_version: str = "1.2-rev1",
-) -> Optional[Union[Error, Union["LinuxCredentialsModel", "StandardCredentialsModel"]]]:
+) -> CredentialsModel | Error | None:
     """Add Credentials Record
 
      The HTTP POST request to the `/api/v1/credentials` path allows you to add a credentials
@@ -147,14 +125,14 @@ def sync(
 
     Args:
         x_api_version (str):  Default: '1.2-rev1'.
-        body (Union['LinuxCredentialsSpec', 'StandardCredentialsSpec']):
+        body (CredentialsSpec):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, Union['LinuxCredentialsModel', 'StandardCredentialsModel']]
+        CredentialsModel | Error
     """
 
     return sync_detailed(
@@ -166,10 +144,10 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union["LinuxCredentialsSpec", "StandardCredentialsSpec"],
+    client: AuthenticatedClient | Client,
+    body: CredentialsSpec,
     x_api_version: str = "1.2-rev1",
-) -> Response[Union[Error, Union["LinuxCredentialsModel", "StandardCredentialsModel"]]]:
+) -> Response[CredentialsModel | Error]:
     """Add Credentials Record
 
      The HTTP POST request to the `/api/v1/credentials` path allows you to add a credentials
@@ -177,14 +155,14 @@ async def asyncio_detailed(
 
     Args:
         x_api_version (str):  Default: '1.2-rev1'.
-        body (Union['LinuxCredentialsSpec', 'StandardCredentialsSpec']):
+        body (CredentialsSpec):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, Union['LinuxCredentialsModel', 'StandardCredentialsModel']]]
+        Response[CredentialsModel | Error]
     """
 
     kwargs = _get_kwargs(
@@ -199,10 +177,10 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union["LinuxCredentialsSpec", "StandardCredentialsSpec"],
+    client: AuthenticatedClient | Client,
+    body: CredentialsSpec,
     x_api_version: str = "1.2-rev1",
-) -> Optional[Union[Error, Union["LinuxCredentialsModel", "StandardCredentialsModel"]]]:
+) -> CredentialsModel | Error | None:
     """Add Credentials Record
 
      The HTTP POST request to the `/api/v1/credentials` path allows you to add a credentials
@@ -210,14 +188,14 @@ async def asyncio(
 
     Args:
         x_api_version (str):  Default: '1.2-rev1'.
-        body (Union['LinuxCredentialsSpec', 'StandardCredentialsSpec']):
+        body (CredentialsSpec):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, Union['LinuxCredentialsModel', 'StandardCredentialsModel']]
+        CredentialsModel | Error
     """
 
     return (

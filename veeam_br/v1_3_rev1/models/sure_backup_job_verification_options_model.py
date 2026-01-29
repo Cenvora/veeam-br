@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,20 +22,20 @@ class SureBackupJobVerificationOptionsModel:
     Attributes:
         malware_scan_enabled (bool): If `true`, Veeam Backup & Replication scans VMs with antivirus software.
         yara_scan_enabled (bool): If `true`, Veeam Backup & Replication scans VMs with the specified YARA rule.
-        yara_scan_rule (Union[Unset, str]): Yara scan rule used to scan VMs.
-        entire_image_scan_enabled (Union[Unset, bool]): If `true`, the antivirus software continues scanning VMs after
-            the first malware is found.
-        disk_content_validation_enabled (Union[Unset, bool]): If `true`, Veeam Backup & Replication validates backup
-            files of VMs with a CRC check to make sure that the file is not corrupted.
-        notifications (Union[Unset, SureBackupJobNotificationSettingsModel]): SureBackup job notification settings.
+        yara_scan_rule (str | Unset): Yara scan rule used to scan VMs.
+        entire_image_scan_enabled (bool | Unset): If `true`, the antivirus software continues scanning VMs after the
+            first malware is found.
+        disk_content_validation_enabled (bool | Unset): If `true`, Veeam Backup & Replication validates backup files of
+            VMs with a CRC check to make sure that the file is not corrupted.
+        notifications (SureBackupJobNotificationSettingsModel | Unset): SureBackup job notification settings.
     """
 
     malware_scan_enabled: bool
     yara_scan_enabled: bool
-    yara_scan_rule: Union[Unset, str] = UNSET
-    entire_image_scan_enabled: Union[Unset, bool] = UNSET
-    disk_content_validation_enabled: Union[Unset, bool] = UNSET
-    notifications: Union[Unset, "SureBackupJobNotificationSettingsModel"] = UNSET
+    yara_scan_rule: str | Unset = UNSET
+    entire_image_scan_enabled: bool | Unset = UNSET
+    disk_content_validation_enabled: bool | Unset = UNSET
+    notifications: SureBackupJobNotificationSettingsModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -47,7 +49,7 @@ class SureBackupJobVerificationOptionsModel:
 
         disk_content_validation_enabled = self.disk_content_validation_enabled
 
-        notifications: Union[Unset, dict[str, Any]] = UNSET
+        notifications: dict[str, Any] | Unset = UNSET
         if not isinstance(self.notifications, Unset):
             notifications = self.notifications.to_dict()
 
@@ -86,7 +88,7 @@ class SureBackupJobVerificationOptionsModel:
         disk_content_validation_enabled = d.pop("diskContentValidationEnabled", UNSET)
 
         _notifications = d.pop("notifications", UNSET)
-        notifications: Union[Unset, SureBackupJobNotificationSettingsModel]
+        notifications: SureBackupJobNotificationSettingsModel | Unset
         if isinstance(_notifications, Unset):
             notifications = UNSET
         else:

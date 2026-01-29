@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -38,17 +40,17 @@ class JobStateModel:
         high_priority (bool): If `true`, the resource scheduler prioritized this job higher than other similar jobs and
             allocated resources to it in the first place.
         progress_percent (int): Progress percentage of the session.
-        last_run (Union[Unset, datetime.datetime]): Date and time of the last run of the job.
-        next_run (Union[Unset, datetime.datetime]): Date and time of the next run of the job.
-        next_run_policy (Union[Unset, str]): Note in case the job is disabled, not scheduled, or configured to run after
+        last_run (datetime.datetime | Unset): Date and time of the last run of the job.
+        next_run (datetime.datetime | Unset): Date and time of the next run of the job.
+        next_run_policy (str | Unset): Note in case the job is disabled, not scheduled, or configured to run after
             another job.
-        repository_id (Union[Unset, UUID]): Backup repository ID.
-        repository_name (Union[Unset, str]): Name of the backup repository.
-        session_id (Union[Unset, UUID]): ID of the last job session.
-        session_progress (Union['SessionProgressType0', None, Unset]): Details on the progress of the session.
-        run_after_job (Union[Unset, RunAfterJob]): Specifies that the job will run after another job.
-        backup_copy_mode (Union[Unset, EBackupCopyJobMode]): Copy mode of backup copy job.
-        is_storage_snapshot (Union[Unset, bool]): If `true`, the target for the job is snapshot storage.
+        repository_id (UUID | Unset): Backup repository ID.
+        repository_name (str | Unset): Name of the backup repository.
+        session_id (UUID | Unset): ID of the last job session.
+        session_progress (None | SessionProgressType0 | Unset): Details on the progress of the session.
+        run_after_job (RunAfterJob | Unset): Specifies that the job will run after another job.
+        backup_copy_mode (EBackupCopyJobMode | Unset): Copy mode of backup copy job.
+        is_storage_snapshot (bool | Unset): If `true`, the target for the job is snapshot storage.
     """
 
     id: UUID
@@ -61,16 +63,16 @@ class JobStateModel:
     objects_count: int
     high_priority: bool
     progress_percent: int
-    last_run: Union[Unset, datetime.datetime] = UNSET
-    next_run: Union[Unset, datetime.datetime] = UNSET
-    next_run_policy: Union[Unset, str] = UNSET
-    repository_id: Union[Unset, UUID] = UNSET
-    repository_name: Union[Unset, str] = UNSET
-    session_id: Union[Unset, UUID] = UNSET
-    session_progress: Union["SessionProgressType0", None, Unset] = UNSET
-    run_after_job: Union[Unset, "RunAfterJob"] = UNSET
-    backup_copy_mode: Union[Unset, EBackupCopyJobMode] = UNSET
-    is_storage_snapshot: Union[Unset, bool] = UNSET
+    last_run: datetime.datetime | Unset = UNSET
+    next_run: datetime.datetime | Unset = UNSET
+    next_run_policy: str | Unset = UNSET
+    repository_id: UUID | Unset = UNSET
+    repository_name: str | Unset = UNSET
+    session_id: UUID | Unset = UNSET
+    session_progress: None | SessionProgressType0 | Unset = UNSET
+    run_after_job: RunAfterJob | Unset = UNSET
+    backup_copy_mode: EBackupCopyJobMode | Unset = UNSET
+    is_storage_snapshot: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -96,27 +98,27 @@ class JobStateModel:
 
         progress_percent = self.progress_percent
 
-        last_run: Union[Unset, str] = UNSET
+        last_run: str | Unset = UNSET
         if not isinstance(self.last_run, Unset):
             last_run = self.last_run.isoformat()
 
-        next_run: Union[Unset, str] = UNSET
+        next_run: str | Unset = UNSET
         if not isinstance(self.next_run, Unset):
             next_run = self.next_run.isoformat()
 
         next_run_policy = self.next_run_policy
 
-        repository_id: Union[Unset, str] = UNSET
+        repository_id: str | Unset = UNSET
         if not isinstance(self.repository_id, Unset):
             repository_id = str(self.repository_id)
 
         repository_name = self.repository_name
 
-        session_id: Union[Unset, str] = UNSET
+        session_id: str | Unset = UNSET
         if not isinstance(self.session_id, Unset):
             session_id = str(self.session_id)
 
-        session_progress: Union[None, Unset, dict[str, Any]]
+        session_progress: dict[str, Any] | None | Unset
         if isinstance(self.session_progress, Unset):
             session_progress = UNSET
         elif isinstance(self.session_progress, SessionProgressType0):
@@ -124,11 +126,11 @@ class JobStateModel:
         else:
             session_progress = self.session_progress
 
-        run_after_job: Union[Unset, dict[str, Any]] = UNSET
+        run_after_job: dict[str, Any] | Unset = UNSET
         if not isinstance(self.run_after_job, Unset):
             run_after_job = self.run_after_job.to_dict()
 
-        backup_copy_mode: Union[Unset, str] = UNSET
+        backup_copy_mode: str | Unset = UNSET
         if not isinstance(self.backup_copy_mode, Unset):
             backup_copy_mode = self.backup_copy_mode.value
 
@@ -200,14 +202,14 @@ class JobStateModel:
         progress_percent = d.pop("progressPercent")
 
         _last_run = d.pop("lastRun", UNSET)
-        last_run: Union[Unset, datetime.datetime]
+        last_run: datetime.datetime | Unset
         if isinstance(_last_run, Unset):
             last_run = UNSET
         else:
             last_run = isoparse(_last_run)
 
         _next_run = d.pop("nextRun", UNSET)
-        next_run: Union[Unset, datetime.datetime]
+        next_run: datetime.datetime | Unset
         if isinstance(_next_run, Unset):
             next_run = UNSET
         else:
@@ -216,7 +218,7 @@ class JobStateModel:
         next_run_policy = d.pop("nextRunPolicy", UNSET)
 
         _repository_id = d.pop("repositoryId", UNSET)
-        repository_id: Union[Unset, UUID]
+        repository_id: UUID | Unset
         if isinstance(_repository_id, Unset):
             repository_id = UNSET
         else:
@@ -225,13 +227,13 @@ class JobStateModel:
         repository_name = d.pop("repositoryName", UNSET)
 
         _session_id = d.pop("sessionId", UNSET)
-        session_id: Union[Unset, UUID]
+        session_id: UUID | Unset
         if isinstance(_session_id, Unset):
             session_id = UNSET
         else:
             session_id = UUID(_session_id)
 
-        def _parse_session_progress(data: object) -> Union["SessionProgressType0", None, Unset]:
+        def _parse_session_progress(data: object) -> None | SessionProgressType0 | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -242,21 +244,21 @@ class JobStateModel:
                 componentsschemas_session_progress_type_0 = SessionProgressType0.from_dict(data)
 
                 return componentsschemas_session_progress_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
-            return cast(Union["SessionProgressType0", None, Unset], data)
+            return cast(None | SessionProgressType0 | Unset, data)
 
         session_progress = _parse_session_progress(d.pop("sessionProgress", UNSET))
 
         _run_after_job = d.pop("runAfterJob", UNSET)
-        run_after_job: Union[Unset, RunAfterJob]
+        run_after_job: RunAfterJob | Unset
         if isinstance(_run_after_job, Unset):
             run_after_job = UNSET
         else:
             run_after_job = RunAfterJob.from_dict(_run_after_job)
 
         _backup_copy_mode = d.pop("backupCopyMode", UNSET)
-        backup_copy_mode: Union[Unset, EBackupCopyJobMode]
+        backup_copy_mode: EBackupCopyJobMode | Unset
         if isinstance(_backup_copy_mode, Unset):
             backup_copy_mode = UNSET
         else:

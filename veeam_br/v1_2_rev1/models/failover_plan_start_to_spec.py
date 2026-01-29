@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,14 +17,14 @@ T = TypeVar("T", bound="FailoverPlanStartToSpec")
 class FailoverPlanStartToSpec:
     """
     Attributes:
-        time_period (Union[Unset, datetime.datetime]):
+        time_period (datetime.datetime | Unset):
     """
 
-    time_period: Union[Unset, datetime.datetime] = UNSET
+    time_period: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        time_period: Union[Unset, str] = UNSET
+        time_period: str | Unset = UNSET
         if not isinstance(self.time_period, Unset):
             time_period = self.time_period.isoformat()
 
@@ -38,7 +40,7 @@ class FailoverPlanStartToSpec:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _time_period = d.pop("timePeriod", UNSET)
-        time_period: Union[Unset, datetime.datetime]
+        time_period: datetime.datetime | Unset
         if isinstance(_time_period, Unset):
             time_period = UNSET
         else:

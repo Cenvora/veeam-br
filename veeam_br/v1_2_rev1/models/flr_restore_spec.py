@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -17,13 +19,13 @@ class FlrRestoreSpec:
     Attributes:
         source_path (list[str]): Array of paths to the items that you want to restore.
         restore_type (EFlrRestoreType): Restore type.
-        credentials_id (Union[Unset, UUID]): ID of a credentials record used to connect to the target machine. Allowed
-            only for Linux machines.
+        credentials_id (UUID | Unset): ID of a credentials record used to connect to the target machine. Allowed only
+            for Linux machines.
     """
 
     source_path: list[str]
     restore_type: EFlrRestoreType
-    credentials_id: Union[Unset, UUID] = UNSET
+    credentials_id: UUID | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -31,7 +33,7 @@ class FlrRestoreSpec:
 
         restore_type = self.restore_type.value
 
-        credentials_id: Union[Unset, str] = UNSET
+        credentials_id: str | Unset = UNSET
         if not isinstance(self.credentials_id, Unset):
             credentials_id = str(self.credentials_id)
 
@@ -56,7 +58,7 @@ class FlrRestoreSpec:
         restore_type = EFlrRestoreType(d.pop("restoreType"))
 
         _credentials_id = d.pop("credentialsId", UNSET)
-        credentials_id: Union[Unset, UUID]
+        credentials_id: UUID | Unset
         if isinstance(_credentials_id, Unset):
             credentials_id = UNSET
         else:

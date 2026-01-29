@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -25,14 +27,14 @@ class GeneralOptionsModel:
         notifications (GeneralOptionsNotificationsModel): Other notifications such as notifications on low disk space,
             support contract expiration, and available updates.
         siem_integration (GeneralOptionsSiemIntegrationModel): SIEM integration settings.
-        email_settings (Union[Unset, GeneralOptionsEmailNotificationsModel]): Global email notification settings and job
+        email_settings (GeneralOptionsEmailNotificationsModel | Unset): Global email notification settings and job
             notifications.
     """
 
-    notifications: "GeneralOptionsNotificationsModel"
-    siem_integration: "GeneralOptionsSiemIntegrationModel"
+    notifications: GeneralOptionsNotificationsModel
+    siem_integration: GeneralOptionsSiemIntegrationModel
     notification_enabled: bool = False
-    email_settings: Union[Unset, "GeneralOptionsEmailNotificationsModel"] = UNSET
+    email_settings: GeneralOptionsEmailNotificationsModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -42,7 +44,7 @@ class GeneralOptionsModel:
 
         siem_integration = self.siem_integration.to_dict()
 
-        email_settings: Union[Unset, dict[str, Any]] = UNSET
+        email_settings: dict[str, Any] | Unset = UNSET
         if not isinstance(self.email_settings, Unset):
             email_settings = self.email_settings.to_dict()
 
@@ -74,7 +76,7 @@ class GeneralOptionsModel:
         siem_integration = GeneralOptionsSiemIntegrationModel.from_dict(d.pop("siemIntegration"))
 
         _email_settings = d.pop("emailSettings", UNSET)
-        email_settings: Union[Unset, GeneralOptionsEmailNotificationsModel]
+        email_settings: GeneralOptionsEmailNotificationsModel | Unset
         if isinstance(_email_settings, Unset):
             email_settings = UNSET
         else:

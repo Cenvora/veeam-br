@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -17,27 +19,27 @@ T = TypeVar("T", bound="AmazonEC2RegionBrowserModel")
 class AmazonEC2RegionBrowserModel:
     """
     Attributes:
-        region_id (Union[Unset, str]): Region ID.
-        vpcs (Union[Unset, list['AmazonVPCBrowserModel']]): Array of Amazon Virtual Private Cloud (Amazon VPC) networks.
-        instance_types (Union[Unset, list[str]]): Array of Amazon instance types.
+        region_id (str | Unset): Region ID.
+        vpcs (list[AmazonVPCBrowserModel] | Unset): Array of Amazon Virtual Private Cloud (Amazon VPC) networks.
+        instance_types (list[str] | Unset): Array of Amazon instance types.
     """
 
-    region_id: Union[Unset, str] = UNSET
-    vpcs: Union[Unset, list["AmazonVPCBrowserModel"]] = UNSET
-    instance_types: Union[Unset, list[str]] = UNSET
+    region_id: str | Unset = UNSET
+    vpcs: list[AmazonVPCBrowserModel] | Unset = UNSET
+    instance_types: list[str] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         region_id = self.region_id
 
-        vpcs: Union[Unset, list[dict[str, Any]]] = UNSET
+        vpcs: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.vpcs, Unset):
             vpcs = []
             for vpcs_item_data in self.vpcs:
                 vpcs_item = vpcs_item_data.to_dict()
                 vpcs.append(vpcs_item)
 
-        instance_types: Union[Unset, list[str]] = UNSET
+        instance_types: list[str] | Unset = UNSET
         if not isinstance(self.instance_types, Unset):
             instance_types = self.instance_types
 
@@ -60,12 +62,14 @@ class AmazonEC2RegionBrowserModel:
         d = dict(src_dict)
         region_id = d.pop("regionId", UNSET)
 
-        vpcs = []
         _vpcs = d.pop("vpcs", UNSET)
-        for vpcs_item_data in _vpcs or []:
-            vpcs_item = AmazonVPCBrowserModel.from_dict(vpcs_item_data)
+        vpcs: list[AmazonVPCBrowserModel] | Unset = UNSET
+        if _vpcs is not UNSET:
+            vpcs = []
+            for vpcs_item_data in _vpcs:
+                vpcs_item = AmazonVPCBrowserModel.from_dict(vpcs_item_data)
 
-            vpcs.append(vpcs_item)
+                vpcs.append(vpcs_item)
 
         instance_types = cast(list[str], d.pop("instanceTypes", UNSET))
 

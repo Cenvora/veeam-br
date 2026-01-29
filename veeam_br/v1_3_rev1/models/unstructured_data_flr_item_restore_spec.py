@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,26 +22,26 @@ class UnstructuredDataFLRItemRestoreSpec:
     Attributes:
         source_path (list[str]): Array of paths to the items that you want to restore.
         restore_type (EUnstructuredDataFLRRestoreType): Restore type.
-        is_recursive (Union[Unset, bool]): If `true`, all files and folders in the source path are restored recursively.
-        restore_mode (Union[Unset, EUnstructuredDataFLRRestoreMode]): Restore point settings.<p> Use this property if
-            you have specified the `unstructuredDataServerId` and the `backupId` properties in the [Start File Restore from
+        is_recursive (bool | Unset): If `true`, all files and folders in the source path are restored recursively.
+        restore_mode (EUnstructuredDataFLRRestoreMode | Unset): Restore point settings.<p> Use this property if you have
+            specified the `unstructuredDataServerId` and the `backupId` properties in the [Start File Restore from
             Unstructured Data Backup](Restore#operation/StartUnstructuredDataFlrMount) request that you used to mount the
             share. In this case, you provide information about the restore point in this property.<p> Do not use this
             property if you have specified the `restorePointId` property in the [Start File Restore from Unstructured Data
             Backup](Restore#operation/StartUnstructuredDataFlrMount) request. In this case, Veeam Backup & Replication uses
             the restore point whose ID you specified.
-        to_date_time (Union[Unset, datetime.datetime]): Date when the restore point was created. Use this property when
+        to_date_time (datetime.datetime | Unset): Date when the restore point was created. Use this property when
             restoring files and folders from an earlier restore point (the `restoreMode` value is `Custom`).
-        restore_permissions (Union[Unset, bool]): If `true`, Veeam Backup & Replication will restore permissions and
-            security attributes of the backups.
+        restore_permissions (bool | Unset): If `true`, Veeam Backup & Replication will restore permissions and security
+            attributes of the backups.
     """
 
     source_path: list[str]
     restore_type: EUnstructuredDataFLRRestoreType
-    is_recursive: Union[Unset, bool] = UNSET
-    restore_mode: Union[Unset, EUnstructuredDataFLRRestoreMode] = UNSET
-    to_date_time: Union[Unset, datetime.datetime] = UNSET
-    restore_permissions: Union[Unset, bool] = UNSET
+    is_recursive: bool | Unset = UNSET
+    restore_mode: EUnstructuredDataFLRRestoreMode | Unset = UNSET
+    to_date_time: datetime.datetime | Unset = UNSET
+    restore_permissions: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -49,11 +51,11 @@ class UnstructuredDataFLRItemRestoreSpec:
 
         is_recursive = self.is_recursive
 
-        restore_mode: Union[Unset, str] = UNSET
+        restore_mode: str | Unset = UNSET
         if not isinstance(self.restore_mode, Unset):
             restore_mode = self.restore_mode.value
 
-        to_date_time: Union[Unset, str] = UNSET
+        to_date_time: str | Unset = UNSET
         if not isinstance(self.to_date_time, Unset):
             to_date_time = self.to_date_time.isoformat()
 
@@ -88,14 +90,14 @@ class UnstructuredDataFLRItemRestoreSpec:
         is_recursive = d.pop("isRecursive", UNSET)
 
         _restore_mode = d.pop("restoreMode", UNSET)
-        restore_mode: Union[Unset, EUnstructuredDataFLRRestoreMode]
+        restore_mode: EUnstructuredDataFLRRestoreMode | Unset
         if isinstance(_restore_mode, Unset):
             restore_mode = UNSET
         else:
             restore_mode = EUnstructuredDataFLRRestoreMode(_restore_mode)
 
         _to_date_time = d.pop("toDateTime", UNSET)
-        to_date_time: Union[Unset, datetime.datetime]
+        to_date_time: datetime.datetime | Unset
         if isinstance(_to_date_time, Unset):
             to_date_time = UNSET
         else:

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -23,45 +25,44 @@ class AgentBackupPolicyAdvancedSettingsModel:
     """Advanced settings for Veeam Agent backup policies.
 
     Attributes:
-        synthentic_fulls (Union[Unset, SyntheticFullSettingsModel]): Synthetic full backup settings.
-        active_fulls (Union[Unset, ActiveFullSettingsModel]): Active full backup settings.
-        backup_health (Union[Unset, BackupPolicyHealthCheckSettingsModels]): Health check settings for unstructured
-            data.
-        full_backup_maintenance (Union[Unset, FullBackupMaintenanceModel]): Maintenance settings for full backup files.
-        storage_data (Union[Unset, AgentBackupStorageSettingsModel]): Backup storage settings.
-        notifications (Union[Unset, AgentNotificationSettingsModel]): Notification settings.
+        synthentic_fulls (SyntheticFullSettingsModel | Unset): Synthetic full backup settings.
+        active_fulls (ActiveFullSettingsModel | Unset): Active full backup settings.
+        backup_health (BackupPolicyHealthCheckSettingsModels | Unset): Health check settings for unstructured data.
+        full_backup_maintenance (FullBackupMaintenanceModel | Unset): Maintenance settings for full backup files.
+        storage_data (AgentBackupStorageSettingsModel | Unset): Backup storage settings.
+        notifications (AgentNotificationSettingsModel | Unset): Notification settings.
     """
 
-    synthentic_fulls: Union[Unset, "SyntheticFullSettingsModel"] = UNSET
-    active_fulls: Union[Unset, "ActiveFullSettingsModel"] = UNSET
-    backup_health: Union[Unset, "BackupPolicyHealthCheckSettingsModels"] = UNSET
-    full_backup_maintenance: Union[Unset, "FullBackupMaintenanceModel"] = UNSET
-    storage_data: Union[Unset, "AgentBackupStorageSettingsModel"] = UNSET
-    notifications: Union[Unset, "AgentNotificationSettingsModel"] = UNSET
+    synthentic_fulls: SyntheticFullSettingsModel | Unset = UNSET
+    active_fulls: ActiveFullSettingsModel | Unset = UNSET
+    backup_health: BackupPolicyHealthCheckSettingsModels | Unset = UNSET
+    full_backup_maintenance: FullBackupMaintenanceModel | Unset = UNSET
+    storage_data: AgentBackupStorageSettingsModel | Unset = UNSET
+    notifications: AgentNotificationSettingsModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        synthentic_fulls: Union[Unset, dict[str, Any]] = UNSET
+        synthentic_fulls: dict[str, Any] | Unset = UNSET
         if not isinstance(self.synthentic_fulls, Unset):
             synthentic_fulls = self.synthentic_fulls.to_dict()
 
-        active_fulls: Union[Unset, dict[str, Any]] = UNSET
+        active_fulls: dict[str, Any] | Unset = UNSET
         if not isinstance(self.active_fulls, Unset):
             active_fulls = self.active_fulls.to_dict()
 
-        backup_health: Union[Unset, dict[str, Any]] = UNSET
+        backup_health: dict[str, Any] | Unset = UNSET
         if not isinstance(self.backup_health, Unset):
             backup_health = self.backup_health.to_dict()
 
-        full_backup_maintenance: Union[Unset, dict[str, Any]] = UNSET
+        full_backup_maintenance: dict[str, Any] | Unset = UNSET
         if not isinstance(self.full_backup_maintenance, Unset):
             full_backup_maintenance = self.full_backup_maintenance.to_dict()
 
-        storage_data: Union[Unset, dict[str, Any]] = UNSET
+        storage_data: dict[str, Any] | Unset = UNSET
         if not isinstance(self.storage_data, Unset):
             storage_data = self.storage_data.to_dict()
 
-        notifications: Union[Unset, dict[str, Any]] = UNSET
+        notifications: dict[str, Any] | Unset = UNSET
         if not isinstance(self.notifications, Unset):
             notifications = self.notifications.to_dict()
 
@@ -94,42 +95,42 @@ class AgentBackupPolicyAdvancedSettingsModel:
 
         d = dict(src_dict)
         _synthentic_fulls = d.pop("synthenticFulls", UNSET)
-        synthentic_fulls: Union[Unset, SyntheticFullSettingsModel]
+        synthentic_fulls: SyntheticFullSettingsModel | Unset
         if isinstance(_synthentic_fulls, Unset):
             synthentic_fulls = UNSET
         else:
             synthentic_fulls = SyntheticFullSettingsModel.from_dict(_synthentic_fulls)
 
         _active_fulls = d.pop("activeFulls", UNSET)
-        active_fulls: Union[Unset, ActiveFullSettingsModel]
+        active_fulls: ActiveFullSettingsModel | Unset
         if isinstance(_active_fulls, Unset):
             active_fulls = UNSET
         else:
             active_fulls = ActiveFullSettingsModel.from_dict(_active_fulls)
 
         _backup_health = d.pop("backupHealth", UNSET)
-        backup_health: Union[Unset, BackupPolicyHealthCheckSettingsModels]
+        backup_health: BackupPolicyHealthCheckSettingsModels | Unset
         if isinstance(_backup_health, Unset):
             backup_health = UNSET
         else:
             backup_health = BackupPolicyHealthCheckSettingsModels.from_dict(_backup_health)
 
         _full_backup_maintenance = d.pop("fullBackupMaintenance", UNSET)
-        full_backup_maintenance: Union[Unset, FullBackupMaintenanceModel]
+        full_backup_maintenance: FullBackupMaintenanceModel | Unset
         if isinstance(_full_backup_maintenance, Unset):
             full_backup_maintenance = UNSET
         else:
             full_backup_maintenance = FullBackupMaintenanceModel.from_dict(_full_backup_maintenance)
 
         _storage_data = d.pop("storageData", UNSET)
-        storage_data: Union[Unset, AgentBackupStorageSettingsModel]
+        storage_data: AgentBackupStorageSettingsModel | Unset
         if isinstance(_storage_data, Unset):
             storage_data = UNSET
         else:
             storage_data = AgentBackupStorageSettingsModel.from_dict(_storage_data)
 
         _notifications = d.pop("notifications", UNSET)
-        notifications: Union[Unset, AgentNotificationSettingsModel]
+        notifications: AgentNotificationSettingsModel | Unset
         if isinstance(_notifications, Unset):
             notifications = UNSET
         else:

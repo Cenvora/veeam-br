@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -27,10 +29,10 @@ class ObjectRestorePointModel:
         creation_time (datetime.datetime): Date and time when the restore point was created.
         backup_id (UUID): ID of a backup that contains the restore point.
         allowed_operations (list[EObjectRestorePointOperation]): Array of operations allowed for the restore point.
-        type_ (Union[Unset, ERestorePointType]): Restore point type.
-        session_id (Union[Unset, UUID]): Session ID.
-        malware_status (Union[Unset, ESuspiciousActivitySeverity]): Malware status.
-        backup_file_id (Union[Unset, UUID]): Id of a file this restore point is stored in.
+        type_ (ERestorePointType | Unset): Restore point type.
+        session_id (UUID | Unset): Session ID.
+        malware_status (ESuspiciousActivitySeverity | Unset): Malware status.
+        backup_file_id (UUID | Unset): Id of a file this restore point is stored in.
     """
 
     id: UUID
@@ -40,10 +42,10 @@ class ObjectRestorePointModel:
     creation_time: datetime.datetime
     backup_id: UUID
     allowed_operations: list[EObjectRestorePointOperation]
-    type_: Union[Unset, ERestorePointType] = UNSET
-    session_id: Union[Unset, UUID] = UNSET
-    malware_status: Union[Unset, ESuspiciousActivitySeverity] = UNSET
-    backup_file_id: Union[Unset, UUID] = UNSET
+    type_: ERestorePointType | Unset = UNSET
+    session_id: UUID | Unset = UNSET
+    malware_status: ESuspiciousActivitySeverity | Unset = UNSET
+    backup_file_id: UUID | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -64,19 +66,19 @@ class ObjectRestorePointModel:
             allowed_operations_item = allowed_operations_item_data.value
             allowed_operations.append(allowed_operations_item)
 
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
-        session_id: Union[Unset, str] = UNSET
+        session_id: str | Unset = UNSET
         if not isinstance(self.session_id, Unset):
             session_id = str(self.session_id)
 
-        malware_status: Union[Unset, str] = UNSET
+        malware_status: str | Unset = UNSET
         if not isinstance(self.malware_status, Unset):
             malware_status = self.malware_status.value
 
-        backup_file_id: Union[Unset, str] = UNSET
+        backup_file_id: str | Unset = UNSET
         if not isinstance(self.backup_file_id, Unset):
             backup_file_id = str(self.backup_file_id)
 
@@ -127,28 +129,28 @@ class ObjectRestorePointModel:
             allowed_operations.append(allowed_operations_item)
 
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, ERestorePointType]
+        type_: ERestorePointType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:
             type_ = ERestorePointType(_type_)
 
         _session_id = d.pop("sessionId", UNSET)
-        session_id: Union[Unset, UUID]
+        session_id: UUID | Unset
         if isinstance(_session_id, Unset):
             session_id = UNSET
         else:
             session_id = UUID(_session_id)
 
         _malware_status = d.pop("malwareStatus", UNSET)
-        malware_status: Union[Unset, ESuspiciousActivitySeverity]
+        malware_status: ESuspiciousActivitySeverity | Unset
         if isinstance(_malware_status, Unset):
             malware_status = UNSET
         else:
             malware_status = ESuspiciousActivitySeverity(_malware_status)
 
         _backup_file_id = d.pop("backupFileId", UNSET)
-        backup_file_id: Union[Unset, UUID]
+        backup_file_id: UUID | Unset
         if isinstance(_backup_file_id, Unset):
             backup_file_id = UNSET
         else:

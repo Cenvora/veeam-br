@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,21 +17,21 @@ class BackupItemVersionsSettingsModel:
     """Settings for version-based retention policy.
 
     Attributes:
-        version_retention_type (Union[Unset, EBackupItemVersionRetentionType]): Repositories to which the version-based
+        version_retention_type (EBackupItemVersionRetentionType | Unset): Repositories to which the version-based
             retention policy will apply.
-        active_version_retention (Union[Unset, int]): Number of file versions that Veeam Backup & Replication will keep
-            for active (not deleted) files.
-        deleted_version_retention (Union[Unset, int]): Number of file versions that Veeam Backup & Replication will keep
-            for deleted files.
+        active_version_retention (int | Unset): Number of file versions that Veeam Backup & Replication will keep for
+            active (not deleted) files.
+        deleted_version_retention (int | Unset): Number of file versions that Veeam Backup & Replication will keep for
+            deleted files.
     """
 
-    version_retention_type: Union[Unset, EBackupItemVersionRetentionType] = UNSET
-    active_version_retention: Union[Unset, int] = UNSET
-    deleted_version_retention: Union[Unset, int] = UNSET
+    version_retention_type: EBackupItemVersionRetentionType | Unset = UNSET
+    active_version_retention: int | Unset = UNSET
+    deleted_version_retention: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        version_retention_type: Union[Unset, str] = UNSET
+        version_retention_type: str | Unset = UNSET
         if not isinstance(self.version_retention_type, Unset):
             version_retention_type = self.version_retention_type.value
 
@@ -53,7 +55,7 @@ class BackupItemVersionsSettingsModel:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _version_retention_type = d.pop("versionRetentionType", UNSET)
-        version_retention_type: Union[Unset, EBackupItemVersionRetentionType]
+        version_retention_type: EBackupItemVersionRetentionType | Unset
         if isinstance(_version_retention_type, Unset):
             version_retention_type = UNSET
         else:

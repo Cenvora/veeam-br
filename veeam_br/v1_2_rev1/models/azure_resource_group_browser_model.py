@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 
@@ -16,12 +18,12 @@ class AzureResourceGroupBrowserModel:
     """
     Attributes:
         resource_group (str): Resource group name.
-        virtual_networks (list['AzureVirtualNetworkBrowserModel']): Array of virtual networks available in the resource
+        virtual_networks (list[AzureVirtualNetworkBrowserModel]): Array of virtual networks available in the resource
             group.
     """
 
     resource_group: str
-    virtual_networks: list["AzureVirtualNetworkBrowserModel"]
+    virtual_networks: list[AzureVirtualNetworkBrowserModel]
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

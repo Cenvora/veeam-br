@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -18,15 +20,15 @@ class InstantUnstructuredDataRestoreSpec:
     """Settings for Instant File Share Recovery.
 
     Attributes:
-        restore_options (list['UnstructuredDataRestoreOptionsModel']): Array of options for Instant File Share Recovery.
-        auto_select_mount_servers (Union[Unset, bool]): If `true`, Veeam Backup & Replication will assign the backup
-            server as a mount server.
-        reason (Union[Unset, str]): Reason for performing Instant Recovery.
+        restore_options (list[UnstructuredDataRestoreOptionsModel]): Array of options for Instant File Share Recovery.
+        auto_select_mount_servers (bool | Unset): If `true`, Veeam Backup & Replication will assign the backup server as
+            a mount server.
+        reason (str | Unset): Reason for performing Instant Recovery.
     """
 
-    restore_options: list["UnstructuredDataRestoreOptionsModel"]
-    auto_select_mount_servers: Union[Unset, bool] = UNSET
-    reason: Union[Unset, str] = UNSET
+    restore_options: list[UnstructuredDataRestoreOptionsModel]
+    auto_select_mount_servers: bool | Unset = UNSET
+    reason: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

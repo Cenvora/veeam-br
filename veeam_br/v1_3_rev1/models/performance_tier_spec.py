@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,13 +21,12 @@ class PerformanceTierSpec:
     """Performance tier settings.
 
     Attributes:
-        performance_extents (list['PerformanceExtentSpec']): Array of performance extents.
-        advanced_settings (Union[Unset, PerformanceTierAdvancedSettingsModel]): Advanced settings of the performance
-            tier.
+        performance_extents (list[PerformanceExtentSpec]): Array of performance extents.
+        advanced_settings (PerformanceTierAdvancedSettingsModel | Unset): Advanced settings of the performance tier.
     """
 
-    performance_extents: list["PerformanceExtentSpec"]
-    advanced_settings: Union[Unset, "PerformanceTierAdvancedSettingsModel"] = UNSET
+    performance_extents: list[PerformanceExtentSpec]
+    advanced_settings: PerformanceTierAdvancedSettingsModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -34,7 +35,7 @@ class PerformanceTierSpec:
             performance_extents_item = performance_extents_item_data.to_dict()
             performance_extents.append(performance_extents_item)
 
-        advanced_settings: Union[Unset, dict[str, Any]] = UNSET
+        advanced_settings: dict[str, Any] | Unset = UNSET
         if not isinstance(self.advanced_settings, Unset):
             advanced_settings = self.advanced_settings.to_dict()
 
@@ -64,7 +65,7 @@ class PerformanceTierSpec:
             performance_extents.append(performance_extents_item)
 
         _advanced_settings = d.pop("advancedSettings", UNSET)
-        advanced_settings: Union[Unset, PerformanceTierAdvancedSettingsModel]
+        advanced_settings: PerformanceTierAdvancedSettingsModel | Unset
         if isinstance(_advanced_settings, Unset):
             advanced_settings = UNSET
         else:

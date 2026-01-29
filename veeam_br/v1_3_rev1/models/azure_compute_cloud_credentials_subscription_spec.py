@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -21,15 +23,15 @@ class AzureComputeCloudCredentialsSubscriptionSpec:
         Attributes:
             tenant_id (str): ID of a tenant in which the Microsoft Entra ID application is registered.
             application_id (str): Client ID assigned to the Microsoft Entra ID application.
-            secret (Union[Unset, str]): (For password-based authentication) Client secret assigned to the Microsoft Entra ID
+            secret (str | Unset): (For password-based authentication) Client secret assigned to the Microsoft Entra ID
                 application.
-            certificate (Union[Unset, CertificateUploadSpec]): Certificate settings (for certificate-based authentication).
+            certificate (CertificateUploadSpec | Unset): Certificate settings (for certificate-based authentication).
     """
 
     tenant_id: str
     application_id: str
-    secret: Union[Unset, str] = UNSET
-    certificate: Union[Unset, "CertificateUploadSpec"] = UNSET
+    secret: str | Unset = UNSET
+    certificate: CertificateUploadSpec | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -39,7 +41,7 @@ class AzureComputeCloudCredentialsSubscriptionSpec:
 
         secret = self.secret
 
-        certificate: Union[Unset, dict[str, Any]] = UNSET
+        certificate: dict[str, Any] | Unset = UNSET
         if not isinstance(self.certificate, Unset):
             certificate = self.certificate.to_dict()
 
@@ -70,7 +72,7 @@ class AzureComputeCloudCredentialsSubscriptionSpec:
         secret = d.pop("secret", UNSET)
 
         _certificate = d.pop("certificate", UNSET)
-        certificate: Union[Unset, CertificateUploadSpec]
+        certificate: CertificateUploadSpec | Unset
         if isinstance(_certificate, Unset):
             certificate = UNSET
         else:

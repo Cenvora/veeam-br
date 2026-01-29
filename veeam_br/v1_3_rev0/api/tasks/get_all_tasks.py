@@ -1,6 +1,6 @@
 import datetime
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -17,18 +17,18 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     *,
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, ETaskFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    created_after_filter: Union[Unset, datetime.datetime] = UNSET,
-    created_before_filter: Union[Unset, datetime.datetime] = UNSET,
-    ended_after_filter: Union[Unset, datetime.datetime] = UNSET,
-    ended_before_filter: Union[Unset, datetime.datetime] = UNSET,
-    type_filter: Union[Unset, ETaskType] = UNSET,
-    state_filter: Union[Unset, ETaskState] = UNSET,
-    result_filter: Union[Unset, ETaskResult] = UNSET,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: ETaskFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    created_after_filter: datetime.datetime | Unset = UNSET,
+    created_before_filter: datetime.datetime | Unset = UNSET,
+    ended_after_filter: datetime.datetime | Unset = UNSET,
+    ended_before_filter: datetime.datetime | Unset = UNSET,
+    type_filter: ETaskType | Unset = UNSET,
+    state_filter: ETaskState | Unset = UNSET,
+    result_filter: ETaskResult | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -40,7 +40,7 @@ def _get_kwargs(
 
     params["limit"] = limit
 
-    json_order_column: Union[Unset, str] = UNSET
+    json_order_column: str | Unset = UNSET
     if not isinstance(order_column, Unset):
         json_order_column = order_column.value
 
@@ -50,39 +50,39 @@ def _get_kwargs(
 
     params["nameFilter"] = name_filter
 
-    json_created_after_filter: Union[Unset, str] = UNSET
+    json_created_after_filter: str | Unset = UNSET
     if not isinstance(created_after_filter, Unset):
         json_created_after_filter = created_after_filter.isoformat()
     params["createdAfterFilter"] = json_created_after_filter
 
-    json_created_before_filter: Union[Unset, str] = UNSET
+    json_created_before_filter: str | Unset = UNSET
     if not isinstance(created_before_filter, Unset):
         json_created_before_filter = created_before_filter.isoformat()
     params["createdBeforeFilter"] = json_created_before_filter
 
-    json_ended_after_filter: Union[Unset, str] = UNSET
+    json_ended_after_filter: str | Unset = UNSET
     if not isinstance(ended_after_filter, Unset):
         json_ended_after_filter = ended_after_filter.isoformat()
     params["endedAfterFilter"] = json_ended_after_filter
 
-    json_ended_before_filter: Union[Unset, str] = UNSET
+    json_ended_before_filter: str | Unset = UNSET
     if not isinstance(ended_before_filter, Unset):
         json_ended_before_filter = ended_before_filter.isoformat()
     params["endedBeforeFilter"] = json_ended_before_filter
 
-    json_type_filter: Union[Unset, str] = UNSET
+    json_type_filter: str | Unset = UNSET
     if not isinstance(type_filter, Unset):
         json_type_filter = type_filter.value
 
     params["typeFilter"] = json_type_filter
 
-    json_state_filter: Union[Unset, str] = UNSET
+    json_state_filter: str | Unset = UNSET
     if not isinstance(state_filter, Unset):
         json_state_filter = state_filter.value
 
     params["stateFilter"] = json_state_filter
 
-    json_result_filter: Union[Unset, str] = UNSET
+    json_result_filter: str | Unset = UNSET
     if not isinstance(result_filter, Unset):
         json_result_filter = result_filter.value
 
@@ -100,9 +100,7 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, TasksResult]]:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Error | TasksResult | None:
     if response.status_code == 200:
         response_200 = TasksResult.from_dict(response.json())
 
@@ -129,9 +127,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, TasksResult]]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[Error | TasksResult]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -142,21 +138,21 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, ETaskFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    created_after_filter: Union[Unset, datetime.datetime] = UNSET,
-    created_before_filter: Union[Unset, datetime.datetime] = UNSET,
-    ended_after_filter: Union[Unset, datetime.datetime] = UNSET,
-    ended_before_filter: Union[Unset, datetime.datetime] = UNSET,
-    type_filter: Union[Unset, ETaskType] = UNSET,
-    state_filter: Union[Unset, ETaskState] = UNSET,
-    result_filter: Union[Unset, ETaskResult] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: ETaskFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    created_after_filter: datetime.datetime | Unset = UNSET,
+    created_before_filter: datetime.datetime | Unset = UNSET,
+    ended_after_filter: datetime.datetime | Unset = UNSET,
+    ended_before_filter: datetime.datetime | Unset = UNSET,
+    type_filter: ETaskType | Unset = UNSET,
+    state_filter: ETaskState | Unset = UNSET,
+    result_filter: ETaskResult | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Response[Union[Error, TasksResult]]:
+) -> Response[Error | TasksResult]:
     """Get All Tasks
 
      The HTTP GET request to the `/api/v1/tasks` path allows you to get an array of restore tasks
@@ -164,18 +160,18 @@ def sync_detailed(
     Operator, Veeam Restore Operator, Veeam Backup Viewer, Veeam Tape Operator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, ETaskFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        created_after_filter (Union[Unset, datetime.datetime]):
-        created_before_filter (Union[Unset, datetime.datetime]):
-        ended_after_filter (Union[Unset, datetime.datetime]):
-        ended_before_filter (Union[Unset, datetime.datetime]):
-        type_filter (Union[Unset, ETaskType]): Task type.
-        state_filter (Union[Unset, ETaskState]): Task state.
-        result_filter (Union[Unset, ETaskResult]): Task result.
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (ETaskFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        created_after_filter (datetime.datetime | Unset):
+        created_before_filter (datetime.datetime | Unset):
+        ended_after_filter (datetime.datetime | Unset):
+        ended_before_filter (datetime.datetime | Unset):
+        type_filter (ETaskType | Unset): Task type.
+        state_filter (ETaskState | Unset): Task state.
+        result_filter (ETaskResult | Unset): Task result.
         x_api_version (str):  Default: '1.3-rev0'.
 
     Raises:
@@ -183,7 +179,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, TasksResult]]
+        Response[Error | TasksResult]
     """
 
     kwargs = _get_kwargs(
@@ -211,21 +207,21 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, ETaskFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    created_after_filter: Union[Unset, datetime.datetime] = UNSET,
-    created_before_filter: Union[Unset, datetime.datetime] = UNSET,
-    ended_after_filter: Union[Unset, datetime.datetime] = UNSET,
-    ended_before_filter: Union[Unset, datetime.datetime] = UNSET,
-    type_filter: Union[Unset, ETaskType] = UNSET,
-    state_filter: Union[Unset, ETaskState] = UNSET,
-    result_filter: Union[Unset, ETaskResult] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: ETaskFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    created_after_filter: datetime.datetime | Unset = UNSET,
+    created_before_filter: datetime.datetime | Unset = UNSET,
+    ended_after_filter: datetime.datetime | Unset = UNSET,
+    ended_before_filter: datetime.datetime | Unset = UNSET,
+    type_filter: ETaskType | Unset = UNSET,
+    state_filter: ETaskState | Unset = UNSET,
+    result_filter: ETaskResult | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Union[Error, TasksResult]]:
+) -> Error | TasksResult | None:
     """Get All Tasks
 
      The HTTP GET request to the `/api/v1/tasks` path allows you to get an array of restore tasks
@@ -233,18 +229,18 @@ def sync(
     Operator, Veeam Restore Operator, Veeam Backup Viewer, Veeam Tape Operator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, ETaskFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        created_after_filter (Union[Unset, datetime.datetime]):
-        created_before_filter (Union[Unset, datetime.datetime]):
-        ended_after_filter (Union[Unset, datetime.datetime]):
-        ended_before_filter (Union[Unset, datetime.datetime]):
-        type_filter (Union[Unset, ETaskType]): Task type.
-        state_filter (Union[Unset, ETaskState]): Task state.
-        result_filter (Union[Unset, ETaskResult]): Task result.
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (ETaskFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        created_after_filter (datetime.datetime | Unset):
+        created_before_filter (datetime.datetime | Unset):
+        ended_after_filter (datetime.datetime | Unset):
+        ended_before_filter (datetime.datetime | Unset):
+        type_filter (ETaskType | Unset): Task type.
+        state_filter (ETaskState | Unset): Task state.
+        result_filter (ETaskResult | Unset): Task result.
         x_api_version (str):  Default: '1.3-rev0'.
 
     Raises:
@@ -252,7 +248,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, TasksResult]
+        Error | TasksResult
     """
 
     return sync_detailed(
@@ -275,21 +271,21 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, ETaskFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    created_after_filter: Union[Unset, datetime.datetime] = UNSET,
-    created_before_filter: Union[Unset, datetime.datetime] = UNSET,
-    ended_after_filter: Union[Unset, datetime.datetime] = UNSET,
-    ended_before_filter: Union[Unset, datetime.datetime] = UNSET,
-    type_filter: Union[Unset, ETaskType] = UNSET,
-    state_filter: Union[Unset, ETaskState] = UNSET,
-    result_filter: Union[Unset, ETaskResult] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: ETaskFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    created_after_filter: datetime.datetime | Unset = UNSET,
+    created_before_filter: datetime.datetime | Unset = UNSET,
+    ended_after_filter: datetime.datetime | Unset = UNSET,
+    ended_before_filter: datetime.datetime | Unset = UNSET,
+    type_filter: ETaskType | Unset = UNSET,
+    state_filter: ETaskState | Unset = UNSET,
+    result_filter: ETaskResult | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Response[Union[Error, TasksResult]]:
+) -> Response[Error | TasksResult]:
     """Get All Tasks
 
      The HTTP GET request to the `/api/v1/tasks` path allows you to get an array of restore tasks
@@ -297,18 +293,18 @@ async def asyncio_detailed(
     Operator, Veeam Restore Operator, Veeam Backup Viewer, Veeam Tape Operator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, ETaskFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        created_after_filter (Union[Unset, datetime.datetime]):
-        created_before_filter (Union[Unset, datetime.datetime]):
-        ended_after_filter (Union[Unset, datetime.datetime]):
-        ended_before_filter (Union[Unset, datetime.datetime]):
-        type_filter (Union[Unset, ETaskType]): Task type.
-        state_filter (Union[Unset, ETaskState]): Task state.
-        result_filter (Union[Unset, ETaskResult]): Task result.
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (ETaskFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        created_after_filter (datetime.datetime | Unset):
+        created_before_filter (datetime.datetime | Unset):
+        ended_after_filter (datetime.datetime | Unset):
+        ended_before_filter (datetime.datetime | Unset):
+        type_filter (ETaskType | Unset): Task type.
+        state_filter (ETaskState | Unset): Task state.
+        result_filter (ETaskResult | Unset): Task result.
         x_api_version (str):  Default: '1.3-rev0'.
 
     Raises:
@@ -316,7 +312,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, TasksResult]]
+        Response[Error | TasksResult]
     """
 
     kwargs = _get_kwargs(
@@ -342,21 +338,21 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, ETaskFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    created_after_filter: Union[Unset, datetime.datetime] = UNSET,
-    created_before_filter: Union[Unset, datetime.datetime] = UNSET,
-    ended_after_filter: Union[Unset, datetime.datetime] = UNSET,
-    ended_before_filter: Union[Unset, datetime.datetime] = UNSET,
-    type_filter: Union[Unset, ETaskType] = UNSET,
-    state_filter: Union[Unset, ETaskState] = UNSET,
-    result_filter: Union[Unset, ETaskResult] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: ETaskFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    created_after_filter: datetime.datetime | Unset = UNSET,
+    created_before_filter: datetime.datetime | Unset = UNSET,
+    ended_after_filter: datetime.datetime | Unset = UNSET,
+    ended_before_filter: datetime.datetime | Unset = UNSET,
+    type_filter: ETaskType | Unset = UNSET,
+    state_filter: ETaskState | Unset = UNSET,
+    result_filter: ETaskResult | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Union[Error, TasksResult]]:
+) -> Error | TasksResult | None:
     """Get All Tasks
 
      The HTTP GET request to the `/api/v1/tasks` path allows you to get an array of restore tasks
@@ -364,18 +360,18 @@ async def asyncio(
     Operator, Veeam Restore Operator, Veeam Backup Viewer, Veeam Tape Operator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, ETaskFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        created_after_filter (Union[Unset, datetime.datetime]):
-        created_before_filter (Union[Unset, datetime.datetime]):
-        ended_after_filter (Union[Unset, datetime.datetime]):
-        ended_before_filter (Union[Unset, datetime.datetime]):
-        type_filter (Union[Unset, ETaskType]): Task type.
-        state_filter (Union[Unset, ETaskState]): Task state.
-        result_filter (Union[Unset, ETaskResult]): Task result.
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (ETaskFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        created_after_filter (datetime.datetime | Unset):
+        created_before_filter (datetime.datetime | Unset):
+        ended_after_filter (datetime.datetime | Unset):
+        ended_before_filter (datetime.datetime | Unset):
+        type_filter (ETaskType | Unset): Task type.
+        state_filter (ETaskState | Unset): Task state.
+        result_filter (ETaskResult | Unset): Task result.
         x_api_version (str):  Default: '1.3-rev0'.
 
     Raises:
@@ -383,7 +379,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, TasksResult]
+        Error | TasksResult
     """
 
     return (

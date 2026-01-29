@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -18,12 +20,12 @@ class CopyBackupSpec:
         backup_ids (list[UUID]): Array of backup IDs whose data you want to copy. To get the IDs, run the [Get All
             Backups](Backups#operation/GetAllBackups) request.
         backup_repository (UUID): Backup repository name.
-        archive_repository (Union[Unset, UUID]): Archive repository name.
+        archive_repository (UUID | Unset): Archive repository name.
     """
 
     backup_ids: list[UUID]
     backup_repository: UUID
-    archive_repository: Union[Unset, UUID] = UNSET
+    archive_repository: UUID | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -34,7 +36,7 @@ class CopyBackupSpec:
 
         backup_repository = str(self.backup_repository)
 
-        archive_repository: Union[Unset, str] = UNSET
+        archive_repository: str | Unset = UNSET
         if not isinstance(self.archive_repository, Unset):
             archive_repository = str(self.archive_repository)
 
@@ -64,7 +66,7 @@ class CopyBackupSpec:
         backup_repository = UUID(d.pop("backupRepository"))
 
         _archive_repository = d.pop("archiveRepository", UNSET)
-        archive_repository: Union[Unset, UUID]
+        archive_repository: UUID | Unset
         if isinstance(_archive_repository, Unset):
             archive_repository = UNSET
         else:

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -16,14 +18,14 @@ class GFSPolicySettingsYearlyModel:
 
     Attributes:
         is_enabled (bool): If `true`, the yearly GFS retention policy is enabled.
-        keep_for_number_of_years (Union[Unset, int]): Number of years to keep full backups for archival purposes.
-            Possible values are from 1 through 999.
-        desired_time (Union[Unset, EMonth]): Month.
+        keep_for_number_of_years (int | Unset): Number of years to keep full backups for archival purposes. Possible
+            values are from 1 through 999.
+        desired_time (EMonth | Unset): Month.
     """
 
     is_enabled: bool
-    keep_for_number_of_years: Union[Unset, int] = UNSET
-    desired_time: Union[Unset, EMonth] = UNSET
+    keep_for_number_of_years: int | Unset = UNSET
+    desired_time: EMonth | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -31,7 +33,7 @@ class GFSPolicySettingsYearlyModel:
 
         keep_for_number_of_years = self.keep_for_number_of_years
 
-        desired_time: Union[Unset, str] = UNSET
+        desired_time: str | Unset = UNSET
         if not isinstance(self.desired_time, Unset):
             desired_time = self.desired_time.value
 
@@ -57,7 +59,7 @@ class GFSPolicySettingsYearlyModel:
         keep_for_number_of_years = d.pop("keepForNumberOfYears", UNSET)
 
         _desired_time = d.pop("desiredTime", UNSET)
-        desired_time: Union[Unset, EMonth]
+        desired_time: EMonth | Unset
         if isinstance(_desired_time, Unset):
             desired_time = UNSET
         else:

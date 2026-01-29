@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -21,21 +23,20 @@ class FullBackupMaintenanceModel:
     """Maintenance settings for full backup files.
 
     Attributes:
-        remove_data (Union[Unset, FullBackupMaintenanceRemoveDataModel]): Backup data setting for deleted VMs.
-        defragment_and_compact (Union[Unset, FullBackupMaintenanceDefragmentAndCompactModel]): Compact operation
-            settings.
+        remove_data (FullBackupMaintenanceRemoveDataModel | Unset): Backup data setting for deleted VMs.
+        defragment_and_compact (FullBackupMaintenanceDefragmentAndCompactModel | Unset): Compact operation settings.
     """
 
-    remove_data: Union[Unset, "FullBackupMaintenanceRemoveDataModel"] = UNSET
-    defragment_and_compact: Union[Unset, "FullBackupMaintenanceDefragmentAndCompactModel"] = UNSET
+    remove_data: FullBackupMaintenanceRemoveDataModel | Unset = UNSET
+    defragment_and_compact: FullBackupMaintenanceDefragmentAndCompactModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        remove_data: Union[Unset, dict[str, Any]] = UNSET
+        remove_data: dict[str, Any] | Unset = UNSET
         if not isinstance(self.remove_data, Unset):
             remove_data = self.remove_data.to_dict()
 
-        defragment_and_compact: Union[Unset, dict[str, Any]] = UNSET
+        defragment_and_compact: dict[str, Any] | Unset = UNSET
         if not isinstance(self.defragment_and_compact, Unset):
             defragment_and_compact = self.defragment_and_compact.to_dict()
 
@@ -58,14 +59,14 @@ class FullBackupMaintenanceModel:
 
         d = dict(src_dict)
         _remove_data = d.pop("RemoveData", UNSET)
-        remove_data: Union[Unset, FullBackupMaintenanceRemoveDataModel]
+        remove_data: FullBackupMaintenanceRemoveDataModel | Unset
         if isinstance(_remove_data, Unset):
             remove_data = UNSET
         else:
             remove_data = FullBackupMaintenanceRemoveDataModel.from_dict(_remove_data)
 
         _defragment_and_compact = d.pop("defragmentAndCompact", UNSET)
-        defragment_and_compact: Union[Unset, FullBackupMaintenanceDefragmentAndCompactModel]
+        defragment_and_compact: FullBackupMaintenanceDefragmentAndCompactModel | Unset
         if isinstance(_defragment_and_compact, Unset):
             defragment_and_compact = UNSET
         else:

@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -17,29 +19,28 @@ T = TypeVar("T", bound="BackupFilesFilters")
 class BackupFilesFilters:
     """
     Attributes:
-        skip (Union[Unset, int]): Number of backup files to skip.
-        limit (Union[Unset, int]): Maximum number of backup files to return.
-        order_column (Union[Unset, EBackupFilesFiltersOrderColumn]): Sorts backup files by one of the backup file
-            parameters.
-        order_asc (Union[Unset, bool]): If `true`, sorts backup files in ascending order by the `orderColumn` parameter.
-        name_filter (Union[Unset, str]): Sorts backup files by the `nameFilter` pattern. The pattern can match any
-            backup file parameter. To substitute one or more characters, use the asterisk (*) character at the beginning, at
-            the end or both.
-        created_after_filter (Union[Unset, datetime.datetime]): Returns backup files that are created after the
-            specified date and time.
-        created_before_filter (Union[Unset, datetime.datetime]): Returns backup files that are created before the
-            specified date and time.
-        gfs_period_filter (Union[Unset, EBackupFileGFSPeriod]): GFS flag assigned to the backup file.
+        skip (int | Unset): Number of backup files to skip.
+        limit (int | Unset): Maximum number of backup files to return.
+        order_column (EBackupFilesFiltersOrderColumn | Unset): Sorts backup files by one of the backup file parameters.
+        order_asc (bool | Unset): If `true`, sorts backup files in ascending order by the `orderColumn` parameter.
+        name_filter (str | Unset): Sorts backup files by the `nameFilter` pattern. The pattern can match any backup file
+            parameter. To substitute one or more characters, use the asterisk (*) character at the beginning, at the end or
+            both.
+        created_after_filter (datetime.datetime | Unset): Returns backup files that are created after the specified date
+            and time.
+        created_before_filter (datetime.datetime | Unset): Returns backup files that are created before the specified
+            date and time.
+        gfs_period_filter (EBackupFileGFSPeriod | Unset): GFS flag assigned to the backup file.
     """
 
-    skip: Union[Unset, int] = UNSET
-    limit: Union[Unset, int] = UNSET
-    order_column: Union[Unset, EBackupFilesFiltersOrderColumn] = UNSET
-    order_asc: Union[Unset, bool] = UNSET
-    name_filter: Union[Unset, str] = UNSET
-    created_after_filter: Union[Unset, datetime.datetime] = UNSET
-    created_before_filter: Union[Unset, datetime.datetime] = UNSET
-    gfs_period_filter: Union[Unset, EBackupFileGFSPeriod] = UNSET
+    skip: int | Unset = UNSET
+    limit: int | Unset = UNSET
+    order_column: EBackupFilesFiltersOrderColumn | Unset = UNSET
+    order_asc: bool | Unset = UNSET
+    name_filter: str | Unset = UNSET
+    created_after_filter: datetime.datetime | Unset = UNSET
+    created_before_filter: datetime.datetime | Unset = UNSET
+    gfs_period_filter: EBackupFileGFSPeriod | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -47,7 +48,7 @@ class BackupFilesFilters:
 
         limit = self.limit
 
-        order_column: Union[Unset, str] = UNSET
+        order_column: str | Unset = UNSET
         if not isinstance(self.order_column, Unset):
             order_column = self.order_column.value
 
@@ -55,15 +56,15 @@ class BackupFilesFilters:
 
         name_filter = self.name_filter
 
-        created_after_filter: Union[Unset, str] = UNSET
+        created_after_filter: str | Unset = UNSET
         if not isinstance(self.created_after_filter, Unset):
             created_after_filter = self.created_after_filter.isoformat()
 
-        created_before_filter: Union[Unset, str] = UNSET
+        created_before_filter: str | Unset = UNSET
         if not isinstance(self.created_before_filter, Unset):
             created_before_filter = self.created_before_filter.isoformat()
 
-        gfs_period_filter: Union[Unset, str] = UNSET
+        gfs_period_filter: str | Unset = UNSET
         if not isinstance(self.gfs_period_filter, Unset):
             gfs_period_filter = self.gfs_period_filter.value
 
@@ -97,7 +98,7 @@ class BackupFilesFilters:
         limit = d.pop("limit", UNSET)
 
         _order_column = d.pop("orderColumn", UNSET)
-        order_column: Union[Unset, EBackupFilesFiltersOrderColumn]
+        order_column: EBackupFilesFiltersOrderColumn | Unset
         if isinstance(_order_column, Unset):
             order_column = UNSET
         else:
@@ -108,21 +109,21 @@ class BackupFilesFilters:
         name_filter = d.pop("nameFilter", UNSET)
 
         _created_after_filter = d.pop("createdAfterFilter", UNSET)
-        created_after_filter: Union[Unset, datetime.datetime]
+        created_after_filter: datetime.datetime | Unset
         if isinstance(_created_after_filter, Unset):
             created_after_filter = UNSET
         else:
             created_after_filter = isoparse(_created_after_filter)
 
         _created_before_filter = d.pop("createdBeforeFilter", UNSET)
-        created_before_filter: Union[Unset, datetime.datetime]
+        created_before_filter: datetime.datetime | Unset
         if isinstance(_created_before_filter, Unset):
             created_before_filter = UNSET
         else:
             created_before_filter = isoparse(_created_before_filter)
 
         _gfs_period_filter = d.pop("gfsPeriodFilter", UNSET)
-        gfs_period_filter: Union[Unset, EBackupFileGFSPeriod]
+        gfs_period_filter: EBackupFileGFSPeriod | Unset
         if isinstance(_gfs_period_filter, Unset):
             gfs_period_filter = UNSET
         else:

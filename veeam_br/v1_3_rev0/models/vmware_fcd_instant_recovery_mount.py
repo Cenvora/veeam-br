@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -27,16 +29,16 @@ class VmwareFcdInstantRecoveryMount:
         state (EInstantRecoveryMountState): Mount state.
         spec (VmwareFcdInstantRecoverySpec): Instant FCD Recovery configuration:<ul> <li>Restore point ID</li>
             <li>Destination cluster</li> <li>Disks for restore</li> <li>Write cache</li></ul>
-        error_message (Union[Unset, str]): Error message.
-        mounted_disks (Union[Unset, list['VmwareFcdInstantRecoveryDiskInfo']]): Array of mounted disks.
+        error_message (str | Unset): Error message.
+        mounted_disks (list[VmwareFcdInstantRecoveryDiskInfo] | Unset): Array of mounted disks.
     """
 
     id: UUID
     session_id: UUID
     state: EInstantRecoveryMountState
-    spec: "VmwareFcdInstantRecoverySpec"
-    error_message: Union[Unset, str] = UNSET
-    mounted_disks: Union[Unset, list["VmwareFcdInstantRecoveryDiskInfo"]] = UNSET
+    spec: VmwareFcdInstantRecoverySpec
+    error_message: str | Unset = UNSET
+    mounted_disks: list[VmwareFcdInstantRecoveryDiskInfo] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -50,7 +52,7 @@ class VmwareFcdInstantRecoveryMount:
 
         error_message = self.error_message
 
-        mounted_disks: Union[Unset, list[dict[str, Any]]] = UNSET
+        mounted_disks: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.mounted_disks, Unset):
             mounted_disks = []
             for mounted_disks_item_data in self.mounted_disks:
@@ -90,12 +92,14 @@ class VmwareFcdInstantRecoveryMount:
 
         error_message = d.pop("errorMessage", UNSET)
 
-        mounted_disks = []
         _mounted_disks = d.pop("mountedDisks", UNSET)
-        for mounted_disks_item_data in _mounted_disks or []:
-            mounted_disks_item = VmwareFcdInstantRecoveryDiskInfo.from_dict(mounted_disks_item_data)
+        mounted_disks: list[VmwareFcdInstantRecoveryDiskInfo] | Unset = UNSET
+        if _mounted_disks is not UNSET:
+            mounted_disks = []
+            for mounted_disks_item_data in _mounted_disks:
+                mounted_disks_item = VmwareFcdInstantRecoveryDiskInfo.from_dict(mounted_disks_item_data)
 
-            mounted_disks.append(mounted_disks_item)
+                mounted_disks.append(mounted_disks_item)
 
         vmware_fcd_instant_recovery_mount = cls(
             id=id,

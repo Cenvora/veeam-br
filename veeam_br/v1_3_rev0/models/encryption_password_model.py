@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -19,16 +21,16 @@ class EncryptionPasswordModel:
     Attributes:
         id (UUID): ID of the encryption password.
         hint (str): Hint for the encryption password.
-        modification_time (Union[Unset, datetime.datetime]): Date and time when the password was last modified.
-        unique_id (Union[Unset, str]): Unique ID for the encryption password.
-        is_imported (Union[Unset, bool]): Determines whether the password is imported or not.
+        modification_time (datetime.datetime | Unset): Date and time when the password was last modified.
+        unique_id (str | Unset): Unique ID for the encryption password.
+        is_imported (bool | Unset): Determines whether the password is imported or not.
     """
 
     id: UUID
     hint: str
-    modification_time: Union[Unset, datetime.datetime] = UNSET
-    unique_id: Union[Unset, str] = UNSET
-    is_imported: Union[Unset, bool] = UNSET
+    modification_time: datetime.datetime | Unset = UNSET
+    unique_id: str | Unset = UNSET
+    is_imported: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -36,7 +38,7 @@ class EncryptionPasswordModel:
 
         hint = self.hint
 
-        modification_time: Union[Unset, str] = UNSET
+        modification_time: str | Unset = UNSET
         if not isinstance(self.modification_time, Unset):
             modification_time = self.modification_time.isoformat()
 
@@ -69,7 +71,7 @@ class EncryptionPasswordModel:
         hint = d.pop("hint")
 
         _modification_time = d.pop("modificationTime", UNSET)
-        modification_time: Union[Unset, datetime.datetime]
+        modification_time: datetime.datetime | Unset
         if isinstance(_modification_time, Unset):
             modification_time = UNSET
         else:

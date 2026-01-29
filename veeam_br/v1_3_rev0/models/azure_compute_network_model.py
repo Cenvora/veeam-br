@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,16 +17,16 @@ class AzureComputeNetworkModel:
 
     Attributes:
         network (str): Microsoft Azure virtual network.
-        subnet (Union[Unset, str]): Microsoft Azure virtual subnet for the production VM. Make sure that the production
-            VM subnet is different than the one you specify for the Instant Recovery helper appliance.
-        network_security_group (Union[Unset, str]): Security group for the recovered workload.
-        assign_public_ip (Union[Unset, bool]): If `true`, a public IP will be assigned to the restored VM.
+        subnet (str | Unset): Microsoft Azure virtual subnet for the production VM. Make sure that the production VM
+            subnet is different than the one you specify for the Instant Recovery helper appliance.
+        network_security_group (str | Unset): Security group for the recovered workload.
+        assign_public_ip (bool | Unset): If `true`, a public IP will be assigned to the restored VM.
     """
 
     network: str
-    subnet: Union[Unset, str] = UNSET
-    network_security_group: Union[Unset, str] = UNSET
-    assign_public_ip: Union[Unset, bool] = UNSET
+    subnet: str | Unset = UNSET
+    network_security_group: str | Unset = UNSET
+    assign_public_ip: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 
@@ -17,12 +19,12 @@ class YaraRulesResult:
     """Details on YARA rules.
 
     Attributes:
-        data (list['YaraRuleModel']): Array of YARA rule file names.
+        data (list[YaraRuleModel]): Array of YARA rule file names.
         pagination (PaginationResult): Pagination settings.
     """
 
-    data: list["YaraRuleModel"]
-    pagination: "PaginationResult"
+    data: list[YaraRuleModel]
+    pagination: PaginationResult
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

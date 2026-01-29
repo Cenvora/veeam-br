@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -17,17 +19,17 @@ class BackupObjectMarkAsCleanSpec:
     Attributes:
         object_ids (list[UUID]): Array of backup object IDs to be marked as clean.
         reason (str): Reason why the backup objects are marked as clean.
-        mark_restore_points_as_clean (Union[Unset, bool]): If `true`, marks all previous restore points as clean and all
+        mark_restore_points_as_clean (bool | Unset): If `true`, marks all previous restore points as clean and all
             previous suspicious/infected events as false positive.
-        exclude_from_detection (Union[Unset, bool]): If `true`, excludes the objects from the further scanning process.
-        note_for_exclusion (Union[Unset, str]): Note for exclusion from detection.
+        exclude_from_detection (bool | Unset): If `true`, excludes the objects from the further scanning process.
+        note_for_exclusion (str | Unset): Note for exclusion from detection.
     """
 
     object_ids: list[UUID]
     reason: str
-    mark_restore_points_as_clean: Union[Unset, bool] = UNSET
-    exclude_from_detection: Union[Unset, bool] = UNSET
-    note_for_exclusion: Union[Unset, str] = UNSET
+    mark_restore_points_as_clean: bool | Unset = UNSET
+    exclude_from_detection: bool | Unset = UNSET
+    note_for_exclusion: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

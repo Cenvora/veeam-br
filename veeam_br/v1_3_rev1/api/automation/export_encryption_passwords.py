@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -8,12 +8,12 @@ from ...client import AuthenticatedClient, Client
 from ...models.encryption_password_export_spec import EncryptionPasswordExportSpec
 from ...models.encryption_password_import_spec_collection import EncryptionPasswordImportSpecCollection
 from ...models.error import Error
-from ...types import Response
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     *,
-    body: EncryptionPasswordExportSpec,
+    body: EncryptionPasswordExportSpec | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -24,7 +24,8 @@ def _get_kwargs(
         "url": "/api/v1/automation/encryptionPasswords/export",
     }
 
-    _kwargs["json"] = body.to_dict()
+    if not isinstance(body, Unset):
+        _kwargs["json"] = body.to_dict()
 
     headers["Content-Type"] = "application/json"
 
@@ -33,8 +34,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[EncryptionPasswordImportSpecCollection, Error]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> EncryptionPasswordImportSpecCollection | Error | None:
     if response.status_code == 200:
         response_200 = EncryptionPasswordImportSpecCollection.from_dict(response.json())
 
@@ -67,8 +68,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[EncryptionPasswordImportSpecCollection, Error]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[EncryptionPasswordImportSpecCollection | Error]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -79,10 +80,10 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: EncryptionPasswordExportSpec,
+    client: AuthenticatedClient | Client,
+    body: EncryptionPasswordExportSpec | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[EncryptionPasswordImportSpecCollection, Error]]:
+) -> Response[EncryptionPasswordImportSpecCollection | Error]:
     """Export Encryption Passwords
 
      The HTTP POST request to the `/api/v1/automation/encryptionPasswords/export` endpoint exports
@@ -91,14 +92,15 @@ def sync_detailed(
 
     Args:
         x_api_version (str):  Default: '1.3-rev1'.
-        body (EncryptionPasswordExportSpec): Export settings for data encryption passwords.
+        body (EncryptionPasswordExportSpec | Unset): Export settings for data encryption
+            passwords.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[EncryptionPasswordImportSpecCollection, Error]]
+        Response[EncryptionPasswordImportSpecCollection | Error]
     """
 
     kwargs = _get_kwargs(
@@ -115,10 +117,10 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: EncryptionPasswordExportSpec,
+    client: AuthenticatedClient | Client,
+    body: EncryptionPasswordExportSpec | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[EncryptionPasswordImportSpecCollection, Error]]:
+) -> EncryptionPasswordImportSpecCollection | Error | None:
     """Export Encryption Passwords
 
      The HTTP POST request to the `/api/v1/automation/encryptionPasswords/export` endpoint exports
@@ -127,14 +129,15 @@ def sync(
 
     Args:
         x_api_version (str):  Default: '1.3-rev1'.
-        body (EncryptionPasswordExportSpec): Export settings for data encryption passwords.
+        body (EncryptionPasswordExportSpec | Unset): Export settings for data encryption
+            passwords.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[EncryptionPasswordImportSpecCollection, Error]
+        EncryptionPasswordImportSpecCollection | Error
     """
 
     return sync_detailed(
@@ -146,10 +149,10 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: EncryptionPasswordExportSpec,
+    client: AuthenticatedClient | Client,
+    body: EncryptionPasswordExportSpec | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[EncryptionPasswordImportSpecCollection, Error]]:
+) -> Response[EncryptionPasswordImportSpecCollection | Error]:
     """Export Encryption Passwords
 
      The HTTP POST request to the `/api/v1/automation/encryptionPasswords/export` endpoint exports
@@ -158,14 +161,15 @@ async def asyncio_detailed(
 
     Args:
         x_api_version (str):  Default: '1.3-rev1'.
-        body (EncryptionPasswordExportSpec): Export settings for data encryption passwords.
+        body (EncryptionPasswordExportSpec | Unset): Export settings for data encryption
+            passwords.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[EncryptionPasswordImportSpecCollection, Error]]
+        Response[EncryptionPasswordImportSpecCollection | Error]
     """
 
     kwargs = _get_kwargs(
@@ -180,10 +184,10 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: EncryptionPasswordExportSpec,
+    client: AuthenticatedClient | Client,
+    body: EncryptionPasswordExportSpec | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[EncryptionPasswordImportSpecCollection, Error]]:
+) -> EncryptionPasswordImportSpecCollection | Error | None:
     """Export Encryption Passwords
 
      The HTTP POST request to the `/api/v1/automation/encryptionPasswords/export` endpoint exports
@@ -192,14 +196,15 @@ async def asyncio(
 
     Args:
         x_api_version (str):  Default: '1.3-rev1'.
-        body (EncryptionPasswordExportSpec): Export settings for data encryption passwords.
+        body (EncryptionPasswordExportSpec | Unset): Export settings for data encryption
+            passwords.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[EncryptionPasswordImportSpecCollection, Error]
+        EncryptionPasswordImportSpecCollection | Error
     """
 
     return (

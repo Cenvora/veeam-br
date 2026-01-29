@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -18,15 +20,15 @@ class AmazonSnowballEdgeStorageBucketModel:
     """Amazon S3 bucket.
 
     Attributes:
-        bucket_name (Union[Unset, str]): Name of the Amazon S3 bucket.
-        folder_name (Union[Unset, str]): Name of the folder to which the object storage repository is mapped.
-        storage_consumption_limit (Union[Unset, ObjectStorageConsumptionLimitModel]): Soft consumption limit for the
-            storage. The limit can be exceeded temporarily.
+        bucket_name (str | Unset): Name of the Amazon S3 bucket.
+        folder_name (str | Unset): Name of the folder to which the object storage repository is mapped.
+        storage_consumption_limit (ObjectStorageConsumptionLimitModel | Unset): Soft consumption limit for the storage.
+            The limit can be exceeded temporarily.
     """
 
-    bucket_name: Union[Unset, str] = UNSET
-    folder_name: Union[Unset, str] = UNSET
-    storage_consumption_limit: Union[Unset, "ObjectStorageConsumptionLimitModel"] = UNSET
+    bucket_name: str | Unset = UNSET
+    folder_name: str | Unset = UNSET
+    storage_consumption_limit: ObjectStorageConsumptionLimitModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -34,7 +36,7 @@ class AmazonSnowballEdgeStorageBucketModel:
 
         folder_name = self.folder_name
 
-        storage_consumption_limit: Union[Unset, dict[str, Any]] = UNSET
+        storage_consumption_limit: dict[str, Any] | Unset = UNSET
         if not isinstance(self.storage_consumption_limit, Unset):
             storage_consumption_limit = self.storage_consumption_limit.to_dict()
 
@@ -60,7 +62,7 @@ class AmazonSnowballEdgeStorageBucketModel:
         folder_name = d.pop("folderName", UNSET)
 
         _storage_consumption_limit = d.pop("storageConsumptionLimit", UNSET)
-        storage_consumption_limit: Union[Unset, ObjectStorageConsumptionLimitModel]
+        storage_consumption_limit: ObjectStorageConsumptionLimitModel | Unset
         if isinstance(_storage_consumption_limit, Unset):
             storage_consumption_limit = UNSET
         else:

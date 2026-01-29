@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,16 +21,16 @@ class LicenseInstallationSpec:
 
     Attributes:
         license_ (str): Base64-encoded string of the content of a license file.
-        force_standalone_mode (Union[Unset, bool]): This property is only used with backup servers managed by Veeam
-            Backup Enterprise Manager.<ul><li>If `true`, license will be installed. </li><li>If `false` or the property is
-            not specified, the request will return an error, warning you that the backup server is managed by Enterprise
+        force_standalone_mode (bool | Unset): This property is only used with backup servers managed by Veeam Backup
+            Enterprise Manager.<ul><li>If `true`, license will be installed. </li><li>If `false` or the property is not
+            specified, the request will return an error, warning you that the backup server is managed by Enterprise
             Manager.</li></ul>
-        promo (Union[Unset, LicenseInstallationPromoSpec]): Promo license installation settings.
+        promo (LicenseInstallationPromoSpec | Unset): Promo license installation settings.
     """
 
     license_: str
-    force_standalone_mode: Union[Unset, bool] = UNSET
-    promo: Union[Unset, "LicenseInstallationPromoSpec"] = UNSET
+    force_standalone_mode: bool | Unset = UNSET
+    promo: LicenseInstallationPromoSpec | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -36,7 +38,7 @@ class LicenseInstallationSpec:
 
         force_standalone_mode = self.force_standalone_mode
 
-        promo: Union[Unset, dict[str, Any]] = UNSET
+        promo: dict[str, Any] | Unset = UNSET
         if not isinstance(self.promo, Unset):
             promo = self.promo.to_dict()
 
@@ -64,7 +66,7 @@ class LicenseInstallationSpec:
         force_standalone_mode = d.pop("forceStandaloneMode", UNSET)
 
         _promo = d.pop("promo", UNSET)
-        promo: Union[Unset, LicenseInstallationPromoSpec]
+        promo: LicenseInstallationPromoSpec | Unset
         if isinstance(_promo, Unset):
             promo = UNSET
         else:

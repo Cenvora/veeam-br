@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -18,22 +20,22 @@ class AgentBackupPolicyScheduleAtEventsModel:
     """Settings for backups scheduled at a particular event.
 
     Attributes:
-        backup_at_lock (Union[Unset, bool]): If `true`, Veeam Agent backup job will start when the user locks the
-            protected computer.
-        backup_at_logoff (Union[Unset, bool]): If `true`, Veeam Agent backup job will start when the user working with
-            the protected computer performs a logout operation.
-        backup_at_storage_attach (Union[Unset, bool]): If `true`, Veeam Agent backup job will start when the backup
-            storage becomes available.
-        eject_storage_after_backup (Union[Unset, bool]): If `true`, Veeam Agent for Microsoft Windows will unmount the
-            storage device after the backup job completes successfully.
-        backup_timeout (Union[Unset, AgentBackupPolicyBackupTimeoutModel]): Interval between the backup job sessions.
+        backup_at_lock (bool | Unset): If `true`, Veeam Agent backup job will start when the user locks the protected
+            computer.
+        backup_at_logoff (bool | Unset): If `true`, Veeam Agent backup job will start when the user working with the
+            protected computer performs a logout operation.
+        backup_at_storage_attach (bool | Unset): If `true`, Veeam Agent backup job will start when the backup storage
+            becomes available.
+        eject_storage_after_backup (bool | Unset): If `true`, Veeam Agent for Microsoft Windows will unmount the storage
+            device after the backup job completes successfully.
+        backup_timeout (AgentBackupPolicyBackupTimeoutModel | Unset): Interval between the backup job sessions.
     """
 
-    backup_at_lock: Union[Unset, bool] = UNSET
-    backup_at_logoff: Union[Unset, bool] = UNSET
-    backup_at_storage_attach: Union[Unset, bool] = UNSET
-    eject_storage_after_backup: Union[Unset, bool] = UNSET
-    backup_timeout: Union[Unset, "AgentBackupPolicyBackupTimeoutModel"] = UNSET
+    backup_at_lock: bool | Unset = UNSET
+    backup_at_logoff: bool | Unset = UNSET
+    backup_at_storage_attach: bool | Unset = UNSET
+    eject_storage_after_backup: bool | Unset = UNSET
+    backup_timeout: AgentBackupPolicyBackupTimeoutModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -45,7 +47,7 @@ class AgentBackupPolicyScheduleAtEventsModel:
 
         eject_storage_after_backup = self.eject_storage_after_backup
 
-        backup_timeout: Union[Unset, dict[str, Any]] = UNSET
+        backup_timeout: dict[str, Any] | Unset = UNSET
         if not isinstance(self.backup_timeout, Unset):
             backup_timeout = self.backup_timeout.to_dict()
 
@@ -79,7 +81,7 @@ class AgentBackupPolicyScheduleAtEventsModel:
         eject_storage_after_backup = d.pop("ejectStorageAfterBackup", UNSET)
 
         _backup_timeout = d.pop("backupTimeout", UNSET)
-        backup_timeout: Union[Unset, AgentBackupPolicyBackupTimeoutModel]
+        backup_timeout: AgentBackupPolicyBackupTimeoutModel | Unset
         if isinstance(_backup_timeout, Unset):
             backup_timeout = UNSET
         else:

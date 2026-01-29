@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
@@ -20,13 +22,13 @@ class EntraIdTenantItemRecursiveComparisonModel:
     Attributes:
         exists_in_old_restore_point (bool): If `true`, the item exists in the earlier restore point.
         exists_in_new_restore_point (bool): If `true`, the item exists in the later restore point.
-        properties (list['EntraIdTenantItemRecursiveComparisonNode']): Array of properties.
+        properties (list[EntraIdTenantItemRecursiveComparisonNode]): Array of properties.
         cache_timestamp (datetime.datetime): Date and time the mount session cache was last updated.
     """
 
     exists_in_old_restore_point: bool
     exists_in_new_restore_point: bool
-    properties: list["EntraIdTenantItemRecursiveComparisonNode"]
+    properties: list[EntraIdTenantItemRecursiveComparisonNode]
     cache_timestamp: datetime.datetime
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 

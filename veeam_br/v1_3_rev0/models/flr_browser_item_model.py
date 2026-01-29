@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -25,8 +27,8 @@ class FlrBrowserItemModel:
         creation_date (datetime.datetime): Date and time when the item was created.
         modified_date (datetime.datetime): Date and time when the item was last modified.
         item_state (EFlrItemStateType): Item state.
-        location (Union[Unset, str]): Item path.
-        owner (Union[Unset, str]): Owner of the item.
+        location (str | Unset): Item path.
+        owner (str | Unset): Owner of the item.
     """
 
     display_name: str
@@ -36,8 +38,8 @@ class FlrBrowserItemModel:
     creation_date: datetime.datetime
     modified_date: datetime.datetime
     item_state: EFlrItemStateType
-    location: Union[Unset, str] = UNSET
-    owner: Union[Unset, str] = UNSET
+    location: str | Unset = UNSET
+    owner: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

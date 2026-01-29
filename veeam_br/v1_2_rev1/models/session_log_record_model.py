@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -17,34 +19,34 @@ class SessionLogRecordModel:
     """Log record of the session.
 
     Attributes:
-        id (Union[Unset, int]): ID of the log record.
-        status (Union[Unset, ETaskLogRecordStatus]): Status of the log record.
-        start_time (Union[Unset, datetime.datetime]): Date and time when the operation was started.
-        update_time (Union[Unset, datetime.datetime]): Date and time when the log record was updated.
-        title (Union[Unset, str]): Title of the log record.
-        description (Union[Unset, str]): Description of the log record.
+        id (int | Unset): ID of the log record.
+        status (ETaskLogRecordStatus | Unset): Status of the log record.
+        start_time (datetime.datetime | Unset): Date and time when the operation was started.
+        update_time (datetime.datetime | Unset): Date and time when the log record was updated.
+        title (str | Unset): Title of the log record.
+        description (str | Unset): Description of the log record.
     """
 
-    id: Union[Unset, int] = UNSET
-    status: Union[Unset, ETaskLogRecordStatus] = UNSET
-    start_time: Union[Unset, datetime.datetime] = UNSET
-    update_time: Union[Unset, datetime.datetime] = UNSET
-    title: Union[Unset, str] = UNSET
-    description: Union[Unset, str] = UNSET
+    id: int | Unset = UNSET
+    status: ETaskLogRecordStatus | Unset = UNSET
+    start_time: datetime.datetime | Unset = UNSET
+    update_time: datetime.datetime | Unset = UNSET
+    title: str | Unset = UNSET
+    description: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         id = self.id
 
-        status: Union[Unset, str] = UNSET
+        status: str | Unset = UNSET
         if not isinstance(self.status, Unset):
             status = self.status.value
 
-        start_time: Union[Unset, str] = UNSET
+        start_time: str | Unset = UNSET
         if not isinstance(self.start_time, Unset):
             start_time = self.start_time.isoformat()
 
-        update_time: Union[Unset, str] = UNSET
+        update_time: str | Unset = UNSET
         if not isinstance(self.update_time, Unset):
             update_time = self.update_time.isoformat()
 
@@ -76,21 +78,21 @@ class SessionLogRecordModel:
         id = d.pop("id", UNSET)
 
         _status = d.pop("status", UNSET)
-        status: Union[Unset, ETaskLogRecordStatus]
+        status: ETaskLogRecordStatus | Unset
         if isinstance(_status, Unset):
             status = UNSET
         else:
             status = ETaskLogRecordStatus(_status)
 
         _start_time = d.pop("startTime", UNSET)
-        start_time: Union[Unset, datetime.datetime]
+        start_time: datetime.datetime | Unset
         if isinstance(_start_time, Unset):
             start_time = UNSET
         else:
             start_time = isoparse(_start_time)
 
         _update_time = d.pop("updateTime", UNSET)
-        update_time: Union[Unset, datetime.datetime]
+        update_time: datetime.datetime | Unset
         if isinstance(_update_time, Unset):
             update_time = UNSET
         else:

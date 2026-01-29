@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,23 +17,23 @@ class RepositoryAdvancedSettingsModel:
     """Advanced settings for the backup repository.
 
     Attributes:
-        align_data_blocks (Union[Unset, bool]): If `true`, Veeam Backup & Replication aligns VM data saved to a backup
-            file at a 4 KB block boundary.
-        decompress_before_storing (Union[Unset, bool]): If `true`, Veeam Backup & Replication decompresses backup data
-            blocks before storing to improve deduplication ratios.
-        rotated_drives (Union[Unset, bool]): If `true`, the repository drive is rotated.
-        per_vm_backup (Union[Unset, bool]): If `true`, Veeam Backup & Replication creates a separate backup file for
-            every VM in the job.
-        rotated_drive_cleanup_mode (Union[Unset, ERotatedDriveCleanupMode]): Cleanup mode:<ul> <li>`Disabled` — continue
-            the backup chain on an inserted drive.</li> <li>`ClearBackupFolder` — delete existing backups belonging to the
+        align_data_blocks (bool | Unset): If `true`, Veeam Backup & Replication aligns VM data saved to a backup file at
+            a 4 KB block boundary.
+        decompress_before_storing (bool | Unset): If `true`, Veeam Backup & Replication decompresses backup data blocks
+            before storing to improve deduplication ratios.
+        rotated_drives (bool | Unset): If `true`, the repository drive is rotated.
+        per_vm_backup (bool | Unset): If `true`, Veeam Backup & Replication creates a separate backup file for every VM
+            in the job.
+        rotated_drive_cleanup_mode (ERotatedDriveCleanupMode | Unset): Cleanup mode:<ul> <li>`Disabled` — continue the
+            backup chain on an inserted drive.</li> <li>`ClearBackupFolder` — delete existing backups belonging to the
             job.</li> <li>`ClearRepositoryFolder` — delete all existing backups from repository.</li></ul>
     """
 
-    align_data_blocks: Union[Unset, bool] = UNSET
-    decompress_before_storing: Union[Unset, bool] = UNSET
-    rotated_drives: Union[Unset, bool] = UNSET
-    per_vm_backup: Union[Unset, bool] = UNSET
-    rotated_drive_cleanup_mode: Union[Unset, ERotatedDriveCleanupMode] = UNSET
+    align_data_blocks: bool | Unset = UNSET
+    decompress_before_storing: bool | Unset = UNSET
+    rotated_drives: bool | Unset = UNSET
+    per_vm_backup: bool | Unset = UNSET
+    rotated_drive_cleanup_mode: ERotatedDriveCleanupMode | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -43,7 +45,7 @@ class RepositoryAdvancedSettingsModel:
 
         per_vm_backup = self.per_vm_backup
 
-        rotated_drive_cleanup_mode: Union[Unset, str] = UNSET
+        rotated_drive_cleanup_mode: str | Unset = UNSET
         if not isinstance(self.rotated_drive_cleanup_mode, Unset):
             rotated_drive_cleanup_mode = self.rotated_drive_cleanup_mode.value
 
@@ -75,7 +77,7 @@ class RepositoryAdvancedSettingsModel:
         per_vm_backup = d.pop("perVmBackup", UNSET)
 
         _rotated_drive_cleanup_mode = d.pop("RotatedDriveCleanupMode", UNSET)
-        rotated_drive_cleanup_mode: Union[Unset, ERotatedDriveCleanupMode]
+        rotated_drive_cleanup_mode: ERotatedDriveCleanupMode | Unset
         if isinstance(_rotated_drive_cleanup_mode, Unset):
             rotated_drive_cleanup_mode = UNSET
         else:

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -21,23 +23,23 @@ class EntraIDTenantBackupJobStorageModel:
 
     Attributes:
         tenant_id (UUID): Tenant ID assigned by Veeam Backup & Replication.
-        retention_policy (Union[Unset, BackupJobRetentionPolicySettingsModel]): Retention policy settings.
-        advanced_settings (Union[Unset, EntraIDTenantBackupJobAdvancedSettingsModel]): Advanced job settings.
+        retention_policy (BackupJobRetentionPolicySettingsModel | Unset): Retention policy settings.
+        advanced_settings (EntraIDTenantBackupJobAdvancedSettingsModel | Unset): Advanced job settings.
     """
 
     tenant_id: UUID
-    retention_policy: Union[Unset, "BackupJobRetentionPolicySettingsModel"] = UNSET
-    advanced_settings: Union[Unset, "EntraIDTenantBackupJobAdvancedSettingsModel"] = UNSET
+    retention_policy: BackupJobRetentionPolicySettingsModel | Unset = UNSET
+    advanced_settings: EntraIDTenantBackupJobAdvancedSettingsModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         tenant_id = str(self.tenant_id)
 
-        retention_policy: Union[Unset, dict[str, Any]] = UNSET
+        retention_policy: dict[str, Any] | Unset = UNSET
         if not isinstance(self.retention_policy, Unset):
             retention_policy = self.retention_policy.to_dict()
 
-        advanced_settings: Union[Unset, dict[str, Any]] = UNSET
+        advanced_settings: dict[str, Any] | Unset = UNSET
         if not isinstance(self.advanced_settings, Unset):
             advanced_settings = self.advanced_settings.to_dict()
 
@@ -66,14 +68,14 @@ class EntraIDTenantBackupJobStorageModel:
         tenant_id = UUID(d.pop("tenantId"))
 
         _retention_policy = d.pop("retentionPolicy", UNSET)
-        retention_policy: Union[Unset, BackupJobRetentionPolicySettingsModel]
+        retention_policy: BackupJobRetentionPolicySettingsModel | Unset
         if isinstance(_retention_policy, Unset):
             retention_policy = UNSET
         else:
             retention_policy = BackupJobRetentionPolicySettingsModel.from_dict(_retention_policy)
 
         _advanced_settings = d.pop("advancedSettings", UNSET)
-        advanced_settings: Union[Unset, EntraIDTenantBackupJobAdvancedSettingsModel]
+        advanced_settings: EntraIDTenantBackupJobAdvancedSettingsModel | Unset
         if isinstance(_advanced_settings, Unset):
             advanced_settings = UNSET
         else:

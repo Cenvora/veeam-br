@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -25,17 +27,17 @@ class ViHostImportSpec:
         type_ (EManagedServerType): Type of the server.
         vi_host_type (EViHostType): Type of the VMware vSphere server.
         credentials (CredentialsImportModel): Credentials used for connection.
-        port (Union[Unset, int]): Port used to communicate with the server.
-        certificate_thumbprint (Union[Unset, str]): Certificate thumbprint used to verify the server identity.
+        port (int | Unset): Port used to communicate with the server.
+        certificate_thumbprint (str | Unset): Certificate thumbprint used to verify the server identity.
     """
 
     name: str
     description: str
     type_: EManagedServerType
     vi_host_type: EViHostType
-    credentials: "CredentialsImportModel"
-    port: Union[Unset, int] = UNSET
-    certificate_thumbprint: Union[Unset, str] = UNSET
+    credentials: CredentialsImportModel
+    port: int | Unset = UNSET
+    certificate_thumbprint: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

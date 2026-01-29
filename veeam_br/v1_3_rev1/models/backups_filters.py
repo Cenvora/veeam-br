@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -18,30 +20,30 @@ T = TypeVar("T", bound="BackupsFilters")
 class BackupsFilters:
     """
     Attributes:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):
-        order_column (Union[Unset, EBackupsFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        created_after_filter (Union[Unset, datetime.datetime]):
-        created_before_filter (Union[Unset, datetime.datetime]):
-        platform_id_filter (Union[Unset, UUID]):
-        job_id_filter (Union[Unset, UUID]):
-        policy_tag_filter (Union[Unset, str]):
-        job_type_filter (Union[Unset, EJobType]): Type of the job.
+        skip (int | Unset):
+        limit (int | Unset):
+        order_column (EBackupsFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        created_after_filter (datetime.datetime | Unset):
+        created_before_filter (datetime.datetime | Unset):
+        platform_id_filter (UUID | Unset):
+        job_id_filter (UUID | Unset):
+        policy_tag_filter (str | Unset):
+        job_type_filter (EJobType | Unset): Type of the job.
     """
 
-    skip: Union[Unset, int] = UNSET
-    limit: Union[Unset, int] = UNSET
-    order_column: Union[Unset, EBackupsFiltersOrderColumn] = UNSET
-    order_asc: Union[Unset, bool] = UNSET
-    name_filter: Union[Unset, str] = UNSET
-    created_after_filter: Union[Unset, datetime.datetime] = UNSET
-    created_before_filter: Union[Unset, datetime.datetime] = UNSET
-    platform_id_filter: Union[Unset, UUID] = UNSET
-    job_id_filter: Union[Unset, UUID] = UNSET
-    policy_tag_filter: Union[Unset, str] = UNSET
-    job_type_filter: Union[Unset, EJobType] = UNSET
+    skip: int | Unset = UNSET
+    limit: int | Unset = UNSET
+    order_column: EBackupsFiltersOrderColumn | Unset = UNSET
+    order_asc: bool | Unset = UNSET
+    name_filter: str | Unset = UNSET
+    created_after_filter: datetime.datetime | Unset = UNSET
+    created_before_filter: datetime.datetime | Unset = UNSET
+    platform_id_filter: UUID | Unset = UNSET
+    job_id_filter: UUID | Unset = UNSET
+    policy_tag_filter: str | Unset = UNSET
+    job_type_filter: EJobType | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -49,7 +51,7 @@ class BackupsFilters:
 
         limit = self.limit
 
-        order_column: Union[Unset, str] = UNSET
+        order_column: str | Unset = UNSET
         if not isinstance(self.order_column, Unset):
             order_column = self.order_column.value
 
@@ -57,25 +59,25 @@ class BackupsFilters:
 
         name_filter = self.name_filter
 
-        created_after_filter: Union[Unset, str] = UNSET
+        created_after_filter: str | Unset = UNSET
         if not isinstance(self.created_after_filter, Unset):
             created_after_filter = self.created_after_filter.isoformat()
 
-        created_before_filter: Union[Unset, str] = UNSET
+        created_before_filter: str | Unset = UNSET
         if not isinstance(self.created_before_filter, Unset):
             created_before_filter = self.created_before_filter.isoformat()
 
-        platform_id_filter: Union[Unset, str] = UNSET
+        platform_id_filter: str | Unset = UNSET
         if not isinstance(self.platform_id_filter, Unset):
             platform_id_filter = str(self.platform_id_filter)
 
-        job_id_filter: Union[Unset, str] = UNSET
+        job_id_filter: str | Unset = UNSET
         if not isinstance(self.job_id_filter, Unset):
             job_id_filter = str(self.job_id_filter)
 
         policy_tag_filter = self.policy_tag_filter
 
-        job_type_filter: Union[Unset, str] = UNSET
+        job_type_filter: str | Unset = UNSET
         if not isinstance(self.job_type_filter, Unset):
             job_type_filter = self.job_type_filter.value
 
@@ -115,7 +117,7 @@ class BackupsFilters:
         limit = d.pop("limit", UNSET)
 
         _order_column = d.pop("orderColumn", UNSET)
-        order_column: Union[Unset, EBackupsFiltersOrderColumn]
+        order_column: EBackupsFiltersOrderColumn | Unset
         if isinstance(_order_column, Unset):
             order_column = UNSET
         else:
@@ -126,28 +128,28 @@ class BackupsFilters:
         name_filter = d.pop("nameFilter", UNSET)
 
         _created_after_filter = d.pop("createdAfterFilter", UNSET)
-        created_after_filter: Union[Unset, datetime.datetime]
+        created_after_filter: datetime.datetime | Unset
         if isinstance(_created_after_filter, Unset):
             created_after_filter = UNSET
         else:
             created_after_filter = isoparse(_created_after_filter)
 
         _created_before_filter = d.pop("createdBeforeFilter", UNSET)
-        created_before_filter: Union[Unset, datetime.datetime]
+        created_before_filter: datetime.datetime | Unset
         if isinstance(_created_before_filter, Unset):
             created_before_filter = UNSET
         else:
             created_before_filter = isoparse(_created_before_filter)
 
         _platform_id_filter = d.pop("platformIdFilter", UNSET)
-        platform_id_filter: Union[Unset, UUID]
+        platform_id_filter: UUID | Unset
         if isinstance(_platform_id_filter, Unset):
             platform_id_filter = UNSET
         else:
             platform_id_filter = UUID(_platform_id_filter)
 
         _job_id_filter = d.pop("jobIdFilter", UNSET)
-        job_id_filter: Union[Unset, UUID]
+        job_id_filter: UUID | Unset
         if isinstance(_job_id_filter, Unset):
             job_id_filter = UNSET
         else:
@@ -156,7 +158,7 @@ class BackupsFilters:
         policy_tag_filter = d.pop("policyTagFilter", UNSET)
 
         _job_type_filter = d.pop("jobTypeFilter", UNSET)
-        job_type_filter: Union[Unset, EJobType]
+        job_type_filter: EJobType | Unset
         if isinstance(_job_type_filter, Unset):
             job_type_filter = UNSET
         else:

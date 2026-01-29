@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -14,12 +14,12 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     *,
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EUnstructuredDataServersFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, list[EUnstructuredDataServerType]] = UNSET,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EUnstructuredDataServersFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: list[EUnstructuredDataServerType] | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -31,7 +31,7 @@ def _get_kwargs(
 
     params["limit"] = limit
 
-    json_order_column: Union[Unset, str] = UNSET
+    json_order_column: str | Unset = UNSET
     if not isinstance(order_column, Unset):
         json_order_column = order_column.value
 
@@ -41,7 +41,7 @@ def _get_kwargs(
 
     params["nameFilter"] = name_filter
 
-    json_type_filter: Union[Unset, list[str]] = UNSET
+    json_type_filter: list[str] | Unset = UNSET
     if not isinstance(type_filter, Unset):
         json_type_filter = []
         for type_filter_item_data in type_filter:
@@ -63,8 +63,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, UnstructuredDataServersResult]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Error | UnstructuredDataServersResult | None:
     if response.status_code == 200:
         response_200 = UnstructuredDataServersResult.from_dict(response.json())
 
@@ -92,8 +92,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, UnstructuredDataServersResult]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | UnstructuredDataServersResult]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -104,15 +104,15 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EUnstructuredDataServersFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, list[EUnstructuredDataServerType]] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EUnstructuredDataServersFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: list[EUnstructuredDataServerType] | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Error, UnstructuredDataServersResult]]:
+) -> Response[Error | UnstructuredDataServersResult]:
     """Get All Unstructured Data Servers
 
      The HTTP GET request to the `/api/v1/inventory/unstructuredDataServers` endpoint gets an array of
@@ -121,13 +121,13 @@ def sync_detailed(
     Viewer.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EUnstructuredDataServersFiltersOrderColumn]): Sorts
-            unstructured data servers by one of the unstructured data server parameters.
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, list[EUnstructuredDataServerType]]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EUnstructuredDataServersFiltersOrderColumn | Unset): Sorts unstructured data
+            servers by one of the unstructured data server parameters.
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        type_filter (list[EUnstructuredDataServerType] | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -135,7 +135,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, UnstructuredDataServersResult]]
+        Response[Error | UnstructuredDataServersResult]
     """
 
     kwargs = _get_kwargs(
@@ -157,15 +157,15 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EUnstructuredDataServersFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, list[EUnstructuredDataServerType]] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EUnstructuredDataServersFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: list[EUnstructuredDataServerType] | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Error, UnstructuredDataServersResult]]:
+) -> Error | UnstructuredDataServersResult | None:
     """Get All Unstructured Data Servers
 
      The HTTP GET request to the `/api/v1/inventory/unstructuredDataServers` endpoint gets an array of
@@ -174,13 +174,13 @@ def sync(
     Viewer.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EUnstructuredDataServersFiltersOrderColumn]): Sorts
-            unstructured data servers by one of the unstructured data server parameters.
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, list[EUnstructuredDataServerType]]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EUnstructuredDataServersFiltersOrderColumn | Unset): Sorts unstructured data
+            servers by one of the unstructured data server parameters.
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        type_filter (list[EUnstructuredDataServerType] | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -188,7 +188,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, UnstructuredDataServersResult]
+        Error | UnstructuredDataServersResult
     """
 
     return sync_detailed(
@@ -205,15 +205,15 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EUnstructuredDataServersFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, list[EUnstructuredDataServerType]] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EUnstructuredDataServersFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: list[EUnstructuredDataServerType] | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Error, UnstructuredDataServersResult]]:
+) -> Response[Error | UnstructuredDataServersResult]:
     """Get All Unstructured Data Servers
 
      The HTTP GET request to the `/api/v1/inventory/unstructuredDataServers` endpoint gets an array of
@@ -222,13 +222,13 @@ async def asyncio_detailed(
     Viewer.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EUnstructuredDataServersFiltersOrderColumn]): Sorts
-            unstructured data servers by one of the unstructured data server parameters.
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, list[EUnstructuredDataServerType]]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EUnstructuredDataServersFiltersOrderColumn | Unset): Sorts unstructured data
+            servers by one of the unstructured data server parameters.
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        type_filter (list[EUnstructuredDataServerType] | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -236,7 +236,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, UnstructuredDataServersResult]]
+        Response[Error | UnstructuredDataServersResult]
     """
 
     kwargs = _get_kwargs(
@@ -256,15 +256,15 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EUnstructuredDataServersFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, list[EUnstructuredDataServerType]] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EUnstructuredDataServersFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: list[EUnstructuredDataServerType] | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Error, UnstructuredDataServersResult]]:
+) -> Error | UnstructuredDataServersResult | None:
     """Get All Unstructured Data Servers
 
      The HTTP GET request to the `/api/v1/inventory/unstructuredDataServers` endpoint gets an array of
@@ -273,13 +273,13 @@ async def asyncio(
     Viewer.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EUnstructuredDataServersFiltersOrderColumn]): Sorts
-            unstructured data servers by one of the unstructured data server parameters.
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, list[EUnstructuredDataServerType]]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EUnstructuredDataServersFiltersOrderColumn | Unset): Sorts unstructured data
+            servers by one of the unstructured data server parameters.
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        type_filter (list[EUnstructuredDataServerType] | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -287,7 +287,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, UnstructuredDataServersResult]
+        Error | UnstructuredDataServersResult
     """
 
     return (

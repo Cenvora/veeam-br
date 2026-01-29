@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 
@@ -33,8 +35,8 @@ class WindowsLocalStorageImportSpec:
     unique_id: str
     host_name: str
     type_: ERepositoryType
-    repository: "WindowsLocalRepositorySettingsModel"
-    mount_server: "MountServersSettingsImportSpec"
+    repository: WindowsLocalRepositorySettingsModel
+    mount_server: MountServersSettingsImportSpec
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

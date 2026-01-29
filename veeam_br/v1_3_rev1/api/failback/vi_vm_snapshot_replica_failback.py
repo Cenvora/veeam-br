@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -7,21 +7,13 @@ from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.error import Error
 from ...models.sessions_result import SessionsResult
-from ...models.vi_vm_snapshot_replica_customized_failback_spec import ViVMSnapshotReplicaCustomizedFailbackSpec
-from ...models.vi_vm_snapshot_replica_original_location_failback_spec import (
-    ViVMSnapshotReplicaOriginalLocationFailbackSpec,
-)
-from ...models.vi_vm_snapshot_replica_original_vm_failback_spec import ViVMSnapshotReplicaOriginalVMFailbackSpec
+from ...models.vi_vm_snapshot_replica_failback_spec import ViVMSnapshotReplicaFailbackSpec
 from ...types import Response
 
 
 def _get_kwargs(
     *,
-    body: Union[
-        "ViVMSnapshotReplicaCustomizedFailbackSpec",
-        "ViVMSnapshotReplicaOriginalLocationFailbackSpec",
-        "ViVMSnapshotReplicaOriginalVMFailbackSpec",
-    ],
+    body: ViVMSnapshotReplicaFailbackSpec,
     x_api_version: str = "1.3-rev1",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -32,13 +24,7 @@ def _get_kwargs(
         "url": "/api/v1/failback/failbackToProduction/vSphere/snapshot",
     }
 
-    _kwargs["json"]: dict[str, Any]
-    if isinstance(body, ViVMSnapshotReplicaOriginalLocationFailbackSpec):
-        _kwargs["json"] = body.to_dict()
-    elif isinstance(body, ViVMSnapshotReplicaOriginalVMFailbackSpec):
-        _kwargs["json"] = body.to_dict()
-    else:
-        _kwargs["json"] = body.to_dict()
+    _kwargs["json"] = body.to_dict()
 
     headers["Content-Type"] = "application/json"
 
@@ -46,9 +32,7 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, SessionsResult]]:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Error | SessionsResult | None:
     if response.status_code == 201:
         response_201 = SessionsResult.from_dict(response.json())
 
@@ -86,8 +70,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, SessionsResult]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | SessionsResult]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -98,14 +82,10 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union[
-        "ViVMSnapshotReplicaCustomizedFailbackSpec",
-        "ViVMSnapshotReplicaOriginalLocationFailbackSpec",
-        "ViVMSnapshotReplicaOriginalVMFailbackSpec",
-    ],
+    client: AuthenticatedClient | Client,
+    body: ViVMSnapshotReplicaFailbackSpec,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Error, SessionsResult]]:
+) -> Response[Error | SessionsResult]:
     """Start Failback
 
      The HTTP POST request to the `/api/v1/failback/failbackToProduction/vSphere/snapshot` endpoint
@@ -117,17 +97,15 @@ def sync_detailed(
 
     Args:
         x_api_version (str):  Default: '1.3-rev1'.
-        body (Union['ViVMSnapshotReplicaCustomizedFailbackSpec',
-            'ViVMSnapshotReplicaOriginalLocationFailbackSpec',
-            'ViVMSnapshotReplicaOriginalVMFailbackSpec']): Failback settings of VMware vSphere
-            snapshot replicas.
+        body (ViVMSnapshotReplicaFailbackSpec): Failback settings of VMware vSphere snapshot
+            replicas.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, SessionsResult]]
+        Response[Error | SessionsResult]
     """
 
     kwargs = _get_kwargs(
@@ -144,14 +122,10 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union[
-        "ViVMSnapshotReplicaCustomizedFailbackSpec",
-        "ViVMSnapshotReplicaOriginalLocationFailbackSpec",
-        "ViVMSnapshotReplicaOriginalVMFailbackSpec",
-    ],
+    client: AuthenticatedClient | Client,
+    body: ViVMSnapshotReplicaFailbackSpec,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Error, SessionsResult]]:
+) -> Error | SessionsResult | None:
     """Start Failback
 
      The HTTP POST request to the `/api/v1/failback/failbackToProduction/vSphere/snapshot` endpoint
@@ -163,17 +137,15 @@ def sync(
 
     Args:
         x_api_version (str):  Default: '1.3-rev1'.
-        body (Union['ViVMSnapshotReplicaCustomizedFailbackSpec',
-            'ViVMSnapshotReplicaOriginalLocationFailbackSpec',
-            'ViVMSnapshotReplicaOriginalVMFailbackSpec']): Failback settings of VMware vSphere
-            snapshot replicas.
+        body (ViVMSnapshotReplicaFailbackSpec): Failback settings of VMware vSphere snapshot
+            replicas.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, SessionsResult]
+        Error | SessionsResult
     """
 
     return sync_detailed(
@@ -185,14 +157,10 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union[
-        "ViVMSnapshotReplicaCustomizedFailbackSpec",
-        "ViVMSnapshotReplicaOriginalLocationFailbackSpec",
-        "ViVMSnapshotReplicaOriginalVMFailbackSpec",
-    ],
+    client: AuthenticatedClient | Client,
+    body: ViVMSnapshotReplicaFailbackSpec,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Error, SessionsResult]]:
+) -> Response[Error | SessionsResult]:
     """Start Failback
 
      The HTTP POST request to the `/api/v1/failback/failbackToProduction/vSphere/snapshot` endpoint
@@ -204,17 +172,15 @@ async def asyncio_detailed(
 
     Args:
         x_api_version (str):  Default: '1.3-rev1'.
-        body (Union['ViVMSnapshotReplicaCustomizedFailbackSpec',
-            'ViVMSnapshotReplicaOriginalLocationFailbackSpec',
-            'ViVMSnapshotReplicaOriginalVMFailbackSpec']): Failback settings of VMware vSphere
-            snapshot replicas.
+        body (ViVMSnapshotReplicaFailbackSpec): Failback settings of VMware vSphere snapshot
+            replicas.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, SessionsResult]]
+        Response[Error | SessionsResult]
     """
 
     kwargs = _get_kwargs(
@@ -229,14 +195,10 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union[
-        "ViVMSnapshotReplicaCustomizedFailbackSpec",
-        "ViVMSnapshotReplicaOriginalLocationFailbackSpec",
-        "ViVMSnapshotReplicaOriginalVMFailbackSpec",
-    ],
+    client: AuthenticatedClient | Client,
+    body: ViVMSnapshotReplicaFailbackSpec,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Error, SessionsResult]]:
+) -> Error | SessionsResult | None:
     """Start Failback
 
      The HTTP POST request to the `/api/v1/failback/failbackToProduction/vSphere/snapshot` endpoint
@@ -248,17 +210,15 @@ async def asyncio(
 
     Args:
         x_api_version (str):  Default: '1.3-rev1'.
-        body (Union['ViVMSnapshotReplicaCustomizedFailbackSpec',
-            'ViVMSnapshotReplicaOriginalLocationFailbackSpec',
-            'ViVMSnapshotReplicaOriginalVMFailbackSpec']): Failback settings of VMware vSphere
-            snapshot replicas.
+        body (ViVMSnapshotReplicaFailbackSpec): Failback settings of VMware vSphere snapshot
+            replicas.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, SessionsResult]
+        Error | SessionsResult
     """
 
     return (

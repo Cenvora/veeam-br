@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -18,21 +20,20 @@ class BackupJobAdvancedSettingsHyperVModel:
     """Microsoft Hyper-V settings for the job.
 
     Attributes:
-        guest_quiescence (Union[Unset, HyperVGuestQuiescenceSettingsModel]): Microsoft Microsoft Hyper-V guest
-            quiescence settings.
-        changed_block_tracking (Union[Unset, bool]): If `true`, changed block tracking (CBT) is enabled for fast
-            incremental backup and replication of protected VMs.
-        volume_snapshots (Union[Unset, bool]): If `true`, allow processing of multiple VMs with a single volume
-            snapshot.
+        guest_quiescence (HyperVGuestQuiescenceSettingsModel | Unset): Microsoft Microsoft Hyper-V guest quiescence
+            settings.
+        changed_block_tracking (bool | Unset): If `true`, changed block tracking (CBT) is enabled for fast incremental
+            backup and replication of protected VMs.
+        volume_snapshots (bool | Unset): If `true`, allow processing of multiple VMs with a single volume snapshot.
     """
 
-    guest_quiescence: Union[Unset, "HyperVGuestQuiescenceSettingsModel"] = UNSET
-    changed_block_tracking: Union[Unset, bool] = UNSET
-    volume_snapshots: Union[Unset, bool] = UNSET
+    guest_quiescence: HyperVGuestQuiescenceSettingsModel | Unset = UNSET
+    changed_block_tracking: bool | Unset = UNSET
+    volume_snapshots: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        guest_quiescence: Union[Unset, dict[str, Any]] = UNSET
+        guest_quiescence: dict[str, Any] | Unset = UNSET
         if not isinstance(self.guest_quiescence, Unset):
             guest_quiescence = self.guest_quiescence.to_dict()
 
@@ -58,7 +59,7 @@ class BackupJobAdvancedSettingsHyperVModel:
 
         d = dict(src_dict)
         _guest_quiescence = d.pop("guestQuiescence", UNSET)
-        guest_quiescence: Union[Unset, HyperVGuestQuiescenceSettingsModel]
+        guest_quiescence: HyperVGuestQuiescenceSettingsModel | Unset
         if isinstance(_guest_quiescence, Unset):
             guest_quiescence = UNSET
         else:

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,18 +17,18 @@ class EntraIdTenantAdminUnitFilterBrowseSpec:
     """Filtering options.
 
     Attributes:
-        display_name (Union[Unset, str]): Administrative unit display name.
-        visibilities (Union[Unset, list[EEntraIdTenantAdminUnitVisibilityType]]): Array of visibility options.
+        display_name (str | Unset): Administrative unit display name.
+        visibilities (list[EEntraIdTenantAdminUnitVisibilityType] | Unset): Array of visibility options.
     """
 
-    display_name: Union[Unset, str] = UNSET
-    visibilities: Union[Unset, list[EEntraIdTenantAdminUnitVisibilityType]] = UNSET
+    display_name: str | Unset = UNSET
+    visibilities: list[EEntraIdTenantAdminUnitVisibilityType] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         display_name = self.display_name
 
-        visibilities: Union[Unset, list[str]] = UNSET
+        visibilities: list[str] | Unset = UNSET
         if not isinstance(self.visibilities, Unset):
             visibilities = []
             for visibilities_item_data in self.visibilities:
@@ -48,12 +50,14 @@ class EntraIdTenantAdminUnitFilterBrowseSpec:
         d = dict(src_dict)
         display_name = d.pop("displayName", UNSET)
 
-        visibilities = []
         _visibilities = d.pop("visibilities", UNSET)
-        for visibilities_item_data in _visibilities or []:
-            visibilities_item = EEntraIdTenantAdminUnitVisibilityType(visibilities_item_data)
+        visibilities: list[EEntraIdTenantAdminUnitVisibilityType] | Unset = UNSET
+        if _visibilities is not UNSET:
+            visibilities = []
+            for visibilities_item_data in _visibilities:
+                visibilities_item = EEntraIdTenantAdminUnitVisibilityType(visibilities_item_data)
 
-            visibilities.append(visibilities_item)
+                visibilities.append(visibilities_item)
 
         entra_id_tenant_admin_unit_filter_browse_spec = cls(
             display_name=display_name,

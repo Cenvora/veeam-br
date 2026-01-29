@@ -1,21 +1,21 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...models.credentials_model import CredentialsModel
 from ...models.error import Error
-from ...models.linux_credentials_model import LinuxCredentialsModel
-from ...models.standard_credentials_model import StandardCredentialsModel
 from ...types import Response
 
 
 def _get_kwargs(
     id: UUID,
     *,
-    body: Union["LinuxCredentialsModel", "StandardCredentialsModel"],
+    body: CredentialsModel,
     x_api_version: str = "1.2-rev1",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -23,14 +23,12 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "put",
-        "url": f"/api/v1/credentials/{id}",
+        "url": "/api/v1/credentials/{id}".format(
+            id=quote(str(id), safe=""),
+        ),
     }
 
-    _kwargs["json"]: dict[str, Any]
-    if isinstance(body, StandardCredentialsModel):
-        _kwargs["json"] = body.to_dict()
-    else:
-        _kwargs["json"] = body.to_dict()
+    _kwargs["json"] = body.to_dict()
 
     headers["Content-Type"] = "application/json"
 
@@ -39,26 +37,10 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, Union["LinuxCredentialsModel", "StandardCredentialsModel"]]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> CredentialsModel | Error | None:
     if response.status_code == 200:
-
-        def _parse_response_200(data: object) -> Union["LinuxCredentialsModel", "StandardCredentialsModel"]:
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_credentials_model_type_0 = StandardCredentialsModel.from_dict(data)
-
-                return componentsschemas_credentials_model_type_0
-            except:  # noqa: E722
-                pass
-            if not isinstance(data, dict):
-                raise TypeError()
-            componentsschemas_credentials_model_type_1 = LinuxCredentialsModel.from_dict(data)
-
-            return componentsschemas_credentials_model_type_1
-
-        response_200 = _parse_response_200(response.json())
+        response_200 = CredentialsModel.from_dict(response.json())
 
         return response_200
 
@@ -94,8 +76,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, Union["LinuxCredentialsModel", "StandardCredentialsModel"]]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[CredentialsModel | Error]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -107,10 +89,10 @@ def _build_response(
 def sync_detailed(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union["LinuxCredentialsModel", "StandardCredentialsModel"],
+    client: AuthenticatedClient | Client,
+    body: CredentialsModel,
     x_api_version: str = "1.2-rev1",
-) -> Response[Union[Error, Union["LinuxCredentialsModel", "StandardCredentialsModel"]]]:
+) -> Response[CredentialsModel | Error]:
     """Edit Credentials Record
 
      The HTTP PUT request to the `/api/v1/credentials/{id}` path allows you to edit a credentials record
@@ -120,14 +102,14 @@ def sync_detailed(
     Args:
         id (UUID):
         x_api_version (str):  Default: '1.2-rev1'.
-        body (Union['LinuxCredentialsModel', 'StandardCredentialsModel']):
+        body (CredentialsModel):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, Union['LinuxCredentialsModel', 'StandardCredentialsModel']]]
+        Response[CredentialsModel | Error]
     """
 
     kwargs = _get_kwargs(
@@ -146,10 +128,10 @@ def sync_detailed(
 def sync(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union["LinuxCredentialsModel", "StandardCredentialsModel"],
+    client: AuthenticatedClient | Client,
+    body: CredentialsModel,
     x_api_version: str = "1.2-rev1",
-) -> Optional[Union[Error, Union["LinuxCredentialsModel", "StandardCredentialsModel"]]]:
+) -> CredentialsModel | Error | None:
     """Edit Credentials Record
 
      The HTTP PUT request to the `/api/v1/credentials/{id}` path allows you to edit a credentials record
@@ -159,14 +141,14 @@ def sync(
     Args:
         id (UUID):
         x_api_version (str):  Default: '1.2-rev1'.
-        body (Union['LinuxCredentialsModel', 'StandardCredentialsModel']):
+        body (CredentialsModel):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, Union['LinuxCredentialsModel', 'StandardCredentialsModel']]
+        CredentialsModel | Error
     """
 
     return sync_detailed(
@@ -180,10 +162,10 @@ def sync(
 async def asyncio_detailed(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union["LinuxCredentialsModel", "StandardCredentialsModel"],
+    client: AuthenticatedClient | Client,
+    body: CredentialsModel,
     x_api_version: str = "1.2-rev1",
-) -> Response[Union[Error, Union["LinuxCredentialsModel", "StandardCredentialsModel"]]]:
+) -> Response[CredentialsModel | Error]:
     """Edit Credentials Record
 
      The HTTP PUT request to the `/api/v1/credentials/{id}` path allows you to edit a credentials record
@@ -193,14 +175,14 @@ async def asyncio_detailed(
     Args:
         id (UUID):
         x_api_version (str):  Default: '1.2-rev1'.
-        body (Union['LinuxCredentialsModel', 'StandardCredentialsModel']):
+        body (CredentialsModel):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, Union['LinuxCredentialsModel', 'StandardCredentialsModel']]]
+        Response[CredentialsModel | Error]
     """
 
     kwargs = _get_kwargs(
@@ -217,10 +199,10 @@ async def asyncio_detailed(
 async def asyncio(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union["LinuxCredentialsModel", "StandardCredentialsModel"],
+    client: AuthenticatedClient | Client,
+    body: CredentialsModel,
     x_api_version: str = "1.2-rev1",
-) -> Optional[Union[Error, Union["LinuxCredentialsModel", "StandardCredentialsModel"]]]:
+) -> CredentialsModel | Error | None:
     """Edit Credentials Record
 
      The HTTP PUT request to the `/api/v1/credentials/{id}` path allows you to edit a credentials record
@@ -230,14 +212,14 @@ async def asyncio(
     Args:
         id (UUID):
         x_api_version (str):  Default: '1.2-rev1'.
-        body (Union['LinuxCredentialsModel', 'StandardCredentialsModel']):
+        body (CredentialsModel):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, Union['LinuxCredentialsModel', 'StandardCredentialsModel']]
+        CredentialsModel | Error
     """
 
     return (

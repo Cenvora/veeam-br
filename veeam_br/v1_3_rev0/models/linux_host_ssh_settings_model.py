@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -18,24 +20,23 @@ class LinuxHostSSHSettingsModel:
     """SSH settings of the Linux host.
 
     Attributes:
-        components (Union[Unset, list['HostComponentPortModel']]): Array of ports used by Veeam Backup & Replication
-            components.
-        ssh_time_out_ms (Union[Unset, int]): SSH timeout, in ms. If a task targeted at the server is inactive after the
+        components (list[HostComponentPortModel] | Unset): Array of ports used by Veeam Backup & Replication components.
+        ssh_time_out_ms (int | Unset): SSH timeout, in ms. If a task targeted at the server is inactive after the
             timeout, the task is terminated.
-        port_range_start (Union[Unset, int]): Start port used for data transfer.
-        port_range_end (Union[Unset, int]): End port used for data transfer.
-        server_side (Union[Unset, bool]): If `true`, the server is run on this side.
+        port_range_start (int | Unset): Start port used for data transfer.
+        port_range_end (int | Unset): End port used for data transfer.
+        server_side (bool | Unset): If `true`, the server is run on this side.
     """
 
-    components: Union[Unset, list["HostComponentPortModel"]] = UNSET
-    ssh_time_out_ms: Union[Unset, int] = UNSET
-    port_range_start: Union[Unset, int] = UNSET
-    port_range_end: Union[Unset, int] = UNSET
-    server_side: Union[Unset, bool] = UNSET
+    components: list[HostComponentPortModel] | Unset = UNSET
+    ssh_time_out_ms: int | Unset = UNSET
+    port_range_start: int | Unset = UNSET
+    port_range_end: int | Unset = UNSET
+    server_side: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        components: Union[Unset, list[dict[str, Any]]] = UNSET
+        components: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.components, Unset):
             components = []
             for components_item_data in self.components:
@@ -71,12 +72,14 @@ class LinuxHostSSHSettingsModel:
         from ..models.host_component_port_model import HostComponentPortModel
 
         d = dict(src_dict)
-        components = []
         _components = d.pop("components", UNSET)
-        for components_item_data in _components or []:
-            components_item = HostComponentPortModel.from_dict(components_item_data)
+        components: list[HostComponentPortModel] | Unset = UNSET
+        if _components is not UNSET:
+            components = []
+            for components_item_data in _components:
+                components_item = HostComponentPortModel.from_dict(components_item_data)
 
-            components.append(components_item)
+                components.append(components_item)
 
         ssh_time_out_ms = d.pop("sshTimeOutMs", UNSET)
 

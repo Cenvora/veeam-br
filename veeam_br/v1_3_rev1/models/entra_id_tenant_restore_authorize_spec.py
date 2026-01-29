@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -16,17 +18,17 @@ class EntraIdTenantRestoreAuthorizeSpec:
 
     Attributes:
         session_id (UUID): Mount session ID.
-        code (Union[Unset, str]): Authorization code returned by the authorization provider.
-        state (Union[Unset, str]): State string returned by the authorization provider.
-        error (Union[Unset, str]): Error summary.
-        error_description (Union[Unset, str]): Error description.
+        code (str | Unset): Authorization code returned by the authorization provider.
+        state (str | Unset): State string returned by the authorization provider.
+        error (str | Unset): Error summary.
+        error_description (str | Unset): Error description.
     """
 
     session_id: UUID
-    code: Union[Unset, str] = UNSET
-    state: Union[Unset, str] = UNSET
-    error: Union[Unset, str] = UNSET
-    error_description: Union[Unset, str] = UNSET
+    code: str | Unset = UNSET
+    state: str | Unset = UNSET
+    error: str | Unset = UNSET
+    error_description: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

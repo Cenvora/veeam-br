@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -17,16 +19,16 @@ T = TypeVar("T", bound="AmazonVPCBrowserModel")
 class AmazonVPCBrowserModel:
     """
     Attributes:
-        vpc_name (Union[Unset, str]): VPC name.
-        vpc_id (Union[Unset, str]): VPC ID.
-        subnets (Union[Unset, list['AmazonVPCSubnetModel']]): Array of VPC subnets.
-        security_groups (Union[Unset, list[str]]): Array of security groups.
+        vpc_name (str | Unset): VPC name.
+        vpc_id (str | Unset): VPC ID.
+        subnets (list[AmazonVPCSubnetModel] | Unset): Array of VPC subnets.
+        security_groups (list[str] | Unset): Array of security groups.
     """
 
-    vpc_name: Union[Unset, str] = UNSET
-    vpc_id: Union[Unset, str] = UNSET
-    subnets: Union[Unset, list["AmazonVPCSubnetModel"]] = UNSET
-    security_groups: Union[Unset, list[str]] = UNSET
+    vpc_name: str | Unset = UNSET
+    vpc_id: str | Unset = UNSET
+    subnets: list[AmazonVPCSubnetModel] | Unset = UNSET
+    security_groups: list[str] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -34,14 +36,14 @@ class AmazonVPCBrowserModel:
 
         vpc_id = self.vpc_id
 
-        subnets: Union[Unset, list[dict[str, Any]]] = UNSET
+        subnets: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.subnets, Unset):
             subnets = []
             for subnets_item_data in self.subnets:
                 subnets_item = subnets_item_data.to_dict()
                 subnets.append(subnets_item)
 
-        security_groups: Union[Unset, list[str]] = UNSET
+        security_groups: list[str] | Unset = UNSET
         if not isinstance(self.security_groups, Unset):
             security_groups = self.security_groups
 
@@ -68,12 +70,14 @@ class AmazonVPCBrowserModel:
 
         vpc_id = d.pop("vpcId", UNSET)
 
-        subnets = []
         _subnets = d.pop("subnets", UNSET)
-        for subnets_item_data in _subnets or []:
-            subnets_item = AmazonVPCSubnetModel.from_dict(subnets_item_data)
+        subnets: list[AmazonVPCSubnetModel] | Unset = UNSET
+        if _subnets is not UNSET:
+            subnets = []
+            for subnets_item_data in _subnets:
+                subnets_item = AmazonVPCSubnetModel.from_dict(subnets_item_data)
 
-            subnets.append(subnets_item)
+                subnets.append(subnets_item)
 
         security_groups = cast(list[str], d.pop("securityGroups", UNSET))
 

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -16,14 +18,14 @@ class PaginationResult:
     Attributes:
         total (int): Total number of results.
         count (int): Number of returned results.
-        skip (Union[Unset, int]): Number of skipped results.
-        limit (Union[Unset, int]): Maximum number of results to return.
+        skip (int | Unset): Number of skipped results.
+        limit (int | Unset): Maximum number of results to return.
     """
 
     total: int
     count: int
-    skip: Union[Unset, int] = UNSET
-    limit: Union[Unset, int] = UNSET
+    skip: int | Unset = UNSET
+    limit: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -22,44 +24,44 @@ class JobStatesFilters:
     """Filters jobs by the specified parameters.
 
     Attributes:
-        skip (Union[Unset, int]): Skips the specified number of jobs.
-        limit (Union[Unset, int]): Returns the specified number of jobs.
-        order_column (Union[Unset, EJobStatesFiltersOrderColumn]): Orders job states by the specified column.
-        order_asc (Union[Unset, bool]): If `true`, sorts jobs in the ascending order by the `orderColumn` parameter.
-        id_filter (Union[Unset, UUID]):
-        name_filter (Union[Unset, str]): Filters jobs by the `nameFilter` pattern. The pattern can match any job state
+        skip (int | Unset): Skips the specified number of jobs.
+        limit (int | Unset): Returns the specified number of jobs.
+        order_column (EJobStatesFiltersOrderColumn | Unset): Orders job states by the specified column.
+        order_asc (bool | Unset): If `true`, sorts jobs in the ascending order by the `orderColumn` parameter.
+        id_filter (UUID | Unset):
+        name_filter (str | Unset): Filters jobs by the `nameFilter` pattern. The pattern can match any job state
             parameter. To substitute one or more characters, use the asterisk (*) character at the beginning, at the end or
             both.
-        type_filter (Union[Unset, EJobType]): Type of the job.
-        last_result_filter (Union[Unset, ESessionResult]): Result status.
-        status_filter (Union[Unset, EJobStatus]): Current status of the job.
-        workload_filter (Union[Unset, EJobWorkload]): Workload which the job must process.
-        last_run_after_filter (Union[Unset, datetime.datetime]):
-        last_run_before_filter (Union[Unset, datetime.datetime]):
-        is_high_priority_job_filter (Union[Unset, bool]): If `true`, returns job states for high priority jobs only.
-        repository_id_filter (Union[Unset, UUID]):
-        objects_count_filter (Union[Unset, int]):
-        after_job_id_filter (Union[Unset, UUID]):
-        after_job_name_filter (Union[Unset, str]):
+        type_filter (EJobType | Unset): Type of the job.
+        last_result_filter (ESessionResult | Unset): Result status.
+        status_filter (EJobStatus | Unset): Current status of the job.
+        workload_filter (EJobWorkload | Unset): Workload which the job must process.
+        last_run_after_filter (datetime.datetime | Unset):
+        last_run_before_filter (datetime.datetime | Unset):
+        is_high_priority_job_filter (bool | Unset): If `true`, returns job states for high priority jobs only.
+        repository_id_filter (UUID | Unset):
+        objects_count_filter (int | Unset):
+        after_job_id_filter (UUID | Unset):
+        after_job_name_filter (str | Unset):
     """
 
-    skip: Union[Unset, int] = UNSET
-    limit: Union[Unset, int] = UNSET
-    order_column: Union[Unset, EJobStatesFiltersOrderColumn] = UNSET
-    order_asc: Union[Unset, bool] = UNSET
-    id_filter: Union[Unset, UUID] = UNSET
-    name_filter: Union[Unset, str] = UNSET
-    type_filter: Union[Unset, EJobType] = UNSET
-    last_result_filter: Union[Unset, ESessionResult] = UNSET
-    status_filter: Union[Unset, EJobStatus] = UNSET
-    workload_filter: Union[Unset, EJobWorkload] = UNSET
-    last_run_after_filter: Union[Unset, datetime.datetime] = UNSET
-    last_run_before_filter: Union[Unset, datetime.datetime] = UNSET
-    is_high_priority_job_filter: Union[Unset, bool] = UNSET
-    repository_id_filter: Union[Unset, UUID] = UNSET
-    objects_count_filter: Union[Unset, int] = UNSET
-    after_job_id_filter: Union[Unset, UUID] = UNSET
-    after_job_name_filter: Union[Unset, str] = UNSET
+    skip: int | Unset = UNSET
+    limit: int | Unset = UNSET
+    order_column: EJobStatesFiltersOrderColumn | Unset = UNSET
+    order_asc: bool | Unset = UNSET
+    id_filter: UUID | Unset = UNSET
+    name_filter: str | Unset = UNSET
+    type_filter: EJobType | Unset = UNSET
+    last_result_filter: ESessionResult | Unset = UNSET
+    status_filter: EJobStatus | Unset = UNSET
+    workload_filter: EJobWorkload | Unset = UNSET
+    last_run_after_filter: datetime.datetime | Unset = UNSET
+    last_run_before_filter: datetime.datetime | Unset = UNSET
+    is_high_priority_job_filter: bool | Unset = UNSET
+    repository_id_filter: UUID | Unset = UNSET
+    objects_count_filter: int | Unset = UNSET
+    after_job_id_filter: UUID | Unset = UNSET
+    after_job_name_filter: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -67,51 +69,51 @@ class JobStatesFilters:
 
         limit = self.limit
 
-        order_column: Union[Unset, str] = UNSET
+        order_column: str | Unset = UNSET
         if not isinstance(self.order_column, Unset):
             order_column = self.order_column.value
 
         order_asc = self.order_asc
 
-        id_filter: Union[Unset, str] = UNSET
+        id_filter: str | Unset = UNSET
         if not isinstance(self.id_filter, Unset):
             id_filter = str(self.id_filter)
 
         name_filter = self.name_filter
 
-        type_filter: Union[Unset, str] = UNSET
+        type_filter: str | Unset = UNSET
         if not isinstance(self.type_filter, Unset):
             type_filter = self.type_filter.value
 
-        last_result_filter: Union[Unset, str] = UNSET
+        last_result_filter: str | Unset = UNSET
         if not isinstance(self.last_result_filter, Unset):
             last_result_filter = self.last_result_filter.value
 
-        status_filter: Union[Unset, str] = UNSET
+        status_filter: str | Unset = UNSET
         if not isinstance(self.status_filter, Unset):
             status_filter = self.status_filter.value
 
-        workload_filter: Union[Unset, str] = UNSET
+        workload_filter: str | Unset = UNSET
         if not isinstance(self.workload_filter, Unset):
             workload_filter = self.workload_filter.value
 
-        last_run_after_filter: Union[Unset, str] = UNSET
+        last_run_after_filter: str | Unset = UNSET
         if not isinstance(self.last_run_after_filter, Unset):
             last_run_after_filter = self.last_run_after_filter.isoformat()
 
-        last_run_before_filter: Union[Unset, str] = UNSET
+        last_run_before_filter: str | Unset = UNSET
         if not isinstance(self.last_run_before_filter, Unset):
             last_run_before_filter = self.last_run_before_filter.isoformat()
 
         is_high_priority_job_filter = self.is_high_priority_job_filter
 
-        repository_id_filter: Union[Unset, str] = UNSET
+        repository_id_filter: str | Unset = UNSET
         if not isinstance(self.repository_id_filter, Unset):
             repository_id_filter = str(self.repository_id_filter)
 
         objects_count_filter = self.objects_count_filter
 
-        after_job_id_filter: Union[Unset, str] = UNSET
+        after_job_id_filter: str | Unset = UNSET
         if not isinstance(self.after_job_id_filter, Unset):
             after_job_id_filter = str(self.after_job_id_filter)
 
@@ -165,7 +167,7 @@ class JobStatesFilters:
         limit = d.pop("limit", UNSET)
 
         _order_column = d.pop("orderColumn", UNSET)
-        order_column: Union[Unset, EJobStatesFiltersOrderColumn]
+        order_column: EJobStatesFiltersOrderColumn | Unset
         if isinstance(_order_column, Unset):
             order_column = UNSET
         else:
@@ -174,7 +176,7 @@ class JobStatesFilters:
         order_asc = d.pop("orderAsc", UNSET)
 
         _id_filter = d.pop("idFilter", UNSET)
-        id_filter: Union[Unset, UUID]
+        id_filter: UUID | Unset
         if isinstance(_id_filter, Unset):
             id_filter = UNSET
         else:
@@ -183,42 +185,42 @@ class JobStatesFilters:
         name_filter = d.pop("nameFilter", UNSET)
 
         _type_filter = d.pop("typeFilter", UNSET)
-        type_filter: Union[Unset, EJobType]
+        type_filter: EJobType | Unset
         if isinstance(_type_filter, Unset):
             type_filter = UNSET
         else:
             type_filter = EJobType(_type_filter)
 
         _last_result_filter = d.pop("lastResultFilter", UNSET)
-        last_result_filter: Union[Unset, ESessionResult]
+        last_result_filter: ESessionResult | Unset
         if isinstance(_last_result_filter, Unset):
             last_result_filter = UNSET
         else:
             last_result_filter = ESessionResult(_last_result_filter)
 
         _status_filter = d.pop("statusFilter", UNSET)
-        status_filter: Union[Unset, EJobStatus]
+        status_filter: EJobStatus | Unset
         if isinstance(_status_filter, Unset):
             status_filter = UNSET
         else:
             status_filter = EJobStatus(_status_filter)
 
         _workload_filter = d.pop("workloadFilter", UNSET)
-        workload_filter: Union[Unset, EJobWorkload]
+        workload_filter: EJobWorkload | Unset
         if isinstance(_workload_filter, Unset):
             workload_filter = UNSET
         else:
             workload_filter = EJobWorkload(_workload_filter)
 
         _last_run_after_filter = d.pop("lastRunAfterFilter", UNSET)
-        last_run_after_filter: Union[Unset, datetime.datetime]
+        last_run_after_filter: datetime.datetime | Unset
         if isinstance(_last_run_after_filter, Unset):
             last_run_after_filter = UNSET
         else:
             last_run_after_filter = isoparse(_last_run_after_filter)
 
         _last_run_before_filter = d.pop("lastRunBeforeFilter", UNSET)
-        last_run_before_filter: Union[Unset, datetime.datetime]
+        last_run_before_filter: datetime.datetime | Unset
         if isinstance(_last_run_before_filter, Unset):
             last_run_before_filter = UNSET
         else:
@@ -227,7 +229,7 @@ class JobStatesFilters:
         is_high_priority_job_filter = d.pop("isHighPriorityJobFilter", UNSET)
 
         _repository_id_filter = d.pop("repositoryIdFilter", UNSET)
-        repository_id_filter: Union[Unset, UUID]
+        repository_id_filter: UUID | Unset
         if isinstance(_repository_id_filter, Unset):
             repository_id_filter = UNSET
         else:
@@ -236,7 +238,7 @@ class JobStatesFilters:
         objects_count_filter = d.pop("objectsCountFilter", UNSET)
 
         _after_job_id_filter = d.pop("afterJobIdFilter", UNSET)
-        after_job_id_filter: Union[Unset, UUID]
+        after_job_id_filter: UUID | Unset
         if isinstance(_after_job_id_filter, Unset):
             after_job_id_filter = UNSET
         else:

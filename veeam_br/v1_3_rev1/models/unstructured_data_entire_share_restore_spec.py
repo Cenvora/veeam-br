@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -22,25 +24,24 @@ class UnstructuredDataEntireShareRestoreSpec:
     Attributes:
         restore_point_id (UUID): Restore point ID. To get the ID, run the [Get All Restore Points](Restore-
             Points#operation/GetAllObjectRestorePoints) request.
-        destination (Union[Unset, UnstructuredDataShareRestoreDestinationModel]): Target for restoring entire file
+        destination (UnstructuredDataShareRestoreDestinationModel | Unset): Target for restoring entire file share.
+        restore_options (UnstructuredDataShareRestoreOptionsModel | Unset): Restore options for restoring entire file
             share.
-        restore_options (Union[Unset, UnstructuredDataShareRestoreOptionsModel]): Restore options for restoring entire
-            file share.
     """
 
     restore_point_id: UUID
-    destination: Union[Unset, "UnstructuredDataShareRestoreDestinationModel"] = UNSET
-    restore_options: Union[Unset, "UnstructuredDataShareRestoreOptionsModel"] = UNSET
+    destination: UnstructuredDataShareRestoreDestinationModel | Unset = UNSET
+    restore_options: UnstructuredDataShareRestoreOptionsModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         restore_point_id = str(self.restore_point_id)
 
-        destination: Union[Unset, dict[str, Any]] = UNSET
+        destination: dict[str, Any] | Unset = UNSET
         if not isinstance(self.destination, Unset):
             destination = self.destination.to_dict()
 
-        restore_options: Union[Unset, dict[str, Any]] = UNSET
+        restore_options: dict[str, Any] | Unset = UNSET
         if not isinstance(self.restore_options, Unset):
             restore_options = self.restore_options.to_dict()
 
@@ -69,14 +70,14 @@ class UnstructuredDataEntireShareRestoreSpec:
         restore_point_id = UUID(d.pop("restorePointId"))
 
         _destination = d.pop("destination", UNSET)
-        destination: Union[Unset, UnstructuredDataShareRestoreDestinationModel]
+        destination: UnstructuredDataShareRestoreDestinationModel | Unset
         if isinstance(_destination, Unset):
             destination = UNSET
         else:
             destination = UnstructuredDataShareRestoreDestinationModel.from_dict(_destination)
 
         _restore_options = d.pop("restoreOptions", UNSET)
-        restore_options: Union[Unset, UnstructuredDataShareRestoreOptionsModel]
+        restore_options: UnstructuredDataShareRestoreOptionsModel | Unset
         if isinstance(_restore_options, Unset):
             restore_options = UNSET
         else:

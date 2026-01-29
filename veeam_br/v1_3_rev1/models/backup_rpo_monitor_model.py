@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -17,20 +19,20 @@ class BackupRPOMonitorModel:
     Attributes:
         is_enabled (bool): If `true`, there will be a warning if a newly created restore point is not copied within the
             desired recovery point objective (RPO).
-        type_ (Union[Unset, EPeriodicallyKindsBackupCopy]): Time unit for periodic job scheduling.
-        quantity (Union[Unset, int]): Number of days, hours or minutes within which you will be warned if a backup is
-            not copied.
+        type_ (EPeriodicallyKindsBackupCopy | Unset): Time unit for periodic job scheduling.
+        quantity (int | Unset): Number of days, hours or minutes within which you will be warned if a backup is not
+            copied.
     """
 
     is_enabled: bool
-    type_: Union[Unset, EPeriodicallyKindsBackupCopy] = UNSET
-    quantity: Union[Unset, int] = UNSET
+    type_: EPeriodicallyKindsBackupCopy | Unset = UNSET
+    quantity: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         is_enabled = self.is_enabled
 
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
@@ -56,7 +58,7 @@ class BackupRPOMonitorModel:
         is_enabled = d.pop("isEnabled")
 
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, EPeriodicallyKindsBackupCopy]
+        type_: EPeriodicallyKindsBackupCopy | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:

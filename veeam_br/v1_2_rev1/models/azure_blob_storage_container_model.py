@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,13 +22,13 @@ class AzureBlobStorageContainerModel:
     Attributes:
         container_name (str): Container name.
         folder_name (str): Name of the folder that the object storage repository is mapped to.
-        storage_consumption_limit (Union[Unset, ObjectStorageConsumptionLimitModel]): Soft consumption limit for the
-            storage. The limit can be exceeded temporarily.
+        storage_consumption_limit (ObjectStorageConsumptionLimitModel | Unset): Soft consumption limit for the storage.
+            The limit can be exceeded temporarily.
     """
 
     container_name: str
     folder_name: str
-    storage_consumption_limit: Union[Unset, "ObjectStorageConsumptionLimitModel"] = UNSET
+    storage_consumption_limit: ObjectStorageConsumptionLimitModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -34,7 +36,7 @@ class AzureBlobStorageContainerModel:
 
         folder_name = self.folder_name
 
-        storage_consumption_limit: Union[Unset, dict[str, Any]] = UNSET
+        storage_consumption_limit: dict[str, Any] | Unset = UNSET
         if not isinstance(self.storage_consumption_limit, Unset):
             storage_consumption_limit = self.storage_consumption_limit.to_dict()
 
@@ -61,7 +63,7 @@ class AzureBlobStorageContainerModel:
         folder_name = d.pop("folderName")
 
         _storage_consumption_limit = d.pop("storageConsumptionLimit", UNSET)
-        storage_consumption_limit: Union[Unset, ObjectStorageConsumptionLimitModel]
+        storage_consumption_limit: ObjectStorageConsumptionLimitModel | Unset
         if isinstance(_storage_consumption_limit, Unset):
             storage_consumption_limit = UNSET
         else:

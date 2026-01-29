@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from dateutil.parser import isoparse
@@ -17,24 +19,24 @@ class ExportSupportLogsSpec:
 
     Attributes:
         export_type (ExportLogsType): Log collection scope.
-        date_from (Union[Unset, datetime.datetime]): Date and time marking the beginning of the period for which you
-            want to export logs.
-        date_to (Union[Unset, datetime.datetime]): Date and time marking the end of the period for which you want to
+        date_from (datetime.datetime | Unset): Date and time marking the beginning of the period for which you want to
             export logs.
+        date_to (datetime.datetime | Unset): Date and time marking the end of the period for which you want to export
+            logs.
     """
 
     export_type: ExportLogsType
-    date_from: Union[Unset, datetime.datetime] = UNSET
-    date_to: Union[Unset, datetime.datetime] = UNSET
+    date_from: datetime.datetime | Unset = UNSET
+    date_to: datetime.datetime | Unset = UNSET
 
     def to_dict(self) -> dict[str, Any]:
         export_type = self.export_type.value
 
-        date_from: Union[Unset, str] = UNSET
+        date_from: str | Unset = UNSET
         if not isinstance(self.date_from, Unset):
             date_from = self.date_from.isoformat()
 
-        date_to: Union[Unset, str] = UNSET
+        date_to: str | Unset = UNSET
         if not isinstance(self.date_to, Unset):
             date_to = self.date_to.isoformat()
 
@@ -58,14 +60,14 @@ class ExportSupportLogsSpec:
         export_type = ExportLogsType(d.pop("exportType"))
 
         _date_from = d.pop("dateFrom", UNSET)
-        date_from: Union[Unset, datetime.datetime]
+        date_from: datetime.datetime | Unset
         if isinstance(_date_from, Unset):
             date_from = UNSET
         else:
             date_from = isoparse(_date_from)
 
         _date_to = d.pop("dateTo", UNSET)
-        date_to: Union[Unset, datetime.datetime]
+        date_to: datetime.datetime | Unset
         if isinstance(_date_to, Unset):
             date_to = UNSET
         else:

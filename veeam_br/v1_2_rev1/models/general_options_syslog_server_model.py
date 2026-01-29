@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -16,15 +18,15 @@ class GeneralOptionsSyslogServerModel:
 
     Attributes:
         server_name (str): Full DNS name or IP address of the syslog server.
-        port (Union[Unset, int]): Port on the syslog server used by the specified protocol.
-        transport_protocol (Union[Unset, ESyslogServerProtocol]): Transport mode.
-        certificate_thumbprint (Union[Unset, str]): Certificate thumbprint used to verify the syslog server identity.
+        port (int | Unset): Port on the syslog server used by the specified protocol.
+        transport_protocol (ESyslogServerProtocol | Unset): Transport mode.
+        certificate_thumbprint (str | Unset): Certificate thumbprint used to verify the syslog server identity.
     """
 
     server_name: str
-    port: Union[Unset, int] = UNSET
-    transport_protocol: Union[Unset, ESyslogServerProtocol] = UNSET
-    certificate_thumbprint: Union[Unset, str] = UNSET
+    port: int | Unset = UNSET
+    transport_protocol: ESyslogServerProtocol | Unset = UNSET
+    certificate_thumbprint: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -32,7 +34,7 @@ class GeneralOptionsSyslogServerModel:
 
         port = self.port
 
-        transport_protocol: Union[Unset, str] = UNSET
+        transport_protocol: str | Unset = UNSET
         if not isinstance(self.transport_protocol, Unset):
             transport_protocol = self.transport_protocol.value
 
@@ -62,7 +64,7 @@ class GeneralOptionsSyslogServerModel:
         port = d.pop("port", UNSET)
 
         _transport_protocol = d.pop("transportProtocol", UNSET)
-        transport_protocol: Union[Unset, ESyslogServerProtocol]
+        transport_protocol: ESyslogServerProtocol | Unset
         if isinstance(_transport_protocol, Unset):
             transport_protocol = UNSET
         else:

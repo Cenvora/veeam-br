@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -15,24 +17,23 @@ class AgentBackupSnapshotScriptModel:
     """Paths to pre-freeze and post-thaw scripts for physical machines.
 
     Attributes:
-        use_guest_credentials (Union[Unset, bool]): If `true`, Veeam Backup & Replication uses credentials specified in
-            the guest processing settings.
-        credentials_id (Union[Unset, UUID]): ID of the credentials record that is used if `useGuestCredentials` is
-            *false*.
-        pre_freeze_script (Union[Unset, str]): Path to a pre-freeze script.
-        post_thaw_script (Union[Unset, str]): Path to a post-thaw script.
+        use_guest_credentials (bool | Unset): If `true`, Veeam Backup & Replication uses credentials specified in the
+            guest processing settings.
+        credentials_id (UUID | Unset): ID of the credentials record that is used if `useGuestCredentials` is *false*.
+        pre_freeze_script (str | Unset): Path to a pre-freeze script.
+        post_thaw_script (str | Unset): Path to a post-thaw script.
     """
 
-    use_guest_credentials: Union[Unset, bool] = UNSET
-    credentials_id: Union[Unset, UUID] = UNSET
-    pre_freeze_script: Union[Unset, str] = UNSET
-    post_thaw_script: Union[Unset, str] = UNSET
+    use_guest_credentials: bool | Unset = UNSET
+    credentials_id: UUID | Unset = UNSET
+    pre_freeze_script: str | Unset = UNSET
+    post_thaw_script: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         use_guest_credentials = self.use_guest_credentials
 
-        credentials_id: Union[Unset, str] = UNSET
+        credentials_id: str | Unset = UNSET
         if not isinstance(self.credentials_id, Unset):
             credentials_id = str(self.credentials_id)
 
@@ -60,7 +61,7 @@ class AgentBackupSnapshotScriptModel:
         use_guest_credentials = d.pop("useGuestCredentials", UNSET)
 
         _credentials_id = d.pop("credentialsId", UNSET)
-        credentials_id: Union[Unset, UUID]
+        credentials_id: UUID | Unset
         if isinstance(_credentials_id, Unset):
             credentials_id = UNSET
         else:

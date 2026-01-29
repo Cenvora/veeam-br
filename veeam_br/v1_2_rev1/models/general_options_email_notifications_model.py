@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
@@ -37,7 +39,7 @@ class GeneralOptionsEmailNotificationsModel:
 
     is_enabled: bool
     smtp_server_name: str
-    advanced_smtp_options: "AdvancedSmtpOptionsModel"
+    advanced_smtp_options: AdvancedSmtpOptionsModel
     from_: str
     to: str
     subject: str

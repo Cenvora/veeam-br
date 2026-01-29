@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -23,18 +25,18 @@ class CloudDirectorHostImportSpec:
         description (str): Description of the server.
         type_ (EManagedServerType): Type of the server.
         credentials (CredentialsImportModel): Credentials used for connection.
-        certificate_thumbprint (Union[Unset, str]): Certificate thumbprint used to verify the server identity.
-        url (Union[Unset, str]):
-        vi_servers (Union[Unset, list['CloudDirectorViHostImportSpec']]):
+        certificate_thumbprint (str | Unset): Certificate thumbprint used to verify the server identity.
+        url (str | Unset):
+        vi_servers (list[CloudDirectorViHostImportSpec] | Unset):
     """
 
     name: str
     description: str
     type_: EManagedServerType
-    credentials: "CredentialsImportModel"
-    certificate_thumbprint: Union[Unset, str] = UNSET
-    url: Union[Unset, str] = UNSET
-    vi_servers: Union[Unset, list["CloudDirectorViHostImportSpec"]] = UNSET
+    credentials: CredentialsImportModel
+    certificate_thumbprint: str | Unset = UNSET
+    url: str | Unset = UNSET
+    vi_servers: list[CloudDirectorViHostImportSpec] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -50,7 +52,7 @@ class CloudDirectorHostImportSpec:
 
         url = self.url
 
-        vi_servers: Union[Unset, list[dict[str, Any]]] = UNSET
+        vi_servers: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.vi_servers, Unset):
             vi_servers = []
             for vi_servers_item_data in self.vi_servers:
@@ -94,12 +96,14 @@ class CloudDirectorHostImportSpec:
 
         url = d.pop("url", UNSET)
 
-        vi_servers = []
         _vi_servers = d.pop("viServers", UNSET)
-        for vi_servers_item_data in _vi_servers or []:
-            vi_servers_item = CloudDirectorViHostImportSpec.from_dict(vi_servers_item_data)
+        vi_servers: list[CloudDirectorViHostImportSpec] | Unset = UNSET
+        if _vi_servers is not UNSET:
+            vi_servers = []
+            for vi_servers_item_data in _vi_servers:
+                vi_servers_item = CloudDirectorViHostImportSpec.from_dict(vi_servers_item_data)
 
-            vi_servers.append(vi_servers_item)
+                vi_servers.append(vi_servers_item)
 
         cloud_director_host_import_spec = cls(
             name=name,

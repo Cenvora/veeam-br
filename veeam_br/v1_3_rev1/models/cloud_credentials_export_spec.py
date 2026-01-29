@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -16,32 +18,32 @@ class CloudCredentialsExportSpec:
     """Cloud credentials export settings.
 
     Attributes:
-        ids (Union[Unset, list[UUID]]): Array of cloud credentials IDs that you want to export.
-        types (Union[Unset, list[ECloudCredentialsType]]): Array of cloud credentials types that you want to export.
-        names (Union[Unset, list[str]]): Array of cloud credentials user names. Wildcard characters are supported.
+        ids (list[UUID] | Unset): Array of cloud credentials IDs that you want to export.
+        types (list[ECloudCredentialsType] | Unset): Array of cloud credentials types that you want to export.
+        names (list[str] | Unset): Array of cloud credentials user names. Wildcard characters are supported.
     """
 
-    ids: Union[Unset, list[UUID]] = UNSET
-    types: Union[Unset, list[ECloudCredentialsType]] = UNSET
-    names: Union[Unset, list[str]] = UNSET
+    ids: list[UUID] | Unset = UNSET
+    types: list[ECloudCredentialsType] | Unset = UNSET
+    names: list[str] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        ids: Union[Unset, list[str]] = UNSET
+        ids: list[str] | Unset = UNSET
         if not isinstance(self.ids, Unset):
             ids = []
             for ids_item_data in self.ids:
                 ids_item = str(ids_item_data)
                 ids.append(ids_item)
 
-        types: Union[Unset, list[str]] = UNSET
+        types: list[str] | Unset = UNSET
         if not isinstance(self.types, Unset):
             types = []
             for types_item_data in self.types:
                 types_item = types_item_data.value
                 types.append(types_item)
 
-        names: Union[Unset, list[str]] = UNSET
+        names: list[str] | Unset = UNSET
         if not isinstance(self.names, Unset):
             names = self.names
 
@@ -60,19 +62,23 @@ class CloudCredentialsExportSpec:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        ids = []
         _ids = d.pop("ids", UNSET)
-        for ids_item_data in _ids or []:
-            ids_item = UUID(ids_item_data)
+        ids: list[UUID] | Unset = UNSET
+        if _ids is not UNSET:
+            ids = []
+            for ids_item_data in _ids:
+                ids_item = UUID(ids_item_data)
 
-            ids.append(ids_item)
+                ids.append(ids_item)
 
-        types = []
         _types = d.pop("types", UNSET)
-        for types_item_data in _types or []:
-            types_item = ECloudCredentialsType(types_item_data)
+        types: list[ECloudCredentialsType] | Unset = UNSET
+        if _types is not UNSET:
+            types = []
+            for types_item_data in _types:
+                types_item = ECloudCredentialsType(types_item_data)
 
-            types.append(types_item)
+                types.append(types_item)
 
         names = cast(list[str], d.pop("names", UNSET))
 

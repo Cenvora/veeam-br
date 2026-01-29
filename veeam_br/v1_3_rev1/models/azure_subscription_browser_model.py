@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -20,15 +22,15 @@ class AzureSubscriptionBrowserModel:
 
     Attributes:
         id (UUID): ID that Veeam Backup & Replication assigned to the Microsoft Azure subscription.
-        azure_subscription_id (Union[Unset, str]): Original Microsoft Azure subscription ID. For more information, see
+        azure_subscription_id (str | Unset): Original Microsoft Azure subscription ID. For more information, see
             [Microsoft documentation](https://learn.microsoft.com/en-us/azure/azure-portal/get-subscription-tenant-id#find-
             your-azure-subscription).
-        locations (Union[Unset, list['AzureLocationBrowserModel']]): Array of Microsoft Azure geographic regions.
+        locations (list[AzureLocationBrowserModel] | Unset): Array of Microsoft Azure geographic regions.
     """
 
     id: UUID
-    azure_subscription_id: Union[Unset, str] = UNSET
-    locations: Union[Unset, list["AzureLocationBrowserModel"]] = UNSET
+    azure_subscription_id: str | Unset = UNSET
+    locations: list[AzureLocationBrowserModel] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -36,7 +38,7 @@ class AzureSubscriptionBrowserModel:
 
         azure_subscription_id = self.azure_subscription_id
 
-        locations: Union[Unset, list[dict[str, Any]]] = UNSET
+        locations: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.locations, Unset):
             locations = []
             for locations_item_data in self.locations:
@@ -66,12 +68,14 @@ class AzureSubscriptionBrowserModel:
 
         azure_subscription_id = d.pop("azureSubscriptionId", UNSET)
 
-        locations = []
         _locations = d.pop("locations", UNSET)
-        for locations_item_data in _locations or []:
-            locations_item = AzureLocationBrowserModel.from_dict(locations_item_data)
+        locations: list[AzureLocationBrowserModel] | Unset = UNSET
+        if _locations is not UNSET:
+            locations = []
+            for locations_item_data in _locations:
+                locations_item = AzureLocationBrowserModel.from_dict(locations_item_data)
 
-            locations.append(locations_item)
+                locations.append(locations_item)
 
         azure_subscription_browser_model = cls(
             id=id,

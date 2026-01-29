@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -26,17 +28,17 @@ class InstantUnstructuredDataRecoveryMount:
         state (EUnstructuredDataInstantRecoveryMountState): Mount state.
         spec (InstantUnstructuredDataRestoreSpec): Settings for Instant Recovery of unstructured data share.
         unstructured_server_id (UUID): Name of the recovered unstructured data server.
-        unstructured_server_name (Union[Unset, str]): DNS name of the unstructured data server.
-        error_message (Union[Unset, str]): Error message.
+        unstructured_server_name (str | Unset): DNS name of the unstructured data server.
+        error_message (str | Unset): Error message.
     """
 
     id: UUID
     session_id: UUID
     state: EUnstructuredDataInstantRecoveryMountState
-    spec: "InstantUnstructuredDataRestoreSpec"
+    spec: InstantUnstructuredDataRestoreSpec
     unstructured_server_id: UUID
-    unstructured_server_name: Union[Unset, str] = UNSET
-    error_message: Union[Unset, str] = UNSET
+    unstructured_server_name: str | Unset = UNSET
+    error_message: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

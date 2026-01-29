@@ -1,18 +1,15 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.amazon_cloud_credentials_model import AmazonCloudCredentialsModel
-from ...models.azure_compute_cloud_credentials_model import AzureComputeCloudCredentialsModel
-from ...models.azure_storage_cloud_credentials_model import AzureStorageCloudCredentialsModel
 from ...models.certificate_upload_spec import CertificateUploadSpec
+from ...models.cloud_credentials_model import CloudCredentialsModel
 from ...models.error import Error
-from ...models.google_cloud_credentials_model import GoogleCloudCredentialsModel
-from ...models.google_cloud_service_credentials_model import GoogleCloudServiceCredentialsModel
 from ...types import Response
 
 
@@ -27,7 +24,9 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": f"/api/v1/cloudCredentials/{id}/changeCertificate",
+        "url": "/api/v1/cloudCredentials/{id}/changeCertificate".format(
+            id=quote(str(id), safe=""),
+        ),
     }
 
     _kwargs["json"] = body.to_dict()
@@ -39,69 +38,10 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[
-    Union[
-        Error,
-        Union[
-            "AmazonCloudCredentialsModel",
-            "AzureComputeCloudCredentialsModel",
-            "AzureStorageCloudCredentialsModel",
-            "GoogleCloudCredentialsModel",
-            "GoogleCloudServiceCredentialsModel",
-        ],
-    ]
-]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> CloudCredentialsModel | Error | None:
     if response.status_code == 204:
-
-        def _parse_response_204(
-            data: object,
-        ) -> Union[
-            "AmazonCloudCredentialsModel",
-            "AzureComputeCloudCredentialsModel",
-            "AzureStorageCloudCredentialsModel",
-            "GoogleCloudCredentialsModel",
-            "GoogleCloudServiceCredentialsModel",
-        ]:
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_cloud_credentials_model_type_0 = AmazonCloudCredentialsModel.from_dict(data)
-
-                return componentsschemas_cloud_credentials_model_type_0
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_cloud_credentials_model_type_1 = AzureStorageCloudCredentialsModel.from_dict(data)
-
-                return componentsschemas_cloud_credentials_model_type_1
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_cloud_credentials_model_type_2 = AzureComputeCloudCredentialsModel.from_dict(data)
-
-                return componentsschemas_cloud_credentials_model_type_2
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_cloud_credentials_model_type_3 = GoogleCloudCredentialsModel.from_dict(data)
-
-                return componentsschemas_cloud_credentials_model_type_3
-            except:  # noqa: E722
-                pass
-            if not isinstance(data, dict):
-                raise TypeError()
-            componentsschemas_cloud_credentials_model_type_4 = GoogleCloudServiceCredentialsModel.from_dict(data)
-
-            return componentsschemas_cloud_credentials_model_type_4
-
-        response_204 = _parse_response_204(response.json())
+        response_204 = CloudCredentialsModel.from_dict(response.json())
 
         return response_204
 
@@ -132,19 +72,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[
-    Union[
-        Error,
-        Union[
-            "AmazonCloudCredentialsModel",
-            "AzureComputeCloudCredentialsModel",
-            "AzureStorageCloudCredentialsModel",
-            "GoogleCloudCredentialsModel",
-            "GoogleCloudServiceCredentialsModel",
-        ],
-    ]
-]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[CloudCredentialsModel | Error]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -156,21 +85,10 @@ def _build_response(
 def sync_detailed(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: CertificateUploadSpec,
     x_api_version: str = "1.2-rev1",
-) -> Response[
-    Union[
-        Error,
-        Union[
-            "AmazonCloudCredentialsModel",
-            "AzureComputeCloudCredentialsModel",
-            "AzureStorageCloudCredentialsModel",
-            "GoogleCloudCredentialsModel",
-            "GoogleCloudServiceCredentialsModel",
-        ],
-    ]
-]:
+) -> Response[CloudCredentialsModel | Error]:
     """Change Certificate
 
      The HTTP POST request to the `/api/v1/cloudCredentials/{id}/changeCertificate` path allows you to
@@ -188,7 +106,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, Union['AmazonCloudCredentialsModel', 'AzureComputeCloudCredentialsModel', 'AzureStorageCloudCredentialsModel', 'GoogleCloudCredentialsModel', 'GoogleCloudServiceCredentialsModel']]]
+        Response[CloudCredentialsModel | Error]
     """
 
     kwargs = _get_kwargs(
@@ -207,21 +125,10 @@ def sync_detailed(
 def sync(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: CertificateUploadSpec,
     x_api_version: str = "1.2-rev1",
-) -> Optional[
-    Union[
-        Error,
-        Union[
-            "AmazonCloudCredentialsModel",
-            "AzureComputeCloudCredentialsModel",
-            "AzureStorageCloudCredentialsModel",
-            "GoogleCloudCredentialsModel",
-            "GoogleCloudServiceCredentialsModel",
-        ],
-    ]
-]:
+) -> CloudCredentialsModel | Error | None:
     """Change Certificate
 
      The HTTP POST request to the `/api/v1/cloudCredentials/{id}/changeCertificate` path allows you to
@@ -239,7 +146,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, Union['AmazonCloudCredentialsModel', 'AzureComputeCloudCredentialsModel', 'AzureStorageCloudCredentialsModel', 'GoogleCloudCredentialsModel', 'GoogleCloudServiceCredentialsModel']]
+        CloudCredentialsModel | Error
     """
 
     return sync_detailed(
@@ -253,21 +160,10 @@ def sync(
 async def asyncio_detailed(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: CertificateUploadSpec,
     x_api_version: str = "1.2-rev1",
-) -> Response[
-    Union[
-        Error,
-        Union[
-            "AmazonCloudCredentialsModel",
-            "AzureComputeCloudCredentialsModel",
-            "AzureStorageCloudCredentialsModel",
-            "GoogleCloudCredentialsModel",
-            "GoogleCloudServiceCredentialsModel",
-        ],
-    ]
-]:
+) -> Response[CloudCredentialsModel | Error]:
     """Change Certificate
 
      The HTTP POST request to the `/api/v1/cloudCredentials/{id}/changeCertificate` path allows you to
@@ -285,7 +181,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, Union['AmazonCloudCredentialsModel', 'AzureComputeCloudCredentialsModel', 'AzureStorageCloudCredentialsModel', 'GoogleCloudCredentialsModel', 'GoogleCloudServiceCredentialsModel']]]
+        Response[CloudCredentialsModel | Error]
     """
 
     kwargs = _get_kwargs(
@@ -302,21 +198,10 @@ async def asyncio_detailed(
 async def asyncio(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: CertificateUploadSpec,
     x_api_version: str = "1.2-rev1",
-) -> Optional[
-    Union[
-        Error,
-        Union[
-            "AmazonCloudCredentialsModel",
-            "AzureComputeCloudCredentialsModel",
-            "AzureStorageCloudCredentialsModel",
-            "GoogleCloudCredentialsModel",
-            "GoogleCloudServiceCredentialsModel",
-        ],
-    ]
-]:
+) -> CloudCredentialsModel | Error | None:
     """Change Certificate
 
      The HTTP POST request to the `/api/v1/cloudCredentials/{id}/changeCertificate` path allows you to
@@ -334,7 +219,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, Union['AmazonCloudCredentialsModel', 'AzureComputeCloudCredentialsModel', 'AzureStorageCloudCredentialsModel', 'GoogleCloudCredentialsModel', 'GoogleCloudServiceCredentialsModel']]
+        CloudCredentialsModel | Error
     """
 
     return (

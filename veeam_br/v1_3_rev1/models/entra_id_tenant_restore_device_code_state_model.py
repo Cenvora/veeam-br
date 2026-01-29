@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -16,26 +18,26 @@ class EntraIdTenantRestoreDeviceCodeStateModel:
     """User code state.
 
     Attributes:
-        credentials_id (Union[Unset, UUID]): Credentials ID required for delegated restore of Microsoft Entra ID items.
-        error_message (Union[Unset, str]): Error message.
-        status (Union[Unset, EEntraIdTenantRestoreDeviceCodeStatus]): Request status.
-        username (Union[Unset, str]): User name.
+        credentials_id (UUID | Unset): Credentials ID required for delegated restore of Microsoft Entra ID items.
+        error_message (str | Unset): Error message.
+        status (EEntraIdTenantRestoreDeviceCodeStatus | Unset): Request status.
+        username (str | Unset): User name.
     """
 
-    credentials_id: Union[Unset, UUID] = UNSET
-    error_message: Union[Unset, str] = UNSET
-    status: Union[Unset, EEntraIdTenantRestoreDeviceCodeStatus] = UNSET
-    username: Union[Unset, str] = UNSET
+    credentials_id: UUID | Unset = UNSET
+    error_message: str | Unset = UNSET
+    status: EEntraIdTenantRestoreDeviceCodeStatus | Unset = UNSET
+    username: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        credentials_id: Union[Unset, str] = UNSET
+        credentials_id: str | Unset = UNSET
         if not isinstance(self.credentials_id, Unset):
             credentials_id = str(self.credentials_id)
 
         error_message = self.error_message
 
-        status: Union[Unset, str] = UNSET
+        status: str | Unset = UNSET
         if not isinstance(self.status, Unset):
             status = self.status.value
 
@@ -59,7 +61,7 @@ class EntraIdTenantRestoreDeviceCodeStateModel:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _credentials_id = d.pop("credentialsId", UNSET)
-        credentials_id: Union[Unset, UUID]
+        credentials_id: UUID | Unset
         if isinstance(_credentials_id, Unset):
             credentials_id = UNSET
         else:
@@ -68,7 +70,7 @@ class EntraIdTenantRestoreDeviceCodeStateModel:
         error_message = d.pop("errorMessage", UNSET)
 
         _status = d.pop("status", UNSET)
-        status: Union[Unset, EEntraIdTenantRestoreDeviceCodeStatus]
+        status: EEntraIdTenantRestoreDeviceCodeStatus | Unset
         if isinstance(_status, Unset):
             status = UNSET
         else:

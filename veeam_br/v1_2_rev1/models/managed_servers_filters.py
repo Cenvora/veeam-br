@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -16,22 +18,22 @@ T = TypeVar("T", bound="ManagedServersFilters")
 class ManagedServersFilters:
     """
     Attributes:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):
-        order_column (Union[Unset, EManagedServersFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, EManagedServerType]): Type of the server.
-        vi_type_filter (Union[Unset, EViHostType]): Type of the VMware vSphere server.
+        skip (int | Unset):
+        limit (int | Unset):
+        order_column (EManagedServersFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        type_filter (EManagedServerType | Unset): Type of the server.
+        vi_type_filter (EViHostType | Unset): Type of the VMware vSphere server.
     """
 
-    skip: Union[Unset, int] = UNSET
-    limit: Union[Unset, int] = UNSET
-    order_column: Union[Unset, EManagedServersFiltersOrderColumn] = UNSET
-    order_asc: Union[Unset, bool] = UNSET
-    name_filter: Union[Unset, str] = UNSET
-    type_filter: Union[Unset, EManagedServerType] = UNSET
-    vi_type_filter: Union[Unset, EViHostType] = UNSET
+    skip: int | Unset = UNSET
+    limit: int | Unset = UNSET
+    order_column: EManagedServersFiltersOrderColumn | Unset = UNSET
+    order_asc: bool | Unset = UNSET
+    name_filter: str | Unset = UNSET
+    type_filter: EManagedServerType | Unset = UNSET
+    vi_type_filter: EViHostType | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -39,7 +41,7 @@ class ManagedServersFilters:
 
         limit = self.limit
 
-        order_column: Union[Unset, str] = UNSET
+        order_column: str | Unset = UNSET
         if not isinstance(self.order_column, Unset):
             order_column = self.order_column.value
 
@@ -47,11 +49,11 @@ class ManagedServersFilters:
 
         name_filter = self.name_filter
 
-        type_filter: Union[Unset, str] = UNSET
+        type_filter: str | Unset = UNSET
         if not isinstance(self.type_filter, Unset):
             type_filter = self.type_filter.value
 
-        vi_type_filter: Union[Unset, str] = UNSET
+        vi_type_filter: str | Unset = UNSET
         if not isinstance(self.vi_type_filter, Unset):
             vi_type_filter = self.vi_type_filter.value
 
@@ -83,7 +85,7 @@ class ManagedServersFilters:
         limit = d.pop("limit", UNSET)
 
         _order_column = d.pop("orderColumn", UNSET)
-        order_column: Union[Unset, EManagedServersFiltersOrderColumn]
+        order_column: EManagedServersFiltersOrderColumn | Unset
         if isinstance(_order_column, Unset):
             order_column = UNSET
         else:
@@ -94,14 +96,14 @@ class ManagedServersFilters:
         name_filter = d.pop("nameFilter", UNSET)
 
         _type_filter = d.pop("typeFilter", UNSET)
-        type_filter: Union[Unset, EManagedServerType]
+        type_filter: EManagedServerType | Unset
         if isinstance(_type_filter, Unset):
             type_filter = UNSET
         else:
             type_filter = EManagedServerType(_type_filter)
 
         _vi_type_filter = d.pop("viTypeFilter", UNSET)
-        vi_type_filter: Union[Unset, EViHostType]
+        vi_type_filter: EViHostType | Unset
         if isinstance(_vi_type_filter, Unset):
             vi_type_filter = UNSET
         else:

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -21,32 +23,32 @@ class WindowsAgentBackupJobFilesModel:
     """Backup scope settings for Veeam Agent for Microsoft Windows backup job.
 
     Attributes:
-        backup_os (Union[Unset, bool]): If `true`, OS-related data will be included in the backup scope.
-        personal_files (Union[Unset, AgentBackupJobPersonalFilesSettingsModel]): Scope of personal data backed up with
-            Veeam Agent backup job.
-        custom_files (Union[Unset, list[str]]): Array of folder paths that will be included in the backup scope.
-        advanced_settings (Union[Unset, WindowsAgentBackupJobPersonalFilesAdvancedSettingsModel]): Advanced settings for
+        backup_os (bool | Unset): If `true`, OS-related data will be included in the backup scope.
+        personal_files (AgentBackupJobPersonalFilesSettingsModel | Unset): Scope of personal data backed up with Veeam
+            Agent backup job.
+        custom_files (list[str] | Unset): Array of folder paths that will be included in the backup scope.
+        advanced_settings (WindowsAgentBackupJobPersonalFilesAdvancedSettingsModel | Unset): Advanced settings for
             personal data backed up with Veeam Agent for Microsoft Windows backup job.
     """
 
-    backup_os: Union[Unset, bool] = UNSET
-    personal_files: Union[Unset, "AgentBackupJobPersonalFilesSettingsModel"] = UNSET
-    custom_files: Union[Unset, list[str]] = UNSET
-    advanced_settings: Union[Unset, "WindowsAgentBackupJobPersonalFilesAdvancedSettingsModel"] = UNSET
+    backup_os: bool | Unset = UNSET
+    personal_files: AgentBackupJobPersonalFilesSettingsModel | Unset = UNSET
+    custom_files: list[str] | Unset = UNSET
+    advanced_settings: WindowsAgentBackupJobPersonalFilesAdvancedSettingsModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         backup_os = self.backup_os
 
-        personal_files: Union[Unset, dict[str, Any]] = UNSET
+        personal_files: dict[str, Any] | Unset = UNSET
         if not isinstance(self.personal_files, Unset):
             personal_files = self.personal_files.to_dict()
 
-        custom_files: Union[Unset, list[str]] = UNSET
+        custom_files: list[str] | Unset = UNSET
         if not isinstance(self.custom_files, Unset):
             custom_files = self.custom_files
 
-        advanced_settings: Union[Unset, dict[str, Any]] = UNSET
+        advanced_settings: dict[str, Any] | Unset = UNSET
         if not isinstance(self.advanced_settings, Unset):
             advanced_settings = self.advanced_settings.to_dict()
 
@@ -75,7 +77,7 @@ class WindowsAgentBackupJobFilesModel:
         backup_os = d.pop("backupOS", UNSET)
 
         _personal_files = d.pop("personalFiles", UNSET)
-        personal_files: Union[Unset, AgentBackupJobPersonalFilesSettingsModel]
+        personal_files: AgentBackupJobPersonalFilesSettingsModel | Unset
         if isinstance(_personal_files, Unset):
             personal_files = UNSET
         else:
@@ -84,7 +86,7 @@ class WindowsAgentBackupJobFilesModel:
         custom_files = cast(list[str], d.pop("customFiles", UNSET))
 
         _advanced_settings = d.pop("advancedSettings", UNSET)
-        advanced_settings: Union[Unset, WindowsAgentBackupJobPersonalFilesAdvancedSettingsModel]
+        advanced_settings: WindowsAgentBackupJobPersonalFilesAdvancedSettingsModel | Unset
         if isinstance(_advanced_settings, Unset):
             advanced_settings = UNSET
         else:

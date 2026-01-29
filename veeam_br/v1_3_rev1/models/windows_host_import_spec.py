@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -23,16 +25,16 @@ class WindowsHostImportSpec:
         name (str): Full DNS name or IP address of the server.
         description (str): Description of the server.
         type_ (EManagedServerType): Type of the server.
-        credentials (Union[Unset, CredentialsImportModel]): Credentials used for connection.
-        network_settings (Union[Unset, ManagedHostPortsModel]): Veeam Backup & Replication components installed on the
-            server and ports used by the components.
+        credentials (CredentialsImportModel | Unset): Credentials used for connection.
+        network_settings (ManagedHostPortsModel | Unset): Veeam Backup & Replication components installed on the server
+            and ports used by the components.
     """
 
     name: str
     description: str
     type_: EManagedServerType
-    credentials: Union[Unset, "CredentialsImportModel"] = UNSET
-    network_settings: Union[Unset, "ManagedHostPortsModel"] = UNSET
+    credentials: CredentialsImportModel | Unset = UNSET
+    network_settings: ManagedHostPortsModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -42,11 +44,11 @@ class WindowsHostImportSpec:
 
         type_ = self.type_.value
 
-        credentials: Union[Unset, dict[str, Any]] = UNSET
+        credentials: dict[str, Any] | Unset = UNSET
         if not isinstance(self.credentials, Unset):
             credentials = self.credentials.to_dict()
 
-        network_settings: Union[Unset, dict[str, Any]] = UNSET
+        network_settings: dict[str, Any] | Unset = UNSET
         if not isinstance(self.network_settings, Unset):
             network_settings = self.network_settings.to_dict()
 
@@ -79,14 +81,14 @@ class WindowsHostImportSpec:
         type_ = EManagedServerType(d.pop("type"))
 
         _credentials = d.pop("credentials", UNSET)
-        credentials: Union[Unset, CredentialsImportModel]
+        credentials: CredentialsImportModel | Unset
         if isinstance(_credentials, Unset):
             credentials = UNSET
         else:
             credentials = CredentialsImportModel.from_dict(_credentials)
 
         _network_settings = d.pop("networkSettings", UNSET)
-        network_settings: Union[Unset, ManagedHostPortsModel]
+        network_settings: ManagedHostPortsModel | Unset
         if isinstance(_network_settings, Unset):
             network_settings = UNSET
         else:

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -14,14 +16,14 @@ T = TypeVar("T", bound="ReplicaRescanSpec")
 class ReplicaRescanSpec:
     """
     Attributes:
-        replica_ids (Union[Unset, list[UUID]]): Array of replica IDs that you want to rescan.
+        replica_ids (list[UUID] | Unset): Array of replica IDs that you want to rescan.
     """
 
-    replica_ids: Union[Unset, list[UUID]] = UNSET
+    replica_ids: list[UUID] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        replica_ids: Union[Unset, list[str]] = UNSET
+        replica_ids: list[str] | Unset = UNSET
         if not isinstance(self.replica_ids, Unset):
             replica_ids = []
             for replica_ids_item_data in self.replica_ids:
@@ -39,12 +41,14 @@ class ReplicaRescanSpec:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        replica_ids = []
         _replica_ids = d.pop("replicaIds", UNSET)
-        for replica_ids_item_data in _replica_ids or []:
-            replica_ids_item = UUID(replica_ids_item_data)
+        replica_ids: list[UUID] | Unset = UNSET
+        if _replica_ids is not UNSET:
+            replica_ids = []
+            for replica_ids_item_data in _replica_ids:
+                replica_ids_item = UUID(replica_ids_item_data)
 
-            replica_ids.append(replica_ids_item)
+                replica_ids.append(replica_ids_item)
 
         replica_rescan_spec = cls(
             replica_ids=replica_ids,

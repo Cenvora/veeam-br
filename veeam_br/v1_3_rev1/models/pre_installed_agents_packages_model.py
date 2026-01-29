@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,21 +16,21 @@ class PreInstalledAgentsPackagesModel:
     """Pre-installed packages on the protection group.
 
     Attributes:
-        include (Union[Unset, bool]): If `true`, Veeam Backup & Replication will download the specified Linux or Unix
+        include (bool | Unset): If `true`, Veeam Backup & Replication will download the specified Linux or Unix
             packages.
-        package_names (Union[Unset, list[str]]): Array of packages that Veeam Backup & Replication will download. To see
-            the available packages, run the [Get Linux Agent Packages](Agents#operation/GetAllAgentPackages) or [Get Unix
-            Agent Packages](Agents#operation/GetAllAgentPackagesForUnix) request.
+        package_names (list[str] | Unset): Array of packages that Veeam Backup & Replication will download. To see the
+            available packages, run the [Get Linux Agent Packages](Agents#operation/GetAllAgentPackages) or [Get Unix Agent
+            Packages](Agents#operation/GetAllAgentPackagesForUnix) request.
     """
 
-    include: Union[Unset, bool] = UNSET
-    package_names: Union[Unset, list[str]] = UNSET
+    include: bool | Unset = UNSET
+    package_names: list[str] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         include = self.include
 
-        package_names: Union[Unset, list[str]] = UNSET
+        package_names: list[str] | Unset = UNSET
         if not isinstance(self.package_names, Unset):
             package_names = self.package_names
 

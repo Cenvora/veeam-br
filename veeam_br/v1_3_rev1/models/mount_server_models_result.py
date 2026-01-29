@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 
@@ -17,12 +19,12 @@ class MountServerModelsResult:
     """Details on mount servers in the backup infrastructure.
 
     Attributes:
-        data (list['MountServerModel']): Array of mount servers.
+        data (list[MountServerModel]): Array of mount servers.
         pagination (PaginationResult): Pagination settings.
     """
 
-    data: list["MountServerModel"]
-    pagination: "PaginationResult"
+    data: list[MountServerModel]
+    pagination: PaginationResult
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

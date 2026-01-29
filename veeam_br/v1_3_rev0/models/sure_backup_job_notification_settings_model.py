@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -18,18 +20,18 @@ class SureBackupJobNotificationSettingsModel:
     """SureBackup job notification settings.
 
     Attributes:
-        send_snmp_notifications (Union[Unset, bool]): If `true`, SNMP notifications are enabled for this job.
-        email_notifications (Union[Unset, EmailNotificationSettingsModel]): Email notification settings for the job.
+        send_snmp_notifications (bool | Unset): If `true`, SNMP notifications are enabled for this job.
+        email_notifications (EmailNotificationSettingsModel | Unset): Email notification settings for the job.
     """
 
-    send_snmp_notifications: Union[Unset, bool] = UNSET
-    email_notifications: Union[Unset, "EmailNotificationSettingsModel"] = UNSET
+    send_snmp_notifications: bool | Unset = UNSET
+    email_notifications: EmailNotificationSettingsModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         send_snmp_notifications = self.send_snmp_notifications
 
-        email_notifications: Union[Unset, dict[str, Any]] = UNSET
+        email_notifications: dict[str, Any] | Unset = UNSET
         if not isinstance(self.email_notifications, Unset):
             email_notifications = self.email_notifications.to_dict()
 
@@ -51,7 +53,7 @@ class SureBackupJobNotificationSettingsModel:
         send_snmp_notifications = d.pop("sendSNMPNotifications", UNSET)
 
         _email_notifications = d.pop("emailNotifications", UNSET)
-        email_notifications: Union[Unset, EmailNotificationSettingsModel]
+        email_notifications: EmailNotificationSettingsModel | Unset
         if isinstance(_email_notifications, Unset):
             email_notifications = UNSET
         else:

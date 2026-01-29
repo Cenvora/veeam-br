@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -19,12 +21,12 @@ class EntraIdTenantCheckProductionItemsSpec:
     """Settings for checking if items exist in production.
 
     Attributes:
-        items (list['EntraIdTenantProductionItemSpec']): Array of Microsoft Entra ID items that you want to check.
-        credential_id (Union[Unset, UUID]): ID of the credentials used to connect to the Microsoft Entra ID tenant.
+        items (list[EntraIdTenantProductionItemSpec]): Array of Microsoft Entra ID items that you want to check.
+        credential_id (UUID | Unset): ID of the credentials used to connect to the Microsoft Entra ID tenant.
     """
 
-    items: list["EntraIdTenantProductionItemSpec"]
-    credential_id: Union[Unset, UUID] = UNSET
+    items: list[EntraIdTenantProductionItemSpec]
+    credential_id: UUID | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -33,7 +35,7 @@ class EntraIdTenantCheckProductionItemsSpec:
             items_item = items_item_data.to_dict()
             items.append(items_item)
 
-        credential_id: Union[Unset, str] = UNSET
+        credential_id: str | Unset = UNSET
         if not isinstance(self.credential_id, Unset):
             credential_id = str(self.credential_id)
 
@@ -62,7 +64,7 @@ class EntraIdTenantCheckProductionItemsSpec:
             items.append(items_item)
 
         _credential_id = d.pop("credentialId", UNSET)
-        credential_id: Union[Unset, UUID]
+        credential_id: UUID | Unset
         if isinstance(_credential_id, Unset):
             credential_id = UNSET
         else:

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -9,10 +11,7 @@ from ..models.e_credentials_type import ECredentialsType
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.agent_object_model import AgentObjectModel
-    from ..models.cloud_director_object_model import CloudDirectorObjectModel
-    from ..models.hyper_v_object_model import HyperVObjectModel
-    from ..models.vmware_object_model import VmwareObjectModel
+    from ..models.inventory_object_model import InventoryObjectModel
 
 
 T = TypeVar("T", bound="GuestOsCredentialsPerMachineModel")
@@ -23,39 +22,26 @@ class GuestOsCredentialsPerMachineModel:
     """Settings for per-machine guest OS credentials.
 
     Attributes:
-        vm_object (Union['AgentObjectModel', 'CloudDirectorObjectModel', 'HyperVObjectModel', 'VmwareObjectModel']):
-            Inventory object properties.
-        credentials_id (Union[Unset, UUID]): Credentials ID.
-        credentials_type (Union[Unset, ECredentialsType]): Credentials type.
-        default (Union[Unset, bool]): If `true`, Veeam Backup & Replication will use job-level credentials.
+        vm_object (InventoryObjectModel): Inventory object properties.
+        credentials_id (UUID | Unset): Credentials ID.
+        credentials_type (ECredentialsType | Unset): Credentials type.
+        default (bool | Unset): If `true`, Veeam Backup & Replication will use job-level credentials.
     """
 
-    vm_object: Union["AgentObjectModel", "CloudDirectorObjectModel", "HyperVObjectModel", "VmwareObjectModel"]
-    credentials_id: Union[Unset, UUID] = UNSET
-    credentials_type: Union[Unset, ECredentialsType] = UNSET
-    default: Union[Unset, bool] = UNSET
+    vm_object: InventoryObjectModel
+    credentials_id: UUID | Unset = UNSET
+    credentials_type: ECredentialsType | Unset = UNSET
+    default: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.cloud_director_object_model import CloudDirectorObjectModel
-        from ..models.hyper_v_object_model import HyperVObjectModel
-        from ..models.vmware_object_model import VmwareObjectModel
+        vm_object = self.vm_object.to_dict()
 
-        vm_object: dict[str, Any]
-        if isinstance(self.vm_object, VmwareObjectModel):
-            vm_object = self.vm_object.to_dict()
-        elif isinstance(self.vm_object, CloudDirectorObjectModel):
-            vm_object = self.vm_object.to_dict()
-        elif isinstance(self.vm_object, HyperVObjectModel):
-            vm_object = self.vm_object.to_dict()
-        else:
-            vm_object = self.vm_object.to_dict()
-
-        credentials_id: Union[Unset, str] = UNSET
+        credentials_id: str | Unset = UNSET
         if not isinstance(self.credentials_id, Unset):
             credentials_id = str(self.credentials_id)
 
-        credentials_type: Union[Unset, str] = UNSET
+        credentials_type: str | Unset = UNSET
         if not isinstance(self.credentials_type, Unset):
             credentials_type = self.credentials_type.value
 
@@ -79,57 +65,20 @@ class GuestOsCredentialsPerMachineModel:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.agent_object_model import AgentObjectModel
-        from ..models.cloud_director_object_model import CloudDirectorObjectModel
-        from ..models.hyper_v_object_model import HyperVObjectModel
-        from ..models.vmware_object_model import VmwareObjectModel
+        from ..models.inventory_object_model import InventoryObjectModel
 
         d = dict(src_dict)
-
-        def _parse_vm_object(
-            data: object,
-        ) -> Union["AgentObjectModel", "CloudDirectorObjectModel", "HyperVObjectModel", "VmwareObjectModel"]:
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_0 = VmwareObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_0
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_1 = CloudDirectorObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_1
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_2 = HyperVObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_2
-            except:  # noqa: E722
-                pass
-            if not isinstance(data, dict):
-                raise TypeError()
-            componentsschemas_inventory_object_model_type_3 = AgentObjectModel.from_dict(data)
-
-            return componentsschemas_inventory_object_model_type_3
-
-        vm_object = _parse_vm_object(d.pop("vmObject"))
+        vm_object = InventoryObjectModel.from_dict(d.pop("vmObject"))
 
         _credentials_id = d.pop("credentialsId", UNSET)
-        credentials_id: Union[Unset, UUID]
+        credentials_id: UUID | Unset
         if isinstance(_credentials_id, Unset):
             credentials_id = UNSET
         else:
             credentials_id = UUID(_credentials_id)
 
         _credentials_type = d.pop("credentialsType", UNSET)
-        credentials_type: Union[Unset, ECredentialsType]
+        credentials_type: ECredentialsType | Unset
         if isinstance(_credentials_type, Unset):
             credentials_type = UNSET
         else:

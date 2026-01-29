@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -16,9 +18,9 @@ class EntraIdTenantRestoreAuthorizeModel:
 
     Attributes:
         successful (bool): If `true`, the authorization code exchange was successful.
-        error (Union[Unset, str]): Error summary.
-        error_description (Union[Unset, str]): Error description.
-        credentials_id (Union[Unset, UUID]): ID of the credentials record used for connection to the target tenant. The
+        error (str | Unset): Error summary.
+        error_description (str | Unset): Error description.
+        credentials_id (UUID | Unset): ID of the credentials record used for connection to the target tenant. The
             property is used only for delegated restore by a restore operator that does not have access to pre-saved
             credentials. To obtain the credentials, use the following requests&#58; <ol><li>Obtain a user code&#58; [Get
             User Code for Delegated Restore of Microsoft Entra ID
@@ -28,9 +30,9 @@ class EntraIdTenantRestoreAuthorizeModel:
     """
 
     successful: bool
-    error: Union[Unset, str] = UNSET
-    error_description: Union[Unset, str] = UNSET
-    credentials_id: Union[Unset, UUID] = UNSET
+    error: str | Unset = UNSET
+    error_description: str | Unset = UNSET
+    credentials_id: UUID | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -40,7 +42,7 @@ class EntraIdTenantRestoreAuthorizeModel:
 
         error_description = self.error_description
 
-        credentials_id: Union[Unset, str] = UNSET
+        credentials_id: str | Unset = UNSET
         if not isinstance(self.credentials_id, Unset):
             credentials_id = str(self.credentials_id)
 
@@ -70,7 +72,7 @@ class EntraIdTenantRestoreAuthorizeModel:
         error_description = d.pop("errorDescription", UNSET)
 
         _credentials_id = d.pop("credentialsId", UNSET)
-        credentials_id: Union[Unset, UUID]
+        credentials_id: UUID | Unset
         if isinstance(_credentials_id, Unset):
             credentials_id = UNSET
         else:

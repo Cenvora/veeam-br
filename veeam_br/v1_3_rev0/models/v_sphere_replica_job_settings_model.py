@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -23,13 +25,13 @@ class VSphereReplicaJobSettingsModel:
         replica_name_suffix (str): Suffix added to source VM names.
         restore_points_to_keep (int): Number of restore points that the replication job must maintain. The maximum
             number is limited to 28.
-        advanced_settings (Union[Unset, VSphereReplicaJobAdvancedSettingsModel]): Advanced job settings.
+        advanced_settings (VSphereReplicaJobAdvancedSettingsModel | Unset): Advanced job settings.
     """
 
     metadata_repository_id: UUID
     replica_name_suffix: str
     restore_points_to_keep: int
-    advanced_settings: Union[Unset, "VSphereReplicaJobAdvancedSettingsModel"] = UNSET
+    advanced_settings: VSphereReplicaJobAdvancedSettingsModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -39,7 +41,7 @@ class VSphereReplicaJobSettingsModel:
 
         restore_points_to_keep = self.restore_points_to_keep
 
-        advanced_settings: Union[Unset, dict[str, Any]] = UNSET
+        advanced_settings: dict[str, Any] | Unset = UNSET
         if not isinstance(self.advanced_settings, Unset):
             advanced_settings = self.advanced_settings.to_dict()
 
@@ -69,7 +71,7 @@ class VSphereReplicaJobSettingsModel:
         restore_points_to_keep = d.pop("restorePointsToKeep")
 
         _advanced_settings = d.pop("advancedSettings", UNSET)
-        advanced_settings: Union[Unset, VSphereReplicaJobAdvancedSettingsModel]
+        advanced_settings: VSphereReplicaJobAdvancedSettingsModel | Unset
         if isinstance(_advanced_settings, Unset):
             advanced_settings = UNSET
         else:

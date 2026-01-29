@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -33,8 +33,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, InstalledLicenseModel]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Error | InstalledLicenseModel | None:
     if response.status_code == 200:
         response_200 = InstalledLicenseModel.from_dict(response.json())
 
@@ -67,8 +67,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, InstalledLicenseModel]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | InstalledLicenseModel]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -79,10 +79,10 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: LicenseAgentConsumptionSpec,
     x_api_version: str = "1.3-rev0",
-) -> Response[Union[Error, InstalledLicenseModel]]:
+) -> Response[Error | InstalledLicenseModel]:
     """Enable or Disable Instance Consumption for Unlicensed Agents
 
      The HTTP POST request to the `/api/v1/license/agentConsumption` allows you to enable or disable
@@ -99,7 +99,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, InstalledLicenseModel]]
+        Response[Error | InstalledLicenseModel]
     """
 
     kwargs = _get_kwargs(
@@ -116,10 +116,10 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: LicenseAgentConsumptionSpec,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Union[Error, InstalledLicenseModel]]:
+) -> Error | InstalledLicenseModel | None:
     """Enable or Disable Instance Consumption for Unlicensed Agents
 
      The HTTP POST request to the `/api/v1/license/agentConsumption` allows you to enable or disable
@@ -136,7 +136,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, InstalledLicenseModel]
+        Error | InstalledLicenseModel
     """
 
     return sync_detailed(
@@ -148,10 +148,10 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: LicenseAgentConsumptionSpec,
     x_api_version: str = "1.3-rev0",
-) -> Response[Union[Error, InstalledLicenseModel]]:
+) -> Response[Error | InstalledLicenseModel]:
     """Enable or Disable Instance Consumption for Unlicensed Agents
 
      The HTTP POST request to the `/api/v1/license/agentConsumption` allows you to enable or disable
@@ -168,7 +168,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, InstalledLicenseModel]]
+        Response[Error | InstalledLicenseModel]
     """
 
     kwargs = _get_kwargs(
@@ -183,10 +183,10 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: LicenseAgentConsumptionSpec,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Union[Error, InstalledLicenseModel]]:
+) -> Error | InstalledLicenseModel | None:
     """Enable or Disable Instance Consumption for Unlicensed Agents
 
      The HTTP POST request to the `/api/v1/license/agentConsumption` allows you to enable or disable
@@ -203,7 +203,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, InstalledLicenseModel]
+        Error | InstalledLicenseModel
     """
 
     return (

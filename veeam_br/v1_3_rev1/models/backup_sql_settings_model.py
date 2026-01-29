@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -21,18 +23,18 @@ class BackupSQLSettingsModel:
 
     Attributes:
         logs_processing (ESQLLogsProcessing): Type of transaction logs processing.
-        backup_mins_count (Union[Unset, int]): Frequency of transaction log backup, in minutes.
-        retain_log_backups (Union[Unset, ERetainLogBackupsType]): Retention policy for the logs stored in the backup
+        backup_mins_count (int | Unset): Frequency of transaction log backup, in minutes.
+        retain_log_backups (ERetainLogBackupsType | Unset): Retention policy for the logs stored in the backup
             repository.
-        keep_days_count (Union[Unset, int]): Number of days to keep transaction logs in the backup repository.
-        log_shipping_servers (Union[Unset, BackupLogShippingServersModel]): Log shipping server used to transport logs.
+        keep_days_count (int | Unset): Number of days to keep transaction logs in the backup repository.
+        log_shipping_servers (BackupLogShippingServersModel | Unset): Log shipping server used to transport logs.
     """
 
     logs_processing: ESQLLogsProcessing
-    backup_mins_count: Union[Unset, int] = UNSET
-    retain_log_backups: Union[Unset, ERetainLogBackupsType] = UNSET
-    keep_days_count: Union[Unset, int] = UNSET
-    log_shipping_servers: Union[Unset, "BackupLogShippingServersModel"] = UNSET
+    backup_mins_count: int | Unset = UNSET
+    retain_log_backups: ERetainLogBackupsType | Unset = UNSET
+    keep_days_count: int | Unset = UNSET
+    log_shipping_servers: BackupLogShippingServersModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -40,13 +42,13 @@ class BackupSQLSettingsModel:
 
         backup_mins_count = self.backup_mins_count
 
-        retain_log_backups: Union[Unset, str] = UNSET
+        retain_log_backups: str | Unset = UNSET
         if not isinstance(self.retain_log_backups, Unset):
             retain_log_backups = self.retain_log_backups.value
 
         keep_days_count = self.keep_days_count
 
-        log_shipping_servers: Union[Unset, dict[str, Any]] = UNSET
+        log_shipping_servers: dict[str, Any] | Unset = UNSET
         if not isinstance(self.log_shipping_servers, Unset):
             log_shipping_servers = self.log_shipping_servers.to_dict()
 
@@ -78,7 +80,7 @@ class BackupSQLSettingsModel:
         backup_mins_count = d.pop("backupMinsCount", UNSET)
 
         _retain_log_backups = d.pop("retainLogBackups", UNSET)
-        retain_log_backups: Union[Unset, ERetainLogBackupsType]
+        retain_log_backups: ERetainLogBackupsType | Unset
         if isinstance(_retain_log_backups, Unset):
             retain_log_backups = UNSET
         else:
@@ -87,7 +89,7 @@ class BackupSQLSettingsModel:
         keep_days_count = d.pop("keepDaysCount", UNSET)
 
         _log_shipping_servers = d.pop("logShippingServers", UNSET)
-        log_shipping_servers: Union[Unset, BackupLogShippingServersModel]
+        log_shipping_servers: BackupLogShippingServersModel | Unset
         if isinstance(_log_shipping_servers, Unset):
             log_shipping_servers = UNSET
         else:

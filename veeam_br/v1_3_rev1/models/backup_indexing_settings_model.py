@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -7,11 +9,8 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.agent_object_model import AgentObjectModel
     from ..models.backup_object_indexing_model import BackupObjectIndexingModel
-    from ..models.cloud_director_object_model import CloudDirectorObjectModel
-    from ..models.hyper_v_object_model import HyperVObjectModel
-    from ..models.vmware_object_model import VmwareObjectModel
+    from ..models.inventory_object_model import InventoryObjectModel
 
 
 T = TypeVar("T", bound="BackupIndexingSettingsModel")
@@ -22,37 +21,24 @@ class BackupIndexingSettingsModel:
     """Backup indexing settings.
 
     Attributes:
-        vm_object (Union['AgentObjectModel', 'CloudDirectorObjectModel', 'HyperVObjectModel', 'VmwareObjectModel']):
-            Inventory object properties.
-        windows_indexing (Union[Unset, BackupObjectIndexingModel]): Guest OS indexing options for the VM.
-        linux_indexing (Union[Unset, BackupObjectIndexingModel]): Guest OS indexing options for the VM.
+        vm_object (InventoryObjectModel): Inventory object properties.
+        windows_indexing (BackupObjectIndexingModel | Unset): Guest OS indexing options for the VM.
+        linux_indexing (BackupObjectIndexingModel | Unset): Guest OS indexing options for the VM.
     """
 
-    vm_object: Union["AgentObjectModel", "CloudDirectorObjectModel", "HyperVObjectModel", "VmwareObjectModel"]
-    windows_indexing: Union[Unset, "BackupObjectIndexingModel"] = UNSET
-    linux_indexing: Union[Unset, "BackupObjectIndexingModel"] = UNSET
+    vm_object: InventoryObjectModel
+    windows_indexing: BackupObjectIndexingModel | Unset = UNSET
+    linux_indexing: BackupObjectIndexingModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.cloud_director_object_model import CloudDirectorObjectModel
-        from ..models.hyper_v_object_model import HyperVObjectModel
-        from ..models.vmware_object_model import VmwareObjectModel
+        vm_object = self.vm_object.to_dict()
 
-        vm_object: dict[str, Any]
-        if isinstance(self.vm_object, VmwareObjectModel):
-            vm_object = self.vm_object.to_dict()
-        elif isinstance(self.vm_object, CloudDirectorObjectModel):
-            vm_object = self.vm_object.to_dict()
-        elif isinstance(self.vm_object, HyperVObjectModel):
-            vm_object = self.vm_object.to_dict()
-        else:
-            vm_object = self.vm_object.to_dict()
-
-        windows_indexing: Union[Unset, dict[str, Any]] = UNSET
+        windows_indexing: dict[str, Any] | Unset = UNSET
         if not isinstance(self.windows_indexing, Unset):
             windows_indexing = self.windows_indexing.to_dict()
 
-        linux_indexing: Union[Unset, dict[str, Any]] = UNSET
+        linux_indexing: dict[str, Any] | Unset = UNSET
         if not isinstance(self.linux_indexing, Unset):
             linux_indexing = self.linux_indexing.to_dict()
 
@@ -72,58 +58,21 @@ class BackupIndexingSettingsModel:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.agent_object_model import AgentObjectModel
         from ..models.backup_object_indexing_model import BackupObjectIndexingModel
-        from ..models.cloud_director_object_model import CloudDirectorObjectModel
-        from ..models.hyper_v_object_model import HyperVObjectModel
-        from ..models.vmware_object_model import VmwareObjectModel
+        from ..models.inventory_object_model import InventoryObjectModel
 
         d = dict(src_dict)
-
-        def _parse_vm_object(
-            data: object,
-        ) -> Union["AgentObjectModel", "CloudDirectorObjectModel", "HyperVObjectModel", "VmwareObjectModel"]:
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_0 = VmwareObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_0
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_1 = CloudDirectorObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_1
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_2 = HyperVObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_2
-            except:  # noqa: E722
-                pass
-            if not isinstance(data, dict):
-                raise TypeError()
-            componentsschemas_inventory_object_model_type_3 = AgentObjectModel.from_dict(data)
-
-            return componentsschemas_inventory_object_model_type_3
-
-        vm_object = _parse_vm_object(d.pop("vmObject"))
+        vm_object = InventoryObjectModel.from_dict(d.pop("vmObject"))
 
         _windows_indexing = d.pop("WindowsIndexing", UNSET)
-        windows_indexing: Union[Unset, BackupObjectIndexingModel]
+        windows_indexing: BackupObjectIndexingModel | Unset
         if isinstance(_windows_indexing, Unset):
             windows_indexing = UNSET
         else:
             windows_indexing = BackupObjectIndexingModel.from_dict(_windows_indexing)
 
         _linux_indexing = d.pop("LinuxIndexing", UNSET)
-        linux_indexing: Union[Unset, BackupObjectIndexingModel]
+        linux_indexing: BackupObjectIndexingModel | Unset
         if isinstance(_linux_indexing, Unset):
             linux_indexing = UNSET
         else:

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -17,26 +19,25 @@ class MountServersFilters:
     response time.
 
         Attributes:
-            skip (Union[Unset, int]): Number of mount servers to skip.
-            limit (Union[Unset, int]): Maximum number of mount servers to return.
-            order_column (Union[Unset, EMountServersFiltersOrderColumn]): Sorts mount servers by one of the mount server
+            skip (int | Unset): Number of mount servers to skip.
+            limit (int | Unset): Maximum number of mount servers to return.
+            order_column (EMountServersFiltersOrderColumn | Unset): Sorts mount servers by one of the mount server
                 parameters.
-            order_asc (Union[Unset, bool]): If `true`, sorts mount servers in the ascending order by the `orderColumn`
-                parameter.
-            write_cache_folder_filter (Union[Unset, str]): Filters mount servers by the `writeCacheFolder` pattern. The
-                pattern can match any repository parameter. To substitute one or more characters, use the asterisk (*) character
-                at the beginning, at the end or both.
-            type_filter (Union[Unset, EMountServerType]): Mount server type.
-            is_default_filter (Union[Unset, bool]): If `true`, shows only mount servers that are set as default.
+            order_asc (bool | Unset): If `true`, sorts mount servers in the ascending order by the `orderColumn` parameter.
+            write_cache_folder_filter (str | Unset): Filters mount servers by the `writeCacheFolder` pattern. The pattern
+                can match any repository parameter. To substitute one or more characters, use the asterisk (*) character at the
+                beginning, at the end or both.
+            type_filter (EMountServerType | Unset): Mount server type.
+            is_default_filter (bool | Unset): If `true`, shows only mount servers that are set as default.
     """
 
-    skip: Union[Unset, int] = UNSET
-    limit: Union[Unset, int] = UNSET
-    order_column: Union[Unset, EMountServersFiltersOrderColumn] = UNSET
-    order_asc: Union[Unset, bool] = UNSET
-    write_cache_folder_filter: Union[Unset, str] = UNSET
-    type_filter: Union[Unset, EMountServerType] = UNSET
-    is_default_filter: Union[Unset, bool] = UNSET
+    skip: int | Unset = UNSET
+    limit: int | Unset = UNSET
+    order_column: EMountServersFiltersOrderColumn | Unset = UNSET
+    order_asc: bool | Unset = UNSET
+    write_cache_folder_filter: str | Unset = UNSET
+    type_filter: EMountServerType | Unset = UNSET
+    is_default_filter: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -44,7 +45,7 @@ class MountServersFilters:
 
         limit = self.limit
 
-        order_column: Union[Unset, str] = UNSET
+        order_column: str | Unset = UNSET
         if not isinstance(self.order_column, Unset):
             order_column = self.order_column.value
 
@@ -52,7 +53,7 @@ class MountServersFilters:
 
         write_cache_folder_filter = self.write_cache_folder_filter
 
-        type_filter: Union[Unset, str] = UNSET
+        type_filter: str | Unset = UNSET
         if not isinstance(self.type_filter, Unset):
             type_filter = self.type_filter.value
 
@@ -86,7 +87,7 @@ class MountServersFilters:
         limit = d.pop("limit", UNSET)
 
         _order_column = d.pop("orderColumn", UNSET)
-        order_column: Union[Unset, EMountServersFiltersOrderColumn]
+        order_column: EMountServersFiltersOrderColumn | Unset
         if isinstance(_order_column, Unset):
             order_column = UNSET
         else:
@@ -97,7 +98,7 @@ class MountServersFilters:
         write_cache_folder_filter = d.pop("writeCacheFolderFilter", UNSET)
 
         _type_filter = d.pop("typeFilter", UNSET)
-        type_filter: Union[Unset, EMountServerType]
+        type_filter: EMountServerType | Unset
         if isinstance(_type_filter, Unset):
             type_filter = UNSET
         else:

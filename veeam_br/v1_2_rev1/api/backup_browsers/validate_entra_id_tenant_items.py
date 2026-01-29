@@ -1,5 +1,6 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
@@ -23,7 +24,9 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": f"/api/v1/backupBrowser/entraIdTenant/{session_id}/validate",
+        "url": "/api/v1/backupBrowser/entraIdTenant/{session_id}/validate".format(
+            session_id=quote(str(session_id), safe=""),
+        ),
     }
 
     _kwargs["json"] = body.to_dict()
@@ -35,8 +38,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[EntraIdTenantValidateModel, Error]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> EntraIdTenantValidateModel | Error | None:
     if response.status_code == 200:
         response_200 = EntraIdTenantValidateModel.from_dict(response.json())
 
@@ -69,8 +72,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[EntraIdTenantValidateModel, Error]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[EntraIdTenantValidateModel | Error]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -82,10 +85,10 @@ def _build_response(
 def sync_detailed(
     session_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: EntraIdTenantValidateSpec,
     x_api_version: str = "1.2-rev1",
-) -> Response[Union[EntraIdTenantValidateModel, Error]]:
+) -> Response[EntraIdTenantValidateModel | Error]:
     """Validate Microsoft Entra ID Items
 
      The HTTP POST request to the `/api/v1/backupBrowser/entraIdTenant/{sessionId}/validate` path allows
@@ -106,7 +109,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[EntraIdTenantValidateModel, Error]]
+        Response[EntraIdTenantValidateModel | Error]
     """
 
     kwargs = _get_kwargs(
@@ -125,10 +128,10 @@ def sync_detailed(
 def sync(
     session_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: EntraIdTenantValidateSpec,
     x_api_version: str = "1.2-rev1",
-) -> Optional[Union[EntraIdTenantValidateModel, Error]]:
+) -> EntraIdTenantValidateModel | Error | None:
     """Validate Microsoft Entra ID Items
 
      The HTTP POST request to the `/api/v1/backupBrowser/entraIdTenant/{sessionId}/validate` path allows
@@ -149,7 +152,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[EntraIdTenantValidateModel, Error]
+        EntraIdTenantValidateModel | Error
     """
 
     return sync_detailed(
@@ -163,10 +166,10 @@ def sync(
 async def asyncio_detailed(
     session_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: EntraIdTenantValidateSpec,
     x_api_version: str = "1.2-rev1",
-) -> Response[Union[EntraIdTenantValidateModel, Error]]:
+) -> Response[EntraIdTenantValidateModel | Error]:
     """Validate Microsoft Entra ID Items
 
      The HTTP POST request to the `/api/v1/backupBrowser/entraIdTenant/{sessionId}/validate` path allows
@@ -187,7 +190,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[EntraIdTenantValidateModel, Error]]
+        Response[EntraIdTenantValidateModel | Error]
     """
 
     kwargs = _get_kwargs(
@@ -204,10 +207,10 @@ async def asyncio_detailed(
 async def asyncio(
     session_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: EntraIdTenantValidateSpec,
     x_api_version: str = "1.2-rev1",
-) -> Optional[Union[EntraIdTenantValidateModel, Error]]:
+) -> EntraIdTenantValidateModel | Error | None:
     """Validate Microsoft Entra ID Items
 
      The HTTP POST request to the `/api/v1/backupBrowser/entraIdTenant/{sessionId}/validate` path allows
@@ -228,7 +231,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[EntraIdTenantValidateModel, Error]
+        EntraIdTenantValidateModel | Error
     """
 
     return (

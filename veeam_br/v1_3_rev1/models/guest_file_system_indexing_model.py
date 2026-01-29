@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,18 +21,17 @@ class GuestFileSystemIndexingModel:
 
     Attributes:
         is_enabled (bool): If `true`, file indexing is enabled.
-        indexing_settings (Union[Unset, list['BackupIndexingSettingsModel']]): Array of VMs with guest OS file indexing
-            options.
+        indexing_settings (list[BackupIndexingSettingsModel] | Unset): Array of VMs with guest OS file indexing options.
     """
 
     is_enabled: bool
-    indexing_settings: Union[Unset, list["BackupIndexingSettingsModel"]] = UNSET
+    indexing_settings: list[BackupIndexingSettingsModel] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         is_enabled = self.is_enabled
 
-        indexing_settings: Union[Unset, list[dict[str, Any]]] = UNSET
+        indexing_settings: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.indexing_settings, Unset):
             indexing_settings = []
             for indexing_settings_item_data in self.indexing_settings:
@@ -56,12 +57,14 @@ class GuestFileSystemIndexingModel:
         d = dict(src_dict)
         is_enabled = d.pop("isEnabled")
 
-        indexing_settings = []
         _indexing_settings = d.pop("indexingSettings", UNSET)
-        for indexing_settings_item_data in _indexing_settings or []:
-            indexing_settings_item = BackupIndexingSettingsModel.from_dict(indexing_settings_item_data)
+        indexing_settings: list[BackupIndexingSettingsModel] | Unset = UNSET
+        if _indexing_settings is not UNSET:
+            indexing_settings = []
+            for indexing_settings_item_data in _indexing_settings:
+                indexing_settings_item = BackupIndexingSettingsModel.from_dict(indexing_settings_item_data)
 
-            indexing_settings.append(indexing_settings_item)
+                indexing_settings.append(indexing_settings_item)
 
         guest_file_system_indexing_model = cls(
             is_enabled=is_enabled,

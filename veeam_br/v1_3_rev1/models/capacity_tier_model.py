@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -23,49 +25,49 @@ class CapacityTierModel:
 
     Attributes:
         is_enabled (bool): If `true`, the capacity tier is enabled.
-        extents (Union[Unset, list['CapacityExtentModel']]): Array of capacity extents.
-        offload_window (Union[Unset, BackupWindowSettingModel]): Time scheme that defines permitted days and hours for
-            the job to start.
-        backup_health (Union[Unset, BackupHealthCheckSettingsModels]): Health check settings for the latest restore
-            point in the backup chain.
-        copy_policy_enabled (Union[Unset, bool]): If `true`, Veeam Backup & Replication copies backups from the
-            performance extents to the capacity extent as soon as the backups are created.
-        move_policy_enabled (Union[Unset, bool]): If `true`, Veeam Backup & Replication moves backup files that belong
-            to inactive backup chains from the performance extents to the capacity extent.
-        operational_restore_period_days (Union[Unset, int]): Number of days after which inactive backup chains on the
+        extents (list[CapacityExtentModel] | Unset): Array of capacity extents.
+        offload_window (BackupWindowSettingModel | Unset): Time scheme that defines permitted days and hours for the job
+            to start.
+        backup_health (BackupHealthCheckSettingsModels | Unset): Health check settings for the latest restore point in
+            the backup chain.
+        copy_policy_enabled (bool | Unset): If `true`, Veeam Backup & Replication copies backups from the performance
+            extents to the capacity extent as soon as the backups are created.
+        move_policy_enabled (bool | Unset): If `true`, Veeam Backup & Replication moves backup files that belong to
+            inactive backup chains from the performance extents to the capacity extent.
+        operational_restore_period_days (int | Unset): Number of days after which inactive backup chains on the
             performance extents are moved to the capacity extent. Specify *0* to offload inactive backup chains on the same
             day they are created.
-        override_policy (Union[Unset, CapacityTierOverridePolicyModel]): Policy that overrides the move policy if the
-            scale-out backup repository reaches a certain space threshold.
-        encryption (Union[Unset, BackupStorageSettingsEncryptionModel]): Encryption of backup files.
+        override_policy (CapacityTierOverridePolicyModel | Unset): Policy that overrides the move policy if the scale-
+            out backup repository reaches a certain space threshold.
+        encryption (BackupStorageSettingsEncryptionModel | Unset): Encryption of backup files.
     """
 
     is_enabled: bool
-    extents: Union[Unset, list["CapacityExtentModel"]] = UNSET
-    offload_window: Union[Unset, "BackupWindowSettingModel"] = UNSET
-    backup_health: Union[Unset, "BackupHealthCheckSettingsModels"] = UNSET
-    copy_policy_enabled: Union[Unset, bool] = UNSET
-    move_policy_enabled: Union[Unset, bool] = UNSET
-    operational_restore_period_days: Union[Unset, int] = UNSET
-    override_policy: Union[Unset, "CapacityTierOverridePolicyModel"] = UNSET
-    encryption: Union[Unset, "BackupStorageSettingsEncryptionModel"] = UNSET
+    extents: list[CapacityExtentModel] | Unset = UNSET
+    offload_window: BackupWindowSettingModel | Unset = UNSET
+    backup_health: BackupHealthCheckSettingsModels | Unset = UNSET
+    copy_policy_enabled: bool | Unset = UNSET
+    move_policy_enabled: bool | Unset = UNSET
+    operational_restore_period_days: int | Unset = UNSET
+    override_policy: CapacityTierOverridePolicyModel | Unset = UNSET
+    encryption: BackupStorageSettingsEncryptionModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         is_enabled = self.is_enabled
 
-        extents: Union[Unset, list[dict[str, Any]]] = UNSET
+        extents: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.extents, Unset):
             extents = []
             for extents_item_data in self.extents:
                 extents_item = extents_item_data.to_dict()
                 extents.append(extents_item)
 
-        offload_window: Union[Unset, dict[str, Any]] = UNSET
+        offload_window: dict[str, Any] | Unset = UNSET
         if not isinstance(self.offload_window, Unset):
             offload_window = self.offload_window.to_dict()
 
-        backup_health: Union[Unset, dict[str, Any]] = UNSET
+        backup_health: dict[str, Any] | Unset = UNSET
         if not isinstance(self.backup_health, Unset):
             backup_health = self.backup_health.to_dict()
 
@@ -75,11 +77,11 @@ class CapacityTierModel:
 
         operational_restore_period_days = self.operational_restore_period_days
 
-        override_policy: Union[Unset, dict[str, Any]] = UNSET
+        override_policy: dict[str, Any] | Unset = UNSET
         if not isinstance(self.override_policy, Unset):
             override_policy = self.override_policy.to_dict()
 
-        encryption: Union[Unset, dict[str, Any]] = UNSET
+        encryption: dict[str, Any] | Unset = UNSET
         if not isinstance(self.encryption, Unset):
             encryption = self.encryption.to_dict()
 
@@ -120,22 +122,24 @@ class CapacityTierModel:
         d = dict(src_dict)
         is_enabled = d.pop("isEnabled")
 
-        extents = []
         _extents = d.pop("extents", UNSET)
-        for extents_item_data in _extents or []:
-            extents_item = CapacityExtentModel.from_dict(extents_item_data)
+        extents: list[CapacityExtentModel] | Unset = UNSET
+        if _extents is not UNSET:
+            extents = []
+            for extents_item_data in _extents:
+                extents_item = CapacityExtentModel.from_dict(extents_item_data)
 
-            extents.append(extents_item)
+                extents.append(extents_item)
 
         _offload_window = d.pop("offloadWindow", UNSET)
-        offload_window: Union[Unset, BackupWindowSettingModel]
+        offload_window: BackupWindowSettingModel | Unset
         if isinstance(_offload_window, Unset):
             offload_window = UNSET
         else:
             offload_window = BackupWindowSettingModel.from_dict(_offload_window)
 
         _backup_health = d.pop("backupHealth", UNSET)
-        backup_health: Union[Unset, BackupHealthCheckSettingsModels]
+        backup_health: BackupHealthCheckSettingsModels | Unset
         if isinstance(_backup_health, Unset):
             backup_health = UNSET
         else:
@@ -148,14 +152,14 @@ class CapacityTierModel:
         operational_restore_period_days = d.pop("operationalRestorePeriodDays", UNSET)
 
         _override_policy = d.pop("overridePolicy", UNSET)
-        override_policy: Union[Unset, CapacityTierOverridePolicyModel]
+        override_policy: CapacityTierOverridePolicyModel | Unset
         if isinstance(_override_policy, Unset):
             override_policy = UNSET
         else:
             override_policy = CapacityTierOverridePolicyModel.from_dict(_override_policy)
 
         _encryption = d.pop("encryption", UNSET)
-        encryption: Union[Unset, BackupStorageSettingsEncryptionModel]
+        encryption: BackupStorageSettingsEncryptionModel | Unset
         if isinstance(_encryption, Unset):
             encryption = UNSET
         else:

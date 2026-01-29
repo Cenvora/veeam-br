@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -22,15 +24,15 @@ class SocketLicenseSummaryModel:
         licensed_sockets_number (int): Total number of CPU sockets on protected hosts.
         used_sockets_number (int): Number of CPU sockets that have already been used.
         remaining_sockets_number (int): Number of CPU sockets that remain available.
-        workload (Union[Unset, list['SocketLicenseWorkloadModel']]): Array of licensed hosts.
-        package (Union[Unset, ELicensePackageType]): License package.
+        workload (list[SocketLicenseWorkloadModel] | Unset): Array of licensed hosts.
+        package (ELicensePackageType | Unset): License package.
     """
 
     licensed_sockets_number: int
     used_sockets_number: int
     remaining_sockets_number: int
-    workload: Union[Unset, list["SocketLicenseWorkloadModel"]] = UNSET
-    package: Union[Unset, ELicensePackageType] = UNSET
+    workload: list[SocketLicenseWorkloadModel] | Unset = UNSET
+    package: ELicensePackageType | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -40,14 +42,14 @@ class SocketLicenseSummaryModel:
 
         remaining_sockets_number = self.remaining_sockets_number
 
-        workload: Union[Unset, list[dict[str, Any]]] = UNSET
+        workload: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.workload, Unset):
             workload = []
             for workload_item_data in self.workload:
                 workload_item = workload_item_data.to_dict()
                 workload.append(workload_item)
 
-        package: Union[Unset, str] = UNSET
+        package: str | Unset = UNSET
         if not isinstance(self.package, Unset):
             package = self.package.value
 
@@ -78,15 +80,17 @@ class SocketLicenseSummaryModel:
 
         remaining_sockets_number = d.pop("remainingSocketsNumber")
 
-        workload = []
         _workload = d.pop("workload", UNSET)
-        for workload_item_data in _workload or []:
-            workload_item = SocketLicenseWorkloadModel.from_dict(workload_item_data)
+        workload: list[SocketLicenseWorkloadModel] | Unset = UNSET
+        if _workload is not UNSET:
+            workload = []
+            for workload_item_data in _workload:
+                workload_item = SocketLicenseWorkloadModel.from_dict(workload_item_data)
 
-            workload.append(workload_item)
+                workload.append(workload_item)
 
         _package = d.pop("package", UNSET)
-        package: Union[Unset, ELicensePackageType]
+        package: ELicensePackageType | Unset
         if isinstance(_package, Unset):
             package = UNSET
         else:

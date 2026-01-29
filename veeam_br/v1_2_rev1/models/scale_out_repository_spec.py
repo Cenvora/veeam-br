@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -23,19 +25,19 @@ class ScaleOutRepositorySpec:
         name (str): Name of the scale-out backup repository.
         description (str): Description of the scale-out backup repository.
         performance_tier (PerformanceTierSpec): Performance tier.
-        unique_id (Union[Unset, str]): Unique ID assigned to the scale-out backup repository.
-        placement_policy (Union[Unset, PlacementPolicyModel]): Backup file placement policy.
-        capacity_tier (Union[Unset, CapacityTierModel]): Capacity tier.
-        archive_tier (Union[Unset, ArchiveTierModel]): Archive tier.
+        unique_id (str | Unset): Unique ID assigned to the scale-out backup repository.
+        placement_policy (PlacementPolicyModel | Unset): Backup file placement policy.
+        capacity_tier (CapacityTierModel | Unset): Capacity tier.
+        archive_tier (ArchiveTierModel | Unset): Archive tier.
     """
 
     name: str
     description: str
-    performance_tier: "PerformanceTierSpec"
-    unique_id: Union[Unset, str] = UNSET
-    placement_policy: Union[Unset, "PlacementPolicyModel"] = UNSET
-    capacity_tier: Union[Unset, "CapacityTierModel"] = UNSET
-    archive_tier: Union[Unset, "ArchiveTierModel"] = UNSET
+    performance_tier: PerformanceTierSpec
+    unique_id: str | Unset = UNSET
+    placement_policy: PlacementPolicyModel | Unset = UNSET
+    capacity_tier: CapacityTierModel | Unset = UNSET
+    archive_tier: ArchiveTierModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -47,15 +49,15 @@ class ScaleOutRepositorySpec:
 
         unique_id = self.unique_id
 
-        placement_policy: Union[Unset, dict[str, Any]] = UNSET
+        placement_policy: dict[str, Any] | Unset = UNSET
         if not isinstance(self.placement_policy, Unset):
             placement_policy = self.placement_policy.to_dict()
 
-        capacity_tier: Union[Unset, dict[str, Any]] = UNSET
+        capacity_tier: dict[str, Any] | Unset = UNSET
         if not isinstance(self.capacity_tier, Unset):
             capacity_tier = self.capacity_tier.to_dict()
 
-        archive_tier: Union[Unset, dict[str, Any]] = UNSET
+        archive_tier: dict[str, Any] | Unset = UNSET
         if not isinstance(self.archive_tier, Unset):
             archive_tier = self.archive_tier.to_dict()
 
@@ -96,21 +98,21 @@ class ScaleOutRepositorySpec:
         unique_id = d.pop("uniqueId", UNSET)
 
         _placement_policy = d.pop("placementPolicy", UNSET)
-        placement_policy: Union[Unset, PlacementPolicyModel]
+        placement_policy: PlacementPolicyModel | Unset
         if isinstance(_placement_policy, Unset):
             placement_policy = UNSET
         else:
             placement_policy = PlacementPolicyModel.from_dict(_placement_policy)
 
         _capacity_tier = d.pop("capacityTier", UNSET)
-        capacity_tier: Union[Unset, CapacityTierModel]
+        capacity_tier: CapacityTierModel | Unset
         if isinstance(_capacity_tier, Unset):
             capacity_tier = UNSET
         else:
             capacity_tier = CapacityTierModel.from_dict(_capacity_tier)
 
         _archive_tier = d.pop("archiveTier", UNSET)
-        archive_tier: Union[Unset, ArchiveTierModel]
+        archive_tier: ArchiveTierModel | Unset
         if isinstance(_archive_tier, Unset):
             archive_tier = UNSET
         else:

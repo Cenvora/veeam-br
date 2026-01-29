@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,19 +22,18 @@ class ReplicaMappingModel:
 
         Attributes:
             is_enabled (bool): If `true`, replica mapping is enabled.
-            mapping_rules (Union[Unset, list['ReplicaMappingRuleModel']]): Array of mapping rules for
-                replicas.<ul><li>`originalVM` — source VM</li><li>`replicaVM` — ready-to-use copy of this VM in the target
-                site</li></ul>
+            mapping_rules (list[ReplicaMappingRuleModel] | Unset): Array of mapping rules for replicas.<ul><li>`originalVM`
+                — source VM</li><li>`replicaVM` — ready-to-use copy of this VM in the target site</li></ul>
     """
 
     is_enabled: bool
-    mapping_rules: Union[Unset, list["ReplicaMappingRuleModel"]] = UNSET
+    mapping_rules: list[ReplicaMappingRuleModel] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         is_enabled = self.is_enabled
 
-        mapping_rules: Union[Unset, list[dict[str, Any]]] = UNSET
+        mapping_rules: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.mapping_rules, Unset):
             mapping_rules = []
             for mapping_rules_item_data in self.mapping_rules:
@@ -58,12 +59,14 @@ class ReplicaMappingModel:
         d = dict(src_dict)
         is_enabled = d.pop("isEnabled")
 
-        mapping_rules = []
         _mapping_rules = d.pop("mappingRules", UNSET)
-        for mapping_rules_item_data in _mapping_rules or []:
-            mapping_rules_item = ReplicaMappingRuleModel.from_dict(mapping_rules_item_data)
+        mapping_rules: list[ReplicaMappingRuleModel] | Unset = UNSET
+        if _mapping_rules is not UNSET:
+            mapping_rules = []
+            for mapping_rules_item_data in _mapping_rules:
+                mapping_rules_item = ReplicaMappingRuleModel.from_dict(mapping_rules_item_data)
 
-            mapping_rules.append(mapping_rules_item)
+                mapping_rules.append(mapping_rules_item)
 
         replica_mapping_model = cls(
             is_enabled=is_enabled,

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,28 +22,27 @@ class ReplicaJobGuestProcessingModel:
     """Guest processing settings.
 
     Attributes:
-        app_aware_processing (Union[Unset, BackupApplicationAwareProcessingModel]): Application-aware processing
-            settings.
-        guest_interaction_proxies (Union[Unset, GuestInteractionProxiesSettingsModel]): Guest interaction proxy used to
-            deploy the runtime process on the VM guest OS.
-        guest_credentials (Union[Unset, GuestOsCredentialsModel]): Custom credentials.
+        app_aware_processing (BackupApplicationAwareProcessingModel | Unset): Application-aware processing settings.
+        guest_interaction_proxies (GuestInteractionProxiesSettingsModel | Unset): Guest interaction proxy used to deploy
+            the runtime process on the VM guest OS.
+        guest_credentials (GuestOsCredentialsModel | Unset): Custom credentials.
     """
 
-    app_aware_processing: Union[Unset, "BackupApplicationAwareProcessingModel"] = UNSET
-    guest_interaction_proxies: Union[Unset, "GuestInteractionProxiesSettingsModel"] = UNSET
-    guest_credentials: Union[Unset, "GuestOsCredentialsModel"] = UNSET
+    app_aware_processing: BackupApplicationAwareProcessingModel | Unset = UNSET
+    guest_interaction_proxies: GuestInteractionProxiesSettingsModel | Unset = UNSET
+    guest_credentials: GuestOsCredentialsModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        app_aware_processing: Union[Unset, dict[str, Any]] = UNSET
+        app_aware_processing: dict[str, Any] | Unset = UNSET
         if not isinstance(self.app_aware_processing, Unset):
             app_aware_processing = self.app_aware_processing.to_dict()
 
-        guest_interaction_proxies: Union[Unset, dict[str, Any]] = UNSET
+        guest_interaction_proxies: dict[str, Any] | Unset = UNSET
         if not isinstance(self.guest_interaction_proxies, Unset):
             guest_interaction_proxies = self.guest_interaction_proxies.to_dict()
 
-        guest_credentials: Union[Unset, dict[str, Any]] = UNSET
+        guest_credentials: dict[str, Any] | Unset = UNSET
         if not isinstance(self.guest_credentials, Unset):
             guest_credentials = self.guest_credentials.to_dict()
 
@@ -65,21 +66,21 @@ class ReplicaJobGuestProcessingModel:
 
         d = dict(src_dict)
         _app_aware_processing = d.pop("appAwareProcessing", UNSET)
-        app_aware_processing: Union[Unset, BackupApplicationAwareProcessingModel]
+        app_aware_processing: BackupApplicationAwareProcessingModel | Unset
         if isinstance(_app_aware_processing, Unset):
             app_aware_processing = UNSET
         else:
             app_aware_processing = BackupApplicationAwareProcessingModel.from_dict(_app_aware_processing)
 
         _guest_interaction_proxies = d.pop("guestInteractionProxies", UNSET)
-        guest_interaction_proxies: Union[Unset, GuestInteractionProxiesSettingsModel]
+        guest_interaction_proxies: GuestInteractionProxiesSettingsModel | Unset
         if isinstance(_guest_interaction_proxies, Unset):
             guest_interaction_proxies = UNSET
         else:
             guest_interaction_proxies = GuestInteractionProxiesSettingsModel.from_dict(_guest_interaction_proxies)
 
         _guest_credentials = d.pop("guestCredentials", UNSET)
-        guest_credentials: Union[Unset, GuestOsCredentialsModel]
+        guest_credentials: GuestOsCredentialsModel | Unset
         if isinstance(_guest_credentials, Unset):
             guest_credentials = UNSET
         else:

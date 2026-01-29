@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -16,19 +18,19 @@ class AdvancedStorageScheduleWeeklyModel:
 
     Attributes:
         is_enabled (bool): If `true`, the weekly schedule is enabled. Default: False.
-        days (Union[Unset, list[EDayOfWeek]]): Days of the week when the operation is performed.
-        local_time (Union[Unset, str]): Time when the operation is performed.
+        days (list[EDayOfWeek] | Unset): Days of the week when the operation is performed.
+        local_time (str | Unset): Time when the operation is performed.
     """
 
     is_enabled: bool = False
-    days: Union[Unset, list[EDayOfWeek]] = UNSET
-    local_time: Union[Unset, str] = UNSET
+    days: list[EDayOfWeek] | Unset = UNSET
+    local_time: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         is_enabled = self.is_enabled
 
-        days: Union[Unset, list[str]] = UNSET
+        days: list[str] | Unset = UNSET
         if not isinstance(self.days, Unset):
             days = []
             for days_item_data in self.days:
@@ -56,12 +58,14 @@ class AdvancedStorageScheduleWeeklyModel:
         d = dict(src_dict)
         is_enabled = d.pop("isEnabled")
 
-        days = []
         _days = d.pop("days", UNSET)
-        for days_item_data in _days or []:
-            days_item = EDayOfWeek(days_item_data)
+        days: list[EDayOfWeek] | Unset = UNSET
+        if _days is not UNSET:
+            days = []
+            for days_item_data in _days:
+                days_item = EDayOfWeek(days_item_data)
 
-            days.append(days_item)
+                days.append(days_item)
 
         local_time = d.pop("localTime", UNSET)
 

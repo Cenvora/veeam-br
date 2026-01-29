@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,23 +21,23 @@ class EntraIDTenantsResult:
     """Details on Microsoft Entra ID tenants.
 
     Attributes:
-        data (Union[Unset, list['EntraIDTenantModel']]): Array of Microsoft Entra ID tenants.
-        pagination (Union[Unset, PaginationResult]): Pagination settings.
+        data (list[EntraIDTenantModel] | Unset): Array of Microsoft Entra ID tenants.
+        pagination (PaginationResult | Unset): Pagination settings.
     """
 
-    data: Union[Unset, list["EntraIDTenantModel"]] = UNSET
-    pagination: Union[Unset, "PaginationResult"] = UNSET
+    data: list[EntraIDTenantModel] | Unset = UNSET
+    pagination: PaginationResult | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        data: Union[Unset, list[dict[str, Any]]] = UNSET
+        data: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.data, Unset):
             data = []
             for data_item_data in self.data:
                 data_item = data_item_data.to_dict()
                 data.append(data_item)
 
-        pagination: Union[Unset, dict[str, Any]] = UNSET
+        pagination: dict[str, Any] | Unset = UNSET
         if not isinstance(self.pagination, Unset):
             pagination = self.pagination.to_dict()
 
@@ -55,15 +57,17 @@ class EntraIDTenantsResult:
         from ..models.pagination_result import PaginationResult
 
         d = dict(src_dict)
-        data = []
         _data = d.pop("data", UNSET)
-        for data_item_data in _data or []:
-            data_item = EntraIDTenantModel.from_dict(data_item_data)
+        data: list[EntraIDTenantModel] | Unset = UNSET
+        if _data is not UNSET:
+            data = []
+            for data_item_data in _data:
+                data_item = EntraIDTenantModel.from_dict(data_item_data)
 
-            data.append(data_item)
+                data.append(data_item)
 
         _pagination = d.pop("pagination", UNSET)
-        pagination: Union[Unset, PaginationResult]
+        pagination: PaginationResult | Unset
         if isinstance(_pagination, Unset):
             pagination = UNSET
         else:

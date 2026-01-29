@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 
@@ -33,9 +35,9 @@ class NfsStorageImportSpec:
     description: str
     unique_id: str
     type_: ERepositoryType
-    share: "NfsRepositoryShareSettingsSpec"
-    repository: "NetworkRepositorySettingsModel"
-    mount_server: "MountServerSettingsImportSpec"
+    share: NfsRepositoryShareSettingsSpec
+    repository: NetworkRepositorySettingsModel
+    mount_server: MountServerSettingsImportSpec
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

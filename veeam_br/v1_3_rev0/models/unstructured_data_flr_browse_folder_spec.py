@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -21,29 +23,29 @@ class UnstructuredDataFlrBrowseFolderSpec:
 
     Attributes:
         path (str): Browsing path.
-        filter_ (Union[Unset, FlrBrowseFiltrationModel]): Filter settings.
-        order (Union[Unset, FlrBrowseOrderSpec]): Sorting settings.
-        pagination (Union[Unset, PaginationSpec]): Pagination settings.
+        filter_ (FlrBrowseFiltrationModel | Unset): Filter settings.
+        order (FlrBrowseOrderSpec | Unset): Sorting settings.
+        pagination (PaginationSpec | Unset): Pagination settings.
     """
 
     path: str
-    filter_: Union[Unset, "FlrBrowseFiltrationModel"] = UNSET
-    order: Union[Unset, "FlrBrowseOrderSpec"] = UNSET
-    pagination: Union[Unset, "PaginationSpec"] = UNSET
+    filter_: FlrBrowseFiltrationModel | Unset = UNSET
+    order: FlrBrowseOrderSpec | Unset = UNSET
+    pagination: PaginationSpec | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         path = self.path
 
-        filter_: Union[Unset, dict[str, Any]] = UNSET
+        filter_: dict[str, Any] | Unset = UNSET
         if not isinstance(self.filter_, Unset):
             filter_ = self.filter_.to_dict()
 
-        order: Union[Unset, dict[str, Any]] = UNSET
+        order: dict[str, Any] | Unset = UNSET
         if not isinstance(self.order, Unset):
             order = self.order.to_dict()
 
-        pagination: Union[Unset, dict[str, Any]] = UNSET
+        pagination: dict[str, Any] | Unset = UNSET
         if not isinstance(self.pagination, Unset):
             pagination = self.pagination.to_dict()
 
@@ -73,21 +75,21 @@ class UnstructuredDataFlrBrowseFolderSpec:
         path = d.pop("path")
 
         _filter_ = d.pop("filter", UNSET)
-        filter_: Union[Unset, FlrBrowseFiltrationModel]
+        filter_: FlrBrowseFiltrationModel | Unset
         if isinstance(_filter_, Unset):
             filter_ = UNSET
         else:
             filter_ = FlrBrowseFiltrationModel.from_dict(_filter_)
 
         _order = d.pop("order", UNSET)
-        order: Union[Unset, FlrBrowseOrderSpec]
+        order: FlrBrowseOrderSpec | Unset
         if isinstance(_order, Unset):
             order = UNSET
         else:
             order = FlrBrowseOrderSpec.from_dict(_order)
 
         _pagination = d.pop("pagination", UNSET)
-        pagination: Union[Unset, PaginationSpec]
+        pagination: PaginationSpec | Unset
         if isinstance(_pagination, Unset):
             pagination = UNSET
         else:

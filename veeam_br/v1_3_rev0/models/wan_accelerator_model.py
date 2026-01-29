@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -20,31 +22,31 @@ class WANAcceleratorModel:
     """WAN accelerator.
 
     Attributes:
-        id (Union[Unset, UUID]): WAN accelerator ID.
-        name (Union[Unset, str]): Server name or IP address.
-        server (Union[Unset, WANAcceleratorServerModel]): Microsoft Windows server used as a WAN accelerator.
-        cache (Union[Unset, WANAcceleratorCacheModel]): Cache settings. Cache is used for storing service files (for
-            source and target WAN accelerators) and global cache data (for target WAN accelerator).
+        id (UUID | Unset): WAN accelerator ID.
+        name (str | Unset): Server name or IP address.
+        server (WANAcceleratorServerModel | Unset): Microsoft Windows server used as a WAN accelerator.
+        cache (WANAcceleratorCacheModel | Unset): Cache settings. Cache is used for storing service files (for source
+            and target WAN accelerators) and global cache data (for target WAN accelerator).
     """
 
-    id: Union[Unset, UUID] = UNSET
-    name: Union[Unset, str] = UNSET
-    server: Union[Unset, "WANAcceleratorServerModel"] = UNSET
-    cache: Union[Unset, "WANAcceleratorCacheModel"] = UNSET
+    id: UUID | Unset = UNSET
+    name: str | Unset = UNSET
+    server: WANAcceleratorServerModel | Unset = UNSET
+    cache: WANAcceleratorCacheModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        id: Union[Unset, str] = UNSET
+        id: str | Unset = UNSET
         if not isinstance(self.id, Unset):
             id = str(self.id)
 
         name = self.name
 
-        server: Union[Unset, dict[str, Any]] = UNSET
+        server: dict[str, Any] | Unset = UNSET
         if not isinstance(self.server, Unset):
             server = self.server.to_dict()
 
-        cache: Union[Unset, dict[str, Any]] = UNSET
+        cache: dict[str, Any] | Unset = UNSET
         if not isinstance(self.cache, Unset):
             cache = self.cache.to_dict()
 
@@ -69,7 +71,7 @@ class WANAcceleratorModel:
 
         d = dict(src_dict)
         _id = d.pop("id", UNSET)
-        id: Union[Unset, UUID]
+        id: UUID | Unset
         if isinstance(_id, Unset):
             id = UNSET
         else:
@@ -78,14 +80,14 @@ class WANAcceleratorModel:
         name = d.pop("name", UNSET)
 
         _server = d.pop("server", UNSET)
-        server: Union[Unset, WANAcceleratorServerModel]
+        server: WANAcceleratorServerModel | Unset
         if isinstance(_server, Unset):
             server = UNSET
         else:
             server = WANAcceleratorServerModel.from_dict(_server)
 
         _cache = d.pop("cache", UNSET)
-        cache: Union[Unset, WANAcceleratorCacheModel]
+        cache: WANAcceleratorCacheModel | Unset
         if isinstance(_cache, Unset):
             cache = UNSET
         else:

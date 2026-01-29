@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 from uuid import UUID
 
 import httpx
@@ -15,15 +15,15 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     *,
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EUserFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, list[EUserType]] = UNSET,
-    role_id_filter: Union[Unset, UUID] = UNSET,
-    role_name_filter: Union[Unset, str] = UNSET,
-    is_service_account_filter: Union[Unset, bool] = UNSET,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EUserFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: list[EUserType] | Unset = UNSET,
+    role_id_filter: UUID | Unset = UNSET,
+    role_name_filter: str | Unset = UNSET,
+    is_service_account_filter: bool | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -35,7 +35,7 @@ def _get_kwargs(
 
     params["limit"] = limit
 
-    json_order_column: Union[Unset, str] = UNSET
+    json_order_column: str | Unset = UNSET
     if not isinstance(order_column, Unset):
         json_order_column = order_column.value
 
@@ -45,7 +45,7 @@ def _get_kwargs(
 
     params["nameFilter"] = name_filter
 
-    json_type_filter: Union[Unset, list[str]] = UNSET
+    json_type_filter: list[str] | Unset = UNSET
     if not isinstance(type_filter, Unset):
         json_type_filter = []
         for type_filter_item_data in type_filter:
@@ -54,7 +54,7 @@ def _get_kwargs(
 
     params["typeFilter"] = json_type_filter
 
-    json_role_id_filter: Union[Unset, str] = UNSET
+    json_role_id_filter: str | Unset = UNSET
     if not isinstance(role_id_filter, Unset):
         json_role_id_filter = str(role_id_filter)
     params["roleIdFilter"] = json_role_id_filter
@@ -75,9 +75,7 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, UsersResult]]:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Error | UsersResult | None:
     if response.status_code == 200:
         response_200 = UsersResult.from_dict(response.json())
 
@@ -104,9 +102,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, UsersResult]]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[Error | UsersResult]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -117,33 +113,33 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EUserFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, list[EUserType]] = UNSET,
-    role_id_filter: Union[Unset, UUID] = UNSET,
-    role_name_filter: Union[Unset, str] = UNSET,
-    is_service_account_filter: Union[Unset, bool] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EUserFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: list[EUserType] | Unset = UNSET,
+    role_id_filter: UUID | Unset = UNSET,
+    role_name_filter: str | Unset = UNSET,
+    is_service_account_filter: bool | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Error, UsersResult]]:
+) -> Response[Error | UsersResult]:
     """Get All Users and Groups
 
      The HTTP GET request to the `/api/v1/security/users` endpoint gets an array of users and groups,
     along with their assigned roles.<p>**Available to**&#58; Veeam Backup Administrator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EUserFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, list[EUserType]]):
-        role_id_filter (Union[Unset, UUID]):
-        role_name_filter (Union[Unset, str]):
-        is_service_account_filter (Union[Unset, bool]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EUserFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        type_filter (list[EUserType] | Unset):
+        role_id_filter (UUID | Unset):
+        role_name_filter (str | Unset):
+        is_service_account_filter (bool | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -151,7 +147,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, UsersResult]]
+        Response[Error | UsersResult]
     """
 
     kwargs = _get_kwargs(
@@ -176,33 +172,33 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EUserFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, list[EUserType]] = UNSET,
-    role_id_filter: Union[Unset, UUID] = UNSET,
-    role_name_filter: Union[Unset, str] = UNSET,
-    is_service_account_filter: Union[Unset, bool] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EUserFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: list[EUserType] | Unset = UNSET,
+    role_id_filter: UUID | Unset = UNSET,
+    role_name_filter: str | Unset = UNSET,
+    is_service_account_filter: bool | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Error, UsersResult]]:
+) -> Error | UsersResult | None:
     """Get All Users and Groups
 
      The HTTP GET request to the `/api/v1/security/users` endpoint gets an array of users and groups,
     along with their assigned roles.<p>**Available to**&#58; Veeam Backup Administrator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EUserFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, list[EUserType]]):
-        role_id_filter (Union[Unset, UUID]):
-        role_name_filter (Union[Unset, str]):
-        is_service_account_filter (Union[Unset, bool]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EUserFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        type_filter (list[EUserType] | Unset):
+        role_id_filter (UUID | Unset):
+        role_name_filter (str | Unset):
+        is_service_account_filter (bool | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -210,7 +206,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, UsersResult]
+        Error | UsersResult
     """
 
     return sync_detailed(
@@ -230,33 +226,33 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EUserFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, list[EUserType]] = UNSET,
-    role_id_filter: Union[Unset, UUID] = UNSET,
-    role_name_filter: Union[Unset, str] = UNSET,
-    is_service_account_filter: Union[Unset, bool] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EUserFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: list[EUserType] | Unset = UNSET,
+    role_id_filter: UUID | Unset = UNSET,
+    role_name_filter: str | Unset = UNSET,
+    is_service_account_filter: bool | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Error, UsersResult]]:
+) -> Response[Error | UsersResult]:
     """Get All Users and Groups
 
      The HTTP GET request to the `/api/v1/security/users` endpoint gets an array of users and groups,
     along with their assigned roles.<p>**Available to**&#58; Veeam Backup Administrator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EUserFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, list[EUserType]]):
-        role_id_filter (Union[Unset, UUID]):
-        role_name_filter (Union[Unset, str]):
-        is_service_account_filter (Union[Unset, bool]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EUserFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        type_filter (list[EUserType] | Unset):
+        role_id_filter (UUID | Unset):
+        role_name_filter (str | Unset):
+        is_service_account_filter (bool | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -264,7 +260,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, UsersResult]]
+        Response[Error | UsersResult]
     """
 
     kwargs = _get_kwargs(
@@ -287,33 +283,33 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EUserFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, list[EUserType]] = UNSET,
-    role_id_filter: Union[Unset, UUID] = UNSET,
-    role_name_filter: Union[Unset, str] = UNSET,
-    is_service_account_filter: Union[Unset, bool] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EUserFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: list[EUserType] | Unset = UNSET,
+    role_id_filter: UUID | Unset = UNSET,
+    role_name_filter: str | Unset = UNSET,
+    is_service_account_filter: bool | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Error, UsersResult]]:
+) -> Error | UsersResult | None:
     """Get All Users and Groups
 
      The HTTP GET request to the `/api/v1/security/users` endpoint gets an array of users and groups,
     along with their assigned roles.<p>**Available to**&#58; Veeam Backup Administrator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EUserFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, list[EUserType]]):
-        role_id_filter (Union[Unset, UUID]):
-        role_name_filter (Union[Unset, str]):
-        is_service_account_filter (Union[Unset, bool]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EUserFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        type_filter (list[EUserType] | Unset):
+        role_id_filter (UUID | Unset):
+        role_name_filter (str | Unset):
+        is_service_account_filter (bool | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -321,7 +317,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, UsersResult]
+        Error | UsersResult
     """
 
     return (

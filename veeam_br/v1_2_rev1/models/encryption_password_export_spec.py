@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -16,35 +18,35 @@ T = TypeVar("T", bound="EncryptionPasswordExportSpec")
 class EncryptionPasswordExportSpec:
     """
     Attributes:
-        modification_time_from (Union[Unset, datetime.datetime]): Date and time when the password was last modified.
-        ids (Union[Unset, list[UUID]]): Array of password IDs.
-        hints (Union[Unset, list[str]]): Array of password hints.
-        tags (Union[Unset, list[str]]): Array of password tags.
+        modification_time_from (datetime.datetime | Unset): Date and time when the password was last modified.
+        ids (list[UUID] | Unset): Array of password IDs.
+        hints (list[str] | Unset): Array of password hints.
+        tags (list[str] | Unset): Array of password tags.
     """
 
-    modification_time_from: Union[Unset, datetime.datetime] = UNSET
-    ids: Union[Unset, list[UUID]] = UNSET
-    hints: Union[Unset, list[str]] = UNSET
-    tags: Union[Unset, list[str]] = UNSET
+    modification_time_from: datetime.datetime | Unset = UNSET
+    ids: list[UUID] | Unset = UNSET
+    hints: list[str] | Unset = UNSET
+    tags: list[str] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        modification_time_from: Union[Unset, str] = UNSET
+        modification_time_from: str | Unset = UNSET
         if not isinstance(self.modification_time_from, Unset):
             modification_time_from = self.modification_time_from.isoformat()
 
-        ids: Union[Unset, list[str]] = UNSET
+        ids: list[str] | Unset = UNSET
         if not isinstance(self.ids, Unset):
             ids = []
             for ids_item_data in self.ids:
                 ids_item = str(ids_item_data)
                 ids.append(ids_item)
 
-        hints: Union[Unset, list[str]] = UNSET
+        hints: list[str] | Unset = UNSET
         if not isinstance(self.hints, Unset):
             hints = self.hints
 
-        tags: Union[Unset, list[str]] = UNSET
+        tags: list[str] | Unset = UNSET
         if not isinstance(self.tags, Unset):
             tags = self.tags
 
@@ -66,18 +68,20 @@ class EncryptionPasswordExportSpec:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _modification_time_from = d.pop("modificationTimeFrom", UNSET)
-        modification_time_from: Union[Unset, datetime.datetime]
+        modification_time_from: datetime.datetime | Unset
         if isinstance(_modification_time_from, Unset):
             modification_time_from = UNSET
         else:
             modification_time_from = isoparse(_modification_time_from)
 
-        ids = []
         _ids = d.pop("ids", UNSET)
-        for ids_item_data in _ids or []:
-            ids_item = UUID(ids_item_data)
+        ids: list[UUID] | Unset = UNSET
+        if _ids is not UNSET:
+            ids = []
+            for ids_item_data in _ids:
+                ids_item = UUID(ids_item_data)
 
-            ids.append(ids_item)
+                ids.append(ids_item)
 
         hints = cast(list[str], d.pop("hints", UNSET))
 

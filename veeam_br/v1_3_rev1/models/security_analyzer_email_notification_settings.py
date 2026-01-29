@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,19 +16,19 @@ class SecurityAnalyzerEmailNotificationSettings:
     """Custom notification settings specified for Security & Compliance Analyzer.
 
     Attributes:
-        subject (Union[Unset, str]): Notification subject.
-        notify_on_success (Union[Unset, bool]): If `true`, email notifications are sent when the Security & Compliance
+        subject (str | Unset): Notification subject.
+        notify_on_success (bool | Unset): If `true`, email notifications are sent when the Security & Compliance
             Analyzer session completes successfully.
-        notify_on_warning (Union[Unset, bool]): If `true`, email notifications are sent when the Security & Compliance
+        notify_on_warning (bool | Unset): If `true`, email notifications are sent when the Security & Compliance
             Analyzer session completes with a warning.
-        notify_on_error (Union[Unset, bool]): If `true`, email notifications are sent when the Security & Compliance
-            Analyzer session fails.
+        notify_on_error (bool | Unset): If `true`, email notifications are sent when the Security & Compliance Analyzer
+            session fails.
     """
 
-    subject: Union[Unset, str] = UNSET
-    notify_on_success: Union[Unset, bool] = UNSET
-    notify_on_warning: Union[Unset, bool] = UNSET
-    notify_on_error: Union[Unset, bool] = UNSET
+    subject: str | Unset = UNSET
+    notify_on_success: bool | Unset = UNSET
+    notify_on_warning: bool | Unset = UNSET
+    notify_on_error: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

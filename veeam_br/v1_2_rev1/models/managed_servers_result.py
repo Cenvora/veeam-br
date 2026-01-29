@@ -1,15 +1,14 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 if TYPE_CHECKING:
-    from ..models.cloud_director_host_model import CloudDirectorHostModel
-    from ..models.linux_host_model import LinuxHostModel
+    from ..models.managed_server_model import ManagedServerModel
     from ..models.pagination_result import PaginationResult
-    from ..models.vi_host_model import ViHostModel
-    from ..models.windows_host_model import WindowsHostModel
 
 
 T = TypeVar("T", bound="ManagedServersResult")
@@ -19,32 +18,18 @@ T = TypeVar("T", bound="ManagedServersResult")
 class ManagedServersResult:
     """
     Attributes:
-        data (list[Union['CloudDirectorHostModel', 'LinuxHostModel', 'ViHostModel', 'WindowsHostModel']]): Array of
-            managed servers.
+        data (list[ManagedServerModel]): Array of managed servers.
         pagination (PaginationResult): Pagination settings.
     """
 
-    data: list[Union["CloudDirectorHostModel", "LinuxHostModel", "ViHostModel", "WindowsHostModel"]]
-    pagination: "PaginationResult"
+    data: list[ManagedServerModel]
+    pagination: PaginationResult
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.linux_host_model import LinuxHostModel
-        from ..models.vi_host_model import ViHostModel
-        from ..models.windows_host_model import WindowsHostModel
-
         data = []
         for data_item_data in self.data:
-            data_item: dict[str, Any]
-            if isinstance(data_item_data, WindowsHostModel):
-                data_item = data_item_data.to_dict()
-            elif isinstance(data_item_data, LinuxHostModel):
-                data_item = data_item_data.to_dict()
-            elif isinstance(data_item_data, ViHostModel):
-                data_item = data_item_data.to_dict()
-            else:
-                data_item = data_item_data.to_dict()
-
+            data_item = data_item_data.to_dict()
             data.append(data_item)
 
         pagination = self.pagination.to_dict()
@@ -62,51 +47,14 @@ class ManagedServersResult:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.cloud_director_host_model import CloudDirectorHostModel
-        from ..models.linux_host_model import LinuxHostModel
+        from ..models.managed_server_model import ManagedServerModel
         from ..models.pagination_result import PaginationResult
-        from ..models.vi_host_model import ViHostModel
-        from ..models.windows_host_model import WindowsHostModel
 
         d = dict(src_dict)
         data = []
         _data = d.pop("data")
         for data_item_data in _data:
-
-            def _parse_data_item(
-                data: object,
-            ) -> Union["CloudDirectorHostModel", "LinuxHostModel", "ViHostModel", "WindowsHostModel"]:
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    componentsschemas_managed_server_model_type_0 = WindowsHostModel.from_dict(data)
-
-                    return componentsschemas_managed_server_model_type_0
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    componentsschemas_managed_server_model_type_1 = LinuxHostModel.from_dict(data)
-
-                    return componentsschemas_managed_server_model_type_1
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    componentsschemas_managed_server_model_type_2 = ViHostModel.from_dict(data)
-
-                    return componentsschemas_managed_server_model_type_2
-                except:  # noqa: E722
-                    pass
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_managed_server_model_type_3 = CloudDirectorHostModel.from_dict(data)
-
-                return componentsschemas_managed_server_model_type_3
-
-            data_item = _parse_data_item(data_item_data)
+            data_item = ManagedServerModel.from_dict(data_item_data)
 
             data.append(data_item)
 

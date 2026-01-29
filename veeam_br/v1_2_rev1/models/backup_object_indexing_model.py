@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -16,18 +18,18 @@ class BackupObjectIndexingModel:
 
     Attributes:
         guest_fs_indexing_mode (EGuestFSIndexingMode): Indexing mode.
-        indexing_list (Union[Unset, list[str]]): Array of folders. Environmental variables and full paths to folders can
-            be used.
+        indexing_list (list[str] | Unset): Array of folders. Environmental variables and full paths to folders can be
+            used.
     """
 
     guest_fs_indexing_mode: EGuestFSIndexingMode
-    indexing_list: Union[Unset, list[str]] = UNSET
+    indexing_list: list[str] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         guest_fs_indexing_mode = self.guest_fs_indexing_mode.value
 
-        indexing_list: Union[Unset, list[str]] = UNSET
+        indexing_list: list[str] | Unset = UNSET
         if not isinstance(self.indexing_list, Unset):
             indexing_list = self.indexing_list
 

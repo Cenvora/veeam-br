@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -19,18 +21,18 @@ class EntraIdTenantBrowseMountModel:
     """
     Attributes:
         session_id (UUID): Mount session ID.
-        source_properties (Union[Unset, EntraIdTenantBrowseSourceProperties]): Properties of a Microsoft Entra ID tenant
+        source_properties (EntraIdTenantBrowseSourceProperties | Unset): Properties of a Microsoft Entra ID tenant
             backup.
     """
 
     session_id: UUID
-    source_properties: Union[Unset, "EntraIdTenantBrowseSourceProperties"] = UNSET
+    source_properties: EntraIdTenantBrowseSourceProperties | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         session_id = str(self.session_id)
 
-        source_properties: Union[Unset, dict[str, Any]] = UNSET
+        source_properties: dict[str, Any] | Unset = UNSET
         if not isinstance(self.source_properties, Unset):
             source_properties = self.source_properties.to_dict()
 
@@ -54,7 +56,7 @@ class EntraIdTenantBrowseMountModel:
         session_id = UUID(d.pop("sessionId"))
 
         _source_properties = d.pop("sourceProperties", UNSET)
-        source_properties: Union[Unset, EntraIdTenantBrowseSourceProperties]
+        source_properties: EntraIdTenantBrowseSourceProperties | Unset
         if isinstance(_source_properties, Unset):
             source_properties = UNSET
         else:

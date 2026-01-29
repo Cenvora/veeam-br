@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -21,22 +23,22 @@ class TokenLoginSpec:
             by providing an authorization code.</li> <li>`vbr_token` — used to obtain an access token by providing a Veeam
             Backup & Replication token. This grant type is only used in a restricted mode for integration with Veeam Backup
             & Replication.</li></ul>
-        username (Union[Unset, str]): User name. Required if the `grant_type` value is `password`.
-        password (Union[Unset, str]): Password. Required if the `grant_type` value is `password`.
-        refresh_token (Union[Unset, str]): Refresh token. Required if the `grant_type` value is `refresh_token`.
-        code (Union[Unset, str]): Authorization code. Required if the `grant_type` value is `authorization_code`.
-        use_short_term_refresh (Union[Unset, bool]): If `true`, a short-term refresh token is used. Lifetime of the
-            short-term refresh token is the access token lifetime plus 15 minutes.
-        vbr_token (Union[Unset, str]): Veeam Backup & Replication platform service token.
+        username (str | Unset): User name. Required if the `grant_type` value is `password`.
+        password (str | Unset): Password. Required if the `grant_type` value is `password`.
+        refresh_token (str | Unset): Refresh token. Required if the `grant_type` value is `refresh_token`.
+        code (str | Unset): Authorization code. Required if the `grant_type` value is `authorization_code`.
+        use_short_term_refresh (bool | Unset): If `true`, a short-term refresh token is used. Lifetime of the short-term
+            refresh token is the access token lifetime plus 15 minutes.
+        vbr_token (str | Unset): Veeam Backup & Replication platform service token.
     """
 
     grant_type: ELoginGrantType
-    username: Union[Unset, str] = UNSET
-    password: Union[Unset, str] = UNSET
-    refresh_token: Union[Unset, str] = UNSET
-    code: Union[Unset, str] = UNSET
-    use_short_term_refresh: Union[Unset, bool] = UNSET
-    vbr_token: Union[Unset, str] = UNSET
+    username: str | Unset = UNSET
+    password: str | Unset = UNSET
+    refresh_token: str | Unset = UNSET
+    code: str | Unset = UNSET
+    use_short_term_refresh: bool | Unset = UNSET
+    vbr_token: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

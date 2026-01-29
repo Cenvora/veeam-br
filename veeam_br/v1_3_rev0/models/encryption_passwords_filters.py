@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,18 +16,18 @@ T = TypeVar("T", bound="EncryptionPasswordsFilters")
 class EncryptionPasswordsFilters:
     """
     Attributes:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):
-        order_column (Union[Unset, EEncryptionPasswordsFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
-        hint_filter (Union[Unset, str]):
+        skip (int | Unset):
+        limit (int | Unset):
+        order_column (EEncryptionPasswordsFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
+        hint_filter (str | Unset):
     """
 
-    skip: Union[Unset, int] = UNSET
-    limit: Union[Unset, int] = UNSET
-    order_column: Union[Unset, EEncryptionPasswordsFiltersOrderColumn] = UNSET
-    order_asc: Union[Unset, bool] = UNSET
-    hint_filter: Union[Unset, str] = UNSET
+    skip: int | Unset = UNSET
+    limit: int | Unset = UNSET
+    order_column: EEncryptionPasswordsFiltersOrderColumn | Unset = UNSET
+    order_asc: bool | Unset = UNSET
+    hint_filter: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -33,7 +35,7 @@ class EncryptionPasswordsFilters:
 
         limit = self.limit
 
-        order_column: Union[Unset, str] = UNSET
+        order_column: str | Unset = UNSET
         if not isinstance(self.order_column, Unset):
             order_column = self.order_column.value
 
@@ -65,7 +67,7 @@ class EncryptionPasswordsFilters:
         limit = d.pop("limit", UNSET)
 
         _order_column = d.pop("orderColumn", UNSET)
-        order_column: Union[Unset, EEncryptionPasswordsFiltersOrderColumn]
+        order_column: EEncryptionPasswordsFiltersOrderColumn | Unset
         if isinstance(_order_column, Unset):
             order_column = UNSET
         else:

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -13,18 +15,18 @@ T = TypeVar("T", bound="AzureVirtualNetworkBrowserModel")
 class AzureVirtualNetworkBrowserModel:
     """
     Attributes:
-        virtual_network_name (Union[Unset, str]): Virtual network name.
-        subnets (Union[Unset, list[str]]): Array of subnets.
+        virtual_network_name (str | Unset): Virtual network name.
+        subnets (list[str] | Unset): Array of subnets.
     """
 
-    virtual_network_name: Union[Unset, str] = UNSET
-    subnets: Union[Unset, list[str]] = UNSET
+    virtual_network_name: str | Unset = UNSET
+    subnets: list[str] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         virtual_network_name = self.virtual_network_name
 
-        subnets: Union[Unset, list[str]] = UNSET
+        subnets: list[str] | Unset = UNSET
         if not isinstance(self.subnets, Unset):
             subnets = self.subnets
 

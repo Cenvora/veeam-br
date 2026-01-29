@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,17 +22,17 @@ class HyperVBackupProxiesSettingsModel:
 
     Attributes:
         proxy_type (EHypeVProxyType): Microsoft Hyper-V backup proxy mode.
-        off_host_settings (Union[Unset, OffHostBackupProxyModel]): Off-host backup proxy settings.
+        off_host_settings (OffHostBackupProxyModel | Unset): Off-host backup proxy settings.
     """
 
     proxy_type: EHypeVProxyType
-    off_host_settings: Union[Unset, "OffHostBackupProxyModel"] = UNSET
+    off_host_settings: OffHostBackupProxyModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         proxy_type = self.proxy_type.value
 
-        off_host_settings: Union[Unset, dict[str, Any]] = UNSET
+        off_host_settings: dict[str, Any] | Unset = UNSET
         if not isinstance(self.off_host_settings, Unset):
             off_host_settings = self.off_host_settings.to_dict()
 
@@ -54,7 +56,7 @@ class HyperVBackupProxiesSettingsModel:
         proxy_type = EHypeVProxyType(d.pop("proxyType"))
 
         _off_host_settings = d.pop("offHostSettings", UNSET)
-        off_host_settings: Union[Unset, OffHostBackupProxyModel]
+        off_host_settings: OffHostBackupProxyModel | Unset
         if isinstance(_off_host_settings, Unset):
             off_host_settings = UNSET
         else:

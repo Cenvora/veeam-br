@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -17,21 +19,21 @@ class ReplicaFailbackModeSpec:
     """Failback mode.
 
     Attributes:
-        type_ (Union[Unset, EFailbackModeType]): Failback mode type.
-        scheduled_time (Union[Unset, datetime.datetime]): Date and time when switchover to production must be performed
-            (for scheduled mode).
+        type_ (EFailbackModeType | Unset): Failback mode type.
+        scheduled_time (datetime.datetime | Unset): Date and time when switchover to production must be performed (for
+            scheduled mode).
     """
 
-    type_: Union[Unset, EFailbackModeType] = UNSET
-    scheduled_time: Union[Unset, datetime.datetime] = UNSET
+    type_: EFailbackModeType | Unset = UNSET
+    scheduled_time: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
-        scheduled_time: Union[Unset, str] = UNSET
+        scheduled_time: str | Unset = UNSET
         if not isinstance(self.scheduled_time, Unset):
             scheduled_time = self.scheduled_time.isoformat()
 
@@ -49,14 +51,14 @@ class ReplicaFailbackModeSpec:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, EFailbackModeType]
+        type_: EFailbackModeType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:
             type_ = EFailbackModeType(_type_)
 
         _scheduled_time = d.pop("scheduledTime", UNSET)
-        scheduled_time: Union[Unset, datetime.datetime]
+        scheduled_time: datetime.datetime | Unset
         if isinstance(_scheduled_time, Unset):
             scheduled_time = UNSET
         else:

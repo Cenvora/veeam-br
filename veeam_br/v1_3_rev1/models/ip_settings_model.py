@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,20 +21,20 @@ class IpSettingsModel:
     """IP addressing settings for the helper appliance and DNS server.
 
     Attributes:
-        i_pv_4_settings (Union[Unset, IPv4SettingsModel]): IPv4 settings.
-        i_pv_6_settings (Union[Unset, IPv6SettingsModel]): IPv6 settings.
+        i_pv_4_settings (IPv4SettingsModel | Unset): IPv4 settings.
+        i_pv_6_settings (IPv6SettingsModel | Unset): IPv6 settings.
     """
 
-    i_pv_4_settings: Union[Unset, "IPv4SettingsModel"] = UNSET
-    i_pv_6_settings: Union[Unset, "IPv6SettingsModel"] = UNSET
+    i_pv_4_settings: IPv4SettingsModel | Unset = UNSET
+    i_pv_6_settings: IPv6SettingsModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        i_pv_4_settings: Union[Unset, dict[str, Any]] = UNSET
+        i_pv_4_settings: dict[str, Any] | Unset = UNSET
         if not isinstance(self.i_pv_4_settings, Unset):
             i_pv_4_settings = self.i_pv_4_settings.to_dict()
 
-        i_pv_6_settings: Union[Unset, dict[str, Any]] = UNSET
+        i_pv_6_settings: dict[str, Any] | Unset = UNSET
         if not isinstance(self.i_pv_6_settings, Unset):
             i_pv_6_settings = self.i_pv_6_settings.to_dict()
 
@@ -53,14 +55,14 @@ class IpSettingsModel:
 
         d = dict(src_dict)
         _i_pv_4_settings = d.pop("IPv4Settings", UNSET)
-        i_pv_4_settings: Union[Unset, IPv4SettingsModel]
+        i_pv_4_settings: IPv4SettingsModel | Unset
         if isinstance(_i_pv_4_settings, Unset):
             i_pv_4_settings = UNSET
         else:
             i_pv_4_settings = IPv4SettingsModel.from_dict(_i_pv_4_settings)
 
         _i_pv_6_settings = d.pop("IPv6Settings", UNSET)
-        i_pv_6_settings: Union[Unset, IPv6SettingsModel]
+        i_pv_6_settings: IPv6SettingsModel | Unset
         if isinstance(_i_pv_6_settings, Unset):
             i_pv_6_settings = UNSET
         else:

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -22,48 +24,48 @@ class SureBackupJobScheduleModel:
     """SureBackup job schedule.
 
     Attributes:
-        run_automatically (Union[Unset, bool]): If `true`, job scheduling is enabled. Default: False.
-        daily (Union[Unset, ScheduleDailyModel]): Daily scheduling options.
-        monthly (Union[Unset, ScheduleMonthlyModel]): Monthly scheduling options.
-        periodically (Union[Unset, SchedulePeriodicallyModel]): Periodic scheduling options.
-        continuously (Union[Unset, ScheduleBackupWindowModel]): Backup window settings.
-        after_this_job (Union[Unset, ScheduleAfterThisJobModel]): Job chaining options.
-        wait_for_linked_jobs (Union[Unset, bool]): If `true`, the SureBackup job will wait for linked backup policies to
+        run_automatically (bool | Unset): If `true`, job scheduling is enabled. Default: False.
+        daily (ScheduleDailyModel | Unset): Daily scheduling options.
+        monthly (ScheduleMonthlyModel | Unset): Monthly scheduling options.
+        periodically (SchedulePeriodicallyModel | Unset): Periodic scheduling options.
+        continuously (ScheduleBackupWindowModel | Unset): Backup window settings.
+        after_this_job (ScheduleAfterThisJobModel | Unset): Job chaining options.
+        wait_for_linked_jobs (bool | Unset): If `true`, the SureBackup job will wait for linked backup policies to
             finish.
-        wait_time_minutes (Union[Unset, int]): Number of minutes that the SureBackup job must wait for linked backup
-            policies to finish.
+        wait_time_minutes (int | Unset): Number of minutes that the SureBackup job must wait for linked backup policies
+            to finish.
     """
 
-    run_automatically: Union[Unset, bool] = False
-    daily: Union[Unset, "ScheduleDailyModel"] = UNSET
-    monthly: Union[Unset, "ScheduleMonthlyModel"] = UNSET
-    periodically: Union[Unset, "SchedulePeriodicallyModel"] = UNSET
-    continuously: Union[Unset, "ScheduleBackupWindowModel"] = UNSET
-    after_this_job: Union[Unset, "ScheduleAfterThisJobModel"] = UNSET
-    wait_for_linked_jobs: Union[Unset, bool] = UNSET
-    wait_time_minutes: Union[Unset, int] = UNSET
+    run_automatically: bool | Unset = False
+    daily: ScheduleDailyModel | Unset = UNSET
+    monthly: ScheduleMonthlyModel | Unset = UNSET
+    periodically: SchedulePeriodicallyModel | Unset = UNSET
+    continuously: ScheduleBackupWindowModel | Unset = UNSET
+    after_this_job: ScheduleAfterThisJobModel | Unset = UNSET
+    wait_for_linked_jobs: bool | Unset = UNSET
+    wait_time_minutes: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         run_automatically = self.run_automatically
 
-        daily: Union[Unset, dict[str, Any]] = UNSET
+        daily: dict[str, Any] | Unset = UNSET
         if not isinstance(self.daily, Unset):
             daily = self.daily.to_dict()
 
-        monthly: Union[Unset, dict[str, Any]] = UNSET
+        monthly: dict[str, Any] | Unset = UNSET
         if not isinstance(self.monthly, Unset):
             monthly = self.monthly.to_dict()
 
-        periodically: Union[Unset, dict[str, Any]] = UNSET
+        periodically: dict[str, Any] | Unset = UNSET
         if not isinstance(self.periodically, Unset):
             periodically = self.periodically.to_dict()
 
-        continuously: Union[Unset, dict[str, Any]] = UNSET
+        continuously: dict[str, Any] | Unset = UNSET
         if not isinstance(self.continuously, Unset):
             continuously = self.continuously.to_dict()
 
-        after_this_job: Union[Unset, dict[str, Any]] = UNSET
+        after_this_job: dict[str, Any] | Unset = UNSET
         if not isinstance(self.after_this_job, Unset):
             after_this_job = self.after_this_job.to_dict()
 
@@ -105,35 +107,35 @@ class SureBackupJobScheduleModel:
         run_automatically = d.pop("runAutomatically", UNSET)
 
         _daily = d.pop("daily", UNSET)
-        daily: Union[Unset, ScheduleDailyModel]
+        daily: ScheduleDailyModel | Unset
         if isinstance(_daily, Unset):
             daily = UNSET
         else:
             daily = ScheduleDailyModel.from_dict(_daily)
 
         _monthly = d.pop("monthly", UNSET)
-        monthly: Union[Unset, ScheduleMonthlyModel]
+        monthly: ScheduleMonthlyModel | Unset
         if isinstance(_monthly, Unset):
             monthly = UNSET
         else:
             monthly = ScheduleMonthlyModel.from_dict(_monthly)
 
         _periodically = d.pop("periodically", UNSET)
-        periodically: Union[Unset, SchedulePeriodicallyModel]
+        periodically: SchedulePeriodicallyModel | Unset
         if isinstance(_periodically, Unset):
             periodically = UNSET
         else:
             periodically = SchedulePeriodicallyModel.from_dict(_periodically)
 
         _continuously = d.pop("continuously", UNSET)
-        continuously: Union[Unset, ScheduleBackupWindowModel]
+        continuously: ScheduleBackupWindowModel | Unset
         if isinstance(_continuously, Unset):
             continuously = UNSET
         else:
             continuously = ScheduleBackupWindowModel.from_dict(_continuously)
 
         _after_this_job = d.pop("afterThisJob", UNSET)
-        after_this_job: Union[Unset, ScheduleAfterThisJobModel]
+        after_this_job: ScheduleAfterThisJobModel | Unset
         if isinstance(_after_this_job, Unset):
             after_this_job = UNSET
         else:

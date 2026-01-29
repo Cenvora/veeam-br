@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -8,8 +10,7 @@ from ..models.e_instant_vi_vm_recovery_bios_uuid_policy_type import EInstantViVm
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.cloud_director_object_model import CloudDirectorObjectModel
-    from ..models.vmware_object_model import VmwareObjectModel
+    from ..models.inventory_object_model import InventoryObjectModel
 
 
 T = TypeVar("T", bound="InstantViVMCustomizedRecoveryDestinationSpec")
@@ -21,50 +22,36 @@ class InstantViVMCustomizedRecoveryDestinationSpec:
     the [Get Inventory Objects](#tag/Inventory-Browser/operation/GetInventoryObjects) request.
 
         Attributes:
-            restored_vm_name (Union[Unset, str]): Restored VM name.
-            destination_host (Union['CloudDirectorObjectModel', 'VmwareObjectModel', Unset]): Inventory object properties.
-            folder (Union['CloudDirectorObjectModel', 'VmwareObjectModel', Unset]): Inventory object properties.
-            resource_pool (Union['CloudDirectorObjectModel', 'VmwareObjectModel', Unset]): Inventory object properties.
-            bios_uuid_policy (Union[Unset, EInstantViVmRecoveryBiosUuidPolicyType]): BIOS UUID policy for the restored VM.
+            restored_vm_name (str | Unset): Restored VM name.
+            destination_host (InventoryObjectModel | Unset): Inventory object properties.
+            folder (InventoryObjectModel | Unset): Inventory object properties.
+            resource_pool (InventoryObjectModel | Unset): Inventory object properties.
+            bios_uuid_policy (EInstantViVmRecoveryBiosUuidPolicyType | Unset): BIOS UUID policy for the restored VM.
     """
 
-    restored_vm_name: Union[Unset, str] = UNSET
-    destination_host: Union["CloudDirectorObjectModel", "VmwareObjectModel", Unset] = UNSET
-    folder: Union["CloudDirectorObjectModel", "VmwareObjectModel", Unset] = UNSET
-    resource_pool: Union["CloudDirectorObjectModel", "VmwareObjectModel", Unset] = UNSET
-    bios_uuid_policy: Union[Unset, EInstantViVmRecoveryBiosUuidPolicyType] = UNSET
+    restored_vm_name: str | Unset = UNSET
+    destination_host: InventoryObjectModel | Unset = UNSET
+    folder: InventoryObjectModel | Unset = UNSET
+    resource_pool: InventoryObjectModel | Unset = UNSET
+    bios_uuid_policy: EInstantViVmRecoveryBiosUuidPolicyType | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.vmware_object_model import VmwareObjectModel
-
         restored_vm_name = self.restored_vm_name
 
-        destination_host: Union[Unset, dict[str, Any]]
-        if isinstance(self.destination_host, Unset):
-            destination_host = UNSET
-        elif isinstance(self.destination_host, VmwareObjectModel):
-            destination_host = self.destination_host.to_dict()
-        else:
+        destination_host: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.destination_host, Unset):
             destination_host = self.destination_host.to_dict()
 
-        folder: Union[Unset, dict[str, Any]]
-        if isinstance(self.folder, Unset):
-            folder = UNSET
-        elif isinstance(self.folder, VmwareObjectModel):
-            folder = self.folder.to_dict()
-        else:
+        folder: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.folder, Unset):
             folder = self.folder.to_dict()
 
-        resource_pool: Union[Unset, dict[str, Any]]
-        if isinstance(self.resource_pool, Unset):
-            resource_pool = UNSET
-        elif isinstance(self.resource_pool, VmwareObjectModel):
-            resource_pool = self.resource_pool.to_dict()
-        else:
+        resource_pool: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.resource_pool, Unset):
             resource_pool = self.resource_pool.to_dict()
 
-        bios_uuid_policy: Union[Unset, str] = UNSET
+        bios_uuid_policy: str | Unset = UNSET
         if not isinstance(self.bios_uuid_policy, Unset):
             bios_uuid_policy = self.bios_uuid_policy.value
 
@@ -86,71 +73,34 @@ class InstantViVMCustomizedRecoveryDestinationSpec:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.cloud_director_object_model import CloudDirectorObjectModel
-        from ..models.vmware_object_model import VmwareObjectModel
+        from ..models.inventory_object_model import InventoryObjectModel
 
         d = dict(src_dict)
         restored_vm_name = d.pop("restoredVmName", UNSET)
 
-        def _parse_destination_host(data: object) -> Union["CloudDirectorObjectModel", "VmwareObjectModel", Unset]:
-            if isinstance(data, Unset):
-                return data
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_0 = VmwareObjectModel.from_dict(data)
+        _destination_host = d.pop("destinationHost", UNSET)
+        destination_host: InventoryObjectModel | Unset
+        if isinstance(_destination_host, Unset):
+            destination_host = UNSET
+        else:
+            destination_host = InventoryObjectModel.from_dict(_destination_host)
 
-                return componentsschemas_inventory_object_model_type_0
-            except:  # noqa: E722
-                pass
-            if not isinstance(data, dict):
-                raise TypeError()
-            componentsschemas_inventory_object_model_type_1 = CloudDirectorObjectModel.from_dict(data)
+        _folder = d.pop("folder", UNSET)
+        folder: InventoryObjectModel | Unset
+        if isinstance(_folder, Unset):
+            folder = UNSET
+        else:
+            folder = InventoryObjectModel.from_dict(_folder)
 
-            return componentsschemas_inventory_object_model_type_1
-
-        destination_host = _parse_destination_host(d.pop("destinationHost", UNSET))
-
-        def _parse_folder(data: object) -> Union["CloudDirectorObjectModel", "VmwareObjectModel", Unset]:
-            if isinstance(data, Unset):
-                return data
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_0 = VmwareObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_0
-            except:  # noqa: E722
-                pass
-            if not isinstance(data, dict):
-                raise TypeError()
-            componentsschemas_inventory_object_model_type_1 = CloudDirectorObjectModel.from_dict(data)
-
-            return componentsschemas_inventory_object_model_type_1
-
-        folder = _parse_folder(d.pop("folder", UNSET))
-
-        def _parse_resource_pool(data: object) -> Union["CloudDirectorObjectModel", "VmwareObjectModel", Unset]:
-            if isinstance(data, Unset):
-                return data
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_0 = VmwareObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_0
-            except:  # noqa: E722
-                pass
-            if not isinstance(data, dict):
-                raise TypeError()
-            componentsschemas_inventory_object_model_type_1 = CloudDirectorObjectModel.from_dict(data)
-
-            return componentsschemas_inventory_object_model_type_1
-
-        resource_pool = _parse_resource_pool(d.pop("resourcePool", UNSET))
+        _resource_pool = d.pop("resourcePool", UNSET)
+        resource_pool: InventoryObjectModel | Unset
+        if isinstance(_resource_pool, Unset):
+            resource_pool = UNSET
+        else:
+            resource_pool = InventoryObjectModel.from_dict(_resource_pool)
 
         _bios_uuid_policy = d.pop("biosUuidPolicy", UNSET)
-        bios_uuid_policy: Union[Unset, EInstantViVmRecoveryBiosUuidPolicyType]
+        bios_uuid_policy: EInstantViVmRecoveryBiosUuidPolicyType | Unset
         if isinstance(_bios_uuid_policy, Unset):
             bios_uuid_policy = UNSET
         else:

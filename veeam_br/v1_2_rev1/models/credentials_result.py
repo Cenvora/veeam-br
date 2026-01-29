@@ -1,13 +1,14 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 if TYPE_CHECKING:
-    from ..models.linux_credentials_model import LinuxCredentialsModel
+    from ..models.credentials_model import CredentialsModel
     from ..models.pagination_result import PaginationResult
-    from ..models.standard_credentials_model import StandardCredentialsModel
 
 
 T = TypeVar("T", bound="CredentialsResult")
@@ -17,25 +18,18 @@ T = TypeVar("T", bound="CredentialsResult")
 class CredentialsResult:
     """
     Attributes:
-        data (list[Union['LinuxCredentialsModel', 'StandardCredentialsModel']]): Array of credentials.
+        data (list[CredentialsModel]): Array of credentials.
         pagination (PaginationResult): Pagination settings.
     """
 
-    data: list[Union["LinuxCredentialsModel", "StandardCredentialsModel"]]
-    pagination: "PaginationResult"
+    data: list[CredentialsModel]
+    pagination: PaginationResult
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.standard_credentials_model import StandardCredentialsModel
-
         data = []
         for data_item_data in self.data:
-            data_item: dict[str, Any]
-            if isinstance(data_item_data, StandardCredentialsModel):
-                data_item = data_item_data.to_dict()
-            else:
-                data_item = data_item_data.to_dict()
-
+            data_item = data_item_data.to_dict()
             data.append(data_item)
 
         pagination = self.pagination.to_dict()
@@ -53,31 +47,14 @@ class CredentialsResult:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.linux_credentials_model import LinuxCredentialsModel
+        from ..models.credentials_model import CredentialsModel
         from ..models.pagination_result import PaginationResult
-        from ..models.standard_credentials_model import StandardCredentialsModel
 
         d = dict(src_dict)
         data = []
         _data = d.pop("data")
         for data_item_data in _data:
-
-            def _parse_data_item(data: object) -> Union["LinuxCredentialsModel", "StandardCredentialsModel"]:
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    componentsschemas_credentials_model_type_0 = StandardCredentialsModel.from_dict(data)
-
-                    return componentsschemas_credentials_model_type_0
-                except:  # noqa: E722
-                    pass
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_credentials_model_type_1 = LinuxCredentialsModel.from_dict(data)
-
-                return componentsschemas_credentials_model_type_1
-
-            data_item = _parse_data_item(data_item_data)
+            data_item = CredentialsModel.from_dict(data_item_data)
 
             data.append(data_item)
 

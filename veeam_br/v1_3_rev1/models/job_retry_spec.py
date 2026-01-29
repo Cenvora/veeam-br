@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,11 +16,11 @@ class JobRetrySpec:
     """Job retry settings.
 
     Attributes:
-        start_chained_jobs (Union[Unset, bool]): If `true`, Veeam Backup & Replication will start chained jobs as well.
+        start_chained_jobs (bool | Unset): If `true`, Veeam Backup & Replication will start chained jobs as well.
             Default: False.
     """
 
-    start_chained_jobs: Union[Unset, bool] = False
+    start_chained_jobs: bool | Unset = False
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

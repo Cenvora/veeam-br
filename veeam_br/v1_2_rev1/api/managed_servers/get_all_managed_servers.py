@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -15,13 +15,13 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     *,
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = UNSET,
-    order_column: Union[Unset, EManagedServersFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, EManagedServerType] = UNSET,
-    vi_type_filter: Union[Unset, EViHostType] = UNSET,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = UNSET,
+    order_column: EManagedServersFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: EManagedServerType | Unset = UNSET,
+    vi_type_filter: EViHostType | Unset = UNSET,
     x_api_version: str = "1.2-rev1",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -33,7 +33,7 @@ def _get_kwargs(
 
     params["limit"] = limit
 
-    json_order_column: Union[Unset, str] = UNSET
+    json_order_column: str | Unset = UNSET
     if not isinstance(order_column, Unset):
         json_order_column = order_column.value
 
@@ -43,13 +43,13 @@ def _get_kwargs(
 
     params["nameFilter"] = name_filter
 
-    json_type_filter: Union[Unset, str] = UNSET
+    json_type_filter: str | Unset = UNSET
     if not isinstance(type_filter, Unset):
         json_type_filter = type_filter.value
 
     params["typeFilter"] = json_type_filter
 
-    json_vi_type_filter: Union[Unset, str] = UNSET
+    json_vi_type_filter: str | Unset = UNSET
     if not isinstance(vi_type_filter, Unset):
         json_vi_type_filter = vi_type_filter.value
 
@@ -68,8 +68,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, ManagedServersResult]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Error | ManagedServersResult | None:
     if response.status_code == 200:
         response_200 = ManagedServersResult.from_dict(response.json())
 
@@ -97,8 +97,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, ManagedServersResult]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | ManagedServersResult]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -109,16 +109,16 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = UNSET,
-    order_column: Union[Unset, EManagedServersFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, EManagedServerType] = UNSET,
-    vi_type_filter: Union[Unset, EViHostType] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = UNSET,
+    order_column: EManagedServersFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: EManagedServerType | Unset = UNSET,
+    vi_type_filter: EViHostType | Unset = UNSET,
     x_api_version: str = "1.2-rev1",
-) -> Response[Union[Error, ManagedServersResult]]:
+) -> Response[Error | ManagedServersResult]:
     """Get All Servers
 
      The HTTP GET request to the `/api/v1/backupInfrastructure/managedServers` path allows you to get an
@@ -127,13 +127,13 @@ def sync_detailed(
     Operator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):
-        order_column (Union[Unset, EManagedServersFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, EManagedServerType]): Type of the server.
-        vi_type_filter (Union[Unset, EViHostType]): Type of the VMware vSphere server.
+        skip (int | Unset):
+        limit (int | Unset):
+        order_column (EManagedServersFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        type_filter (EManagedServerType | Unset): Type of the server.
+        vi_type_filter (EViHostType | Unset): Type of the VMware vSphere server.
         x_api_version (str):  Default: '1.2-rev1'.
 
     Raises:
@@ -141,7 +141,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, ManagedServersResult]]
+        Response[Error | ManagedServersResult]
     """
 
     kwargs = _get_kwargs(
@@ -164,16 +164,16 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = UNSET,
-    order_column: Union[Unset, EManagedServersFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, EManagedServerType] = UNSET,
-    vi_type_filter: Union[Unset, EViHostType] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = UNSET,
+    order_column: EManagedServersFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: EManagedServerType | Unset = UNSET,
+    vi_type_filter: EViHostType | Unset = UNSET,
     x_api_version: str = "1.2-rev1",
-) -> Optional[Union[Error, ManagedServersResult]]:
+) -> Error | ManagedServersResult | None:
     """Get All Servers
 
      The HTTP GET request to the `/api/v1/backupInfrastructure/managedServers` path allows you to get an
@@ -182,13 +182,13 @@ def sync(
     Operator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):
-        order_column (Union[Unset, EManagedServersFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, EManagedServerType]): Type of the server.
-        vi_type_filter (Union[Unset, EViHostType]): Type of the VMware vSphere server.
+        skip (int | Unset):
+        limit (int | Unset):
+        order_column (EManagedServersFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        type_filter (EManagedServerType | Unset): Type of the server.
+        vi_type_filter (EViHostType | Unset): Type of the VMware vSphere server.
         x_api_version (str):  Default: '1.2-rev1'.
 
     Raises:
@@ -196,7 +196,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, ManagedServersResult]
+        Error | ManagedServersResult
     """
 
     return sync_detailed(
@@ -214,16 +214,16 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = UNSET,
-    order_column: Union[Unset, EManagedServersFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, EManagedServerType] = UNSET,
-    vi_type_filter: Union[Unset, EViHostType] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = UNSET,
+    order_column: EManagedServersFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: EManagedServerType | Unset = UNSET,
+    vi_type_filter: EViHostType | Unset = UNSET,
     x_api_version: str = "1.2-rev1",
-) -> Response[Union[Error, ManagedServersResult]]:
+) -> Response[Error | ManagedServersResult]:
     """Get All Servers
 
      The HTTP GET request to the `/api/v1/backupInfrastructure/managedServers` path allows you to get an
@@ -232,13 +232,13 @@ async def asyncio_detailed(
     Operator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):
-        order_column (Union[Unset, EManagedServersFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, EManagedServerType]): Type of the server.
-        vi_type_filter (Union[Unset, EViHostType]): Type of the VMware vSphere server.
+        skip (int | Unset):
+        limit (int | Unset):
+        order_column (EManagedServersFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        type_filter (EManagedServerType | Unset): Type of the server.
+        vi_type_filter (EViHostType | Unset): Type of the VMware vSphere server.
         x_api_version (str):  Default: '1.2-rev1'.
 
     Raises:
@@ -246,7 +246,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, ManagedServersResult]]
+        Response[Error | ManagedServersResult]
     """
 
     kwargs = _get_kwargs(
@@ -267,16 +267,16 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = UNSET,
-    order_column: Union[Unset, EManagedServersFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, EManagedServerType] = UNSET,
-    vi_type_filter: Union[Unset, EViHostType] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = UNSET,
+    order_column: EManagedServersFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: EManagedServerType | Unset = UNSET,
+    vi_type_filter: EViHostType | Unset = UNSET,
     x_api_version: str = "1.2-rev1",
-) -> Optional[Union[Error, ManagedServersResult]]:
+) -> Error | ManagedServersResult | None:
     """Get All Servers
 
      The HTTP GET request to the `/api/v1/backupInfrastructure/managedServers` path allows you to get an
@@ -285,13 +285,13 @@ async def asyncio(
     Operator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):
-        order_column (Union[Unset, EManagedServersFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, EManagedServerType]): Type of the server.
-        vi_type_filter (Union[Unset, EViHostType]): Type of the VMware vSphere server.
+        skip (int | Unset):
+        limit (int | Unset):
+        order_column (EManagedServersFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        type_filter (EManagedServerType | Unset): Type of the server.
+        vi_type_filter (EViHostType | Unset): Type of the VMware vSphere server.
         x_api_version (str):  Default: '1.2-rev1'.
 
     Raises:
@@ -299,7 +299,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, ManagedServersResult]
+        Error | ManagedServersResult
     """
 
     return (

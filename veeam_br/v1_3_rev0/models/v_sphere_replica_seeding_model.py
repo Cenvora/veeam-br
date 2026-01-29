@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,22 +21,22 @@ class VSphereReplicaSeedingModel:
     """Replica seeding and mapping settings.
 
     Attributes:
-        initial_seeding (Union[Unset, InitialSeedingModel]): Replica seeding settings. This option can be used if you
-            have backups of the VMs that you replicate.
-        replica_mapping (Union[Unset, ReplicaMappingModel]): Replica mapping settings. This option can be used if you
-            already have ready-to-use copies of the source VMs in the target site.
+        initial_seeding (InitialSeedingModel | Unset): Replica seeding settings. This option can be used if you have
+            backups of the VMs that you replicate.
+        replica_mapping (ReplicaMappingModel | Unset): Replica mapping settings. This option can be used if you already
+            have ready-to-use copies of the source VMs in the target site.
     """
 
-    initial_seeding: Union[Unset, "InitialSeedingModel"] = UNSET
-    replica_mapping: Union[Unset, "ReplicaMappingModel"] = UNSET
+    initial_seeding: InitialSeedingModel | Unset = UNSET
+    replica_mapping: ReplicaMappingModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        initial_seeding: Union[Unset, dict[str, Any]] = UNSET
+        initial_seeding: dict[str, Any] | Unset = UNSET
         if not isinstance(self.initial_seeding, Unset):
             initial_seeding = self.initial_seeding.to_dict()
 
-        replica_mapping: Union[Unset, dict[str, Any]] = UNSET
+        replica_mapping: dict[str, Any] | Unset = UNSET
         if not isinstance(self.replica_mapping, Unset):
             replica_mapping = self.replica_mapping.to_dict()
 
@@ -55,14 +57,14 @@ class VSphereReplicaSeedingModel:
 
         d = dict(src_dict)
         _initial_seeding = d.pop("initialSeeding", UNSET)
-        initial_seeding: Union[Unset, InitialSeedingModel]
+        initial_seeding: InitialSeedingModel | Unset
         if isinstance(_initial_seeding, Unset):
             initial_seeding = UNSET
         else:
             initial_seeding = InitialSeedingModel.from_dict(_initial_seeding)
 
         _replica_mapping = d.pop("replicaMapping", UNSET)
-        replica_mapping: Union[Unset, ReplicaMappingModel]
+        replica_mapping: ReplicaMappingModel | Unset
         if isinstance(_replica_mapping, Unset):
             replica_mapping = UNSET
         else:

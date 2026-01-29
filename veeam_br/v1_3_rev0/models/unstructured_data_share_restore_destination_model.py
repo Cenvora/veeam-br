@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -15,22 +17,22 @@ class UnstructuredDataShareRestoreDestinationModel:
     """Destination for restoring entire unstructured data share.
 
     Attributes:
-        unstructured_data_server_id (Union[Unset, UUID]): Unstructured data server ID.
-        restore_to_backup_server (Union[Unset, bool]): If `true`, the contents of the unstructured data share will be
-            restored to the backup server.
-        path (Union[Unset, str]): Path to the folder on the selected file share to which files will be restored.
-        preserve_hierarchy (Union[Unset, bool]): If `true`, the folder hierarchy of the original file share will be kept
-            in the new location.
+        unstructured_data_server_id (UUID | Unset): Unstructured data server ID.
+        restore_to_backup_server (bool | Unset): If `true`, the contents of the unstructured data share will be restored
+            to the backup server.
+        path (str | Unset): Path to the folder on the selected file share to which files will be restored.
+        preserve_hierarchy (bool | Unset): If `true`, the folder hierarchy of the original file share will be kept in
+            the new location.
     """
 
-    unstructured_data_server_id: Union[Unset, UUID] = UNSET
-    restore_to_backup_server: Union[Unset, bool] = UNSET
-    path: Union[Unset, str] = UNSET
-    preserve_hierarchy: Union[Unset, bool] = UNSET
+    unstructured_data_server_id: UUID | Unset = UNSET
+    restore_to_backup_server: bool | Unset = UNSET
+    path: str | Unset = UNSET
+    preserve_hierarchy: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        unstructured_data_server_id: Union[Unset, str] = UNSET
+        unstructured_data_server_id: str | Unset = UNSET
         if not isinstance(self.unstructured_data_server_id, Unset):
             unstructured_data_server_id = str(self.unstructured_data_server_id)
 
@@ -58,7 +60,7 @@ class UnstructuredDataShareRestoreDestinationModel:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _unstructured_data_server_id = d.pop("unstructuredDataServerId", UNSET)
-        unstructured_data_server_id: Union[Unset, UUID]
+        unstructured_data_server_id: UUID | Unset
         if isinstance(_unstructured_data_server_id, Unset):
             unstructured_data_server_id = UNSET
         else:

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -20,36 +22,36 @@ class ObjectStorageBackupJobPrimaryRepositoryModel:
     """Primary repository settings for object storage backup jobs.
 
     Attributes:
-        backup_repository_id (Union[Unset, UUID]): Backup repository ID. To get the ID, run the [Get All
+        backup_repository_id (UUID | Unset): Backup repository ID. To get the ID, run the [Get All
             Repositories](Repositories#operation/GetAllRepositories) request.
-        source_backup_id (Union[Unset, UUID]): Source backup ID. To get the ID, run the [Get All
+        source_backup_id (UUID | Unset): Source backup ID. To get the ID, run the [Get All
             Backups](Backups#operation/GetAllBackups) request.
-        retention_policy (Union[Unset, UnstructuredDataRetentionPolicySettingsModel]): Retention policy settings for
+        retention_policy (UnstructuredDataRetentionPolicySettingsModel | Unset): Retention policy settings for
             unstructured data backups.
-        advanced_settings (Union[Unset, ObjectStorageBackupJobAdvancedSettingsModel]): Advanced settings for object
-            storage backup job.
+        advanced_settings (ObjectStorageBackupJobAdvancedSettingsModel | Unset): Advanced settings for object storage
+            backup job.
     """
 
-    backup_repository_id: Union[Unset, UUID] = UNSET
-    source_backup_id: Union[Unset, UUID] = UNSET
-    retention_policy: Union[Unset, "UnstructuredDataRetentionPolicySettingsModel"] = UNSET
-    advanced_settings: Union[Unset, "ObjectStorageBackupJobAdvancedSettingsModel"] = UNSET
+    backup_repository_id: UUID | Unset = UNSET
+    source_backup_id: UUID | Unset = UNSET
+    retention_policy: UnstructuredDataRetentionPolicySettingsModel | Unset = UNSET
+    advanced_settings: ObjectStorageBackupJobAdvancedSettingsModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        backup_repository_id: Union[Unset, str] = UNSET
+        backup_repository_id: str | Unset = UNSET
         if not isinstance(self.backup_repository_id, Unset):
             backup_repository_id = str(self.backup_repository_id)
 
-        source_backup_id: Union[Unset, str] = UNSET
+        source_backup_id: str | Unset = UNSET
         if not isinstance(self.source_backup_id, Unset):
             source_backup_id = str(self.source_backup_id)
 
-        retention_policy: Union[Unset, dict[str, Any]] = UNSET
+        retention_policy: dict[str, Any] | Unset = UNSET
         if not isinstance(self.retention_policy, Unset):
             retention_policy = self.retention_policy.to_dict()
 
-        advanced_settings: Union[Unset, dict[str, Any]] = UNSET
+        advanced_settings: dict[str, Any] | Unset = UNSET
         if not isinstance(self.advanced_settings, Unset):
             advanced_settings = self.advanced_settings.to_dict()
 
@@ -78,28 +80,28 @@ class ObjectStorageBackupJobPrimaryRepositoryModel:
 
         d = dict(src_dict)
         _backup_repository_id = d.pop("backupRepositoryId", UNSET)
-        backup_repository_id: Union[Unset, UUID]
+        backup_repository_id: UUID | Unset
         if isinstance(_backup_repository_id, Unset):
             backup_repository_id = UNSET
         else:
             backup_repository_id = UUID(_backup_repository_id)
 
         _source_backup_id = d.pop("sourceBackupId", UNSET)
-        source_backup_id: Union[Unset, UUID]
+        source_backup_id: UUID | Unset
         if isinstance(_source_backup_id, Unset):
             source_backup_id = UNSET
         else:
             source_backup_id = UUID(_source_backup_id)
 
         _retention_policy = d.pop("retentionPolicy", UNSET)
-        retention_policy: Union[Unset, UnstructuredDataRetentionPolicySettingsModel]
+        retention_policy: UnstructuredDataRetentionPolicySettingsModel | Unset
         if isinstance(_retention_policy, Unset):
             retention_policy = UNSET
         else:
             retention_policy = UnstructuredDataRetentionPolicySettingsModel.from_dict(_retention_policy)
 
         _advanced_settings = d.pop("advancedSettings", UNSET)
-        advanced_settings: Union[Unset, ObjectStorageBackupJobAdvancedSettingsModel]
+        advanced_settings: ObjectStorageBackupJobAdvancedSettingsModel | Unset
         if isinstance(_advanced_settings, Unset):
             advanced_settings = UNSET
         else:

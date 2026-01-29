@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,12 +16,12 @@ class VPowerNFSPortSettingsModel:
     """Network ports used by the vPower NFS Service.
 
     Attributes:
-        mount_port (Union[Unset, int]): Mount port.
-        v_power_nfs_port (Union[Unset, int]): vPower NFS port.
+        mount_port (int | Unset): Mount port.
+        v_power_nfs_port (int | Unset): vPower NFS port.
     """
 
-    mount_port: Union[Unset, int] = UNSET
-    v_power_nfs_port: Union[Unset, int] = UNSET
+    mount_port: int | Unset = UNSET
+    v_power_nfs_port: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

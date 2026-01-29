@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,13 +21,13 @@ class RestoreTargetNetworkSpec:
     Objects](Inventory-Browser#operation/GetInventoryObjects) request.
 
         Attributes:
-            networks (list['RestoreTargetNetworkMappingModel']): Array of network mapping rules. To get a network object,
-                use the [Get Inventory Objects](Inventory-Browser#operation/GetInventoryObjects) request.
-            disconnected (Union[Unset, bool]): If `true`, the restored VMs is not connected to any virtual network.
+            networks (list[RestoreTargetNetworkMappingModel]): Array of network mapping rules. To get a network object, use
+                the [Get Inventory Objects](Inventory-Browser#operation/GetInventoryObjects) request.
+            disconnected (bool | Unset): If `true`, the restored VMs is not connected to any virtual network.
     """
 
-    networks: list["RestoreTargetNetworkMappingModel"]
-    disconnected: Union[Unset, bool] = UNSET
+    networks: list[RestoreTargetNetworkMappingModel]
+    disconnected: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

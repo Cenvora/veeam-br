@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -16,16 +18,16 @@ T = TypeVar("T", bound="UnstructuredDataFlrBrowseMountFilters")
 class UnstructuredDataFlrBrowseMountFilters:
     """
     Attributes:
-        skip (Union[Unset, int]): Number of mount points to skip.
-        limit (Union[Unset, int]): Maximum number of mount points to return.
-        order_column (Union[Unset, EUnstructuredDataFlrBrowseMountFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]): If `true`, sorts mount points in ascending order by the `orderColumn` parameter.
+        skip (int | Unset): Number of mount points to skip.
+        limit (int | Unset): Maximum number of mount points to return.
+        order_column (EUnstructuredDataFlrBrowseMountFiltersOrderColumn | Unset):
+        order_asc (bool | Unset): If `true`, sorts mount points in ascending order by the `orderColumn` parameter.
     """
 
-    skip: Union[Unset, int] = UNSET
-    limit: Union[Unset, int] = UNSET
-    order_column: Union[Unset, EUnstructuredDataFlrBrowseMountFiltersOrderColumn] = UNSET
-    order_asc: Union[Unset, bool] = UNSET
+    skip: int | Unset = UNSET
+    limit: int | Unset = UNSET
+    order_column: EUnstructuredDataFlrBrowseMountFiltersOrderColumn | Unset = UNSET
+    order_asc: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -33,7 +35,7 @@ class UnstructuredDataFlrBrowseMountFilters:
 
         limit = self.limit
 
-        order_column: Union[Unset, str] = UNSET
+        order_column: str | Unset = UNSET
         if not isinstance(self.order_column, Unset):
             order_column = self.order_column.value
 
@@ -61,7 +63,7 @@ class UnstructuredDataFlrBrowseMountFilters:
         limit = d.pop("limit", UNSET)
 
         _order_column = d.pop("orderColumn", UNSET)
-        order_column: Union[Unset, EUnstructuredDataFlrBrowseMountFiltersOrderColumn]
+        order_column: EUnstructuredDataFlrBrowseMountFiltersOrderColumn | Unset
         if isinstance(_order_column, Unset):
             order_column = UNSET
         else:

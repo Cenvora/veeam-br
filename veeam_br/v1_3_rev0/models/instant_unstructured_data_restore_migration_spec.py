@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -22,28 +24,28 @@ class InstantUnstructuredDataRestoreMigrationSpec:
     """Migration settings.
 
     Attributes:
-        destination (Union[Unset, UnstructuredDataShareMigrationDestinationModel]): Migration destination for restoring
+        destination (UnstructuredDataShareMigrationDestinationModel | Unset): Migration destination for restoring
             unstructured data share.
-        overwrite_mode (Union[Unset, EUnstructuredDataInstantRestoreOverwriteMode]): Overwrite mode.
-        switchover_settings (Union[Unset, UnstructuredDataSwitchoverSettingsModel]): Switchover settings for Instant
-            Recovery of unstructured data.
+        overwrite_mode (EUnstructuredDataInstantRestoreOverwriteMode | Unset): Overwrite mode.
+        switchover_settings (UnstructuredDataSwitchoverSettingsModel | Unset): Switchover settings for Instant Recovery
+            of unstructured data.
     """
 
-    destination: Union[Unset, "UnstructuredDataShareMigrationDestinationModel"] = UNSET
-    overwrite_mode: Union[Unset, EUnstructuredDataInstantRestoreOverwriteMode] = UNSET
-    switchover_settings: Union[Unset, "UnstructuredDataSwitchoverSettingsModel"] = UNSET
+    destination: UnstructuredDataShareMigrationDestinationModel | Unset = UNSET
+    overwrite_mode: EUnstructuredDataInstantRestoreOverwriteMode | Unset = UNSET
+    switchover_settings: UnstructuredDataSwitchoverSettingsModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        destination: Union[Unset, dict[str, Any]] = UNSET
+        destination: dict[str, Any] | Unset = UNSET
         if not isinstance(self.destination, Unset):
             destination = self.destination.to_dict()
 
-        overwrite_mode: Union[Unset, str] = UNSET
+        overwrite_mode: str | Unset = UNSET
         if not isinstance(self.overwrite_mode, Unset):
             overwrite_mode = self.overwrite_mode.value
 
-        switchover_settings: Union[Unset, dict[str, Any]] = UNSET
+        switchover_settings: dict[str, Any] | Unset = UNSET
         if not isinstance(self.switchover_settings, Unset):
             switchover_settings = self.switchover_settings.to_dict()
 
@@ -68,21 +70,21 @@ class InstantUnstructuredDataRestoreMigrationSpec:
 
         d = dict(src_dict)
         _destination = d.pop("destination", UNSET)
-        destination: Union[Unset, UnstructuredDataShareMigrationDestinationModel]
+        destination: UnstructuredDataShareMigrationDestinationModel | Unset
         if isinstance(_destination, Unset):
             destination = UNSET
         else:
             destination = UnstructuredDataShareMigrationDestinationModel.from_dict(_destination)
 
         _overwrite_mode = d.pop("overwriteMode", UNSET)
-        overwrite_mode: Union[Unset, EUnstructuredDataInstantRestoreOverwriteMode]
+        overwrite_mode: EUnstructuredDataInstantRestoreOverwriteMode | Unset
         if isinstance(_overwrite_mode, Unset):
             overwrite_mode = UNSET
         else:
             overwrite_mode = EUnstructuredDataInstantRestoreOverwriteMode(_overwrite_mode)
 
         _switchover_settings = d.pop("switchoverSettings", UNSET)
-        switchover_settings: Union[Unset, UnstructuredDataSwitchoverSettingsModel]
+        switchover_settings: UnstructuredDataSwitchoverSettingsModel | Unset
         if isinstance(_switchover_settings, Unset):
             switchover_settings = UNSET
         else:

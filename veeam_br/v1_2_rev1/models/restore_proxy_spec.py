@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -17,17 +19,17 @@ class RestoreProxySpec:
     Attributes:
         auto_select_enabled (bool): If `true`, Veeam Backup & Replication detects backup proxies that are connected to
             the source datastore and automatically assigns optimal proxy resources for processing VM data.
-        proxy_ids (Union[Unset, list[UUID]]): Array of backup proxy IDs.
+        proxy_ids (list[UUID] | Unset): Array of backup proxy IDs.
     """
 
     auto_select_enabled: bool
-    proxy_ids: Union[Unset, list[UUID]] = UNSET
+    proxy_ids: list[UUID] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         auto_select_enabled = self.auto_select_enabled
 
-        proxy_ids: Union[Unset, list[str]] = UNSET
+        proxy_ids: list[str] | Unset = UNSET
         if not isinstance(self.proxy_ids, Unset):
             proxy_ids = []
             for proxy_ids_item_data in self.proxy_ids:
@@ -51,12 +53,14 @@ class RestoreProxySpec:
         d = dict(src_dict)
         auto_select_enabled = d.pop("autoSelectEnabled")
 
-        proxy_ids = []
         _proxy_ids = d.pop("proxyIds", UNSET)
-        for proxy_ids_item_data in _proxy_ids or []:
-            proxy_ids_item = UUID(proxy_ids_item_data)
+        proxy_ids: list[UUID] | Unset = UNSET
+        if _proxy_ids is not UNSET:
+            proxy_ids = []
+            for proxy_ids_item_data in _proxy_ids:
+                proxy_ids_item = UUID(proxy_ids_item_data)
 
-            proxy_ids.append(proxy_ids_item)
+                proxy_ids.append(proxy_ids_item)
 
         restore_proxy_spec = cls(
             auto_select_enabled=auto_select_enabled,

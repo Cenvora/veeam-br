@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,24 +17,23 @@ T = TypeVar("T", bound="InstantHvVMRecoveryMountsFilters")
 class InstantHvVMRecoveryMountsFilters:
     """
     Attributes:
-        skip (Union[Unset, int]): Number of mount points to skip.
-        limit (Union[Unset, int]): Maximum number of mount points to return.
-        order_column (Union[Unset, EInstantHvVMRecoveryMountsFiltersOrderColumn]): Sorts mount points by one of the
-            mount point parameters.
-        order_asc (Union[Unset, bool]): If `true`, sorts mount points in the ascending order by the `orderColumn`
-            parameter.
-        vm_name_filter (Union[Unset, str]): Filters mount points by the `vmNameFilter` pattern. The pattern can match
-            any mount parameter. To substitute one or more characters, use the asterisk (*) character at the beginning, at
-            the end or both.
-        state_filter (Union[Unset, EInstantRecoveryMountState]): Mount state.
+        skip (int | Unset): Number of mount points to skip.
+        limit (int | Unset): Maximum number of mount points to return.
+        order_column (EInstantHvVMRecoveryMountsFiltersOrderColumn | Unset): Sorts mount points by one of the mount
+            point parameters.
+        order_asc (bool | Unset): If `true`, sorts mount points in the ascending order by the `orderColumn` parameter.
+        vm_name_filter (str | Unset): Filters mount points by the `vmNameFilter` pattern. The pattern can match any
+            mount parameter. To substitute one or more characters, use the asterisk (*) character at the beginning, at the
+            end or both.
+        state_filter (EInstantRecoveryMountState | Unset): Mount state.
     """
 
-    skip: Union[Unset, int] = UNSET
-    limit: Union[Unset, int] = UNSET
-    order_column: Union[Unset, EInstantHvVMRecoveryMountsFiltersOrderColumn] = UNSET
-    order_asc: Union[Unset, bool] = UNSET
-    vm_name_filter: Union[Unset, str] = UNSET
-    state_filter: Union[Unset, EInstantRecoveryMountState] = UNSET
+    skip: int | Unset = UNSET
+    limit: int | Unset = UNSET
+    order_column: EInstantHvVMRecoveryMountsFiltersOrderColumn | Unset = UNSET
+    order_asc: bool | Unset = UNSET
+    vm_name_filter: str | Unset = UNSET
+    state_filter: EInstantRecoveryMountState | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -40,7 +41,7 @@ class InstantHvVMRecoveryMountsFilters:
 
         limit = self.limit
 
-        order_column: Union[Unset, str] = UNSET
+        order_column: str | Unset = UNSET
         if not isinstance(self.order_column, Unset):
             order_column = self.order_column.value
 
@@ -48,7 +49,7 @@ class InstantHvVMRecoveryMountsFilters:
 
         vm_name_filter = self.vm_name_filter
 
-        state_filter: Union[Unset, str] = UNSET
+        state_filter: str | Unset = UNSET
         if not isinstance(self.state_filter, Unset):
             state_filter = self.state_filter.value
 
@@ -78,7 +79,7 @@ class InstantHvVMRecoveryMountsFilters:
         limit = d.pop("limit", UNSET)
 
         _order_column = d.pop("orderColumn", UNSET)
-        order_column: Union[Unset, EInstantHvVMRecoveryMountsFiltersOrderColumn]
+        order_column: EInstantHvVMRecoveryMountsFiltersOrderColumn | Unset
         if isinstance(_order_column, Unset):
             order_column = UNSET
         else:
@@ -89,7 +90,7 @@ class InstantHvVMRecoveryMountsFilters:
         vm_name_filter = d.pop("vmNameFilter", UNSET)
 
         _state_filter = d.pop("stateFilter", UNSET)
-        state_filter: Union[Unset, EInstantRecoveryMountState]
+        state_filter: EInstantRecoveryMountState | Unset
         if isinstance(_state_filter, Unset):
             state_filter = UNSET
         else:

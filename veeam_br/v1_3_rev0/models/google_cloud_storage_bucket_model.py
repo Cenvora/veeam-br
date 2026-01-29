@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -21,17 +23,17 @@ class GoogleCloudStorageBucketModel:
     Attributes:
         bucket_name (str): Name of a Google Cloud bucket.
         folder_name (str): Name of the folder to which the object storage repository is mapped.
-        storage_consumption_limit (Union[Unset, ObjectStorageConsumptionLimitModel]): Soft consumption limit for the
-            storage. The limit can be exceeded temporarily.
-        nearline_storage_enabled (Union[Unset, bool]): If `true`, the nearline storage class is used.
-        immutability (Union[Unset, ObjectStorageImmutabilityModel]): Object storage immutability.
+        storage_consumption_limit (ObjectStorageConsumptionLimitModel | Unset): Soft consumption limit for the storage.
+            The limit can be exceeded temporarily.
+        nearline_storage_enabled (bool | Unset): If `true`, the nearline storage class is used.
+        immutability (ObjectStorageImmutabilityModel | Unset): Object storage immutability.
     """
 
     bucket_name: str
     folder_name: str
-    storage_consumption_limit: Union[Unset, "ObjectStorageConsumptionLimitModel"] = UNSET
-    nearline_storage_enabled: Union[Unset, bool] = UNSET
-    immutability: Union[Unset, "ObjectStorageImmutabilityModel"] = UNSET
+    storage_consumption_limit: ObjectStorageConsumptionLimitModel | Unset = UNSET
+    nearline_storage_enabled: bool | Unset = UNSET
+    immutability: ObjectStorageImmutabilityModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -39,13 +41,13 @@ class GoogleCloudStorageBucketModel:
 
         folder_name = self.folder_name
 
-        storage_consumption_limit: Union[Unset, dict[str, Any]] = UNSET
+        storage_consumption_limit: dict[str, Any] | Unset = UNSET
         if not isinstance(self.storage_consumption_limit, Unset):
             storage_consumption_limit = self.storage_consumption_limit.to_dict()
 
         nearline_storage_enabled = self.nearline_storage_enabled
 
-        immutability: Union[Unset, dict[str, Any]] = UNSET
+        immutability: dict[str, Any] | Unset = UNSET
         if not isinstance(self.immutability, Unset):
             immutability = self.immutability.to_dict()
 
@@ -77,7 +79,7 @@ class GoogleCloudStorageBucketModel:
         folder_name = d.pop("folderName")
 
         _storage_consumption_limit = d.pop("storageConsumptionLimit", UNSET)
-        storage_consumption_limit: Union[Unset, ObjectStorageConsumptionLimitModel]
+        storage_consumption_limit: ObjectStorageConsumptionLimitModel | Unset
         if isinstance(_storage_consumption_limit, Unset):
             storage_consumption_limit = UNSET
         else:
@@ -86,7 +88,7 @@ class GoogleCloudStorageBucketModel:
         nearline_storage_enabled = d.pop("nearlineStorageEnabled", UNSET)
 
         _immutability = d.pop("immutability", UNSET)
-        immutability: Union[Unset, ObjectStorageImmutabilityModel]
+        immutability: ObjectStorageImmutabilityModel | Unset
         if isinstance(_immutability, Unset):
             immutability = UNSET
         else:

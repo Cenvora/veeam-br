@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,13 +16,13 @@ class RepositoryShareGatewayImportSpec:
     """Settings for the gateway server.
 
     Attributes:
-        auto_select_enabled (Union[Unset, bool]): If `true`, Veeam Backup & Replication automatically selects a gateway
+        auto_select_enabled (bool | Unset): If `true`, Veeam Backup & Replication automatically selects a gateway
             server.
-        gateway_server_name (Union[Unset, str]): Name of the gateway server.
+        gateway_server_name (str | Unset): Name of the gateway server.
     """
 
-    auto_select_enabled: Union[Unset, bool] = UNSET
-    gateway_server_name: Union[Unset, str] = UNSET
+    auto_select_enabled: bool | Unset = UNSET
+    gateway_server_name: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

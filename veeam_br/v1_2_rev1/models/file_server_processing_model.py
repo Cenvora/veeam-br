@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -16,17 +18,17 @@ class FileServerProcessingModel:
     """
     Attributes:
         cache_repository_id (UUID): ID of a backup repository that is used as a cache repository for the server.
-        backup_io_control_level (Union[Unset, EBackupIOControlLevel]):
+        backup_io_control_level (EBackupIOControlLevel | Unset):
     """
 
     cache_repository_id: UUID
-    backup_io_control_level: Union[Unset, EBackupIOControlLevel] = UNSET
+    backup_io_control_level: EBackupIOControlLevel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         cache_repository_id = str(self.cache_repository_id)
 
-        backup_io_control_level: Union[Unset, str] = UNSET
+        backup_io_control_level: str | Unset = UNSET
         if not isinstance(self.backup_io_control_level, Unset):
             backup_io_control_level = self.backup_io_control_level.value
 
@@ -48,7 +50,7 @@ class FileServerProcessingModel:
         cache_repository_id = UUID(d.pop("cacheRepositoryId"))
 
         _backup_io_control_level = d.pop("backupIOControlLevel", UNSET)
-        backup_io_control_level: Union[Unset, EBackupIOControlLevel]
+        backup_io_control_level: EBackupIOControlLevel | Unset
         if isinstance(_backup_io_control_level, Unset):
             backup_io_control_level = UNSET
         else:

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 
@@ -17,12 +19,12 @@ class UsersResult:
     """Details on users, groups and their roles.
 
     Attributes:
-        data (list['UserModel']): Array of users and groups.
+        data (list[UserModel]): Array of users and groups.
         pagination (PaginationResult): Pagination settings.
     """
 
-    data: list["UserModel"]
-    pagination: "PaginationResult"
+    data: list[UserModel]
+    pagination: PaginationResult
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

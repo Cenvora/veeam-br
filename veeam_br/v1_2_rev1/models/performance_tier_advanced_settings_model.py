@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,14 +16,14 @@ class PerformanceTierAdvancedSettingsModel:
     """Advanced settings of the performance tier.
 
     Attributes:
-        per_vm_backup (Union[Unset, bool]): If `true`, Veeam Backup & Replication creates a separate backup file for
-            every VM in the job.
-        full_when_extent_offline (Union[Unset, bool]): If `true`, Veeam Backup & Replication creates a full backup file
+        per_vm_backup (bool | Unset): If `true`, Veeam Backup & Replication creates a separate backup file for every VM
+            in the job.
+        full_when_extent_offline (bool | Unset): If `true`, Veeam Backup & Replication creates a full backup file
             instead of an incremental backup file in case the required extent is offline.
     """
 
-    per_vm_backup: Union[Unset, bool] = UNSET
-    full_when_extent_offline: Union[Unset, bool] = UNSET
+    per_vm_backup: bool | Unset = UNSET
+    full_when_extent_offline: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

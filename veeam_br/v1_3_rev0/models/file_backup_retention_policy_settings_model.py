@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,16 +17,16 @@ class FileBackupRetentionPolicySettingsModel:
     """Retention policy settings.
 
     Attributes:
-        type_ (Union[Unset, EFileBackupRetentionPolicyType]): Retention policy type.
-        quantity (Union[Unset, int]): Number of days or weeks to keep the backup in the backup repository.
+        type_ (EFileBackupRetentionPolicyType | Unset): Retention policy type.
+        quantity (int | Unset): Number of days or weeks to keep the backup in the backup repository.
     """
 
-    type_: Union[Unset, EFileBackupRetentionPolicyType] = UNSET
-    quantity: Union[Unset, int] = UNSET
+    type_: EFileBackupRetentionPolicyType | Unset = UNSET
+    quantity: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
@@ -44,7 +46,7 @@ class FileBackupRetentionPolicySettingsModel:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, EFileBackupRetentionPolicyType]
+        type_: EFileBackupRetentionPolicyType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:

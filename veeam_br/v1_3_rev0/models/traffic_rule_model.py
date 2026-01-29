@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -27,15 +29,15 @@ class TrafficRuleModel:
         target_ip_start (str): Start IP address of the range for the backup infrastructure components on the target
             side.
         target_ip_end (str): End IP address of the range for the backup infrastructure components on the target side.
-        id (Union[Unset, UUID]): ID of the rule.
-        encryption_enabled (Union[Unset, bool]): If `true`, traffic encryption is enabled.
-        throttling_enabled (Union[Unset, bool]): If `true`, traffic throttling is enabled.
-        throttling_unit (Union[Unset, ESpeedUnit]): Traffic speed unit.
-        throttling_value (Union[Unset, int]): Maximum speed that must be used to transfer data from source to target.
-        throttling_window_enabled (Union[Unset, bool]): If `true`, throttling window during which the speed must be
-            limited is enabled.
-        throttling_window_options (Union[Unset, BackupWindowSettingModel]): Time scheme that defines permitted days and
-            hours for the job to start.
+        id (UUID | Unset): ID of the rule.
+        encryption_enabled (bool | Unset): If `true`, traffic encryption is enabled.
+        throttling_enabled (bool | Unset): If `true`, traffic throttling is enabled.
+        throttling_unit (ESpeedUnit | Unset): Traffic speed unit.
+        throttling_value (int | Unset): Maximum speed that must be used to transfer data from source to target.
+        throttling_window_enabled (bool | Unset): If `true`, throttling window during which the speed must be limited is
+            enabled.
+        throttling_window_options (BackupWindowSettingModel | Unset): Time scheme that defines permitted days and hours
+            for the job to start.
     """
 
     name: str
@@ -43,13 +45,13 @@ class TrafficRuleModel:
     source_ip_end: str
     target_ip_start: str
     target_ip_end: str
-    id: Union[Unset, UUID] = UNSET
-    encryption_enabled: Union[Unset, bool] = UNSET
-    throttling_enabled: Union[Unset, bool] = UNSET
-    throttling_unit: Union[Unset, ESpeedUnit] = UNSET
-    throttling_value: Union[Unset, int] = UNSET
-    throttling_window_enabled: Union[Unset, bool] = UNSET
-    throttling_window_options: Union[Unset, "BackupWindowSettingModel"] = UNSET
+    id: UUID | Unset = UNSET
+    encryption_enabled: bool | Unset = UNSET
+    throttling_enabled: bool | Unset = UNSET
+    throttling_unit: ESpeedUnit | Unset = UNSET
+    throttling_value: int | Unset = UNSET
+    throttling_window_enabled: bool | Unset = UNSET
+    throttling_window_options: BackupWindowSettingModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -63,7 +65,7 @@ class TrafficRuleModel:
 
         target_ip_end = self.target_ip_end
 
-        id: Union[Unset, str] = UNSET
+        id: str | Unset = UNSET
         if not isinstance(self.id, Unset):
             id = str(self.id)
 
@@ -71,7 +73,7 @@ class TrafficRuleModel:
 
         throttling_enabled = self.throttling_enabled
 
-        throttling_unit: Union[Unset, str] = UNSET
+        throttling_unit: str | Unset = UNSET
         if not isinstance(self.throttling_unit, Unset):
             throttling_unit = self.throttling_unit.value
 
@@ -79,7 +81,7 @@ class TrafficRuleModel:
 
         throttling_window_enabled = self.throttling_window_enabled
 
-        throttling_window_options: Union[Unset, dict[str, Any]] = UNSET
+        throttling_window_options: dict[str, Any] | Unset = UNSET
         if not isinstance(self.throttling_window_options, Unset):
             throttling_window_options = self.throttling_window_options.to_dict()
 
@@ -127,7 +129,7 @@ class TrafficRuleModel:
         target_ip_end = d.pop("targetIPEnd")
 
         _id = d.pop("id", UNSET)
-        id: Union[Unset, UUID]
+        id: UUID | Unset
         if isinstance(_id, Unset):
             id = UNSET
         else:
@@ -138,7 +140,7 @@ class TrafficRuleModel:
         throttling_enabled = d.pop("throttlingEnabled", UNSET)
 
         _throttling_unit = d.pop("throttlingUnit", UNSET)
-        throttling_unit: Union[Unset, ESpeedUnit]
+        throttling_unit: ESpeedUnit | Unset
         if isinstance(_throttling_unit, Unset):
             throttling_unit = UNSET
         else:
@@ -149,7 +151,7 @@ class TrafficRuleModel:
         throttling_window_enabled = d.pop("throttlingWindowEnabled", UNSET)
 
         _throttling_window_options = d.pop("throttlingWindowOptions", UNSET)
-        throttling_window_options: Union[Unset, BackupWindowSettingModel]
+        throttling_window_options: BackupWindowSettingModel | Unset
         if isinstance(_throttling_window_options, Unset):
             throttling_window_options = UNSET
         else:

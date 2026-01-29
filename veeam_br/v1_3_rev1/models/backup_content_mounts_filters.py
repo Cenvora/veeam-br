@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -16,21 +18,21 @@ T = TypeVar("T", bound="BackupContentMountsFilters")
 class BackupContentMountsFilters:
     """
     Attributes:
-        skip (Union[Unset, int]): Number of mount points to skip.
-        limit (Union[Unset, int]): Maximum number of mount points to return.
-        order_column (Union[Unset, EBackupContentMountsFiltersOrderColumn]): Sorts mount points by one of the mount
-            point parameters.
-        order_asc (Union[Unset, bool]): If `true`, sorts mount points in ascending order by the `orderColumn` parameter.
-        state_filter (Union[Unset, EBackupContentMountState]): Mount state.
-        mode_filter (Union[Unset, EBackupContentDiskPublishMode]): Disk publishing mount mode.
+        skip (int | Unset): Number of mount points to skip.
+        limit (int | Unset): Maximum number of mount points to return.
+        order_column (EBackupContentMountsFiltersOrderColumn | Unset): Sorts mount points by one of the mount point
+            parameters.
+        order_asc (bool | Unset): If `true`, sorts mount points in ascending order by the `orderColumn` parameter.
+        state_filter (EBackupContentMountState | Unset): Mount state.
+        mode_filter (EBackupContentDiskPublishMode | Unset): Disk publishing mount mode.
     """
 
-    skip: Union[Unset, int] = UNSET
-    limit: Union[Unset, int] = UNSET
-    order_column: Union[Unset, EBackupContentMountsFiltersOrderColumn] = UNSET
-    order_asc: Union[Unset, bool] = UNSET
-    state_filter: Union[Unset, EBackupContentMountState] = UNSET
-    mode_filter: Union[Unset, EBackupContentDiskPublishMode] = UNSET
+    skip: int | Unset = UNSET
+    limit: int | Unset = UNSET
+    order_column: EBackupContentMountsFiltersOrderColumn | Unset = UNSET
+    order_asc: bool | Unset = UNSET
+    state_filter: EBackupContentMountState | Unset = UNSET
+    mode_filter: EBackupContentDiskPublishMode | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -38,17 +40,17 @@ class BackupContentMountsFilters:
 
         limit = self.limit
 
-        order_column: Union[Unset, str] = UNSET
+        order_column: str | Unset = UNSET
         if not isinstance(self.order_column, Unset):
             order_column = self.order_column.value
 
         order_asc = self.order_asc
 
-        state_filter: Union[Unset, str] = UNSET
+        state_filter: str | Unset = UNSET
         if not isinstance(self.state_filter, Unset):
             state_filter = self.state_filter.value
 
-        mode_filter: Union[Unset, str] = UNSET
+        mode_filter: str | Unset = UNSET
         if not isinstance(self.mode_filter, Unset):
             mode_filter = self.mode_filter.value
 
@@ -78,7 +80,7 @@ class BackupContentMountsFilters:
         limit = d.pop("limit", UNSET)
 
         _order_column = d.pop("orderColumn", UNSET)
-        order_column: Union[Unset, EBackupContentMountsFiltersOrderColumn]
+        order_column: EBackupContentMountsFiltersOrderColumn | Unset
         if isinstance(_order_column, Unset):
             order_column = UNSET
         else:
@@ -87,14 +89,14 @@ class BackupContentMountsFilters:
         order_asc = d.pop("orderAsc", UNSET)
 
         _state_filter = d.pop("stateFilter", UNSET)
-        state_filter: Union[Unset, EBackupContentMountState]
+        state_filter: EBackupContentMountState | Unset
         if isinstance(_state_filter, Unset):
             state_filter = UNSET
         else:
             state_filter = EBackupContentMountState(_state_filter)
 
         _mode_filter = d.pop("modeFilter", UNSET)
-        mode_filter: Union[Unset, EBackupContentDiskPublishMode]
+        mode_filter: EBackupContentDiskPublishMode | Unset
         if isinstance(_mode_filter, Unset):
             mode_filter = UNSET
         else:

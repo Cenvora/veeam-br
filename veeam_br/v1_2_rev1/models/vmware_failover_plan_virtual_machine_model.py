@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -7,8 +9,7 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.cloud_director_object_model import CloudDirectorObjectModel
-    from ..models.vmware_object_model import VmwareObjectModel
+    from ..models.inventory_object_model import InventoryObjectModel
 
 
 T = TypeVar("T", bound="VmwareFailoverPlanVirtualMachineModel")
@@ -18,23 +19,17 @@ T = TypeVar("T", bound="VmwareFailoverPlanVirtualMachineModel")
 class VmwareFailoverPlanVirtualMachineModel:
     """
     Attributes:
-        vm_object (Union['CloudDirectorObjectModel', 'VmwareObjectModel', Unset]): Inventory object properties.
-        boot_delay_sec (Union[Unset, int]):
+        vm_object (InventoryObjectModel | Unset): Inventory object properties.
+        boot_delay_sec (int | Unset):
     """
 
-    vm_object: Union["CloudDirectorObjectModel", "VmwareObjectModel", Unset] = UNSET
-    boot_delay_sec: Union[Unset, int] = UNSET
+    vm_object: InventoryObjectModel | Unset = UNSET
+    boot_delay_sec: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.vmware_object_model import VmwareObjectModel
-
-        vm_object: Union[Unset, dict[str, Any]]
-        if isinstance(self.vm_object, Unset):
-            vm_object = UNSET
-        elif isinstance(self.vm_object, VmwareObjectModel):
-            vm_object = self.vm_object.to_dict()
-        else:
+        vm_object: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.vm_object, Unset):
             vm_object = self.vm_object.to_dict()
 
         boot_delay_sec = self.boot_delay_sec
@@ -51,29 +46,15 @@ class VmwareFailoverPlanVirtualMachineModel:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.cloud_director_object_model import CloudDirectorObjectModel
-        from ..models.vmware_object_model import VmwareObjectModel
+        from ..models.inventory_object_model import InventoryObjectModel
 
         d = dict(src_dict)
-
-        def _parse_vm_object(data: object) -> Union["CloudDirectorObjectModel", "VmwareObjectModel", Unset]:
-            if isinstance(data, Unset):
-                return data
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_0 = VmwareObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_0
-            except:  # noqa: E722
-                pass
-            if not isinstance(data, dict):
-                raise TypeError()
-            componentsschemas_inventory_object_model_type_1 = CloudDirectorObjectModel.from_dict(data)
-
-            return componentsschemas_inventory_object_model_type_1
-
-        vm_object = _parse_vm_object(d.pop("vmObject", UNSET))
+        _vm_object = d.pop("vmObject", UNSET)
+        vm_object: InventoryObjectModel | Unset
+        if isinstance(_vm_object, Unset):
+            vm_object = UNSET
+        else:
+            vm_object = InventoryObjectModel.from_dict(_vm_object)
 
         boot_delay_sec = d.pop("bootDelaySec", UNSET)
 

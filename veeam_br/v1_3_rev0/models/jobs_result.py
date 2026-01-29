@@ -1,22 +1,14 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 if TYPE_CHECKING:
-    from ..models.backup_copy_job_model import BackupCopyJobModel
-    from ..models.backup_job_model import BackupJobModel
-    from ..models.cloud_director_backup_job_model import CloudDirectorBackupJobModel
-    from ..models.entra_id_audit_log_backup_job_model import EntraIDAuditLogBackupJobModel
-    from ..models.entra_id_tenant_backup_copy_job_model import EntraIDTenantBackupCopyJobModel
-    from ..models.entra_id_tenant_backup_job_model import EntraIDTenantBackupJobModel
-    from ..models.file_backup_copy_job_model import FileBackupCopyJobModel
-    from ..models.hyper_v_backup_job_model import HyperVBackupJobModel
-    from ..models.linux_agent_management_backup_job_model import LinuxAgentManagementBackupJobModel
+    from ..models.job_model import JobModel
     from ..models.pagination_result import PaginationResult
-    from ..models.v_sphere_replica_job_model import VSphereReplicaJobModel
-    from ..models.windows_agent_management_backup_job_model import WindowsAgentManagementBackupJobModel
 
 
 T = TypeVar("T", bound="JobsResult")
@@ -27,69 +19,18 @@ class JobsResult:
     """Job details.
 
     Attributes:
-        data (list[Union['BackupCopyJobModel', 'BackupJobModel', 'CloudDirectorBackupJobModel',
-            'EntraIDAuditLogBackupJobModel', 'EntraIDTenantBackupCopyJobModel', 'EntraIDTenantBackupJobModel',
-            'FileBackupCopyJobModel', 'HyperVBackupJobModel', 'LinuxAgentManagementBackupJobModel',
-            'VSphereReplicaJobModel', 'WindowsAgentManagementBackupJobModel']]): Array of jobs.
+        data (list[JobModel]): Array of jobs.
         pagination (PaginationResult): Pagination settings.
     """
 
-    data: list[
-        Union[
-            "BackupCopyJobModel",
-            "BackupJobModel",
-            "CloudDirectorBackupJobModel",
-            "EntraIDAuditLogBackupJobModel",
-            "EntraIDTenantBackupCopyJobModel",
-            "EntraIDTenantBackupJobModel",
-            "FileBackupCopyJobModel",
-            "HyperVBackupJobModel",
-            "LinuxAgentManagementBackupJobModel",
-            "VSphereReplicaJobModel",
-            "WindowsAgentManagementBackupJobModel",
-        ]
-    ]
-    pagination: "PaginationResult"
+    data: list[JobModel]
+    pagination: PaginationResult
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.backup_copy_job_model import BackupCopyJobModel
-        from ..models.backup_job_model import BackupJobModel
-        from ..models.cloud_director_backup_job_model import CloudDirectorBackupJobModel
-        from ..models.entra_id_audit_log_backup_job_model import EntraIDAuditLogBackupJobModel
-        from ..models.entra_id_tenant_backup_job_model import EntraIDTenantBackupJobModel
-        from ..models.file_backup_copy_job_model import FileBackupCopyJobModel
-        from ..models.hyper_v_backup_job_model import HyperVBackupJobModel
-        from ..models.linux_agent_management_backup_job_model import LinuxAgentManagementBackupJobModel
-        from ..models.v_sphere_replica_job_model import VSphereReplicaJobModel
-        from ..models.windows_agent_management_backup_job_model import WindowsAgentManagementBackupJobModel
-
         data = []
         for data_item_data in self.data:
-            data_item: dict[str, Any]
-            if isinstance(data_item_data, BackupJobModel):
-                data_item = data_item_data.to_dict()
-            elif isinstance(data_item_data, BackupCopyJobModel):
-                data_item = data_item_data.to_dict()
-            elif isinstance(data_item_data, HyperVBackupJobModel):
-                data_item = data_item_data.to_dict()
-            elif isinstance(data_item_data, CloudDirectorBackupJobModel):
-                data_item = data_item_data.to_dict()
-            elif isinstance(data_item_data, VSphereReplicaJobModel):
-                data_item = data_item_data.to_dict()
-            elif isinstance(data_item_data, EntraIDTenantBackupJobModel):
-                data_item = data_item_data.to_dict()
-            elif isinstance(data_item_data, EntraIDAuditLogBackupJobModel):
-                data_item = data_item_data.to_dict()
-            elif isinstance(data_item_data, FileBackupCopyJobModel):
-                data_item = data_item_data.to_dict()
-            elif isinstance(data_item_data, WindowsAgentManagementBackupJobModel):
-                data_item = data_item_data.to_dict()
-            elif isinstance(data_item_data, LinuxAgentManagementBackupJobModel):
-                data_item = data_item_data.to_dict()
-            else:
-                data_item = data_item_data.to_dict()
-
+            data_item = data_item_data.to_dict()
             data.append(data_item)
 
         pagination = self.pagination.to_dict()
@@ -107,126 +48,14 @@ class JobsResult:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.backup_copy_job_model import BackupCopyJobModel
-        from ..models.backup_job_model import BackupJobModel
-        from ..models.cloud_director_backup_job_model import CloudDirectorBackupJobModel
-        from ..models.entra_id_audit_log_backup_job_model import EntraIDAuditLogBackupJobModel
-        from ..models.entra_id_tenant_backup_copy_job_model import EntraIDTenantBackupCopyJobModel
-        from ..models.entra_id_tenant_backup_job_model import EntraIDTenantBackupJobModel
-        from ..models.file_backup_copy_job_model import FileBackupCopyJobModel
-        from ..models.hyper_v_backup_job_model import HyperVBackupJobModel
-        from ..models.linux_agent_management_backup_job_model import LinuxAgentManagementBackupJobModel
+        from ..models.job_model import JobModel
         from ..models.pagination_result import PaginationResult
-        from ..models.v_sphere_replica_job_model import VSphereReplicaJobModel
-        from ..models.windows_agent_management_backup_job_model import WindowsAgentManagementBackupJobModel
 
         d = dict(src_dict)
         data = []
         _data = d.pop("data")
         for data_item_data in _data:
-
-            def _parse_data_item(
-                data: object,
-            ) -> Union[
-                "BackupCopyJobModel",
-                "BackupJobModel",
-                "CloudDirectorBackupJobModel",
-                "EntraIDAuditLogBackupJobModel",
-                "EntraIDTenantBackupCopyJobModel",
-                "EntraIDTenantBackupJobModel",
-                "FileBackupCopyJobModel",
-                "HyperVBackupJobModel",
-                "LinuxAgentManagementBackupJobModel",
-                "VSphereReplicaJobModel",
-                "WindowsAgentManagementBackupJobModel",
-            ]:
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    componentsschemas_job_model_type_0 = BackupJobModel.from_dict(data)
-
-                    return componentsschemas_job_model_type_0
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    componentsschemas_job_model_type_1 = BackupCopyJobModel.from_dict(data)
-
-                    return componentsschemas_job_model_type_1
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    componentsschemas_job_model_type_2 = HyperVBackupJobModel.from_dict(data)
-
-                    return componentsschemas_job_model_type_2
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    componentsschemas_job_model_type_3 = CloudDirectorBackupJobModel.from_dict(data)
-
-                    return componentsschemas_job_model_type_3
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    componentsschemas_job_model_type_4 = VSphereReplicaJobModel.from_dict(data)
-
-                    return componentsschemas_job_model_type_4
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    componentsschemas_job_model_type_5 = EntraIDTenantBackupJobModel.from_dict(data)
-
-                    return componentsschemas_job_model_type_5
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    componentsschemas_job_model_type_6 = EntraIDAuditLogBackupJobModel.from_dict(data)
-
-                    return componentsschemas_job_model_type_6
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    componentsschemas_job_model_type_7 = FileBackupCopyJobModel.from_dict(data)
-
-                    return componentsschemas_job_model_type_7
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    componentsschemas_job_model_type_8 = WindowsAgentManagementBackupJobModel.from_dict(data)
-
-                    return componentsschemas_job_model_type_8
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    componentsschemas_job_model_type_9 = LinuxAgentManagementBackupJobModel.from_dict(data)
-
-                    return componentsschemas_job_model_type_9
-                except:  # noqa: E722
-                    pass
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_job_model_type_10 = EntraIDTenantBackupCopyJobModel.from_dict(data)
-
-                return componentsschemas_job_model_type_10
-
-            data_item = _parse_data_item(data_item_data)
+            data_item = JobModel.from_dict(data_item_data)
 
             data.append(data_item)
 

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -22,14 +24,14 @@ class AzureComputeCloudCredentialsImportSpec:
         unique_id (str): Unique ID that identifies the cloud credentials record.
         connection_name (str): Name under which the cloud credentials record is shown in Veeam Backup & Replication.
         existing_account (AzureComputeCredentialsExistingAccountSpec): Existing Microsoft Entra ID app registration.
-        description (Union[Unset, str]): Description of the cloud credentials record.
+        description (str | Unset): Description of the cloud credentials record.
     """
 
     type_: ECloudCredentialsType
     unique_id: str
     connection_name: str
-    existing_account: "AzureComputeCredentialsExistingAccountSpec"
-    description: Union[Unset, str] = UNSET
+    existing_account: AzureComputeCredentialsExistingAccountSpec
+    description: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

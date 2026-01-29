@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -14,12 +14,12 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     *,
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EProtectedComputerFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, EProtectedComputerType] = UNSET,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EProtectedComputerFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: EProtectedComputerType | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -31,7 +31,7 @@ def _get_kwargs(
 
     params["limit"] = limit
 
-    json_order_column: Union[Unset, str] = UNSET
+    json_order_column: str | Unset = UNSET
     if not isinstance(order_column, Unset):
         json_order_column = order_column.value
 
@@ -41,7 +41,7 @@ def _get_kwargs(
 
     params["nameFilter"] = name_filter
 
-    json_type_filter: Union[Unset, str] = UNSET
+    json_type_filter: str | Unset = UNSET
     if not isinstance(type_filter, Unset):
         json_type_filter = type_filter.value
 
@@ -60,8 +60,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, ProtectedComputerResult]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Error | ProtectedComputerResult | None:
     if response.status_code == 200:
         response_200 = ProtectedComputerResult.from_dict(response.json())
 
@@ -94,8 +94,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, ProtectedComputerResult]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | ProtectedComputerResult]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -106,15 +106,15 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EProtectedComputerFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, EProtectedComputerType] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EProtectedComputerFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: EProtectedComputerType | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Error, ProtectedComputerResult]]:
+) -> Response[Error | ProtectedComputerResult]:
     """Get All Protected Linux Computers
 
      The HTTP GET request to the `/api/v1/agents/protectedComputers` endpoint gets an array of all
@@ -122,13 +122,13 @@ def sync_detailed(
     Operator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EProtectedComputerFiltersOrderColumn]): Orders jobs by the
-            specified column.
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, EProtectedComputerType]): Type of the protected computer.
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EProtectedComputerFiltersOrderColumn | Unset): Orders jobs by the specified
+            column.
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        type_filter (EProtectedComputerType | Unset): Type of the protected computer.
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -136,7 +136,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, ProtectedComputerResult]]
+        Response[Error | ProtectedComputerResult]
     """
 
     kwargs = _get_kwargs(
@@ -158,15 +158,15 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EProtectedComputerFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, EProtectedComputerType] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EProtectedComputerFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: EProtectedComputerType | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Error, ProtectedComputerResult]]:
+) -> Error | ProtectedComputerResult | None:
     """Get All Protected Linux Computers
 
      The HTTP GET request to the `/api/v1/agents/protectedComputers` endpoint gets an array of all
@@ -174,13 +174,13 @@ def sync(
     Operator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EProtectedComputerFiltersOrderColumn]): Orders jobs by the
-            specified column.
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, EProtectedComputerType]): Type of the protected computer.
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EProtectedComputerFiltersOrderColumn | Unset): Orders jobs by the specified
+            column.
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        type_filter (EProtectedComputerType | Unset): Type of the protected computer.
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -188,7 +188,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, ProtectedComputerResult]
+        Error | ProtectedComputerResult
     """
 
     return sync_detailed(
@@ -205,15 +205,15 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EProtectedComputerFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, EProtectedComputerType] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EProtectedComputerFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: EProtectedComputerType | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Error, ProtectedComputerResult]]:
+) -> Response[Error | ProtectedComputerResult]:
     """Get All Protected Linux Computers
 
      The HTTP GET request to the `/api/v1/agents/protectedComputers` endpoint gets an array of all
@@ -221,13 +221,13 @@ async def asyncio_detailed(
     Operator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EProtectedComputerFiltersOrderColumn]): Orders jobs by the
-            specified column.
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, EProtectedComputerType]): Type of the protected computer.
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EProtectedComputerFiltersOrderColumn | Unset): Orders jobs by the specified
+            column.
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        type_filter (EProtectedComputerType | Unset): Type of the protected computer.
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -235,7 +235,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, ProtectedComputerResult]]
+        Response[Error | ProtectedComputerResult]
     """
 
     kwargs = _get_kwargs(
@@ -255,15 +255,15 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EProtectedComputerFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, EProtectedComputerType] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EProtectedComputerFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: EProtectedComputerType | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Error, ProtectedComputerResult]]:
+) -> Error | ProtectedComputerResult | None:
     """Get All Protected Linux Computers
 
      The HTTP GET request to the `/api/v1/agents/protectedComputers` endpoint gets an array of all
@@ -271,13 +271,13 @@ async def asyncio(
     Operator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EProtectedComputerFiltersOrderColumn]): Orders jobs by the
-            specified column.
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, EProtectedComputerType]): Type of the protected computer.
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EProtectedComputerFiltersOrderColumn | Unset): Orders jobs by the specified
+            column.
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        type_filter (EProtectedComputerType | Unset): Type of the protected computer.
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -285,7 +285,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, ProtectedComputerResult]
+        Error | ProtectedComputerResult
     """
 
     return (

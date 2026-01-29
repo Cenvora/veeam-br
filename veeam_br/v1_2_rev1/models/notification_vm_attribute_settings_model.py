@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,14 +17,14 @@ class NotificationVmAttributeSettingsModel:
 
     Attributes:
         is_enabled (bool): If `true`, information about successfully performed backup is written to a VM attribute.
-        notes (Union[Unset, str]): Name of the VM attribute.
-        append_to_existing_value (Union[Unset, bool]): If `true`, information about successfully performed backup is
-            appended to the existing value of the attribute added by the user.
+        notes (str | Unset): Name of the VM attribute.
+        append_to_existing_value (bool | Unset): If `true`, information about successfully performed backup is appended
+            to the existing value of the attribute added by the user.
     """
 
     is_enabled: bool
-    notes: Union[Unset, str] = UNSET
-    append_to_existing_value: Union[Unset, bool] = UNSET
+    notes: str | Unset = UNSET
+    append_to_existing_value: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

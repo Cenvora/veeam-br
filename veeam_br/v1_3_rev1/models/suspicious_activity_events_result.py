@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 
@@ -17,12 +19,12 @@ class SuspiciousActivityEventsResult:
     """Details on malware events.
 
     Attributes:
-        data (list['SuspiciousActivityEventModel']): Array of malware events.
+        data (list[SuspiciousActivityEventModel]): Array of malware events.
         pagination (PaginationResult): Pagination settings.
     """
 
-    data: list["SuspiciousActivityEventModel"]
-    pagination: "PaginationResult"
+    data: list[SuspiciousActivityEventModel]
+    pagination: PaginationResult
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

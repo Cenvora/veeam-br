@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,12 +16,12 @@ class AzureComputeResourceGroupModel:
     """Microsoft Azure resource group.
 
     Attributes:
-        resource_group (Union[Unset, str]): Resource group name.
-        new_resource_group_name (Union[Unset, str]): New resource group name.
+        resource_group (str | Unset): Resource group name.
+        new_resource_group_name (str | Unset): New resource group name.
     """
 
-    resource_group: Union[Unset, str] = UNSET
-    new_resource_group_name: Union[Unset, str] = UNSET
+    resource_group: str | Unset = UNSET
+    new_resource_group_name: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

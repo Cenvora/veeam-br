@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -15,22 +17,22 @@ class AgentBackupMySQLSettingsModel:
     """Application-aware processing settings for MySQL databases.
 
     Attributes:
-        use_password_file (Union[Unset, bool]): If `true`, the Veeam Agent will use a password file to connect to the
-            MySQL server.
-        credentials_id (Union[Unset, UUID]): Credentials ID.
-        password_file_path (Union[Unset, str]): Absolute path for the password file that the Veeam Agent uses to connect
-            to the MySQL server.
+        use_password_file (bool | Unset): If `true`, the Veeam Agent will use a password file to connect to the MySQL
+            server.
+        credentials_id (UUID | Unset): Credentials ID.
+        password_file_path (str | Unset): Absolute path for the password file that the Veeam Agent uses to connect to
+            the MySQL server.
     """
 
-    use_password_file: Union[Unset, bool] = UNSET
-    credentials_id: Union[Unset, UUID] = UNSET
-    password_file_path: Union[Unset, str] = UNSET
+    use_password_file: bool | Unset = UNSET
+    credentials_id: UUID | Unset = UNSET
+    password_file_path: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         use_password_file = self.use_password_file
 
-        credentials_id: Union[Unset, str] = UNSET
+        credentials_id: str | Unset = UNSET
         if not isinstance(self.credentials_id, Unset):
             credentials_id = str(self.credentials_id)
 
@@ -54,7 +56,7 @@ class AgentBackupMySQLSettingsModel:
         use_password_file = d.pop("usePasswordFile", UNSET)
 
         _credentials_id = d.pop("credentialsId", UNSET)
-        credentials_id: Union[Unset, UUID]
+        credentials_id: UUID | Unset
         if isinstance(_credentials_id, Unset):
             credentials_id = UNSET
         else:

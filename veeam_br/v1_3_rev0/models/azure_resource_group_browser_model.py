@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,15 +22,15 @@ class AzureResourceGroupBrowserModel:
 
     Attributes:
         resource_group (str): Resource group name.
-        virtual_networks (list['AzureVirtualNetworkBrowserModel']): Array of virtual networks available in the resource
+        virtual_networks (list[AzureVirtualNetworkBrowserModel]): Array of virtual networks available in the resource
             group.
-        network_security_groups (Union[Unset, list['AzureNetworkSecurityGroupBrowserModel']]): Array of network security
-            groups available in the resource group.
+        network_security_groups (list[AzureNetworkSecurityGroupBrowserModel] | Unset): Array of network security groups
+            available in the resource group.
     """
 
     resource_group: str
-    virtual_networks: list["AzureVirtualNetworkBrowserModel"]
-    network_security_groups: Union[Unset, list["AzureNetworkSecurityGroupBrowserModel"]] = UNSET
+    virtual_networks: list[AzureVirtualNetworkBrowserModel]
+    network_security_groups: list[AzureNetworkSecurityGroupBrowserModel] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -39,7 +41,7 @@ class AzureResourceGroupBrowserModel:
             virtual_networks_item = virtual_networks_item_data.to_dict()
             virtual_networks.append(virtual_networks_item)
 
-        network_security_groups: Union[Unset, list[dict[str, Any]]] = UNSET
+        network_security_groups: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.network_security_groups, Unset):
             network_security_groups = []
             for network_security_groups_item_data in self.network_security_groups:
@@ -74,14 +76,16 @@ class AzureResourceGroupBrowserModel:
 
             virtual_networks.append(virtual_networks_item)
 
-        network_security_groups = []
         _network_security_groups = d.pop("networkSecurityGroups", UNSET)
-        for network_security_groups_item_data in _network_security_groups or []:
-            network_security_groups_item = AzureNetworkSecurityGroupBrowserModel.from_dict(
-                network_security_groups_item_data
-            )
+        network_security_groups: list[AzureNetworkSecurityGroupBrowserModel] | Unset = UNSET
+        if _network_security_groups is not UNSET:
+            network_security_groups = []
+            for network_security_groups_item_data in _network_security_groups:
+                network_security_groups_item = AzureNetworkSecurityGroupBrowserModel.from_dict(
+                    network_security_groups_item_data
+                )
 
-            network_security_groups.append(network_security_groups_item)
+                network_security_groups.append(network_security_groups_item)
 
         azure_resource_group_browser_model = cls(
             resource_group=resource_group,

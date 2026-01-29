@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -20,50 +22,50 @@ class BackupContentMountModel:
     """Details about the mount point.
 
     Attributes:
-        id (Union[Unset, UUID]): Mount point ID.
-        initiator_name (Union[Unset, str]): Account used to publish the disks.
-        backup_id (Union[Unset, UUID]): Backup ID.
-        backup_name (Union[Unset, str]): Backup name.
-        restore_point_id (Union[Unset, UUID]): Restore point ID.
-        restore_point_name (Union[Unset, str]): Restore point name.
-        mount_state (Union[Unset, EBackupContentMountState]): Mount state.
-        info (Union[Unset, BackupContentPublicationInfo]): Details about the publishing operation.
+        id (UUID | Unset): Mount point ID.
+        initiator_name (str | Unset): Account used to publish the disks.
+        backup_id (UUID | Unset): Backup ID.
+        backup_name (str | Unset): Backup name.
+        restore_point_id (UUID | Unset): Restore point ID.
+        restore_point_name (str | Unset): Restore point name.
+        mount_state (EBackupContentMountState | Unset): Mount state.
+        info (BackupContentPublicationInfo | Unset): Details about the publishing operation.
     """
 
-    id: Union[Unset, UUID] = UNSET
-    initiator_name: Union[Unset, str] = UNSET
-    backup_id: Union[Unset, UUID] = UNSET
-    backup_name: Union[Unset, str] = UNSET
-    restore_point_id: Union[Unset, UUID] = UNSET
-    restore_point_name: Union[Unset, str] = UNSET
-    mount_state: Union[Unset, EBackupContentMountState] = UNSET
-    info: Union[Unset, "BackupContentPublicationInfo"] = UNSET
+    id: UUID | Unset = UNSET
+    initiator_name: str | Unset = UNSET
+    backup_id: UUID | Unset = UNSET
+    backup_name: str | Unset = UNSET
+    restore_point_id: UUID | Unset = UNSET
+    restore_point_name: str | Unset = UNSET
+    mount_state: EBackupContentMountState | Unset = UNSET
+    info: BackupContentPublicationInfo | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        id: Union[Unset, str] = UNSET
+        id: str | Unset = UNSET
         if not isinstance(self.id, Unset):
             id = str(self.id)
 
         initiator_name = self.initiator_name
 
-        backup_id: Union[Unset, str] = UNSET
+        backup_id: str | Unset = UNSET
         if not isinstance(self.backup_id, Unset):
             backup_id = str(self.backup_id)
 
         backup_name = self.backup_name
 
-        restore_point_id: Union[Unset, str] = UNSET
+        restore_point_id: str | Unset = UNSET
         if not isinstance(self.restore_point_id, Unset):
             restore_point_id = str(self.restore_point_id)
 
         restore_point_name = self.restore_point_name
 
-        mount_state: Union[Unset, str] = UNSET
+        mount_state: str | Unset = UNSET
         if not isinstance(self.mount_state, Unset):
             mount_state = self.mount_state.value
 
-        info: Union[Unset, dict[str, Any]] = UNSET
+        info: dict[str, Any] | Unset = UNSET
         if not isinstance(self.info, Unset):
             info = self.info.to_dict()
 
@@ -95,7 +97,7 @@ class BackupContentMountModel:
 
         d = dict(src_dict)
         _id = d.pop("id", UNSET)
-        id: Union[Unset, UUID]
+        id: UUID | Unset
         if isinstance(_id, Unset):
             id = UNSET
         else:
@@ -104,7 +106,7 @@ class BackupContentMountModel:
         initiator_name = d.pop("initiatorName", UNSET)
 
         _backup_id = d.pop("backupId", UNSET)
-        backup_id: Union[Unset, UUID]
+        backup_id: UUID | Unset
         if isinstance(_backup_id, Unset):
             backup_id = UNSET
         else:
@@ -113,7 +115,7 @@ class BackupContentMountModel:
         backup_name = d.pop("backupName", UNSET)
 
         _restore_point_id = d.pop("restorePointId", UNSET)
-        restore_point_id: Union[Unset, UUID]
+        restore_point_id: UUID | Unset
         if isinstance(_restore_point_id, Unset):
             restore_point_id = UNSET
         else:
@@ -122,14 +124,14 @@ class BackupContentMountModel:
         restore_point_name = d.pop("restorePointName", UNSET)
 
         _mount_state = d.pop("mountState", UNSET)
-        mount_state: Union[Unset, EBackupContentMountState]
+        mount_state: EBackupContentMountState | Unset
         if isinstance(_mount_state, Unset):
             mount_state = UNSET
         else:
             mount_state = EBackupContentMountState(_mount_state)
 
         _info = d.pop("info", UNSET)
-        info: Union[Unset, BackupContentPublicationInfo]
+        info: BackupContentPublicationInfo | Unset
         if isinstance(_info, Unset):
             info = UNSET
         else:

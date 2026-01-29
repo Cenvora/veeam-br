@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -17,14 +19,14 @@ class S3CompatibleServerAccountModel:
     Attributes:
         friendly_name (str): Friendly name which will be assigned to your object storage.
         credentials_id (UUID): ID of the credentials used to access your S3 compatible object storage.
-        service_point (Union[Unset, str]): Service point address of your object storage.
-        region_id (Union[Unset, str]): ID of a region where the storage is located.
+        service_point (str | Unset): Service point address of your object storage.
+        region_id (str | Unset): ID of a region where the storage is located.
     """
 
     friendly_name: str
     credentials_id: UUID
-    service_point: Union[Unset, str] = UNSET
-    region_id: Union[Unset, str] = UNSET
+    service_point: str | Unset = UNSET
+    region_id: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

@@ -1,5 +1,6 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
@@ -22,7 +23,9 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": f"/api/v1/agents/protectionGroups/{id}/packages",
+        "url": "/api/v1/agents/protectionGroups/{id}/packages".format(
+            id=quote(str(id), safe=""),
+        ),
     }
 
     _kwargs["json"] = body.to_dict()
@@ -33,7 +36,7 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Error]:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Error | None:
     if response.status_code == 400:
         response_400 = Error.from_dict(response.json())
 
@@ -60,7 +63,7 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Error]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[Error]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -72,7 +75,7 @@ def _build_response(*, client: Union[AuthenticatedClient, Client], response: htt
 def sync_detailed(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: PreInstalledAgentsProtectionGroupPackageSpec,
     x_api_version: str = "1.3-rev1",
 ) -> Response[Error]:
@@ -111,10 +114,10 @@ def sync_detailed(
 def sync(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: PreInstalledAgentsProtectionGroupPackageSpec,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Error]:
+) -> Error | None:
     """Download Protection Group Packages
 
      The HTTP POST request to the `/api/v1/agents/protectionGroups/{id}/packages` endpoint downloads
@@ -145,7 +148,7 @@ def sync(
 async def asyncio_detailed(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: PreInstalledAgentsProtectionGroupPackageSpec,
     x_api_version: str = "1.3-rev1",
 ) -> Response[Error]:
@@ -182,10 +185,10 @@ async def asyncio_detailed(
 async def asyncio(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: PreInstalledAgentsProtectionGroupPackageSpec,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Error]:
+) -> Error | None:
     """Download Protection Group Packages
 
      The HTTP POST request to the `/api/v1/agents/protectionGroups/{id}/packages` endpoint downloads

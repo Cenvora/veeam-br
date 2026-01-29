@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -8,8 +10,7 @@ from ..models.e_vmware_disks_type_to_process import EVmwareDisksTypeToProcess
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.cloud_director_object_model import CloudDirectorObjectModel
-    from ..models.vmware_object_model import VmwareObjectModel
+    from ..models.inventory_object_model import InventoryObjectModel
 
 
 T = TypeVar("T", bound="VmwareObjectDiskModel")
@@ -19,26 +20,20 @@ T = TypeVar("T", bound="VmwareObjectDiskModel")
 class VmwareObjectDiskModel:
     """
     Attributes:
-        vm_object (Union['CloudDirectorObjectModel', 'VmwareObjectModel']): Inventory object properties.
+        vm_object (InventoryObjectModel): Inventory object properties.
         disks_to_process (EVmwareDisksTypeToProcess): Type of disk selection.
         disks (list[str]): Array of disks.
-        remove_from_vm_configuration (Union[Unset, bool]): If `true`, the disk is removed from VM configuration.
+        remove_from_vm_configuration (bool | Unset): If `true`, the disk is removed from VM configuration.
     """
 
-    vm_object: Union["CloudDirectorObjectModel", "VmwareObjectModel"]
+    vm_object: InventoryObjectModel
     disks_to_process: EVmwareDisksTypeToProcess
     disks: list[str]
-    remove_from_vm_configuration: Union[Unset, bool] = UNSET
+    remove_from_vm_configuration: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.vmware_object_model import VmwareObjectModel
-
-        vm_object: dict[str, Any]
-        if isinstance(self.vm_object, VmwareObjectModel):
-            vm_object = self.vm_object.to_dict()
-        else:
-            vm_object = self.vm_object.to_dict()
+        vm_object = self.vm_object.to_dict()
 
         disks_to_process = self.disks_to_process.value
 
@@ -62,27 +57,10 @@ class VmwareObjectDiskModel:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.cloud_director_object_model import CloudDirectorObjectModel
-        from ..models.vmware_object_model import VmwareObjectModel
+        from ..models.inventory_object_model import InventoryObjectModel
 
         d = dict(src_dict)
-
-        def _parse_vm_object(data: object) -> Union["CloudDirectorObjectModel", "VmwareObjectModel"]:
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_0 = VmwareObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_0
-            except:  # noqa: E722
-                pass
-            if not isinstance(data, dict):
-                raise TypeError()
-            componentsschemas_inventory_object_model_type_1 = CloudDirectorObjectModel.from_dict(data)
-
-            return componentsschemas_inventory_object_model_type_1
-
-        vm_object = _parse_vm_object(d.pop("vmObject"))
+        vm_object = InventoryObjectModel.from_dict(d.pop("vmObject"))
 
         disks_to_process = EVmwareDisksTypeToProcess(d.pop("disksToProcess"))
 

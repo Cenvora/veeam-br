@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -15,12 +15,12 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     *,
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EBackupContentMountsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    state_filter: Union[Unset, EBackupContentMountState] = UNSET,
-    mode_filter: Union[Unset, EBackupContentDiskPublishMode] = UNSET,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EBackupContentMountsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    state_filter: EBackupContentMountState | Unset = UNSET,
+    mode_filter: EBackupContentDiskPublishMode | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -32,7 +32,7 @@ def _get_kwargs(
 
     params["limit"] = limit
 
-    json_order_column: Union[Unset, str] = UNSET
+    json_order_column: str | Unset = UNSET
     if not isinstance(order_column, Unset):
         json_order_column = order_column.value
 
@@ -40,13 +40,13 @@ def _get_kwargs(
 
     params["orderAsc"] = order_asc
 
-    json_state_filter: Union[Unset, str] = UNSET
+    json_state_filter: str | Unset = UNSET
     if not isinstance(state_filter, Unset):
         json_state_filter = state_filter.value
 
     params["stateFilter"] = json_state_filter
 
-    json_mode_filter: Union[Unset, str] = UNSET
+    json_mode_filter: str | Unset = UNSET
     if not isinstance(mode_filter, Unset):
         json_mode_filter = mode_filter.value
 
@@ -65,8 +65,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[BackupContentMountsResult, Error]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> BackupContentMountsResult | Error | None:
     if response.status_code == 200:
         response_200 = BackupContentMountsResult.from_dict(response.json())
 
@@ -99,8 +99,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[BackupContentMountsResult, Error]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[BackupContentMountsResult | Error]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -111,15 +111,15 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EBackupContentMountsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    state_filter: Union[Unset, EBackupContentMountState] = UNSET,
-    mode_filter: Union[Unset, EBackupContentDiskPublishMode] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EBackupContentMountsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    state_filter: EBackupContentMountState | Unset = UNSET,
+    mode_filter: EBackupContentDiskPublishMode | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Response[Union[BackupContentMountsResult, Error]]:
+) -> Response[BackupContentMountsResult | Error]:
     """Get All Disk Publishing Mount Points
 
      The HTTP GET request to the `/api/v1/dataIntegration` path allows you to get an array of mount
@@ -127,13 +127,13 @@ def sync_detailed(
     Restore Operator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EBackupContentMountsFiltersOrderColumn]): Sorts mount points by
-            one of the mount point parameters.
-        order_asc (Union[Unset, bool]):
-        state_filter (Union[Unset, EBackupContentMountState]): Mount state.
-        mode_filter (Union[Unset, EBackupContentDiskPublishMode]): Disk publishing mount mode.
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EBackupContentMountsFiltersOrderColumn | Unset): Sorts mount points by one
+            of the mount point parameters.
+        order_asc (bool | Unset):
+        state_filter (EBackupContentMountState | Unset): Mount state.
+        mode_filter (EBackupContentDiskPublishMode | Unset): Disk publishing mount mode.
         x_api_version (str):  Default: '1.3-rev0'.
 
     Raises:
@@ -141,7 +141,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[BackupContentMountsResult, Error]]
+        Response[BackupContentMountsResult | Error]
     """
 
     kwargs = _get_kwargs(
@@ -163,15 +163,15 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EBackupContentMountsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    state_filter: Union[Unset, EBackupContentMountState] = UNSET,
-    mode_filter: Union[Unset, EBackupContentDiskPublishMode] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EBackupContentMountsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    state_filter: EBackupContentMountState | Unset = UNSET,
+    mode_filter: EBackupContentDiskPublishMode | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Union[BackupContentMountsResult, Error]]:
+) -> BackupContentMountsResult | Error | None:
     """Get All Disk Publishing Mount Points
 
      The HTTP GET request to the `/api/v1/dataIntegration` path allows you to get an array of mount
@@ -179,13 +179,13 @@ def sync(
     Restore Operator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EBackupContentMountsFiltersOrderColumn]): Sorts mount points by
-            one of the mount point parameters.
-        order_asc (Union[Unset, bool]):
-        state_filter (Union[Unset, EBackupContentMountState]): Mount state.
-        mode_filter (Union[Unset, EBackupContentDiskPublishMode]): Disk publishing mount mode.
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EBackupContentMountsFiltersOrderColumn | Unset): Sorts mount points by one
+            of the mount point parameters.
+        order_asc (bool | Unset):
+        state_filter (EBackupContentMountState | Unset): Mount state.
+        mode_filter (EBackupContentDiskPublishMode | Unset): Disk publishing mount mode.
         x_api_version (str):  Default: '1.3-rev0'.
 
     Raises:
@@ -193,7 +193,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[BackupContentMountsResult, Error]
+        BackupContentMountsResult | Error
     """
 
     return sync_detailed(
@@ -210,15 +210,15 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EBackupContentMountsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    state_filter: Union[Unset, EBackupContentMountState] = UNSET,
-    mode_filter: Union[Unset, EBackupContentDiskPublishMode] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EBackupContentMountsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    state_filter: EBackupContentMountState | Unset = UNSET,
+    mode_filter: EBackupContentDiskPublishMode | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Response[Union[BackupContentMountsResult, Error]]:
+) -> Response[BackupContentMountsResult | Error]:
     """Get All Disk Publishing Mount Points
 
      The HTTP GET request to the `/api/v1/dataIntegration` path allows you to get an array of mount
@@ -226,13 +226,13 @@ async def asyncio_detailed(
     Restore Operator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EBackupContentMountsFiltersOrderColumn]): Sorts mount points by
-            one of the mount point parameters.
-        order_asc (Union[Unset, bool]):
-        state_filter (Union[Unset, EBackupContentMountState]): Mount state.
-        mode_filter (Union[Unset, EBackupContentDiskPublishMode]): Disk publishing mount mode.
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EBackupContentMountsFiltersOrderColumn | Unset): Sorts mount points by one
+            of the mount point parameters.
+        order_asc (bool | Unset):
+        state_filter (EBackupContentMountState | Unset): Mount state.
+        mode_filter (EBackupContentDiskPublishMode | Unset): Disk publishing mount mode.
         x_api_version (str):  Default: '1.3-rev0'.
 
     Raises:
@@ -240,7 +240,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[BackupContentMountsResult, Error]]
+        Response[BackupContentMountsResult | Error]
     """
 
     kwargs = _get_kwargs(
@@ -260,15 +260,15 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EBackupContentMountsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    state_filter: Union[Unset, EBackupContentMountState] = UNSET,
-    mode_filter: Union[Unset, EBackupContentDiskPublishMode] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EBackupContentMountsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    state_filter: EBackupContentMountState | Unset = UNSET,
+    mode_filter: EBackupContentDiskPublishMode | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Union[BackupContentMountsResult, Error]]:
+) -> BackupContentMountsResult | Error | None:
     """Get All Disk Publishing Mount Points
 
      The HTTP GET request to the `/api/v1/dataIntegration` path allows you to get an array of mount
@@ -276,13 +276,13 @@ async def asyncio(
     Restore Operator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EBackupContentMountsFiltersOrderColumn]): Sorts mount points by
-            one of the mount point parameters.
-        order_asc (Union[Unset, bool]):
-        state_filter (Union[Unset, EBackupContentMountState]): Mount state.
-        mode_filter (Union[Unset, EBackupContentDiskPublishMode]): Disk publishing mount mode.
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EBackupContentMountsFiltersOrderColumn | Unset): Sorts mount points by one
+            of the mount point parameters.
+        order_asc (bool | Unset):
+        state_filter (EBackupContentMountState | Unset): Mount state.
+        mode_filter (EBackupContentDiskPublishMode | Unset): Disk publishing mount mode.
         x_api_version (str):  Default: '1.3-rev0'.
 
     Raises:
@@ -290,7 +290,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[BackupContentMountsResult, Error]
+        BackupContentMountsResult | Error
     """
 
     return (

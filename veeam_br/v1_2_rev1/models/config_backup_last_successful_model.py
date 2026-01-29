@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -17,21 +19,20 @@ class ConfigBackupLastSuccessfulModel:
     """Last successful backup.
 
     Attributes:
-        last_successful_time (Union[Unset, datetime.datetime]): Date and time when the last successful backup was
-            created.
-        session_id (Union[Unset, UUID]): ID of the job session.
+        last_successful_time (datetime.datetime | Unset): Date and time when the last successful backup was created.
+        session_id (UUID | Unset): ID of the job session.
     """
 
-    last_successful_time: Union[Unset, datetime.datetime] = UNSET
-    session_id: Union[Unset, UUID] = UNSET
+    last_successful_time: datetime.datetime | Unset = UNSET
+    session_id: UUID | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        last_successful_time: Union[Unset, str] = UNSET
+        last_successful_time: str | Unset = UNSET
         if not isinstance(self.last_successful_time, Unset):
             last_successful_time = self.last_successful_time.isoformat()
 
-        session_id: Union[Unset, str] = UNSET
+        session_id: str | Unset = UNSET
         if not isinstance(self.session_id, Unset):
             session_id = str(self.session_id)
 
@@ -49,14 +50,14 @@ class ConfigBackupLastSuccessfulModel:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _last_successful_time = d.pop("lastSuccessfulTime", UNSET)
-        last_successful_time: Union[Unset, datetime.datetime]
+        last_successful_time: datetime.datetime | Unset
         if isinstance(_last_successful_time, Unset):
             last_successful_time = UNSET
         else:
             last_successful_time = isoparse(_last_successful_time)
 
         _session_id = d.pop("sessionId", UNSET)
-        session_id: Union[Unset, UUID]
+        session_id: UUID | Unset
         if isinstance(_session_id, Unset):
             session_id = UNSET
         else:

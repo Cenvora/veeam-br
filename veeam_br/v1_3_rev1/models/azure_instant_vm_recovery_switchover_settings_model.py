@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -18,22 +20,22 @@ class AzureInstantVMRecoverySwitchoverSettingsModel:
 
     Attributes:
         type_ (EAzureInstantVMRecoverySwitchoverType): Switchover type.
-        schedule_time (Union[Unset, datetime.datetime]): Date and time when switchover will be triggered.
-        verify_vm_boot (Union[Unset, bool]): If `true`, Veeam Backup & Replication will verify whether the restored VM
-            has booted properly.
-        power_on_vm (Union[Unset, bool]): If `true`, Veeam Backup & Replication will power on the VM.
+        schedule_time (datetime.datetime | Unset): Date and time when switchover will be triggered.
+        verify_vm_boot (bool | Unset): If `true`, Veeam Backup & Replication will verify whether the restored VM has
+            booted properly.
+        power_on_vm (bool | Unset): If `true`, Veeam Backup & Replication will power on the VM.
     """
 
     type_: EAzureInstantVMRecoverySwitchoverType
-    schedule_time: Union[Unset, datetime.datetime] = UNSET
-    verify_vm_boot: Union[Unset, bool] = UNSET
-    power_on_vm: Union[Unset, bool] = UNSET
+    schedule_time: datetime.datetime | Unset = UNSET
+    verify_vm_boot: bool | Unset = UNSET
+    power_on_vm: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         type_ = self.type_.value
 
-        schedule_time: Union[Unset, str] = UNSET
+        schedule_time: str | Unset = UNSET
         if not isinstance(self.schedule_time, Unset):
             schedule_time = self.schedule_time.isoformat()
 
@@ -63,7 +65,7 @@ class AzureInstantVMRecoverySwitchoverSettingsModel:
         type_ = EAzureInstantVMRecoverySwitchoverType(d.pop("type"))
 
         _schedule_time = d.pop("scheduleTime", UNSET)
-        schedule_time: Union[Unset, datetime.datetime]
+        schedule_time: datetime.datetime | Unset
         if isinstance(_schedule_time, Unset):
             schedule_time = UNSET
         else:

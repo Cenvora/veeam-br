@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 
@@ -17,12 +19,12 @@ class FlrAuditMountModel:
     """Items restored during one file restore session.
 
     Attributes:
-        items (list['FlrTaskItemModel']): Array of items restored during one file restore session.
+        items (list[FlrTaskItemModel]): Array of items restored during one file restore session.
         pagination (PaginationResult): Pagination settings.
     """
 
-    items: list["FlrTaskItemModel"]
-    pagination: "PaginationResult"
+    items: list[FlrTaskItemModel]
+    pagination: PaginationResult
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

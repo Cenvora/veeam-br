@@ -1,11 +1,12 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 from uuid import UUID
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...models.backup_objects_result import BackupObjectsResult
 from ...models.e_backup_objects_filters_order_column import EBackupObjectsFiltersOrderColumn
 from ...models.e_platform_type import EPlatformType
 from ...models.error import Error
@@ -14,15 +15,15 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     *,
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EBackupObjectsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    platform_name_filter: Union[Unset, EPlatformType] = UNSET,
-    platform_id_filter: Union[Unset, UUID] = UNSET,
-    type_filter: Union[Unset, str] = UNSET,
-    vi_type_filter: Union[Unset, str] = UNSET,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EBackupObjectsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    platform_name_filter: EPlatformType | Unset = UNSET,
+    platform_id_filter: UUID | Unset = UNSET,
+    type_filter: str | Unset = UNSET,
+    vi_type_filter: str | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -34,7 +35,7 @@ def _get_kwargs(
 
     params["limit"] = limit
 
-    json_order_column: Union[Unset, str] = UNSET
+    json_order_column: str | Unset = UNSET
     if not isinstance(order_column, Unset):
         json_order_column = order_column.value
 
@@ -44,13 +45,13 @@ def _get_kwargs(
 
     params["nameFilter"] = name_filter
 
-    json_platform_name_filter: Union[Unset, str] = UNSET
+    json_platform_name_filter: str | Unset = UNSET
     if not isinstance(platform_name_filter, Unset):
         json_platform_name_filter = platform_name_filter.value
 
     params["platformNameFilter"] = json_platform_name_filter
 
-    json_platform_id_filter: Union[Unset, str] = UNSET
+    json_platform_id_filter: str | Unset = UNSET
     if not isinstance(platform_id_filter, Unset):
         json_platform_id_filter = str(platform_id_filter)
     params["platformIdFilter"] = json_platform_id_filter
@@ -71,7 +72,14 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Error]:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> BackupObjectsResult | Error | None:
+    if response.status_code == 200:
+        response_200 = BackupObjectsResult.from_dict(response.json())
+
+        return response_200
+
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
 
@@ -98,7 +106,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Error]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[BackupObjectsResult | Error]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -109,18 +119,18 @@ def _build_response(*, client: Union[AuthenticatedClient, Client], response: htt
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EBackupObjectsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    platform_name_filter: Union[Unset, EPlatformType] = UNSET,
-    platform_id_filter: Union[Unset, UUID] = UNSET,
-    type_filter: Union[Unset, str] = UNSET,
-    vi_type_filter: Union[Unset, str] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EBackupObjectsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    platform_name_filter: EPlatformType | Unset = UNSET,
+    platform_id_filter: UUID | Unset = UNSET,
+    type_filter: str | Unset = UNSET,
+    vi_type_filter: str | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Response[Error]:
+) -> Response[BackupObjectsResult | Error]:
     """Get All Backup Objects
 
      The HTTP GET request to the `/api/v1/backupObjects` endpoint gets an array of virtual infrastructure
@@ -129,15 +139,15 @@ def sync_detailed(
     Operator, Veeam Backup Viewer, Veeam Tape Operator, Veeam Security Administrator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EBackupObjectsFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        platform_name_filter (Union[Unset, EPlatformType]): Platform type.
-        platform_id_filter (Union[Unset, UUID]):
-        type_filter (Union[Unset, str]):
-        vi_type_filter (Union[Unset, str]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EBackupObjectsFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        platform_name_filter (EPlatformType | Unset): Platform type.
+        platform_id_filter (UUID | Unset):
+        type_filter (str | Unset):
+        vi_type_filter (str | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -145,7 +155,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error]
+        Response[BackupObjectsResult | Error]
     """
 
     kwargs = _get_kwargs(
@@ -170,18 +180,18 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EBackupObjectsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    platform_name_filter: Union[Unset, EPlatformType] = UNSET,
-    platform_id_filter: Union[Unset, UUID] = UNSET,
-    type_filter: Union[Unset, str] = UNSET,
-    vi_type_filter: Union[Unset, str] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EBackupObjectsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    platform_name_filter: EPlatformType | Unset = UNSET,
+    platform_id_filter: UUID | Unset = UNSET,
+    type_filter: str | Unset = UNSET,
+    vi_type_filter: str | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Error]:
+) -> BackupObjectsResult | Error | None:
     """Get All Backup Objects
 
      The HTTP GET request to the `/api/v1/backupObjects` endpoint gets an array of virtual infrastructure
@@ -190,15 +200,15 @@ def sync(
     Operator, Veeam Backup Viewer, Veeam Tape Operator, Veeam Security Administrator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EBackupObjectsFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        platform_name_filter (Union[Unset, EPlatformType]): Platform type.
-        platform_id_filter (Union[Unset, UUID]):
-        type_filter (Union[Unset, str]):
-        vi_type_filter (Union[Unset, str]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EBackupObjectsFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        platform_name_filter (EPlatformType | Unset): Platform type.
+        platform_id_filter (UUID | Unset):
+        type_filter (str | Unset):
+        vi_type_filter (str | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -206,7 +216,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error
+        BackupObjectsResult | Error
     """
 
     return sync_detailed(
@@ -226,18 +236,18 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EBackupObjectsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    platform_name_filter: Union[Unset, EPlatformType] = UNSET,
-    platform_id_filter: Union[Unset, UUID] = UNSET,
-    type_filter: Union[Unset, str] = UNSET,
-    vi_type_filter: Union[Unset, str] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EBackupObjectsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    platform_name_filter: EPlatformType | Unset = UNSET,
+    platform_id_filter: UUID | Unset = UNSET,
+    type_filter: str | Unset = UNSET,
+    vi_type_filter: str | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Response[Error]:
+) -> Response[BackupObjectsResult | Error]:
     """Get All Backup Objects
 
      The HTTP GET request to the `/api/v1/backupObjects` endpoint gets an array of virtual infrastructure
@@ -246,15 +256,15 @@ async def asyncio_detailed(
     Operator, Veeam Backup Viewer, Veeam Tape Operator, Veeam Security Administrator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EBackupObjectsFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        platform_name_filter (Union[Unset, EPlatformType]): Platform type.
-        platform_id_filter (Union[Unset, UUID]):
-        type_filter (Union[Unset, str]):
-        vi_type_filter (Union[Unset, str]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EBackupObjectsFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        platform_name_filter (EPlatformType | Unset): Platform type.
+        platform_id_filter (UUID | Unset):
+        type_filter (str | Unset):
+        vi_type_filter (str | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -262,7 +272,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error]
+        Response[BackupObjectsResult | Error]
     """
 
     kwargs = _get_kwargs(
@@ -285,18 +295,18 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EBackupObjectsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    platform_name_filter: Union[Unset, EPlatformType] = UNSET,
-    platform_id_filter: Union[Unset, UUID] = UNSET,
-    type_filter: Union[Unset, str] = UNSET,
-    vi_type_filter: Union[Unset, str] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EBackupObjectsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    platform_name_filter: EPlatformType | Unset = UNSET,
+    platform_id_filter: UUID | Unset = UNSET,
+    type_filter: str | Unset = UNSET,
+    vi_type_filter: str | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Error]:
+) -> BackupObjectsResult | Error | None:
     """Get All Backup Objects
 
      The HTTP GET request to the `/api/v1/backupObjects` endpoint gets an array of virtual infrastructure
@@ -305,15 +315,15 @@ async def asyncio(
     Operator, Veeam Backup Viewer, Veeam Tape Operator, Veeam Security Administrator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EBackupObjectsFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        platform_name_filter (Union[Unset, EPlatformType]): Platform type.
-        platform_id_filter (Union[Unset, UUID]):
-        type_filter (Union[Unset, str]):
-        vi_type_filter (Union[Unset, str]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EBackupObjectsFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        platform_name_filter (EPlatformType | Unset): Platform type.
+        platform_id_filter (UUID | Unset):
+        type_filter (str | Unset):
+        vi_type_filter (str | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -321,7 +331,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error
+        BackupObjectsResult | Error
     """
 
     return (

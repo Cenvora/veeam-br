@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -16,12 +18,12 @@ class JobStopSpec:
     Attributes:
         graceful_stop (bool): If `true`, Veeam Backup & Replication will produce a new restore point for those VMs that
             have already been processed and for VMs that are being processed at the moment. Default: True.
-        cancel_chained_jobs (Union[Unset, bool]): If `true`, Veeam Backup & Replication will cancel chained jobs.
-            Default: False.
+        cancel_chained_jobs (bool | Unset): If `true`, Veeam Backup & Replication will cancel chained jobs. Default:
+            False.
     """
 
     graceful_stop: bool = True
-    cancel_chained_jobs: Union[Unset, bool] = False
+    cancel_chained_jobs: bool | Unset = False
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

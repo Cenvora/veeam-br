@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,15 +16,14 @@ class ScheduleRetryModel:
     """Retry options.
 
     Attributes:
-        is_enabled (Union[Unset, bool]): If `true`, retry options are enabled. Default: False.
-        retry_count (Union[Unset, int]): Number of retries set for the job. Must be greater than 0. Default: 3.
-        await_minutes (Union[Unset, int]): Time interval between job retries in minutes. Must be greater than 0.
-            Default: 10.
+        is_enabled (bool | Unset): If `true`, retry options are enabled. Default: False.
+        retry_count (int | Unset): Number of retries set for the job. Must be greater than 0. Default: 3.
+        await_minutes (int | Unset): Time interval between job retries in minutes. Must be greater than 0. Default: 10.
     """
 
-    is_enabled: Union[Unset, bool] = False
-    retry_count: Union[Unset, int] = 3
-    await_minutes: Union[Unset, int] = 10
+    is_enabled: bool | Unset = False
+    retry_count: int | Unset = 3
+    await_minutes: int | Unset = 10
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

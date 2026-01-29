@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -8,10 +10,7 @@ from ..models.e_disk_creation_mode import EDiskCreationMode
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.agent_object_model import AgentObjectModel
-    from ..models.cloud_director_object_model import CloudDirectorObjectModel
-    from ..models.hyper_v_object_model import HyperVObjectModel
-    from ..models.vmware_object_model import VmwareObjectModel
+    from ..models.inventory_object_model import InventoryObjectModel
 
 
 T = TypeVar("T", bound="ViVmSnapshotReplicaFailbackTargetDiskSpec")
@@ -23,34 +22,21 @@ class ViVmSnapshotReplicaFailbackTargetDiskSpec:
 
     Attributes:
         disk_name (str): Disk name.
-        datastore (Union['AgentObjectModel', 'CloudDirectorObjectModel', 'HyperVObjectModel', 'VmwareObjectModel']):
-            Inventory object properties.
-        disk_type (Union[Unset, EDiskCreationMode]): Disk provisioning type for the recovered VM.
+        datastore (InventoryObjectModel): Inventory object properties.
+        disk_type (EDiskCreationMode | Unset): Disk provisioning type for the recovered VM.
     """
 
     disk_name: str
-    datastore: Union["AgentObjectModel", "CloudDirectorObjectModel", "HyperVObjectModel", "VmwareObjectModel"]
-    disk_type: Union[Unset, EDiskCreationMode] = UNSET
+    datastore: InventoryObjectModel
+    disk_type: EDiskCreationMode | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.cloud_director_object_model import CloudDirectorObjectModel
-        from ..models.hyper_v_object_model import HyperVObjectModel
-        from ..models.vmware_object_model import VmwareObjectModel
-
         disk_name = self.disk_name
 
-        datastore: dict[str, Any]
-        if isinstance(self.datastore, VmwareObjectModel):
-            datastore = self.datastore.to_dict()
-        elif isinstance(self.datastore, CloudDirectorObjectModel):
-            datastore = self.datastore.to_dict()
-        elif isinstance(self.datastore, HyperVObjectModel):
-            datastore = self.datastore.to_dict()
-        else:
-            datastore = self.datastore.to_dict()
+        datastore = self.datastore.to_dict()
 
-        disk_type: Union[Unset, str] = UNSET
+        disk_type: str | Unset = UNSET
         if not isinstance(self.disk_type, Unset):
             disk_type = self.disk_type.value
 
@@ -69,51 +55,15 @@ class ViVmSnapshotReplicaFailbackTargetDiskSpec:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.agent_object_model import AgentObjectModel
-        from ..models.cloud_director_object_model import CloudDirectorObjectModel
-        from ..models.hyper_v_object_model import HyperVObjectModel
-        from ..models.vmware_object_model import VmwareObjectModel
+        from ..models.inventory_object_model import InventoryObjectModel
 
         d = dict(src_dict)
         disk_name = d.pop("diskName")
 
-        def _parse_datastore(
-            data: object,
-        ) -> Union["AgentObjectModel", "CloudDirectorObjectModel", "HyperVObjectModel", "VmwareObjectModel"]:
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_0 = VmwareObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_0
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_1 = CloudDirectorObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_1
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_2 = HyperVObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_2
-            except:  # noqa: E722
-                pass
-            if not isinstance(data, dict):
-                raise TypeError()
-            componentsschemas_inventory_object_model_type_3 = AgentObjectModel.from_dict(data)
-
-            return componentsschemas_inventory_object_model_type_3
-
-        datastore = _parse_datastore(d.pop("datastore"))
+        datastore = InventoryObjectModel.from_dict(d.pop("datastore"))
 
         _disk_type = d.pop("diskType", UNSET)
-        disk_type: Union[Unset, EDiskCreationMode]
+        disk_type: EDiskCreationMode | Unset
         if isinstance(_disk_type, Unset):
             disk_type = UNSET
         else:

@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -8,12 +8,12 @@ from ...client import AuthenticatedClient, Client
 from ...models.error import Error
 from ...models.replica_rescan_spec import ReplicaRescanSpec
 from ...models.session_model import SessionModel
-from ...types import Response
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     *,
-    body: ReplicaRescanSpec,
+    body: ReplicaRescanSpec | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -24,7 +24,8 @@ def _get_kwargs(
         "url": "/api/v1/replicas/rescan",
     }
 
-    _kwargs["json"] = body.to_dict()
+    if not isinstance(body, Unset):
+        _kwargs["json"] = body.to_dict()
 
     headers["Content-Type"] = "application/json"
 
@@ -32,9 +33,7 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, SessionModel]]:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Error | SessionModel | None:
     if response.status_code == 201:
         response_201 = SessionModel.from_dict(response.json())
 
@@ -67,8 +66,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, SessionModel]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | SessionModel]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -79,10 +78,10 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: ReplicaRescanSpec,
+    client: AuthenticatedClient | Client,
+    body: ReplicaRescanSpec | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Response[Union[Error, SessionModel]]:
+) -> Response[Error | SessionModel]:
     """Rescan Replicas
 
      The HTTP POST request to the `/api/v1/replicas/rescan` path allows you to rescan
@@ -90,14 +89,14 @@ def sync_detailed(
 
     Args:
         x_api_version (str):  Default: '1.3-rev0'.
-        body (ReplicaRescanSpec): Replica rescan settings.
+        body (ReplicaRescanSpec | Unset): Replica rescan settings.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, SessionModel]]
+        Response[Error | SessionModel]
     """
 
     kwargs = _get_kwargs(
@@ -114,10 +113,10 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: ReplicaRescanSpec,
+    client: AuthenticatedClient | Client,
+    body: ReplicaRescanSpec | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Union[Error, SessionModel]]:
+) -> Error | SessionModel | None:
     """Rescan Replicas
 
      The HTTP POST request to the `/api/v1/replicas/rescan` path allows you to rescan
@@ -125,14 +124,14 @@ def sync(
 
     Args:
         x_api_version (str):  Default: '1.3-rev0'.
-        body (ReplicaRescanSpec): Replica rescan settings.
+        body (ReplicaRescanSpec | Unset): Replica rescan settings.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, SessionModel]
+        Error | SessionModel
     """
 
     return sync_detailed(
@@ -144,10 +143,10 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: ReplicaRescanSpec,
+    client: AuthenticatedClient | Client,
+    body: ReplicaRescanSpec | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Response[Union[Error, SessionModel]]:
+) -> Response[Error | SessionModel]:
     """Rescan Replicas
 
      The HTTP POST request to the `/api/v1/replicas/rescan` path allows you to rescan
@@ -155,14 +154,14 @@ async def asyncio_detailed(
 
     Args:
         x_api_version (str):  Default: '1.3-rev0'.
-        body (ReplicaRescanSpec): Replica rescan settings.
+        body (ReplicaRescanSpec | Unset): Replica rescan settings.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, SessionModel]]
+        Response[Error | SessionModel]
     """
 
     kwargs = _get_kwargs(
@@ -177,10 +176,10 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: ReplicaRescanSpec,
+    client: AuthenticatedClient | Client,
+    body: ReplicaRescanSpec | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Union[Error, SessionModel]]:
+) -> Error | SessionModel | None:
     """Rescan Replicas
 
      The HTTP POST request to the `/api/v1/replicas/rescan` path allows you to rescan
@@ -188,14 +187,14 @@ async def asyncio(
 
     Args:
         x_api_version (str):  Default: '1.3-rev0'.
-        body (ReplicaRescanSpec): Replica rescan settings.
+        body (ReplicaRescanSpec | Unset): Replica rescan settings.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, SessionModel]
+        Error | SessionModel
     """
 
     return (

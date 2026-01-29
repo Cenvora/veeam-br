@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -29,21 +31,21 @@ class AmazonS3StorageImportSpec:
         account (AmazonS3StorageAccountImportModel): Account used to access the Amazon S3 storage.
         bucket (AmazonS3StorageBucketModel): Amazon S3 bucket where backup data is stored.
         mount_server (MountServersSettingsImportSpec): Import settings for mount servers.
-        enable_task_limit (Union[Unset, bool]): If `true`, the maximum number of concurrent tasks is limited.
-        max_task_count (Union[Unset, int]): Maximum number of concurrent tasks.
-        proxy_appliance (Union[Unset, AmazonS3StorageProxyApplianceModel]): Amazon S3 proxy appliance.
+        enable_task_limit (bool | Unset): If `true`, the maximum number of concurrent tasks is limited.
+        max_task_count (int | Unset): Maximum number of concurrent tasks.
+        proxy_appliance (AmazonS3StorageProxyApplianceModel | Unset): Amazon S3 proxy appliance.
     """
 
     name: str
     description: str
     unique_id: str
     type_: ERepositoryType
-    account: "AmazonS3StorageAccountImportModel"
-    bucket: "AmazonS3StorageBucketModel"
-    mount_server: "MountServersSettingsImportSpec"
-    enable_task_limit: Union[Unset, bool] = UNSET
-    max_task_count: Union[Unset, int] = UNSET
-    proxy_appliance: Union[Unset, "AmazonS3StorageProxyApplianceModel"] = UNSET
+    account: AmazonS3StorageAccountImportModel
+    bucket: AmazonS3StorageBucketModel
+    mount_server: MountServersSettingsImportSpec
+    enable_task_limit: bool | Unset = UNSET
+    max_task_count: int | Unset = UNSET
+    proxy_appliance: AmazonS3StorageProxyApplianceModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -65,7 +67,7 @@ class AmazonS3StorageImportSpec:
 
         max_task_count = self.max_task_count
 
-        proxy_appliance: Union[Unset, dict[str, Any]] = UNSET
+        proxy_appliance: dict[str, Any] | Unset = UNSET
         if not isinstance(self.proxy_appliance, Unset):
             proxy_appliance = self.proxy_appliance.to_dict()
 
@@ -118,7 +120,7 @@ class AmazonS3StorageImportSpec:
         max_task_count = d.pop("maxTaskCount", UNSET)
 
         _proxy_appliance = d.pop("proxyAppliance", UNSET)
-        proxy_appliance: Union[Unset, AmazonS3StorageProxyApplianceModel]
+        proxy_appliance: AmazonS3StorageProxyApplianceModel | Unset
         if isinstance(_proxy_appliance, Unset):
             proxy_appliance = UNSET
         else:

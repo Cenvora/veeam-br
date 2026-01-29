@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -23,18 +25,18 @@ class AmazonS3StorageBucketModel:
         region_id (str): ID of a region where the Amazon S3 bucket is located.
         bucket_name (str): Name of an Amazon S3 bucket.
         folder_name (str): Name of the folder to which the object storage repository is mapped.
-        storage_consumption_limit (Union[Unset, ObjectStorageConsumptionLimitModel]): Soft consumption limit for the
-            storage. The limit can be exceeded temporarily.
-        immutability (Union[Unset, ObjectStorageImmutabilityModel]): Object storage immutability.
-        infrequent_access_storage (Union[Unset, AmazonS3IAStorageModel]): Standard Infrequent Access.
+        storage_consumption_limit (ObjectStorageConsumptionLimitModel | Unset): Soft consumption limit for the storage.
+            The limit can be exceeded temporarily.
+        immutability (ObjectStorageImmutabilityModel | Unset): Object storage immutability.
+        infrequent_access_storage (AmazonS3IAStorageModel | Unset): Standard Infrequent Access.
     """
 
     region_id: str
     bucket_name: str
     folder_name: str
-    storage_consumption_limit: Union[Unset, "ObjectStorageConsumptionLimitModel"] = UNSET
-    immutability: Union[Unset, "ObjectStorageImmutabilityModel"] = UNSET
-    infrequent_access_storage: Union[Unset, "AmazonS3IAStorageModel"] = UNSET
+    storage_consumption_limit: ObjectStorageConsumptionLimitModel | Unset = UNSET
+    immutability: ObjectStorageImmutabilityModel | Unset = UNSET
+    infrequent_access_storage: AmazonS3IAStorageModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -44,15 +46,15 @@ class AmazonS3StorageBucketModel:
 
         folder_name = self.folder_name
 
-        storage_consumption_limit: Union[Unset, dict[str, Any]] = UNSET
+        storage_consumption_limit: dict[str, Any] | Unset = UNSET
         if not isinstance(self.storage_consumption_limit, Unset):
             storage_consumption_limit = self.storage_consumption_limit.to_dict()
 
-        immutability: Union[Unset, dict[str, Any]] = UNSET
+        immutability: dict[str, Any] | Unset = UNSET
         if not isinstance(self.immutability, Unset):
             immutability = self.immutability.to_dict()
 
-        infrequent_access_storage: Union[Unset, dict[str, Any]] = UNSET
+        infrequent_access_storage: dict[str, Any] | Unset = UNSET
         if not isinstance(self.infrequent_access_storage, Unset):
             infrequent_access_storage = self.infrequent_access_storage.to_dict()
 
@@ -88,21 +90,21 @@ class AmazonS3StorageBucketModel:
         folder_name = d.pop("folderName")
 
         _storage_consumption_limit = d.pop("storageConsumptionLimit", UNSET)
-        storage_consumption_limit: Union[Unset, ObjectStorageConsumptionLimitModel]
+        storage_consumption_limit: ObjectStorageConsumptionLimitModel | Unset
         if isinstance(_storage_consumption_limit, Unset):
             storage_consumption_limit = UNSET
         else:
             storage_consumption_limit = ObjectStorageConsumptionLimitModel.from_dict(_storage_consumption_limit)
 
         _immutability = d.pop("immutability", UNSET)
-        immutability: Union[Unset, ObjectStorageImmutabilityModel]
+        immutability: ObjectStorageImmutabilityModel | Unset
         if isinstance(_immutability, Unset):
             immutability = UNSET
         else:
             immutability = ObjectStorageImmutabilityModel.from_dict(_immutability)
 
         _infrequent_access_storage = d.pop("infrequentAccessStorage", UNSET)
-        infrequent_access_storage: Union[Unset, AmazonS3IAStorageModel]
+        infrequent_access_storage: AmazonS3IAStorageModel | Unset
         if isinstance(_infrequent_access_storage, Unset):
             infrequent_access_storage = UNSET
         else:

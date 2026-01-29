@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -8,12 +8,12 @@ from ...client import AuthenticatedClient, Client
 from ...models.error import Error
 from ...models.repository_export_spec import RepositoryExportSpec
 from ...models.repository_import_spec_collection import RepositoryImportSpecCollection
-from ...types import Response
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     *,
-    body: RepositoryExportSpec,
+    body: RepositoryExportSpec | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -24,7 +24,8 @@ def _get_kwargs(
         "url": "/api/v1/automation/repositories/export",
     }
 
-    _kwargs["json"] = body.to_dict()
+    if not isinstance(body, Unset):
+        _kwargs["json"] = body.to_dict()
 
     headers["Content-Type"] = "application/json"
 
@@ -33,8 +34,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, RepositoryImportSpecCollection]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Error | RepositoryImportSpecCollection | None:
     if response.status_code == 200:
         response_200 = RepositoryImportSpecCollection.from_dict(response.json())
 
@@ -67,8 +68,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, RepositoryImportSpecCollection]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | RepositoryImportSpecCollection]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -79,10 +80,10 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: RepositoryExportSpec,
+    client: AuthenticatedClient | Client,
+    body: RepositoryExportSpec | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Error, RepositoryImportSpecCollection]]:
+) -> Response[Error | RepositoryImportSpecCollection]:
     """Export Repositories
 
      The HTTP POST request to the `/api/v1/automation/repositories/export` endpoint exports backup
@@ -91,14 +92,14 @@ def sync_detailed(
 
     Args:
         x_api_version (str):  Default: '1.3-rev1'.
-        body (RepositoryExportSpec): Repository export settings.
+        body (RepositoryExportSpec | Unset): Repository export settings.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, RepositoryImportSpecCollection]]
+        Response[Error | RepositoryImportSpecCollection]
     """
 
     kwargs = _get_kwargs(
@@ -115,10 +116,10 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: RepositoryExportSpec,
+    client: AuthenticatedClient | Client,
+    body: RepositoryExportSpec | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Error, RepositoryImportSpecCollection]]:
+) -> Error | RepositoryImportSpecCollection | None:
     """Export Repositories
 
      The HTTP POST request to the `/api/v1/automation/repositories/export` endpoint exports backup
@@ -127,14 +128,14 @@ def sync(
 
     Args:
         x_api_version (str):  Default: '1.3-rev1'.
-        body (RepositoryExportSpec): Repository export settings.
+        body (RepositoryExportSpec | Unset): Repository export settings.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, RepositoryImportSpecCollection]
+        Error | RepositoryImportSpecCollection
     """
 
     return sync_detailed(
@@ -146,10 +147,10 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: RepositoryExportSpec,
+    client: AuthenticatedClient | Client,
+    body: RepositoryExportSpec | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Error, RepositoryImportSpecCollection]]:
+) -> Response[Error | RepositoryImportSpecCollection]:
     """Export Repositories
 
      The HTTP POST request to the `/api/v1/automation/repositories/export` endpoint exports backup
@@ -158,14 +159,14 @@ async def asyncio_detailed(
 
     Args:
         x_api_version (str):  Default: '1.3-rev1'.
-        body (RepositoryExportSpec): Repository export settings.
+        body (RepositoryExportSpec | Unset): Repository export settings.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, RepositoryImportSpecCollection]]
+        Response[Error | RepositoryImportSpecCollection]
     """
 
     kwargs = _get_kwargs(
@@ -180,10 +181,10 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: RepositoryExportSpec,
+    client: AuthenticatedClient | Client,
+    body: RepositoryExportSpec | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Error, RepositoryImportSpecCollection]]:
+) -> Error | RepositoryImportSpecCollection | None:
     """Export Repositories
 
      The HTTP POST request to the `/api/v1/automation/repositories/export` endpoint exports backup
@@ -192,14 +193,14 @@ async def asyncio(
 
     Args:
         x_api_version (str):  Default: '1.3-rev1'.
-        body (RepositoryExportSpec): Repository export settings.
+        body (RepositoryExportSpec | Unset): Repository export settings.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, RepositoryImportSpecCollection]
+        Error | RepositoryImportSpecCollection
     """
 
     return (

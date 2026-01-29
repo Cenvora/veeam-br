@@ -1,5 +1,6 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
@@ -9,13 +10,13 @@ from ...client import AuthenticatedClient, Client
 from ...models.error import Error
 from ...models.instance_license_assignment_spec import InstanceLicenseAssignmentSpec
 from ...models.instance_license_workload_model import InstanceLicenseWorkloadModel
-from ...types import Response
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     instance_id: UUID,
     *,
-    body: InstanceLicenseAssignmentSpec,
+    body: InstanceLicenseAssignmentSpec | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -23,10 +24,13 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": f"/api/v1/license/instances/{instance_id}/assign",
+        "url": "/api/v1/license/instances/{instance_id}/assign".format(
+            instance_id=quote(str(instance_id), safe=""),
+        ),
     }
 
-    _kwargs["json"] = body.to_dict()
+    if not isinstance(body, Unset):
+        _kwargs["json"] = body.to_dict()
 
     headers["Content-Type"] = "application/json"
 
@@ -35,8 +39,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, InstanceLicenseWorkloadModel]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Error | InstanceLicenseWorkloadModel | None:
     if response.status_code == 200:
         response_200 = InstanceLicenseWorkloadModel.from_dict(response.json())
 
@@ -69,8 +73,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, InstanceLicenseWorkloadModel]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | InstanceLicenseWorkloadModel]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -82,10 +86,10 @@ def _build_response(
 def sync_detailed(
     instance_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: InstanceLicenseAssignmentSpec,
+    client: AuthenticatedClient | Client,
+    body: InstanceLicenseAssignmentSpec | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Error, InstanceLicenseWorkloadModel]]:
+) -> Response[Error | InstanceLicenseWorkloadModel]:
     """Assign Instance License
 
      The HTTP POST request to the `/api/v1/license/instances/{instanceId}/assign` endpoint sets the
@@ -95,14 +99,15 @@ def sync_detailed(
     Args:
         instance_id (UUID):
         x_api_version (str):  Default: '1.3-rev1'.
-        body (InstanceLicenseAssignmentSpec): Set the product edition for standalone Veeam Agents.
+        body (InstanceLicenseAssignmentSpec | Unset): Set the product edition for standalone Veeam
+            Agents.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, InstanceLicenseWorkloadModel]]
+        Response[Error | InstanceLicenseWorkloadModel]
     """
 
     kwargs = _get_kwargs(
@@ -121,10 +126,10 @@ def sync_detailed(
 def sync(
     instance_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: InstanceLicenseAssignmentSpec,
+    client: AuthenticatedClient | Client,
+    body: InstanceLicenseAssignmentSpec | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Error, InstanceLicenseWorkloadModel]]:
+) -> Error | InstanceLicenseWorkloadModel | None:
     """Assign Instance License
 
      The HTTP POST request to the `/api/v1/license/instances/{instanceId}/assign` endpoint sets the
@@ -134,14 +139,15 @@ def sync(
     Args:
         instance_id (UUID):
         x_api_version (str):  Default: '1.3-rev1'.
-        body (InstanceLicenseAssignmentSpec): Set the product edition for standalone Veeam Agents.
+        body (InstanceLicenseAssignmentSpec | Unset): Set the product edition for standalone Veeam
+            Agents.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, InstanceLicenseWorkloadModel]
+        Error | InstanceLicenseWorkloadModel
     """
 
     return sync_detailed(
@@ -155,10 +161,10 @@ def sync(
 async def asyncio_detailed(
     instance_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: InstanceLicenseAssignmentSpec,
+    client: AuthenticatedClient | Client,
+    body: InstanceLicenseAssignmentSpec | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Error, InstanceLicenseWorkloadModel]]:
+) -> Response[Error | InstanceLicenseWorkloadModel]:
     """Assign Instance License
 
      The HTTP POST request to the `/api/v1/license/instances/{instanceId}/assign` endpoint sets the
@@ -168,14 +174,15 @@ async def asyncio_detailed(
     Args:
         instance_id (UUID):
         x_api_version (str):  Default: '1.3-rev1'.
-        body (InstanceLicenseAssignmentSpec): Set the product edition for standalone Veeam Agents.
+        body (InstanceLicenseAssignmentSpec | Unset): Set the product edition for standalone Veeam
+            Agents.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, InstanceLicenseWorkloadModel]]
+        Response[Error | InstanceLicenseWorkloadModel]
     """
 
     kwargs = _get_kwargs(
@@ -192,10 +199,10 @@ async def asyncio_detailed(
 async def asyncio(
     instance_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: InstanceLicenseAssignmentSpec,
+    client: AuthenticatedClient | Client,
+    body: InstanceLicenseAssignmentSpec | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Error, InstanceLicenseWorkloadModel]]:
+) -> Error | InstanceLicenseWorkloadModel | None:
     """Assign Instance License
 
      The HTTP POST request to the `/api/v1/license/instances/{instanceId}/assign` endpoint sets the
@@ -205,14 +212,15 @@ async def asyncio(
     Args:
         instance_id (UUID):
         x_api_version (str):  Default: '1.3-rev1'.
-        body (InstanceLicenseAssignmentSpec): Set the product edition for standalone Veeam Agents.
+        body (InstanceLicenseAssignmentSpec | Unset): Set the product edition for standalone Veeam
+            Agents.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, InstanceLicenseWorkloadModel]
+        Error | InstanceLicenseWorkloadModel
     """
 
     return (

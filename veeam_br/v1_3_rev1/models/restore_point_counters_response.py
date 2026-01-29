@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -18,14 +20,14 @@ class RestorePointCountersResponse:
     """Details on restore point counters.
 
     Attributes:
-        items (Union[Unset, list['RestorePointCounterModel']]): Array of restore point counters.
+        items (list[RestorePointCounterModel] | Unset): Array of restore point counters.
     """
 
-    items: Union[Unset, list["RestorePointCounterModel"]] = UNSET
+    items: list[RestorePointCounterModel] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        items: Union[Unset, list[dict[str, Any]]] = UNSET
+        items: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.items, Unset):
             items = []
             for items_item_data in self.items:
@@ -45,12 +47,14 @@ class RestorePointCountersResponse:
         from ..models.restore_point_counter_model import RestorePointCounterModel
 
         d = dict(src_dict)
-        items = []
         _items = d.pop("items", UNSET)
-        for items_item_data in _items or []:
-            items_item = RestorePointCounterModel.from_dict(items_item_data)
+        items: list[RestorePointCounterModel] | Unset = UNSET
+        if _items is not UNSET:
+            items = []
+            for items_item_data in _items:
+                items_item = RestorePointCounterModel.from_dict(items_item_data)
 
-            items.append(items_item)
+                items.append(items_item)
 
         restore_point_counters_response = cls(
             items=items,

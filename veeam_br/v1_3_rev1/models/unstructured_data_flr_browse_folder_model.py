@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,13 +22,13 @@ class UnstructuredDataFlrBrowseFolderModel:
 
     Attributes:
         path (str): Browsing path.
-        items (list['UnstructuredDataFlrBrowseItemModel']): Array of child items.
-        pagination (Union[Unset, PaginationResult]): Pagination settings.
+        items (list[UnstructuredDataFlrBrowseItemModel]): Array of child items.
+        pagination (PaginationResult | Unset): Pagination settings.
     """
 
     path: str
-    items: list["UnstructuredDataFlrBrowseItemModel"]
-    pagination: Union[Unset, "PaginationResult"] = UNSET
+    items: list[UnstructuredDataFlrBrowseItemModel]
+    pagination: PaginationResult | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -37,7 +39,7 @@ class UnstructuredDataFlrBrowseFolderModel:
             items_item = items_item_data.to_dict()
             items.append(items_item)
 
-        pagination: Union[Unset, dict[str, Any]] = UNSET
+        pagination: dict[str, Any] | Unset = UNSET
         if not isinstance(self.pagination, Unset):
             pagination = self.pagination.to_dict()
 
@@ -70,7 +72,7 @@ class UnstructuredDataFlrBrowseFolderModel:
             items.append(items_item)
 
         _pagination = d.pop("pagination", UNSET)
-        pagination: Union[Unset, PaginationResult]
+        pagination: PaginationResult | Unset
         if isinstance(_pagination, Unset):
             pagination = UNSET
         else:

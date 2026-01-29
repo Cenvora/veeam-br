@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -16,23 +18,23 @@ class UnstructuredDataRestorePermissionsModel:
 
     Attributes:
         owner (str): Name of the account or group in the user name or domain\user name format.
-        permission_type (Union[Unset, EAccountPermissionType]): Permission set.
-        permission_scope (Union[Unset, list[str]]): Array of users.
+        permission_type (EAccountPermissionType | Unset): Permission set.
+        permission_scope (list[str] | Unset): Array of users.
     """
 
     owner: str
-    permission_type: Union[Unset, EAccountPermissionType] = UNSET
-    permission_scope: Union[Unset, list[str]] = UNSET
+    permission_type: EAccountPermissionType | Unset = UNSET
+    permission_scope: list[str] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         owner = self.owner
 
-        permission_type: Union[Unset, str] = UNSET
+        permission_type: str | Unset = UNSET
         if not isinstance(self.permission_type, Unset):
             permission_type = self.permission_type.value
 
-        permission_scope: Union[Unset, list[str]] = UNSET
+        permission_scope: list[str] | Unset = UNSET
         if not isinstance(self.permission_scope, Unset):
             permission_scope = self.permission_scope
 
@@ -56,7 +58,7 @@ class UnstructuredDataRestorePermissionsModel:
         owner = d.pop("owner")
 
         _permission_type = d.pop("permissionType", UNSET)
-        permission_type: Union[Unset, EAccountPermissionType]
+        permission_type: EAccountPermissionType | Unset
         if isinstance(_permission_type, Unset):
             permission_type = UNSET
         else:

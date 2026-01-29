@@ -1,5 +1,6 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
@@ -14,9 +15,9 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     id: UUID,
     *,
-    from_db_if_sp_unavailable: Union[Unset, bool] = UNSET,
-    include_gfs: Union[Unset, bool] = UNSET,
-    from_db: Union[Unset, bool] = UNSET,
+    from_db_if_sp_unavailable: bool | Unset = UNSET,
+    include_gfs: bool | Unset = UNSET,
+    from_db: bool | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -34,7 +35,9 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "delete",
-        "url": f"/api/v1/backups/{id}",
+        "url": "/api/v1/backups/{id}".format(
+            id=quote(str(id), safe=""),
+        ),
         "params": params,
     }
 
@@ -42,9 +45,7 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, SessionModel]]:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Error | SessionModel | None:
     if response.status_code == 201:
         response_201 = SessionModel.from_dict(response.json())
 
@@ -77,8 +78,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, SessionModel]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | SessionModel]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -90,12 +91,12 @@ def _build_response(
 def sync_detailed(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    from_db_if_sp_unavailable: Union[Unset, bool] = UNSET,
-    include_gfs: Union[Unset, bool] = UNSET,
-    from_db: Union[Unset, bool] = UNSET,
+    client: AuthenticatedClient | Client,
+    from_db_if_sp_unavailable: bool | Unset = UNSET,
+    include_gfs: bool | Unset = UNSET,
+    from_db: bool | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Error, SessionModel]]:
+) -> Response[Error | SessionModel]:
     """Delete Backup
 
      The HTTP DELETE request to the `/api/v1/backups/{id}` endpoint deletes a backup that has the
@@ -103,9 +104,9 @@ def sync_detailed(
 
     Args:
         id (UUID):
-        from_db_if_sp_unavailable (Union[Unset, bool]):
-        include_gfs (Union[Unset, bool]):
-        from_db (Union[Unset, bool]):
+        from_db_if_sp_unavailable (bool | Unset):
+        include_gfs (bool | Unset):
+        from_db (bool | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -113,7 +114,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, SessionModel]]
+        Response[Error | SessionModel]
     """
 
     kwargs = _get_kwargs(
@@ -134,12 +135,12 @@ def sync_detailed(
 def sync(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    from_db_if_sp_unavailable: Union[Unset, bool] = UNSET,
-    include_gfs: Union[Unset, bool] = UNSET,
-    from_db: Union[Unset, bool] = UNSET,
+    client: AuthenticatedClient | Client,
+    from_db_if_sp_unavailable: bool | Unset = UNSET,
+    include_gfs: bool | Unset = UNSET,
+    from_db: bool | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Error, SessionModel]]:
+) -> Error | SessionModel | None:
     """Delete Backup
 
      The HTTP DELETE request to the `/api/v1/backups/{id}` endpoint deletes a backup that has the
@@ -147,9 +148,9 @@ def sync(
 
     Args:
         id (UUID):
-        from_db_if_sp_unavailable (Union[Unset, bool]):
-        include_gfs (Union[Unset, bool]):
-        from_db (Union[Unset, bool]):
+        from_db_if_sp_unavailable (bool | Unset):
+        include_gfs (bool | Unset):
+        from_db (bool | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -157,7 +158,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, SessionModel]
+        Error | SessionModel
     """
 
     return sync_detailed(
@@ -173,12 +174,12 @@ def sync(
 async def asyncio_detailed(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    from_db_if_sp_unavailable: Union[Unset, bool] = UNSET,
-    include_gfs: Union[Unset, bool] = UNSET,
-    from_db: Union[Unset, bool] = UNSET,
+    client: AuthenticatedClient | Client,
+    from_db_if_sp_unavailable: bool | Unset = UNSET,
+    include_gfs: bool | Unset = UNSET,
+    from_db: bool | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Error, SessionModel]]:
+) -> Response[Error | SessionModel]:
     """Delete Backup
 
      The HTTP DELETE request to the `/api/v1/backups/{id}` endpoint deletes a backup that has the
@@ -186,9 +187,9 @@ async def asyncio_detailed(
 
     Args:
         id (UUID):
-        from_db_if_sp_unavailable (Union[Unset, bool]):
-        include_gfs (Union[Unset, bool]):
-        from_db (Union[Unset, bool]):
+        from_db_if_sp_unavailable (bool | Unset):
+        include_gfs (bool | Unset):
+        from_db (bool | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -196,7 +197,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, SessionModel]]
+        Response[Error | SessionModel]
     """
 
     kwargs = _get_kwargs(
@@ -215,12 +216,12 @@ async def asyncio_detailed(
 async def asyncio(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    from_db_if_sp_unavailable: Union[Unset, bool] = UNSET,
-    include_gfs: Union[Unset, bool] = UNSET,
-    from_db: Union[Unset, bool] = UNSET,
+    client: AuthenticatedClient | Client,
+    from_db_if_sp_unavailable: bool | Unset = UNSET,
+    include_gfs: bool | Unset = UNSET,
+    from_db: bool | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Error, SessionModel]]:
+) -> Error | SessionModel | None:
     """Delete Backup
 
      The HTTP DELETE request to the `/api/v1/backups/{id}` endpoint deletes a backup that has the
@@ -228,9 +229,9 @@ async def asyncio(
 
     Args:
         id (UUID):
-        from_db_if_sp_unavailable (Union[Unset, bool]):
-        include_gfs (Union[Unset, bool]):
-        from_db (Union[Unset, bool]):
+        from_db_if_sp_unavailable (bool | Unset):
+        include_gfs (bool | Unset):
+        from_db (bool | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -238,7 +239,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, SessionModel]
+        Error | SessionModel
     """
 
     return (

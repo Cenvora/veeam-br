@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,14 +16,14 @@ class EntraIdTenantRoleFilterBrowseSpec:
     """Filtering options.
 
     Attributes:
-        display_name (Union[Unset, str]): Role display name.
-        is_built_in (Union[Unset, bool]): If `true`, the role is built-in.
-        is_enabled (Union[Unset, bool]): If `true`, the role is enabled.
+        display_name (str | Unset): Role display name.
+        is_built_in (bool | Unset): If `true`, the role is built-in.
+        is_enabled (bool | Unset): If `true`, the role is enabled.
     """
 
-    display_name: Union[Unset, str] = UNSET
-    is_built_in: Union[Unset, bool] = UNSET
-    is_enabled: Union[Unset, bool] = UNSET
+    display_name: str | Unset = UNSET
+    is_built_in: bool | Unset = UNSET
+    is_enabled: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

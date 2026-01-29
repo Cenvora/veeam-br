@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -23,20 +25,20 @@ class EntraIDTenantModel:
     Attributes:
         id (UUID): Tenant ID assigned by Veeam Backup & Replication.
         cache_repository_id (UUID): ID of a backup repository that is used as a cache repository for the tenant.
-        azure_tenant_id (Union[Unset, UUID]): Tenant ID assigned by Microsoft Entra ID.
-        description (Union[Unset, str]): Tenant description.
-        region (Union[Unset, EAzureRegionType]): Microsoft Azure region.
-        authentication (Union[Unset, EntraIDTenantAuthenticationModel]): Authentication settings.
-        protection_scope (Union[Unset, list[EEntraIdTenantResource]]): Array of tenant protection scopes.
+        azure_tenant_id (UUID | Unset): Tenant ID assigned by Microsoft Entra ID.
+        description (str | Unset): Tenant description.
+        region (EAzureRegionType | Unset): Microsoft Azure region.
+        authentication (EntraIDTenantAuthenticationModel | Unset): Authentication settings.
+        protection_scope (list[EEntraIdTenantResource] | Unset): Array of tenant protection scopes.
     """
 
     id: UUID
     cache_repository_id: UUID
-    azure_tenant_id: Union[Unset, UUID] = UNSET
-    description: Union[Unset, str] = UNSET
-    region: Union[Unset, EAzureRegionType] = UNSET
-    authentication: Union[Unset, "EntraIDTenantAuthenticationModel"] = UNSET
-    protection_scope: Union[Unset, list[EEntraIdTenantResource]] = UNSET
+    azure_tenant_id: UUID | Unset = UNSET
+    description: str | Unset = UNSET
+    region: EAzureRegionType | Unset = UNSET
+    authentication: EntraIDTenantAuthenticationModel | Unset = UNSET
+    protection_scope: list[EEntraIdTenantResource] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -44,21 +46,21 @@ class EntraIDTenantModel:
 
         cache_repository_id = str(self.cache_repository_id)
 
-        azure_tenant_id: Union[Unset, str] = UNSET
+        azure_tenant_id: str | Unset = UNSET
         if not isinstance(self.azure_tenant_id, Unset):
             azure_tenant_id = str(self.azure_tenant_id)
 
         description = self.description
 
-        region: Union[Unset, str] = UNSET
+        region: str | Unset = UNSET
         if not isinstance(self.region, Unset):
             region = self.region.value
 
-        authentication: Union[Unset, dict[str, Any]] = UNSET
+        authentication: dict[str, Any] | Unset = UNSET
         if not isinstance(self.authentication, Unset):
             authentication = self.authentication.to_dict()
 
-        protection_scope: Union[Unset, list[str]] = UNSET
+        protection_scope: list[str] | Unset = UNSET
         if not isinstance(self.protection_scope, Unset):
             protection_scope = []
             for protection_scope_item_data in self.protection_scope:
@@ -96,7 +98,7 @@ class EntraIDTenantModel:
         cache_repository_id = UUID(d.pop("cacheRepositoryId"))
 
         _azure_tenant_id = d.pop("azureTenantId", UNSET)
-        azure_tenant_id: Union[Unset, UUID]
+        azure_tenant_id: UUID | Unset
         if isinstance(_azure_tenant_id, Unset):
             azure_tenant_id = UNSET
         else:
@@ -105,25 +107,27 @@ class EntraIDTenantModel:
         description = d.pop("description", UNSET)
 
         _region = d.pop("region", UNSET)
-        region: Union[Unset, EAzureRegionType]
+        region: EAzureRegionType | Unset
         if isinstance(_region, Unset):
             region = UNSET
         else:
             region = EAzureRegionType(_region)
 
         _authentication = d.pop("authentication", UNSET)
-        authentication: Union[Unset, EntraIDTenantAuthenticationModel]
+        authentication: EntraIDTenantAuthenticationModel | Unset
         if isinstance(_authentication, Unset):
             authentication = UNSET
         else:
             authentication = EntraIDTenantAuthenticationModel.from_dict(_authentication)
 
-        protection_scope = []
         _protection_scope = d.pop("protectionScope", UNSET)
-        for protection_scope_item_data in _protection_scope or []:
-            protection_scope_item = EEntraIdTenantResource(protection_scope_item_data)
+        protection_scope: list[EEntraIdTenantResource] | Unset = UNSET
+        if _protection_scope is not UNSET:
+            protection_scope = []
+            for protection_scope_item_data in _protection_scope:
+                protection_scope_item = EEntraIdTenantResource(protection_scope_item_data)
 
-            protection_scope.append(protection_scope_item)
+                protection_scope.append(protection_scope_item)
 
         entra_id_tenant_model = cls(
             id=id,

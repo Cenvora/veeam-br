@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -15,23 +17,23 @@ class WANAcceleratorServerModel:
     """Microsoft Windows server used as a WAN accelerator.
 
     Attributes:
-        host_id (Union[Unset, UUID]): Server ID.
-        description (Union[Unset, str]): WAN accelerator description.
-        traffic_port (Union[Unset, int]): Number of the port used for communication with other WAN accelerators.
-        streams_count (Union[Unset, int]): Number of connections that are used to transmit data between WAN
-            accelerators. This setting applies only to the source WAN accelerator.
-        high_bandwidth_mode_enabled (Union[Unset, bool]): If `true`, the high bandwidth mode is enabled.
+        host_id (UUID | Unset): Server ID.
+        description (str | Unset): WAN accelerator description.
+        traffic_port (int | Unset): Number of the port used for communication with other WAN accelerators.
+        streams_count (int | Unset): Number of connections that are used to transmit data between WAN accelerators. This
+            setting applies only to the source WAN accelerator.
+        high_bandwidth_mode_enabled (bool | Unset): If `true`, the high bandwidth mode is enabled.
     """
 
-    host_id: Union[Unset, UUID] = UNSET
-    description: Union[Unset, str] = UNSET
-    traffic_port: Union[Unset, int] = UNSET
-    streams_count: Union[Unset, int] = UNSET
-    high_bandwidth_mode_enabled: Union[Unset, bool] = UNSET
+    host_id: UUID | Unset = UNSET
+    description: str | Unset = UNSET
+    traffic_port: int | Unset = UNSET
+    streams_count: int | Unset = UNSET
+    high_bandwidth_mode_enabled: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        host_id: Union[Unset, str] = UNSET
+        host_id: str | Unset = UNSET
         if not isinstance(self.host_id, Unset):
             host_id = str(self.host_id)
 
@@ -63,7 +65,7 @@ class WANAcceleratorServerModel:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _host_id = d.pop("hostId", UNSET)
-        host_id: Union[Unset, UUID]
+        host_id: UUID | Unset
         if isinstance(_host_id, Unset):
             host_id = UNSET
         else:

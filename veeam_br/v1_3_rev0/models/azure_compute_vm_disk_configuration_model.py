@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,19 +17,19 @@ class AzureComputeVMDiskConfigurationModel:
     """Settings for Microsoft Azure VM disk.
 
     Attributes:
-        disk_uid (Union[Unset, str]): Disk UID of the restore point as of which you want to restore your machine. To get
-            the UID, run the [Get Restore Point Disks](Restore-Points#operation/GetObjectRestorePointDisks) request.
-        disk_type (Union[Unset, EAzureComputeVMDiskType]): Disk type of Microsoft Azure VM.
+        disk_uid (str | Unset): Disk UID of the restore point as of which you want to restore your machine. To get the
+            UID, run the [Get Restore Point Disks](Restore-Points#operation/GetObjectRestorePointDisks) request.
+        disk_type (EAzureComputeVMDiskType | Unset): Disk type of Microsoft Azure VM.
     """
 
-    disk_uid: Union[Unset, str] = UNSET
-    disk_type: Union[Unset, EAzureComputeVMDiskType] = UNSET
+    disk_uid: str | Unset = UNSET
+    disk_type: EAzureComputeVMDiskType | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         disk_uid = self.disk_uid
 
-        disk_type: Union[Unset, str] = UNSET
+        disk_type: str | Unset = UNSET
         if not isinstance(self.disk_type, Unset):
             disk_type = self.disk_type.value
 
@@ -47,7 +49,7 @@ class AzureComputeVMDiskConfigurationModel:
         disk_uid = d.pop("diskUid", UNSET)
 
         _disk_type = d.pop("diskType", UNSET)
-        disk_type: Union[Unset, EAzureComputeVMDiskType]
+        disk_type: EAzureComputeVMDiskType | Unset
         if isinstance(_disk_type, Unset):
             disk_type = UNSET
         else:

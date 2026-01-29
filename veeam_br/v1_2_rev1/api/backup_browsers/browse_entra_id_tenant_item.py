@@ -1,20 +1,14 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.entra_id_tenant_admin_unit_browse_model import EntraIdTenantAdminUnitBrowseModel
-from ...models.entra_id_tenant_application_browse_model import EntraIdTenantApplicationBrowseModel
-from ...models.entra_id_tenant_conditional_access_policy_browse_model import (
-    EntraIdTenantConditionalAccessPolicyBrowseModel,
-)
-from ...models.entra_id_tenant_group_browse_model import EntraIdTenantGroupBrowseModel
+from ...models.entra_id_tenant_browse_model import EntraIdTenantBrowseModel
 from ...models.entra_id_tenant_item_type_spec import EntraIdTenantItemTypeSpec
-from ...models.entra_id_tenant_role_browse_model import EntraIdTenantRoleBrowseModel
-from ...models.entra_id_tenant_user_browse_model import EntraIdTenantUserBrowseModel
 from ...models.error import Error
 from ...types import Response
 
@@ -31,7 +25,10 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": f"/api/v1/backupBrowser/entraIdTenant/{backup_id}/browse/{item_id}",
+        "url": "/api/v1/backupBrowser/entraIdTenant/{backup_id}/browse/{item_id}".format(
+            backup_id=quote(str(backup_id), safe=""),
+            item_id=quote(str(item_id), safe=""),
+        ),
     }
 
     _kwargs["json"] = body.to_dict()
@@ -43,85 +40,10 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[
-    Union[
-        Error,
-        Union[
-            "EntraIdTenantAdminUnitBrowseModel",
-            "EntraIdTenantApplicationBrowseModel",
-            "EntraIdTenantConditionalAccessPolicyBrowseModel",
-            "EntraIdTenantGroupBrowseModel",
-            "EntraIdTenantRoleBrowseModel",
-            "EntraIdTenantUserBrowseModel",
-        ],
-    ]
-]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> EntraIdTenantBrowseModel | Error | None:
     if response.status_code == 200:
-
-        def _parse_response_200(
-            data: object,
-        ) -> Union[
-            "EntraIdTenantAdminUnitBrowseModel",
-            "EntraIdTenantApplicationBrowseModel",
-            "EntraIdTenantConditionalAccessPolicyBrowseModel",
-            "EntraIdTenantGroupBrowseModel",
-            "EntraIdTenantRoleBrowseModel",
-            "EntraIdTenantUserBrowseModel",
-        ]:
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_entra_id_tenant_browse_model_type_0 = EntraIdTenantUserBrowseModel.from_dict(data)
-
-                return componentsschemas_entra_id_tenant_browse_model_type_0
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_entra_id_tenant_browse_model_type_1 = EntraIdTenantGroupBrowseModel.from_dict(data)
-
-                return componentsschemas_entra_id_tenant_browse_model_type_1
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_entra_id_tenant_browse_model_type_2 = EntraIdTenantAdminUnitBrowseModel.from_dict(
-                    data
-                )
-
-                return componentsschemas_entra_id_tenant_browse_model_type_2
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_entra_id_tenant_browse_model_type_3 = EntraIdTenantRoleBrowseModel.from_dict(data)
-
-                return componentsschemas_entra_id_tenant_browse_model_type_3
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_entra_id_tenant_browse_model_type_4 = EntraIdTenantApplicationBrowseModel.from_dict(
-                    data
-                )
-
-                return componentsschemas_entra_id_tenant_browse_model_type_4
-            except:  # noqa: E722
-                pass
-            if not isinstance(data, dict):
-                raise TypeError()
-            componentsschemas_entra_id_tenant_browse_model_type_5 = (
-                EntraIdTenantConditionalAccessPolicyBrowseModel.from_dict(data)
-            )
-
-            return componentsschemas_entra_id_tenant_browse_model_type_5
-
-        response_200 = _parse_response_200(response.json())
+        response_200 = EntraIdTenantBrowseModel.from_dict(response.json())
 
         return response_200
 
@@ -152,20 +74,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[
-    Union[
-        Error,
-        Union[
-            "EntraIdTenantAdminUnitBrowseModel",
-            "EntraIdTenantApplicationBrowseModel",
-            "EntraIdTenantConditionalAccessPolicyBrowseModel",
-            "EntraIdTenantGroupBrowseModel",
-            "EntraIdTenantRoleBrowseModel",
-            "EntraIdTenantUserBrowseModel",
-        ],
-    ]
-]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[EntraIdTenantBrowseModel | Error]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -178,22 +88,10 @@ def sync_detailed(
     backup_id: UUID,
     item_id: str,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: EntraIdTenantItemTypeSpec,
     x_api_version: str = "1.2-rev1",
-) -> Response[
-    Union[
-        Error,
-        Union[
-            "EntraIdTenantAdminUnitBrowseModel",
-            "EntraIdTenantApplicationBrowseModel",
-            "EntraIdTenantConditionalAccessPolicyBrowseModel",
-            "EntraIdTenantGroupBrowseModel",
-            "EntraIdTenantRoleBrowseModel",
-            "EntraIdTenantUserBrowseModel",
-        ],
-    ]
-]:
+) -> Response[EntraIdTenantBrowseModel | Error]:
     """Get Microsoft Entra ID Item
 
      The HTTP POST request to the `/api/v1/backupBrowser/entraIdTenant/{backupId}/browse/{itemId}` path
@@ -212,7 +110,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, Union['EntraIdTenantAdminUnitBrowseModel', 'EntraIdTenantApplicationBrowseModel', 'EntraIdTenantConditionalAccessPolicyBrowseModel', 'EntraIdTenantGroupBrowseModel', 'EntraIdTenantRoleBrowseModel', 'EntraIdTenantUserBrowseModel']]]
+        Response[EntraIdTenantBrowseModel | Error]
     """
 
     kwargs = _get_kwargs(
@@ -233,22 +131,10 @@ def sync(
     backup_id: UUID,
     item_id: str,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: EntraIdTenantItemTypeSpec,
     x_api_version: str = "1.2-rev1",
-) -> Optional[
-    Union[
-        Error,
-        Union[
-            "EntraIdTenantAdminUnitBrowseModel",
-            "EntraIdTenantApplicationBrowseModel",
-            "EntraIdTenantConditionalAccessPolicyBrowseModel",
-            "EntraIdTenantGroupBrowseModel",
-            "EntraIdTenantRoleBrowseModel",
-            "EntraIdTenantUserBrowseModel",
-        ],
-    ]
-]:
+) -> EntraIdTenantBrowseModel | Error | None:
     """Get Microsoft Entra ID Item
 
      The HTTP POST request to the `/api/v1/backupBrowser/entraIdTenant/{backupId}/browse/{itemId}` path
@@ -267,7 +153,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, Union['EntraIdTenantAdminUnitBrowseModel', 'EntraIdTenantApplicationBrowseModel', 'EntraIdTenantConditionalAccessPolicyBrowseModel', 'EntraIdTenantGroupBrowseModel', 'EntraIdTenantRoleBrowseModel', 'EntraIdTenantUserBrowseModel']]
+        EntraIdTenantBrowseModel | Error
     """
 
     return sync_detailed(
@@ -283,22 +169,10 @@ async def asyncio_detailed(
     backup_id: UUID,
     item_id: str,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: EntraIdTenantItemTypeSpec,
     x_api_version: str = "1.2-rev1",
-) -> Response[
-    Union[
-        Error,
-        Union[
-            "EntraIdTenantAdminUnitBrowseModel",
-            "EntraIdTenantApplicationBrowseModel",
-            "EntraIdTenantConditionalAccessPolicyBrowseModel",
-            "EntraIdTenantGroupBrowseModel",
-            "EntraIdTenantRoleBrowseModel",
-            "EntraIdTenantUserBrowseModel",
-        ],
-    ]
-]:
+) -> Response[EntraIdTenantBrowseModel | Error]:
     """Get Microsoft Entra ID Item
 
      The HTTP POST request to the `/api/v1/backupBrowser/entraIdTenant/{backupId}/browse/{itemId}` path
@@ -317,7 +191,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, Union['EntraIdTenantAdminUnitBrowseModel', 'EntraIdTenantApplicationBrowseModel', 'EntraIdTenantConditionalAccessPolicyBrowseModel', 'EntraIdTenantGroupBrowseModel', 'EntraIdTenantRoleBrowseModel', 'EntraIdTenantUserBrowseModel']]]
+        Response[EntraIdTenantBrowseModel | Error]
     """
 
     kwargs = _get_kwargs(
@@ -336,22 +210,10 @@ async def asyncio(
     backup_id: UUID,
     item_id: str,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: EntraIdTenantItemTypeSpec,
     x_api_version: str = "1.2-rev1",
-) -> Optional[
-    Union[
-        Error,
-        Union[
-            "EntraIdTenantAdminUnitBrowseModel",
-            "EntraIdTenantApplicationBrowseModel",
-            "EntraIdTenantConditionalAccessPolicyBrowseModel",
-            "EntraIdTenantGroupBrowseModel",
-            "EntraIdTenantRoleBrowseModel",
-            "EntraIdTenantUserBrowseModel",
-        ],
-    ]
-]:
+) -> EntraIdTenantBrowseModel | Error | None:
     """Get Microsoft Entra ID Item
 
      The HTTP POST request to the `/api/v1/backupBrowser/entraIdTenant/{backupId}/browse/{itemId}` path
@@ -370,7 +232,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, Union['EntraIdTenantAdminUnitBrowseModel', 'EntraIdTenantApplicationBrowseModel', 'EntraIdTenantConditionalAccessPolicyBrowseModel', 'EntraIdTenantGroupBrowseModel', 'EntraIdTenantRoleBrowseModel', 'EntraIdTenantUserBrowseModel']]
+        EntraIdTenantBrowseModel | Error
     """
 
     return (

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -22,13 +24,13 @@ class RegisterVbrSpec:
                 by providing an authorization code.</li> <li>`vbr_token` — used to obtain an access token by providing a Veeam
                 Backup & Replication token. This grant type is only used in a restricted mode for integration with Veeam Backup
                 & Replication.</li></ul>
-            code (Union[Unset, str]): Authorization code. Required if the `grant_type` value is `authorization_code`.
-            code_verifier (Union[Unset, str]): Verifier code. Required if the `grant_type` value is `authorization_code`.
+            code (str | Unset): Authorization code. Required if the `grant_type` value is `authorization_code`.
+            code_verifier (str | Unset): Verifier code. Required if the `grant_type` value is `authorization_code`.
     """
 
     grant_type: ELoginGrantType
-    code: Union[Unset, str] = UNSET
-    code_verifier: Union[Unset, str] = UNSET
+    code: str | Unset = UNSET
+    code_verifier: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

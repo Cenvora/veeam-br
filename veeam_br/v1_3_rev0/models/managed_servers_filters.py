@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -18,29 +20,29 @@ T = TypeVar("T", bound="ManagedServersFilters")
 class ManagedServersFilters:
     """
     Attributes:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):
-        order_column (Union[Unset, EManagedServersFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, list[EManagedServerType]]):
-        vi_type_filter (Union[Unset, EViHostType]): Type of the VMware vSphere server.
-        server_state_filter (Union[Unset, EManagedServerState]): Managed server state.
-        updates_state_filter (Union[Unset, list[EHostUpdatesState]]):
-        include_nested_hosts (Union[Unset, bool]): If `true`, nested hosts (where the hypervisor is running inside a VM)
-            are included in the selection. Default: False.
+        skip (int | Unset):
+        limit (int | Unset):
+        order_column (EManagedServersFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        type_filter (list[EManagedServerType] | Unset):
+        vi_type_filter (EViHostType | Unset): Type of the VMware vSphere server.
+        server_state_filter (EManagedServerState | Unset): Managed server state.
+        updates_state_filter (list[EHostUpdatesState] | Unset):
+        include_nested_hosts (bool | Unset): If `true`, nested hosts (where the hypervisor is running inside a VM) are
+            included in the selection. Default: False.
     """
 
-    skip: Union[Unset, int] = UNSET
-    limit: Union[Unset, int] = UNSET
-    order_column: Union[Unset, EManagedServersFiltersOrderColumn] = UNSET
-    order_asc: Union[Unset, bool] = UNSET
-    name_filter: Union[Unset, str] = UNSET
-    type_filter: Union[Unset, list[EManagedServerType]] = UNSET
-    vi_type_filter: Union[Unset, EViHostType] = UNSET
-    server_state_filter: Union[Unset, EManagedServerState] = UNSET
-    updates_state_filter: Union[Unset, list[EHostUpdatesState]] = UNSET
-    include_nested_hosts: Union[Unset, bool] = False
+    skip: int | Unset = UNSET
+    limit: int | Unset = UNSET
+    order_column: EManagedServersFiltersOrderColumn | Unset = UNSET
+    order_asc: bool | Unset = UNSET
+    name_filter: str | Unset = UNSET
+    type_filter: list[EManagedServerType] | Unset = UNSET
+    vi_type_filter: EViHostType | Unset = UNSET
+    server_state_filter: EManagedServerState | Unset = UNSET
+    updates_state_filter: list[EHostUpdatesState] | Unset = UNSET
+    include_nested_hosts: bool | Unset = False
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -48,7 +50,7 @@ class ManagedServersFilters:
 
         limit = self.limit
 
-        order_column: Union[Unset, str] = UNSET
+        order_column: str | Unset = UNSET
         if not isinstance(self.order_column, Unset):
             order_column = self.order_column.value
 
@@ -56,22 +58,22 @@ class ManagedServersFilters:
 
         name_filter = self.name_filter
 
-        type_filter: Union[Unset, list[str]] = UNSET
+        type_filter: list[str] | Unset = UNSET
         if not isinstance(self.type_filter, Unset):
             type_filter = []
             for type_filter_item_data in self.type_filter:
                 type_filter_item = type_filter_item_data.value
                 type_filter.append(type_filter_item)
 
-        vi_type_filter: Union[Unset, str] = UNSET
+        vi_type_filter: str | Unset = UNSET
         if not isinstance(self.vi_type_filter, Unset):
             vi_type_filter = self.vi_type_filter.value
 
-        server_state_filter: Union[Unset, str] = UNSET
+        server_state_filter: str | Unset = UNSET
         if not isinstance(self.server_state_filter, Unset):
             server_state_filter = self.server_state_filter.value
 
-        updates_state_filter: Union[Unset, list[str]] = UNSET
+        updates_state_filter: list[str] | Unset = UNSET
         if not isinstance(self.updates_state_filter, Unset):
             updates_state_filter = []
             for updates_state_filter_item_data in self.updates_state_filter:
@@ -114,7 +116,7 @@ class ManagedServersFilters:
         limit = d.pop("limit", UNSET)
 
         _order_column = d.pop("orderColumn", UNSET)
-        order_column: Union[Unset, EManagedServersFiltersOrderColumn]
+        order_column: EManagedServersFiltersOrderColumn | Unset
         if isinstance(_order_column, Unset):
             order_column = UNSET
         else:
@@ -124,33 +126,37 @@ class ManagedServersFilters:
 
         name_filter = d.pop("nameFilter", UNSET)
 
-        type_filter = []
         _type_filter = d.pop("typeFilter", UNSET)
-        for type_filter_item_data in _type_filter or []:
-            type_filter_item = EManagedServerType(type_filter_item_data)
+        type_filter: list[EManagedServerType] | Unset = UNSET
+        if _type_filter is not UNSET:
+            type_filter = []
+            for type_filter_item_data in _type_filter:
+                type_filter_item = EManagedServerType(type_filter_item_data)
 
-            type_filter.append(type_filter_item)
+                type_filter.append(type_filter_item)
 
         _vi_type_filter = d.pop("viTypeFilter", UNSET)
-        vi_type_filter: Union[Unset, EViHostType]
+        vi_type_filter: EViHostType | Unset
         if isinstance(_vi_type_filter, Unset):
             vi_type_filter = UNSET
         else:
             vi_type_filter = EViHostType(_vi_type_filter)
 
         _server_state_filter = d.pop("serverStateFilter", UNSET)
-        server_state_filter: Union[Unset, EManagedServerState]
+        server_state_filter: EManagedServerState | Unset
         if isinstance(_server_state_filter, Unset):
             server_state_filter = UNSET
         else:
             server_state_filter = EManagedServerState(_server_state_filter)
 
-        updates_state_filter = []
         _updates_state_filter = d.pop("updatesStateFilter", UNSET)
-        for updates_state_filter_item_data in _updates_state_filter or []:
-            updates_state_filter_item = EHostUpdatesState(updates_state_filter_item_data)
+        updates_state_filter: list[EHostUpdatesState] | Unset = UNSET
+        if _updates_state_filter is not UNSET:
+            updates_state_filter = []
+            for updates_state_filter_item_data in _updates_state_filter:
+                updates_state_filter_item = EHostUpdatesState(updates_state_filter_item_data)
 
-            updates_state_filter.append(updates_state_filter_item)
+                updates_state_filter.append(updates_state_filter_item)
 
         include_nested_hosts = d.pop("includeNestedHosts", UNSET)
 

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -24,30 +26,29 @@ class BackupOracleSettingsImportModel:
         use_guest_credentials (bool): If `true`, Veeam Backup & Replication uses credentials specified in the guest
             processing settings.
         archive_logs (EBackupOracleLogsSettings): Type of archived logs processing.
-        credentials (Union[Unset, CredentialsImportModel]): Credentials used for connection.
-        delete_hours_count (Union[Unset, int]): Time period in hours to keep archived logs. This parameter should be
-            specified if the `EBackupOracleLogsSettings` value is *deleteExpiredHours*.
-        delete_g_bs_count (Union[Unset, int]): Maximum size for archived logs in GB. This parameter should be specified
-            if the `EBackupOracleLogsSettings` value is *deleteExpiredGBs*.
-        backup_logs (Union[Unset, bool]): If `true`, archived logs are backed up.
-        backup_mins_count (Union[Unset, int]): Frequency of archived log backup, in minutes.
-        retain_log_backups (Union[Unset, ERetainLogBackupsType]): Retention policy for the logs stored in the backup
+        credentials (CredentialsImportModel | Unset): Credentials used for connection.
+        delete_hours_count (int | Unset): Time period in hours to keep archived logs. This parameter should be specified
+            if the `EBackupOracleLogsSettings` value is *deleteExpiredHours*.
+        delete_g_bs_count (int | Unset): Maximum size for archived logs in GB. This parameter should be specified if the
+            `EBackupOracleLogsSettings` value is *deleteExpiredGBs*.
+        backup_logs (bool | Unset): If `true`, archived logs are backed up.
+        backup_mins_count (int | Unset): Frequency of archived log backup, in minutes.
+        retain_log_backups (ERetainLogBackupsType | Unset): Retention policy for the logs stored in the backup
             repository.
-        keep_days_count (Union[Unset, int]): Number of days to keep archived logs.
-        log_shipping_servers (Union[Unset, BackupLogShippingServersImportModel]): Log shipping server used to transport
-            logs.
+        keep_days_count (int | Unset): Number of days to keep archived logs.
+        log_shipping_servers (BackupLogShippingServersImportModel | Unset): Log shipping server used to transport logs.
     """
 
     use_guest_credentials: bool
     archive_logs: EBackupOracleLogsSettings
-    credentials: Union[Unset, "CredentialsImportModel"] = UNSET
-    delete_hours_count: Union[Unset, int] = UNSET
-    delete_g_bs_count: Union[Unset, int] = UNSET
-    backup_logs: Union[Unset, bool] = UNSET
-    backup_mins_count: Union[Unset, int] = UNSET
-    retain_log_backups: Union[Unset, ERetainLogBackupsType] = UNSET
-    keep_days_count: Union[Unset, int] = UNSET
-    log_shipping_servers: Union[Unset, "BackupLogShippingServersImportModel"] = UNSET
+    credentials: CredentialsImportModel | Unset = UNSET
+    delete_hours_count: int | Unset = UNSET
+    delete_g_bs_count: int | Unset = UNSET
+    backup_logs: bool | Unset = UNSET
+    backup_mins_count: int | Unset = UNSET
+    retain_log_backups: ERetainLogBackupsType | Unset = UNSET
+    keep_days_count: int | Unset = UNSET
+    log_shipping_servers: BackupLogShippingServersImportModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -55,7 +56,7 @@ class BackupOracleSettingsImportModel:
 
         archive_logs = self.archive_logs.value
 
-        credentials: Union[Unset, dict[str, Any]] = UNSET
+        credentials: dict[str, Any] | Unset = UNSET
         if not isinstance(self.credentials, Unset):
             credentials = self.credentials.to_dict()
 
@@ -67,13 +68,13 @@ class BackupOracleSettingsImportModel:
 
         backup_mins_count = self.backup_mins_count
 
-        retain_log_backups: Union[Unset, str] = UNSET
+        retain_log_backups: str | Unset = UNSET
         if not isinstance(self.retain_log_backups, Unset):
             retain_log_backups = self.retain_log_backups.value
 
         keep_days_count = self.keep_days_count
 
-        log_shipping_servers: Union[Unset, dict[str, Any]] = UNSET
+        log_shipping_servers: dict[str, Any] | Unset = UNSET
         if not isinstance(self.log_shipping_servers, Unset):
             log_shipping_servers = self.log_shipping_servers.to_dict()
 
@@ -115,7 +116,7 @@ class BackupOracleSettingsImportModel:
         archive_logs = EBackupOracleLogsSettings(d.pop("archiveLogs"))
 
         _credentials = d.pop("credentials", UNSET)
-        credentials: Union[Unset, CredentialsImportModel]
+        credentials: CredentialsImportModel | Unset
         if isinstance(_credentials, Unset):
             credentials = UNSET
         else:
@@ -130,7 +131,7 @@ class BackupOracleSettingsImportModel:
         backup_mins_count = d.pop("backupMinsCount", UNSET)
 
         _retain_log_backups = d.pop("retainLogBackups", UNSET)
-        retain_log_backups: Union[Unset, ERetainLogBackupsType]
+        retain_log_backups: ERetainLogBackupsType | Unset
         if isinstance(_retain_log_backups, Unset):
             retain_log_backups = UNSET
         else:
@@ -139,7 +140,7 @@ class BackupOracleSettingsImportModel:
         keep_days_count = d.pop("keepDaysCount", UNSET)
 
         _log_shipping_servers = d.pop("logShippingServers", UNSET)
-        log_shipping_servers: Union[Unset, BackupLogShippingServersImportModel]
+        log_shipping_servers: BackupLogShippingServersImportModel | Unset
         if isinstance(_log_shipping_servers, Unset):
             log_shipping_servers = UNSET
         else:

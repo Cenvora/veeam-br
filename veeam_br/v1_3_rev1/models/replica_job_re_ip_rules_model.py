@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -18,14 +20,14 @@ class ReplicaJobReIpRulesModel:
     """Re-IP rules that map IPs in the production site to IPs in the disaster recovery site.
 
     Attributes:
-        rules (Union[Unset, list['ReplicaJobReIpRuleModel']]): Array of re-IP rules.
+        rules (list[ReplicaJobReIpRuleModel] | Unset): Array of re-IP rules.
     """
 
-    rules: Union[Unset, list["ReplicaJobReIpRuleModel"]] = UNSET
+    rules: list[ReplicaJobReIpRuleModel] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        rules: Union[Unset, list[dict[str, Any]]] = UNSET
+        rules: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.rules, Unset):
             rules = []
             for rules_item_data in self.rules:
@@ -45,12 +47,14 @@ class ReplicaJobReIpRulesModel:
         from ..models.replica_job_re_ip_rule_model import ReplicaJobReIpRuleModel
 
         d = dict(src_dict)
-        rules = []
         _rules = d.pop("rules", UNSET)
-        for rules_item_data in _rules or []:
-            rules_item = ReplicaJobReIpRuleModel.from_dict(rules_item_data)
+        rules: list[ReplicaJobReIpRuleModel] | Unset = UNSET
+        if _rules is not UNSET:
+            rules = []
+            for rules_item_data in _rules:
+                rules_item = ReplicaJobReIpRuleModel.from_dict(rules_item_data)
 
-            rules.append(rules_item)
+                rules.append(rules_item)
 
         replica_job_re_ip_rules_model = cls(
             rules=rules,

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -16,14 +18,14 @@ class EntraIdTenantItemComparisonPropertyModel:
     Attributes:
         property_name (str): Property name.
         read_only (bool): If `true`, the value is read-only.
-        old_value (Union[Unset, str]): Property value from the earlier restore point.
-        new_value (Union[Unset, str]): Property value from the later restore point.
+        old_value (str | Unset): Property value from the earlier restore point.
+        new_value (str | Unset): Property value from the later restore point.
     """
 
     property_name: str
     read_only: bool
-    old_value: Union[Unset, str] = UNSET
-    new_value: Union[Unset, str] = UNSET
+    old_value: str | Unset = UNSET
+    new_value: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

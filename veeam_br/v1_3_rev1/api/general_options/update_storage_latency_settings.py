@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -32,8 +32,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, StorageLatencyControlModel]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Error | StorageLatencyControlModel | None:
     if response.status_code == 200:
         response_200 = StorageLatencyControlModel.from_dict(response.json())
 
@@ -71,8 +71,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, StorageLatencyControlModel]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | StorageLatencyControlModel]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -83,10 +83,10 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: StorageLatencyControlModel,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Error, StorageLatencyControlModel]]:
+) -> Response[Error | StorageLatencyControlModel]:
     """Edit Storage Latency Settings
 
      The HTTP PUT request to the `/api/v1/generalOptions/storageLatency` endpoint edits storage latency
@@ -103,7 +103,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, StorageLatencyControlModel]]
+        Response[Error | StorageLatencyControlModel]
     """
 
     kwargs = _get_kwargs(
@@ -120,10 +120,10 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: StorageLatencyControlModel,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Error, StorageLatencyControlModel]]:
+) -> Error | StorageLatencyControlModel | None:
     """Edit Storage Latency Settings
 
      The HTTP PUT request to the `/api/v1/generalOptions/storageLatency` endpoint edits storage latency
@@ -140,7 +140,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, StorageLatencyControlModel]
+        Error | StorageLatencyControlModel
     """
 
     return sync_detailed(
@@ -152,10 +152,10 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: StorageLatencyControlModel,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Error, StorageLatencyControlModel]]:
+) -> Response[Error | StorageLatencyControlModel]:
     """Edit Storage Latency Settings
 
      The HTTP PUT request to the `/api/v1/generalOptions/storageLatency` endpoint edits storage latency
@@ -172,7 +172,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, StorageLatencyControlModel]]
+        Response[Error | StorageLatencyControlModel]
     """
 
     kwargs = _get_kwargs(
@@ -187,10 +187,10 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     body: StorageLatencyControlModel,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Error, StorageLatencyControlModel]]:
+) -> Error | StorageLatencyControlModel | None:
     """Edit Storage Latency Settings
 
      The HTTP PUT request to the `/api/v1/generalOptions/storageLatency` endpoint edits storage latency
@@ -207,7 +207,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, StorageLatencyControlModel]
+        Error | StorageLatencyControlModel
     """
 
     return (

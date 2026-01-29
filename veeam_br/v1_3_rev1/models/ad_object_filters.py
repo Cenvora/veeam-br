@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,24 +17,22 @@ T = TypeVar("T", bound="ADObjectFilters")
 class ADObjectFilters:
     """
     Attributes:
-        skip (Union[Unset, int]): Number of Active Directory objects to skip.
-        limit (Union[Unset, int]): Maximum number of Active Directory objects to return.
-        order_column (Union[Unset, EADObjectFiltersOrderColumn]): Sorts Active Directory objects by one of the
-            parameters.
-        order_asc (Union[Unset, bool]): Sorts Active Directory objects in ascending order by the `orderColumn`
-            parameter.
-        full_name_filter (Union[Unset, str]): Filters Active Directory objects by the `fullNameFilter` pattern. The
-            pattern can match any Active Directory object parameter. To substitute one or more characters, use the asterisk
-            (*) character at the beginning and/or at the end.
-        type_filter (Union[Unset, EADObjectType]): Type of Active Directory object.
+        skip (int | Unset): Number of Active Directory objects to skip.
+        limit (int | Unset): Maximum number of Active Directory objects to return.
+        order_column (EADObjectFiltersOrderColumn | Unset): Sorts Active Directory objects by one of the parameters.
+        order_asc (bool | Unset): Sorts Active Directory objects in ascending order by the `orderColumn` parameter.
+        full_name_filter (str | Unset): Filters Active Directory objects by the `fullNameFilter` pattern. The pattern
+            can match any Active Directory object parameter. To substitute one or more characters, use the asterisk (*)
+            character at the beginning and/or at the end.
+        type_filter (EADObjectType | Unset): Type of Active Directory object.
     """
 
-    skip: Union[Unset, int] = UNSET
-    limit: Union[Unset, int] = UNSET
-    order_column: Union[Unset, EADObjectFiltersOrderColumn] = UNSET
-    order_asc: Union[Unset, bool] = UNSET
-    full_name_filter: Union[Unset, str] = UNSET
-    type_filter: Union[Unset, EADObjectType] = UNSET
+    skip: int | Unset = UNSET
+    limit: int | Unset = UNSET
+    order_column: EADObjectFiltersOrderColumn | Unset = UNSET
+    order_asc: bool | Unset = UNSET
+    full_name_filter: str | Unset = UNSET
+    type_filter: EADObjectType | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -40,7 +40,7 @@ class ADObjectFilters:
 
         limit = self.limit
 
-        order_column: Union[Unset, str] = UNSET
+        order_column: str | Unset = UNSET
         if not isinstance(self.order_column, Unset):
             order_column = self.order_column.value
 
@@ -48,7 +48,7 @@ class ADObjectFilters:
 
         full_name_filter = self.full_name_filter
 
-        type_filter: Union[Unset, str] = UNSET
+        type_filter: str | Unset = UNSET
         if not isinstance(self.type_filter, Unset):
             type_filter = self.type_filter.value
 
@@ -78,7 +78,7 @@ class ADObjectFilters:
         limit = d.pop("limit", UNSET)
 
         _order_column = d.pop("orderColumn", UNSET)
-        order_column: Union[Unset, EADObjectFiltersOrderColumn]
+        order_column: EADObjectFiltersOrderColumn | Unset
         if isinstance(_order_column, Unset):
             order_column = UNSET
         else:
@@ -89,7 +89,7 @@ class ADObjectFilters:
         full_name_filter = d.pop("fullNameFilter", UNSET)
 
         _type_filter = d.pop("typeFilter", UNSET)
-        type_filter: Union[Unset, EADObjectType]
+        type_filter: EADObjectType | Unset
         if isinstance(_type_filter, Unset):
             type_filter = UNSET
         else:

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -17,29 +19,28 @@ T = TypeVar("T", bound="DiscoveredEntityFilters")
 class DiscoveredEntityFilters:
     """
     Attributes:
-        skip (Union[Unset, int]): Number of discovered entities to skip.
-        limit (Union[Unset, int]): Maximum number of discovered entities to return.
-        order_column (Union[Unset, EDiscoveredEntityFiltersOrderColumn]): Sorts discovered entities by one of the
-            parameters.
-        order_asc (Union[Unset, bool]): Sorts discovered entities in the ascending order by the `orderColumn` parameter.
-        name_filter (Union[Unset, str]): Filters discovered entities by the `nameFilter` pattern. The pattern can match
-            any parameter. To substitute one or more characters, use the asterisk (*) character at the beginning and/or at
-            the end.
-        ip_address_filter (Union[Unset, str]): Filters discovered entities by the `ipAddressFilter` pattern.
-        state_filter (Union[Unset, EDiscoveredComputerState]): State of the discovered computer.
-        agent_status_filter (Union[Unset, EAgentStatus]): Status of the agent on a discovered computer.
-        driver_status_filter (Union[Unset, EDriverStatus]): Status of the driver on a discovered computer.
+        skip (int | Unset): Number of discovered entities to skip.
+        limit (int | Unset): Maximum number of discovered entities to return.
+        order_column (EDiscoveredEntityFiltersOrderColumn | Unset): Sorts discovered entities by one of the parameters.
+        order_asc (bool | Unset): Sorts discovered entities in the ascending order by the `orderColumn` parameter.
+        name_filter (str | Unset): Filters discovered entities by the `nameFilter` pattern. The pattern can match any
+            parameter. To substitute one or more characters, use the asterisk (*) character at the beginning and/or at the
+            end.
+        ip_address_filter (str | Unset): Filters discovered entities by the `ipAddressFilter` pattern.
+        state_filter (EDiscoveredComputerState | Unset): State of the discovered computer.
+        agent_status_filter (EAgentStatus | Unset): Status of the agent on a discovered computer.
+        driver_status_filter (EDriverStatus | Unset): Status of the driver on a discovered computer.
     """
 
-    skip: Union[Unset, int] = UNSET
-    limit: Union[Unset, int] = UNSET
-    order_column: Union[Unset, EDiscoveredEntityFiltersOrderColumn] = UNSET
-    order_asc: Union[Unset, bool] = UNSET
-    name_filter: Union[Unset, str] = UNSET
-    ip_address_filter: Union[Unset, str] = UNSET
-    state_filter: Union[Unset, EDiscoveredComputerState] = UNSET
-    agent_status_filter: Union[Unset, EAgentStatus] = UNSET
-    driver_status_filter: Union[Unset, EDriverStatus] = UNSET
+    skip: int | Unset = UNSET
+    limit: int | Unset = UNSET
+    order_column: EDiscoveredEntityFiltersOrderColumn | Unset = UNSET
+    order_asc: bool | Unset = UNSET
+    name_filter: str | Unset = UNSET
+    ip_address_filter: str | Unset = UNSET
+    state_filter: EDiscoveredComputerState | Unset = UNSET
+    agent_status_filter: EAgentStatus | Unset = UNSET
+    driver_status_filter: EDriverStatus | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -47,7 +48,7 @@ class DiscoveredEntityFilters:
 
         limit = self.limit
 
-        order_column: Union[Unset, str] = UNSET
+        order_column: str | Unset = UNSET
         if not isinstance(self.order_column, Unset):
             order_column = self.order_column.value
 
@@ -57,15 +58,15 @@ class DiscoveredEntityFilters:
 
         ip_address_filter = self.ip_address_filter
 
-        state_filter: Union[Unset, str] = UNSET
+        state_filter: str | Unset = UNSET
         if not isinstance(self.state_filter, Unset):
             state_filter = self.state_filter.value
 
-        agent_status_filter: Union[Unset, str] = UNSET
+        agent_status_filter: str | Unset = UNSET
         if not isinstance(self.agent_status_filter, Unset):
             agent_status_filter = self.agent_status_filter.value
 
-        driver_status_filter: Union[Unset, str] = UNSET
+        driver_status_filter: str | Unset = UNSET
         if not isinstance(self.driver_status_filter, Unset):
             driver_status_filter = self.driver_status_filter.value
 
@@ -101,7 +102,7 @@ class DiscoveredEntityFilters:
         limit = d.pop("limit", UNSET)
 
         _order_column = d.pop("orderColumn", UNSET)
-        order_column: Union[Unset, EDiscoveredEntityFiltersOrderColumn]
+        order_column: EDiscoveredEntityFiltersOrderColumn | Unset
         if isinstance(_order_column, Unset):
             order_column = UNSET
         else:
@@ -114,21 +115,21 @@ class DiscoveredEntityFilters:
         ip_address_filter = d.pop("ipAddressFilter", UNSET)
 
         _state_filter = d.pop("stateFilter", UNSET)
-        state_filter: Union[Unset, EDiscoveredComputerState]
+        state_filter: EDiscoveredComputerState | Unset
         if isinstance(_state_filter, Unset):
             state_filter = UNSET
         else:
             state_filter = EDiscoveredComputerState(_state_filter)
 
         _agent_status_filter = d.pop("agentStatusFilter", UNSET)
-        agent_status_filter: Union[Unset, EAgentStatus]
+        agent_status_filter: EAgentStatus | Unset
         if isinstance(_agent_status_filter, Unset):
             agent_status_filter = UNSET
         else:
             agent_status_filter = EAgentStatus(_agent_status_filter)
 
         _driver_status_filter = d.pop("driverStatusFilter", UNSET)
-        driver_status_filter: Union[Unset, EDriverStatus]
+        driver_status_filter: EDriverStatus | Unset
         if isinstance(_driver_status_filter, Unset):
             driver_status_filter = UNSET
         else:

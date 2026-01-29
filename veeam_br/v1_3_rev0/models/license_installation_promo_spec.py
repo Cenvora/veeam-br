@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,15 +16,15 @@ class LicenseInstallationPromoSpec:
     """Promo license installation settings.
 
     Attributes:
-        overwrite_existing (Union[Unset, bool]): If `true`, the existing license is overwritten.
-        enable_auto_update (Union[Unset, bool]): If `true`, the license is automatically updated.
-        install_without_promo (Union[Unset, bool]): If `true`, the Promo license is installed without granting the Promo
+        overwrite_existing (bool | Unset): If `true`, the existing license is overwritten.
+        enable_auto_update (bool | Unset): If `true`, the license is automatically updated.
+        install_without_promo (bool | Unset): If `true`, the Promo license is installed without granting the Promo
             instances.
     """
 
-    overwrite_existing: Union[Unset, bool] = UNSET
-    enable_auto_update: Union[Unset, bool] = UNSET
-    install_without_promo: Union[Unset, bool] = UNSET
+    overwrite_existing: bool | Unset = UNSET
+    enable_auto_update: bool | Unset = UNSET
+    install_without_promo: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

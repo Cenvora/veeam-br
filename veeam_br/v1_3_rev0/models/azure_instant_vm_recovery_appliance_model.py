@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,14 +16,14 @@ class AzureInstantVMRecoveryApplianceModel:
     """Helper appliance for Instant Recovery to Azure.
 
     Attributes:
-        subnet (Union[Unset, str]): Microsoft Azure virtual subnet for the Instant Recovery helper appliance. Make sure
-            that the appliance subnet is different than the one you specify for the production VM.
-        storage_account (Union[Unset, str]): Name of the Azure storage account whose resources are used to store the
-            helper appliance.
+        subnet (str | Unset): Microsoft Azure virtual subnet for the Instant Recovery helper appliance. Make sure that
+            the appliance subnet is different than the one you specify for the production VM.
+        storage_account (str | Unset): Name of the Azure storage account whose resources are used to store the helper
+            appliance.
     """
 
-    subnet: Union[Unset, str] = UNSET
-    storage_account: Union[Unset, str] = UNSET
+    subnet: str | Unset = UNSET
+    storage_account: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -16,14 +18,14 @@ class GFSPolicySettingsWeeklyModel:
 
     Attributes:
         is_enabled (bool): If `true`, the weekly GFS retention policy is enabled.
-        keep_for_number_of_weeks (Union[Unset, int]): Number of weeks to keep full backups for archival purposes.
-            Possible values are from 1 through 9999.
-        desired_time (Union[Unset, EDayOfWeek]): Day of the week.
+        keep_for_number_of_weeks (int | Unset): Number of weeks to keep full backups for archival purposes. Possible
+            values are from 1 through 9999.
+        desired_time (EDayOfWeek | Unset): Day of the week.
     """
 
     is_enabled: bool
-    keep_for_number_of_weeks: Union[Unset, int] = UNSET
-    desired_time: Union[Unset, EDayOfWeek] = UNSET
+    keep_for_number_of_weeks: int | Unset = UNSET
+    desired_time: EDayOfWeek | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -31,7 +33,7 @@ class GFSPolicySettingsWeeklyModel:
 
         keep_for_number_of_weeks = self.keep_for_number_of_weeks
 
-        desired_time: Union[Unset, str] = UNSET
+        desired_time: str | Unset = UNSET
         if not isinstance(self.desired_time, Unset):
             desired_time = self.desired_time.value
 
@@ -57,7 +59,7 @@ class GFSPolicySettingsWeeklyModel:
         keep_for_number_of_weeks = d.pop("keepForNumberOfWeeks", UNSET)
 
         _desired_time = d.pop("desiredTime", UNSET)
-        desired_time: Union[Unset, EDayOfWeek]
+        desired_time: EDayOfWeek | Unset
         if isinstance(_desired_time, Unset):
             desired_time = UNSET
         else:

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -16,19 +18,19 @@ class TaskAdditionalInfoModel:
 
     Attributes:
         message (str): Message that explains the task result.
-        resource_id (Union[Unset, UUID]): ID of the resource.
-        resource_reference (Union[Unset, str]): URI of the resource.
+        resource_id (UUID | Unset): ID of the resource.
+        resource_reference (str | Unset): URI of the resource.
     """
 
     message: str
-    resource_id: Union[Unset, UUID] = UNSET
-    resource_reference: Union[Unset, str] = UNSET
+    resource_id: UUID | Unset = UNSET
+    resource_reference: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         message = self.message
 
-        resource_id: Union[Unset, str] = UNSET
+        resource_id: str | Unset = UNSET
         if not isinstance(self.resource_id, Unset):
             resource_id = str(self.resource_id)
 
@@ -54,7 +56,7 @@ class TaskAdditionalInfoModel:
         message = d.pop("message")
 
         _resource_id = d.pop("resourceId", UNSET)
-        resource_id: Union[Unset, UUID]
+        resource_id: UUID | Unset
         if isinstance(_resource_id, Unset):
             resource_id = UNSET
         else:

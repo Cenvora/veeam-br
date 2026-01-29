@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,15 +22,15 @@ class AzureInstantVMRecoveryMigrationSpec:
     """Migration settings.
 
     Attributes:
-        switchover_settings (Union[Unset, AzureInstantVMRecoverySwitchoverSettingsModel]): Switchover settings for
-            Instant Recovery to Microsoft Azure.
+        switchover_settings (AzureInstantVMRecoverySwitchoverSettingsModel | Unset): Switchover settings for Instant
+            Recovery to Microsoft Azure.
     """
 
-    switchover_settings: Union[Unset, "AzureInstantVMRecoverySwitchoverSettingsModel"] = UNSET
+    switchover_settings: AzureInstantVMRecoverySwitchoverSettingsModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        switchover_settings: Union[Unset, dict[str, Any]] = UNSET
+        switchover_settings: dict[str, Any] | Unset = UNSET
         if not isinstance(self.switchover_settings, Unset):
             switchover_settings = self.switchover_settings.to_dict()
 
@@ -48,7 +50,7 @@ class AzureInstantVMRecoveryMigrationSpec:
 
         d = dict(src_dict)
         _switchover_settings = d.pop("switchoverSettings", UNSET)
-        switchover_settings: Union[Unset, AzureInstantVMRecoverySwitchoverSettingsModel]
+        switchover_settings: AzureInstantVMRecoverySwitchoverSettingsModel | Unset
         if isinstance(_switchover_settings, Unset):
             switchover_settings = UNSET
         else:

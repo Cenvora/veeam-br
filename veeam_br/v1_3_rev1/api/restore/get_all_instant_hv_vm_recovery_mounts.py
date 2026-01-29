@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -14,12 +14,12 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     *,
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EInstantHvVMRecoveryMountsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    state_filter: Union[Unset, EInstantRecoveryMountState] = UNSET,
-    vm_name_filter: Union[Unset, str] = UNSET,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EInstantHvVMRecoveryMountsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    state_filter: EInstantRecoveryMountState | Unset = UNSET,
+    vm_name_filter: str | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -31,7 +31,7 @@ def _get_kwargs(
 
     params["limit"] = limit
 
-    json_order_column: Union[Unset, str] = UNSET
+    json_order_column: str | Unset = UNSET
     if not isinstance(order_column, Unset):
         json_order_column = order_column.value
 
@@ -39,7 +39,7 @@ def _get_kwargs(
 
     params["orderAsc"] = order_asc
 
-    json_state_filter: Union[Unset, str] = UNSET
+    json_state_filter: str | Unset = UNSET
     if not isinstance(state_filter, Unset):
         json_state_filter = state_filter.value
 
@@ -60,8 +60,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, InstantHvVMRecoveryMountsResult]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Error | InstantHvVMRecoveryMountsResult | None:
     if response.status_code == 200:
         response_200 = InstantHvVMRecoveryMountsResult.from_dict(response.json())
 
@@ -94,8 +94,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, InstantHvVMRecoveryMountsResult]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | InstantHvVMRecoveryMountsResult]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -106,15 +106,15 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EInstantHvVMRecoveryMountsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    state_filter: Union[Unset, EInstantRecoveryMountState] = UNSET,
-    vm_name_filter: Union[Unset, str] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EInstantHvVMRecoveryMountsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    state_filter: EInstantRecoveryMountState | Unset = UNSET,
+    vm_name_filter: str | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Error, InstantHvVMRecoveryMountsResult]]:
+) -> Response[Error | InstantHvVMRecoveryMountsResult]:
     """Get All Instant Recovery Mount Points of Microsoft Hyper-V VMs
 
      The HTTP GET request to the `/api/v1/restore/instantRecovery/hyperV/vm` endpoint gets an array of
@@ -123,13 +123,13 @@ def sync_detailed(
     Viewer, Veeam Security Administrator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EInstantHvVMRecoveryMountsFiltersOrderColumn]): Sorts mount
-            points by one of the mount point parameters.
-        order_asc (Union[Unset, bool]):
-        state_filter (Union[Unset, EInstantRecoveryMountState]): Mount state.
-        vm_name_filter (Union[Unset, str]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EInstantHvVMRecoveryMountsFiltersOrderColumn | Unset): Sorts mount points by
+            one of the mount point parameters.
+        order_asc (bool | Unset):
+        state_filter (EInstantRecoveryMountState | Unset): Mount state.
+        vm_name_filter (str | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -137,7 +137,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, InstantHvVMRecoveryMountsResult]]
+        Response[Error | InstantHvVMRecoveryMountsResult]
     """
 
     kwargs = _get_kwargs(
@@ -159,15 +159,15 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EInstantHvVMRecoveryMountsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    state_filter: Union[Unset, EInstantRecoveryMountState] = UNSET,
-    vm_name_filter: Union[Unset, str] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EInstantHvVMRecoveryMountsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    state_filter: EInstantRecoveryMountState | Unset = UNSET,
+    vm_name_filter: str | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Error, InstantHvVMRecoveryMountsResult]]:
+) -> Error | InstantHvVMRecoveryMountsResult | None:
     """Get All Instant Recovery Mount Points of Microsoft Hyper-V VMs
 
      The HTTP GET request to the `/api/v1/restore/instantRecovery/hyperV/vm` endpoint gets an array of
@@ -176,13 +176,13 @@ def sync(
     Viewer, Veeam Security Administrator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EInstantHvVMRecoveryMountsFiltersOrderColumn]): Sorts mount
-            points by one of the mount point parameters.
-        order_asc (Union[Unset, bool]):
-        state_filter (Union[Unset, EInstantRecoveryMountState]): Mount state.
-        vm_name_filter (Union[Unset, str]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EInstantHvVMRecoveryMountsFiltersOrderColumn | Unset): Sorts mount points by
+            one of the mount point parameters.
+        order_asc (bool | Unset):
+        state_filter (EInstantRecoveryMountState | Unset): Mount state.
+        vm_name_filter (str | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -190,7 +190,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, InstantHvVMRecoveryMountsResult]
+        Error | InstantHvVMRecoveryMountsResult
     """
 
     return sync_detailed(
@@ -207,15 +207,15 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EInstantHvVMRecoveryMountsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    state_filter: Union[Unset, EInstantRecoveryMountState] = UNSET,
-    vm_name_filter: Union[Unset, str] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EInstantHvVMRecoveryMountsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    state_filter: EInstantRecoveryMountState | Unset = UNSET,
+    vm_name_filter: str | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Error, InstantHvVMRecoveryMountsResult]]:
+) -> Response[Error | InstantHvVMRecoveryMountsResult]:
     """Get All Instant Recovery Mount Points of Microsoft Hyper-V VMs
 
      The HTTP GET request to the `/api/v1/restore/instantRecovery/hyperV/vm` endpoint gets an array of
@@ -224,13 +224,13 @@ async def asyncio_detailed(
     Viewer, Veeam Security Administrator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EInstantHvVMRecoveryMountsFiltersOrderColumn]): Sorts mount
-            points by one of the mount point parameters.
-        order_asc (Union[Unset, bool]):
-        state_filter (Union[Unset, EInstantRecoveryMountState]): Mount state.
-        vm_name_filter (Union[Unset, str]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EInstantHvVMRecoveryMountsFiltersOrderColumn | Unset): Sorts mount points by
+            one of the mount point parameters.
+        order_asc (bool | Unset):
+        state_filter (EInstantRecoveryMountState | Unset): Mount state.
+        vm_name_filter (str | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -238,7 +238,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, InstantHvVMRecoveryMountsResult]]
+        Response[Error | InstantHvVMRecoveryMountsResult]
     """
 
     kwargs = _get_kwargs(
@@ -258,15 +258,15 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EInstantHvVMRecoveryMountsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    state_filter: Union[Unset, EInstantRecoveryMountState] = UNSET,
-    vm_name_filter: Union[Unset, str] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EInstantHvVMRecoveryMountsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    state_filter: EInstantRecoveryMountState | Unset = UNSET,
+    vm_name_filter: str | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Error, InstantHvVMRecoveryMountsResult]]:
+) -> Error | InstantHvVMRecoveryMountsResult | None:
     """Get All Instant Recovery Mount Points of Microsoft Hyper-V VMs
 
      The HTTP GET request to the `/api/v1/restore/instantRecovery/hyperV/vm` endpoint gets an array of
@@ -275,13 +275,13 @@ async def asyncio(
     Viewer, Veeam Security Administrator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EInstantHvVMRecoveryMountsFiltersOrderColumn]): Sorts mount
-            points by one of the mount point parameters.
-        order_asc (Union[Unset, bool]):
-        state_filter (Union[Unset, EInstantRecoveryMountState]): Mount state.
-        vm_name_filter (Union[Unset, str]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EInstantHvVMRecoveryMountsFiltersOrderColumn | Unset): Sorts mount points by
+            one of the mount point parameters.
+        order_asc (bool | Unset):
+        state_filter (EInstantRecoveryMountState | Unset): Mount state.
+        vm_name_filter (str | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -289,7 +289,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, InstantHvVMRecoveryMountsResult]
+        Error | InstantHvVMRecoveryMountsResult
     """
 
     return (

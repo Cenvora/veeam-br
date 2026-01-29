@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,25 +22,25 @@ class MountServersSettingsModel:
 
     Attributes:
         mount_server_settings_type (EMountServerSettingsType): Type of mount server settings.
-        windows (Union[Unset, MountServerSettingsModel]): Settings for the mount server that is used for file and
-            application items restore.
-        linux (Union[Unset, MountServerSettingsModel]): Settings for the mount server that is used for file and
-            application items restore.
+        windows (MountServerSettingsModel | Unset): Settings for the mount server that is used for file and application
+            items restore.
+        linux (MountServerSettingsModel | Unset): Settings for the mount server that is used for file and application
+            items restore.
     """
 
     mount_server_settings_type: EMountServerSettingsType
-    windows: Union[Unset, "MountServerSettingsModel"] = UNSET
-    linux: Union[Unset, "MountServerSettingsModel"] = UNSET
+    windows: MountServerSettingsModel | Unset = UNSET
+    linux: MountServerSettingsModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         mount_server_settings_type = self.mount_server_settings_type.value
 
-        windows: Union[Unset, dict[str, Any]] = UNSET
+        windows: dict[str, Any] | Unset = UNSET
         if not isinstance(self.windows, Unset):
             windows = self.windows.to_dict()
 
-        linux: Union[Unset, dict[str, Any]] = UNSET
+        linux: dict[str, Any] | Unset = UNSET
         if not isinstance(self.linux, Unset):
             linux = self.linux.to_dict()
 
@@ -64,14 +66,14 @@ class MountServersSettingsModel:
         mount_server_settings_type = EMountServerSettingsType(d.pop("mountServerSettingsType"))
 
         _windows = d.pop("windows", UNSET)
-        windows: Union[Unset, MountServerSettingsModel]
+        windows: MountServerSettingsModel | Unset
         if isinstance(_windows, Unset):
             windows = UNSET
         else:
             windows = MountServerSettingsModel.from_dict(_windows)
 
         _linux = d.pop("linux", UNSET)
-        linux: Union[Unset, MountServerSettingsModel]
+        linux: MountServerSettingsModel | Unset
         if isinstance(_linux, Unset):
             linux = UNSET
         else:

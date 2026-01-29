@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -8,12 +8,12 @@ from ...client import AuthenticatedClient, Client
 from ...models.cloud_credentials_export_spec import CloudCredentialsExportSpec
 from ...models.cloud_credentials_import_spec_collection import CloudCredentialsImportSpecCollection
 from ...models.error import Error
-from ...types import Response
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     *,
-    body: CloudCredentialsExportSpec,
+    body: CloudCredentialsExportSpec | Unset = UNSET,
     x_api_version: str = "1.2-rev1",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -24,7 +24,8 @@ def _get_kwargs(
         "url": "/api/v1/automation/cloudcredentials/export",
     }
 
-    _kwargs["json"] = body.to_dict()
+    if not isinstance(body, Unset):
+        _kwargs["json"] = body.to_dict()
 
     headers["Content-Type"] = "application/json"
 
@@ -33,8 +34,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[CloudCredentialsImportSpecCollection, Error]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> CloudCredentialsImportSpecCollection | Error | None:
     if response.status_code == 200:
         response_200 = CloudCredentialsImportSpecCollection.from_dict(response.json())
 
@@ -67,8 +68,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[CloudCredentialsImportSpecCollection, Error]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[CloudCredentialsImportSpecCollection | Error]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -79,10 +80,10 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: CloudCredentialsExportSpec,
+    client: AuthenticatedClient | Client,
+    body: CloudCredentialsExportSpec | Unset = UNSET,
     x_api_version: str = "1.2-rev1",
-) -> Response[Union[CloudCredentialsImportSpecCollection, Error]]:
+) -> Response[CloudCredentialsImportSpecCollection | Error]:
     """Export Cloud Credentials
 
      The HTTP POST request to the `/api/v1/automation/cloudcredentials/export` path allows you to export
@@ -91,14 +92,14 @@ def sync_detailed(
 
     Args:
         x_api_version (str):  Default: '1.2-rev1'.
-        body (CloudCredentialsExportSpec):
+        body (CloudCredentialsExportSpec | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[CloudCredentialsImportSpecCollection, Error]]
+        Response[CloudCredentialsImportSpecCollection | Error]
     """
 
     kwargs = _get_kwargs(
@@ -115,10 +116,10 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: CloudCredentialsExportSpec,
+    client: AuthenticatedClient | Client,
+    body: CloudCredentialsExportSpec | Unset = UNSET,
     x_api_version: str = "1.2-rev1",
-) -> Optional[Union[CloudCredentialsImportSpecCollection, Error]]:
+) -> CloudCredentialsImportSpecCollection | Error | None:
     """Export Cloud Credentials
 
      The HTTP POST request to the `/api/v1/automation/cloudcredentials/export` path allows you to export
@@ -127,14 +128,14 @@ def sync(
 
     Args:
         x_api_version (str):  Default: '1.2-rev1'.
-        body (CloudCredentialsExportSpec):
+        body (CloudCredentialsExportSpec | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[CloudCredentialsImportSpecCollection, Error]
+        CloudCredentialsImportSpecCollection | Error
     """
 
     return sync_detailed(
@@ -146,10 +147,10 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: CloudCredentialsExportSpec,
+    client: AuthenticatedClient | Client,
+    body: CloudCredentialsExportSpec | Unset = UNSET,
     x_api_version: str = "1.2-rev1",
-) -> Response[Union[CloudCredentialsImportSpecCollection, Error]]:
+) -> Response[CloudCredentialsImportSpecCollection | Error]:
     """Export Cloud Credentials
 
      The HTTP POST request to the `/api/v1/automation/cloudcredentials/export` path allows you to export
@@ -158,14 +159,14 @@ async def asyncio_detailed(
 
     Args:
         x_api_version (str):  Default: '1.2-rev1'.
-        body (CloudCredentialsExportSpec):
+        body (CloudCredentialsExportSpec | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[CloudCredentialsImportSpecCollection, Error]]
+        Response[CloudCredentialsImportSpecCollection | Error]
     """
 
     kwargs = _get_kwargs(
@@ -180,10 +181,10 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: CloudCredentialsExportSpec,
+    client: AuthenticatedClient | Client,
+    body: CloudCredentialsExportSpec | Unset = UNSET,
     x_api_version: str = "1.2-rev1",
-) -> Optional[Union[CloudCredentialsImportSpecCollection, Error]]:
+) -> CloudCredentialsImportSpecCollection | Error | None:
     """Export Cloud Credentials
 
      The HTTP POST request to the `/api/v1/automation/cloudcredentials/export` path allows you to export
@@ -192,14 +193,14 @@ async def asyncio(
 
     Args:
         x_api_version (str):  Default: '1.2-rev1'.
-        body (CloudCredentialsExportSpec):
+        body (CloudCredentialsExportSpec | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[CloudCredentialsImportSpecCollection, Error]
+        CloudCredentialsImportSpecCollection | Error
     """
 
     return (

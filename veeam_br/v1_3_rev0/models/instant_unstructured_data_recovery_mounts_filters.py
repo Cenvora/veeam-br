@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -17,23 +19,23 @@ T = TypeVar("T", bound="InstantUnstructuredDataRecoveryMountsFilters")
 class InstantUnstructuredDataRecoveryMountsFilters:
     """
     Attributes:
-        skip (Union[Unset, int]): Number of mounts to skip.
-        limit (Union[Unset, int]): Maximum number of mounts to return.
-        order_column (Union[Unset, EInstantUnstructuredDataRecoveryMountsFiltersOrderColumn]): Sorts mounts by one of
-            the mount parameters.
-        order_asc (Union[Unset, bool]): Sorts mounts in the ascending order by the `orderColumn` parameter.
-        state_filter (Union[Unset, EUnstructuredDataInstantRecoveryMountState]): Mount state.
-        share_name_filter (Union[Unset, str]): Filters mounts by the `shareNameFilter` pattern. The pattern can match
-            any mount parameter. To substitute one or more characters, use the asterisk (*) character at the beginning, at
-            the end or both.
+        skip (int | Unset): Number of mounts to skip.
+        limit (int | Unset): Maximum number of mounts to return.
+        order_column (EInstantUnstructuredDataRecoveryMountsFiltersOrderColumn | Unset): Sorts mounts by one of the
+            mount parameters.
+        order_asc (bool | Unset): Sorts mounts in the ascending order by the `orderColumn` parameter.
+        state_filter (EUnstructuredDataInstantRecoveryMountState | Unset): Mount state.
+        share_name_filter (str | Unset): Filters mounts by the `shareNameFilter` pattern. The pattern can match any
+            mount parameter. To substitute one or more characters, use the asterisk (*) character at the beginning, at the
+            end or both.
     """
 
-    skip: Union[Unset, int] = UNSET
-    limit: Union[Unset, int] = UNSET
-    order_column: Union[Unset, EInstantUnstructuredDataRecoveryMountsFiltersOrderColumn] = UNSET
-    order_asc: Union[Unset, bool] = UNSET
-    state_filter: Union[Unset, EUnstructuredDataInstantRecoveryMountState] = UNSET
-    share_name_filter: Union[Unset, str] = UNSET
+    skip: int | Unset = UNSET
+    limit: int | Unset = UNSET
+    order_column: EInstantUnstructuredDataRecoveryMountsFiltersOrderColumn | Unset = UNSET
+    order_asc: bool | Unset = UNSET
+    state_filter: EUnstructuredDataInstantRecoveryMountState | Unset = UNSET
+    share_name_filter: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -41,13 +43,13 @@ class InstantUnstructuredDataRecoveryMountsFilters:
 
         limit = self.limit
 
-        order_column: Union[Unset, str] = UNSET
+        order_column: str | Unset = UNSET
         if not isinstance(self.order_column, Unset):
             order_column = self.order_column.value
 
         order_asc = self.order_asc
 
-        state_filter: Union[Unset, str] = UNSET
+        state_filter: str | Unset = UNSET
         if not isinstance(self.state_filter, Unset):
             state_filter = self.state_filter.value
 
@@ -79,7 +81,7 @@ class InstantUnstructuredDataRecoveryMountsFilters:
         limit = d.pop("limit", UNSET)
 
         _order_column = d.pop("orderColumn", UNSET)
-        order_column: Union[Unset, EInstantUnstructuredDataRecoveryMountsFiltersOrderColumn]
+        order_column: EInstantUnstructuredDataRecoveryMountsFiltersOrderColumn | Unset
         if isinstance(_order_column, Unset):
             order_column = UNSET
         else:
@@ -88,7 +90,7 @@ class InstantUnstructuredDataRecoveryMountsFilters:
         order_asc = d.pop("orderAsc", UNSET)
 
         _state_filter = d.pop("stateFilter", UNSET)
-        state_filter: Union[Unset, EUnstructuredDataInstantRecoveryMountState]
+        state_filter: EUnstructuredDataInstantRecoveryMountState | Unset
         if isinstance(_state_filter, Unset):
             state_filter = UNSET
         else:

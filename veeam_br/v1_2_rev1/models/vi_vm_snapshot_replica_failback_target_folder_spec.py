@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,21 +22,21 @@ class ViVMSnapshotReplicaFailbackTargetFolderSpec:
     """Folders in the target datastores where all files of the recovered VMs will be stored.
 
     Attributes:
-        restore_vm_tags (Union[Unset, bool]): If `true`, Veeam Backup & Replication restores tags that were assigned to
-            the original VMs, and assigns them to the recovered VMs.
-        folder_mapping (Union[Unset, list['ViVMSnapshotReplicaFailbackFolderMappingSpec']]): Array of restore points and
-            target folders. To get a folder object, use the [Get Inventory Objects](#tag/Inventory-
+        restore_vm_tags (bool | Unset): If `true`, Veeam Backup & Replication restores tags that were assigned to the
+            original VMs, and assigns them to the recovered VMs.
+        folder_mapping (list[ViVMSnapshotReplicaFailbackFolderMappingSpec] | Unset): Array of restore points and target
+            folders. To get a folder object, use the [Get Inventory Objects](#tag/Inventory-
             Browser/operation/GetInventoryObjects) request.
     """
 
-    restore_vm_tags: Union[Unset, bool] = UNSET
-    folder_mapping: Union[Unset, list["ViVMSnapshotReplicaFailbackFolderMappingSpec"]] = UNSET
+    restore_vm_tags: bool | Unset = UNSET
+    folder_mapping: list[ViVMSnapshotReplicaFailbackFolderMappingSpec] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         restore_vm_tags = self.restore_vm_tags
 
-        folder_mapping: Union[Unset, list[dict[str, Any]]] = UNSET
+        folder_mapping: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.folder_mapping, Unset):
             folder_mapping = []
             for folder_mapping_item_data in self.folder_mapping:
@@ -60,12 +62,14 @@ class ViVMSnapshotReplicaFailbackTargetFolderSpec:
         d = dict(src_dict)
         restore_vm_tags = d.pop("restoreVMTags", UNSET)
 
-        folder_mapping = []
         _folder_mapping = d.pop("folderMapping", UNSET)
-        for folder_mapping_item_data in _folder_mapping or []:
-            folder_mapping_item = ViVMSnapshotReplicaFailbackFolderMappingSpec.from_dict(folder_mapping_item_data)
+        folder_mapping: list[ViVMSnapshotReplicaFailbackFolderMappingSpec] | Unset = UNSET
+        if _folder_mapping is not UNSET:
+            folder_mapping = []
+            for folder_mapping_item_data in _folder_mapping:
+                folder_mapping_item = ViVMSnapshotReplicaFailbackFolderMappingSpec.from_dict(folder_mapping_item_data)
 
-            folder_mapping.append(folder_mapping_item)
+                folder_mapping.append(folder_mapping_item)
 
         vi_vm_snapshot_replica_failback_target_folder_spec = cls(
             restore_vm_tags=restore_vm_tags,

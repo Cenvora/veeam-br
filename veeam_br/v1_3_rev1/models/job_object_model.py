@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -17,13 +19,13 @@ class JobObjectModel:
 
     Attributes:
         id (UUID): Job ID.
-        name (Union[Unset, str]): Name of the job.
-        type_ (Union[Unset, EJobType]): Type of the job.
+        name (str | Unset): Name of the job.
+        type_ (EJobType | Unset): Type of the job.
     """
 
     id: UUID
-    name: Union[Unset, str] = UNSET
-    type_: Union[Unset, EJobType] = UNSET
+    name: str | Unset = UNSET
+    type_: EJobType | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -31,7 +33,7 @@ class JobObjectModel:
 
         name = self.name
 
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
@@ -57,7 +59,7 @@ class JobObjectModel:
         name = d.pop("name", UNSET)
 
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, EJobType]
+        type_: EJobType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:

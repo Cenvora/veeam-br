@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,23 +22,23 @@ class BackupHealthCheckSettingsModels:
 
     Attributes:
         is_enabled (bool): If `true`, health check is enabled.
-        weekly (Union[Unset, AdvancedStorageScheduleWeeklyModel]): Weekly schedule settings.
-        monthly (Union[Unset, AdvancedStorageScheduleMonthlyModel]): Monthly schedule settings.
+        weekly (AdvancedStorageScheduleWeeklyModel | Unset): Weekly schedule settings.
+        monthly (AdvancedStorageScheduleMonthlyModel | Unset): Monthly schedule settings.
     """
 
     is_enabled: bool
-    weekly: Union[Unset, "AdvancedStorageScheduleWeeklyModel"] = UNSET
-    monthly: Union[Unset, "AdvancedStorageScheduleMonthlyModel"] = UNSET
+    weekly: AdvancedStorageScheduleWeeklyModel | Unset = UNSET
+    monthly: AdvancedStorageScheduleMonthlyModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         is_enabled = self.is_enabled
 
-        weekly: Union[Unset, dict[str, Any]] = UNSET
+        weekly: dict[str, Any] | Unset = UNSET
         if not isinstance(self.weekly, Unset):
             weekly = self.weekly.to_dict()
 
-        monthly: Union[Unset, dict[str, Any]] = UNSET
+        monthly: dict[str, Any] | Unset = UNSET
         if not isinstance(self.monthly, Unset):
             monthly = self.monthly.to_dict()
 
@@ -63,14 +65,14 @@ class BackupHealthCheckSettingsModels:
         is_enabled = d.pop("isEnabled")
 
         _weekly = d.pop("weekly", UNSET)
-        weekly: Union[Unset, AdvancedStorageScheduleWeeklyModel]
+        weekly: AdvancedStorageScheduleWeeklyModel | Unset
         if isinstance(_weekly, Unset):
             weekly = UNSET
         else:
             weekly = AdvancedStorageScheduleWeeklyModel.from_dict(_weekly)
 
         _monthly = d.pop("monthly", UNSET)
-        monthly: Union[Unset, AdvancedStorageScheduleMonthlyModel]
+        monthly: AdvancedStorageScheduleMonthlyModel | Unset
         if isinstance(_monthly, Unset):
             monthly = UNSET
         else:

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,30 +22,30 @@ class ReplicaJobReIpRuleModel:
     """Re-IP rule.
 
     Attributes:
-        description (Union[Unset, str]): Rule description.
-        rule_type (Union[Unset, ENetworkRuleType]): IP protocol.
-        ipv4 (Union[Unset, IPv4NetworkRuleModel]): IPv4 network rule.
-        ipv6 (Union[Unset, IPv6NetworkRuleModel]): IPv6 network rule.
+        description (str | Unset): Rule description.
+        rule_type (ENetworkRuleType | Unset): IP protocol.
+        ipv4 (IPv4NetworkRuleModel | Unset): IPv4 network rule.
+        ipv6 (IPv6NetworkRuleModel | Unset): IPv6 network rule.
     """
 
-    description: Union[Unset, str] = UNSET
-    rule_type: Union[Unset, ENetworkRuleType] = UNSET
-    ipv4: Union[Unset, "IPv4NetworkRuleModel"] = UNSET
-    ipv6: Union[Unset, "IPv6NetworkRuleModel"] = UNSET
+    description: str | Unset = UNSET
+    rule_type: ENetworkRuleType | Unset = UNSET
+    ipv4: IPv4NetworkRuleModel | Unset = UNSET
+    ipv6: IPv6NetworkRuleModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         description = self.description
 
-        rule_type: Union[Unset, str] = UNSET
+        rule_type: str | Unset = UNSET
         if not isinstance(self.rule_type, Unset):
             rule_type = self.rule_type.value
 
-        ipv4: Union[Unset, dict[str, Any]] = UNSET
+        ipv4: dict[str, Any] | Unset = UNSET
         if not isinstance(self.ipv4, Unset):
             ipv4 = self.ipv4.to_dict()
 
-        ipv6: Union[Unset, dict[str, Any]] = UNSET
+        ipv6: dict[str, Any] | Unset = UNSET
         if not isinstance(self.ipv6, Unset):
             ipv6 = self.ipv6.to_dict()
 
@@ -70,21 +72,21 @@ class ReplicaJobReIpRuleModel:
         description = d.pop("description", UNSET)
 
         _rule_type = d.pop("ruleType", UNSET)
-        rule_type: Union[Unset, ENetworkRuleType]
+        rule_type: ENetworkRuleType | Unset
         if isinstance(_rule_type, Unset):
             rule_type = UNSET
         else:
             rule_type = ENetworkRuleType(_rule_type)
 
         _ipv4 = d.pop("ipv4", UNSET)
-        ipv4: Union[Unset, IPv4NetworkRuleModel]
+        ipv4: IPv4NetworkRuleModel | Unset
         if isinstance(_ipv4, Unset):
             ipv4 = UNSET
         else:
             ipv4 = IPv4NetworkRuleModel.from_dict(_ipv4)
 
         _ipv6 = d.pop("ipv6", UNSET)
-        ipv6: Union[Unset, IPv6NetworkRuleModel]
+        ipv6: IPv6NetworkRuleModel | Unset
         if isinstance(_ipv6, Unset):
             ipv6 = UNSET
         else:

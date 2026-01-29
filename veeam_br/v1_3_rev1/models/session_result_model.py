@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -16,13 +18,13 @@ class SessionResultModel:
 
     Attributes:
         result (ESessionResult): Result status.
-        message (Union[Unset, str]): Message that explains the session result.
-        is_canceled (Union[Unset, bool]): If `true`, the session has been canceled.
+        message (str | Unset): Message that explains the session result.
+        is_canceled (bool | Unset): If `true`, the session has been canceled.
     """
 
     result: ESessionResult
-    message: Union[Unset, str] = UNSET
-    is_canceled: Union[Unset, bool] = UNSET
+    message: str | Unset = UNSET
+    is_canceled: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

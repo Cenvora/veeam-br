@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -16,26 +18,26 @@ T = TypeVar("T", bound="UserFilters")
 class UserFilters:
     """
     Attributes:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):
-        order_column (Union[Unset, EUserFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, list[EUserType]]):
-        role_id_filter (Union[Unset, UUID]):
-        role_name_filter (Union[Unset, str]):
-        is_service_account_filter (Union[Unset, bool]):
+        skip (int | Unset):
+        limit (int | Unset):
+        order_column (EUserFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        type_filter (list[EUserType] | Unset):
+        role_id_filter (UUID | Unset):
+        role_name_filter (str | Unset):
+        is_service_account_filter (bool | Unset):
     """
 
-    skip: Union[Unset, int] = UNSET
-    limit: Union[Unset, int] = UNSET
-    order_column: Union[Unset, EUserFiltersOrderColumn] = UNSET
-    order_asc: Union[Unset, bool] = UNSET
-    name_filter: Union[Unset, str] = UNSET
-    type_filter: Union[Unset, list[EUserType]] = UNSET
-    role_id_filter: Union[Unset, UUID] = UNSET
-    role_name_filter: Union[Unset, str] = UNSET
-    is_service_account_filter: Union[Unset, bool] = UNSET
+    skip: int | Unset = UNSET
+    limit: int | Unset = UNSET
+    order_column: EUserFiltersOrderColumn | Unset = UNSET
+    order_asc: bool | Unset = UNSET
+    name_filter: str | Unset = UNSET
+    type_filter: list[EUserType] | Unset = UNSET
+    role_id_filter: UUID | Unset = UNSET
+    role_name_filter: str | Unset = UNSET
+    is_service_account_filter: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -43,7 +45,7 @@ class UserFilters:
 
         limit = self.limit
 
-        order_column: Union[Unset, str] = UNSET
+        order_column: str | Unset = UNSET
         if not isinstance(self.order_column, Unset):
             order_column = self.order_column.value
 
@@ -51,14 +53,14 @@ class UserFilters:
 
         name_filter = self.name_filter
 
-        type_filter: Union[Unset, list[str]] = UNSET
+        type_filter: list[str] | Unset = UNSET
         if not isinstance(self.type_filter, Unset):
             type_filter = []
             for type_filter_item_data in self.type_filter:
                 type_filter_item = type_filter_item_data.value
                 type_filter.append(type_filter_item)
 
-        role_id_filter: Union[Unset, str] = UNSET
+        role_id_filter: str | Unset = UNSET
         if not isinstance(self.role_id_filter, Unset):
             role_id_filter = str(self.role_id_filter)
 
@@ -98,7 +100,7 @@ class UserFilters:
         limit = d.pop("limit", UNSET)
 
         _order_column = d.pop("orderColumn", UNSET)
-        order_column: Union[Unset, EUserFiltersOrderColumn]
+        order_column: EUserFiltersOrderColumn | Unset
         if isinstance(_order_column, Unset):
             order_column = UNSET
         else:
@@ -108,15 +110,17 @@ class UserFilters:
 
         name_filter = d.pop("nameFilter", UNSET)
 
-        type_filter = []
         _type_filter = d.pop("typeFilter", UNSET)
-        for type_filter_item_data in _type_filter or []:
-            type_filter_item = EUserType(type_filter_item_data)
+        type_filter: list[EUserType] | Unset = UNSET
+        if _type_filter is not UNSET:
+            type_filter = []
+            for type_filter_item_data in _type_filter:
+                type_filter_item = EUserType(type_filter_item_data)
 
-            type_filter.append(type_filter_item)
+                type_filter.append(type_filter_item)
 
         _role_id_filter = d.pop("roleIdFilter", UNSET)
-        role_id_filter: Union[Unset, UUID]
+        role_id_filter: UUID | Unset
         if isinstance(_role_id_filter, Unset):
             role_id_filter = UNSET
         else:

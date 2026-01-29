@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -17,14 +19,14 @@ T = TypeVar("T", bound="EncryptionPasswordImportSpecCollection")
 class EncryptionPasswordImportSpecCollection:
     """
     Attributes:
-        encryption_passwords (Union[Unset, list['EncryptionPasswordImportSpec']]): Array of encryption passwords.
+        encryption_passwords (list[EncryptionPasswordImportSpec] | Unset): Array of encryption passwords.
     """
 
-    encryption_passwords: Union[Unset, list["EncryptionPasswordImportSpec"]] = UNSET
+    encryption_passwords: list[EncryptionPasswordImportSpec] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        encryption_passwords: Union[Unset, list[dict[str, Any]]] = UNSET
+        encryption_passwords: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.encryption_passwords, Unset):
             encryption_passwords = []
             for encryption_passwords_item_data in self.encryption_passwords:
@@ -44,12 +46,14 @@ class EncryptionPasswordImportSpecCollection:
         from ..models.encryption_password_import_spec import EncryptionPasswordImportSpec
 
         d = dict(src_dict)
-        encryption_passwords = []
         _encryption_passwords = d.pop("encryptionPasswords", UNSET)
-        for encryption_passwords_item_data in _encryption_passwords or []:
-            encryption_passwords_item = EncryptionPasswordImportSpec.from_dict(encryption_passwords_item_data)
+        encryption_passwords: list[EncryptionPasswordImportSpec] | Unset = UNSET
+        if _encryption_passwords is not UNSET:
+            encryption_passwords = []
+            for encryption_passwords_item_data in _encryption_passwords:
+                encryption_passwords_item = EncryptionPasswordImportSpec.from_dict(encryption_passwords_item_data)
 
-            encryption_passwords.append(encryption_passwords_item)
+                encryption_passwords.append(encryption_passwords_item)
 
         encryption_password_import_spec_collection = cls(
             encryption_passwords=encryption_passwords,

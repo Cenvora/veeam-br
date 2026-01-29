@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -18,14 +20,14 @@ class RestorePointChangesResponse:
     """Details on restore point changes.
 
     Attributes:
-        items (Union[Unset, list['RestorePointChangeModel']]): Array of restore point changes.
+        items (list[RestorePointChangeModel] | Unset): Array of restore point changes.
     """
 
-    items: Union[Unset, list["RestorePointChangeModel"]] = UNSET
+    items: list[RestorePointChangeModel] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        items: Union[Unset, list[dict[str, Any]]] = UNSET
+        items: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.items, Unset):
             items = []
             for items_item_data in self.items:
@@ -45,12 +47,14 @@ class RestorePointChangesResponse:
         from ..models.restore_point_change_model import RestorePointChangeModel
 
         d = dict(src_dict)
-        items = []
         _items = d.pop("items", UNSET)
-        for items_item_data in _items or []:
-            items_item = RestorePointChangeModel.from_dict(items_item_data)
+        items: list[RestorePointChangeModel] | Unset = UNSET
+        if _items is not UNSET:
+            items = []
+            for items_item_data in _items:
+                items_item = RestorePointChangeModel.from_dict(items_item_data)
 
-            items.append(items_item)
+                items.append(items_item)
 
         restore_point_changes_response = cls(
             items=items,

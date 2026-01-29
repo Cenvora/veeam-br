@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,21 +17,21 @@ class UnstructuredDataOSRestoreOptionsModel:
     """Restore options for restoring entire object storage bucket or container.
 
     Attributes:
-        rollback (Union[Unset, bool]): If `true`, the bucket or container will be rolled back to the state as of a
-            specific restore point.
-        overwrite_mode (Union[Unset, EUnstructuredDataRestoreOverwriteMode]): Overwrite mode.
-        overwrite_bucket_attributes (Union[Unset, bool]): If `true`, bucket attributes will be overwritten.
+        rollback (bool | Unset): If `true`, the bucket or container will be rolled back to the state as of a specific
+            restore point.
+        overwrite_mode (EUnstructuredDataRestoreOverwriteMode | Unset): Overwrite mode.
+        overwrite_bucket_attributes (bool | Unset): If `true`, bucket attributes will be overwritten.
     """
 
-    rollback: Union[Unset, bool] = UNSET
-    overwrite_mode: Union[Unset, EUnstructuredDataRestoreOverwriteMode] = UNSET
-    overwrite_bucket_attributes: Union[Unset, bool] = UNSET
+    rollback: bool | Unset = UNSET
+    overwrite_mode: EUnstructuredDataRestoreOverwriteMode | Unset = UNSET
+    overwrite_bucket_attributes: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         rollback = self.rollback
 
-        overwrite_mode: Union[Unset, str] = UNSET
+        overwrite_mode: str | Unset = UNSET
         if not isinstance(self.overwrite_mode, Unset):
             overwrite_mode = self.overwrite_mode.value
 
@@ -53,7 +55,7 @@ class UnstructuredDataOSRestoreOptionsModel:
         rollback = d.pop("rollback", UNSET)
 
         _overwrite_mode = d.pop("overwriteMode", UNSET)
-        overwrite_mode: Union[Unset, EUnstructuredDataRestoreOverwriteMode]
+        overwrite_mode: EUnstructuredDataRestoreOverwriteMode | Unset
         if isinstance(_overwrite_mode, Unset):
             overwrite_mode = UNSET
         else:

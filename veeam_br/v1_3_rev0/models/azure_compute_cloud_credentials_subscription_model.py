@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,16 +22,16 @@ class AzureComputeCloudCredentialsSubscriptionModel:
     Attributes:
         tenant_id (str): ID of a tenant in which the Microsoft Entra ID application is registered.
         application_id (str): Client ID assigned to the Microsoft Entra ID application.
-        secret (Union[Unset, str]): (For password-based authentication) Client secret assigned to the Microsoft Entra ID
+        secret (str | Unset): (For password-based authentication) Client secret assigned to the Microsoft Entra ID
             application.
-        subscriptions (Union[Unset, list['AzureComputeCloudCredentialsSubscriptionInfo']]): Array of Azure subscriptions
+        subscriptions (list[AzureComputeCloudCredentialsSubscriptionInfo] | Unset): Array of Azure subscriptions
             associated with the account.
     """
 
     tenant_id: str
     application_id: str
-    secret: Union[Unset, str] = UNSET
-    subscriptions: Union[Unset, list["AzureComputeCloudCredentialsSubscriptionInfo"]] = UNSET
+    secret: str | Unset = UNSET
+    subscriptions: list[AzureComputeCloudCredentialsSubscriptionInfo] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -39,7 +41,7 @@ class AzureComputeCloudCredentialsSubscriptionModel:
 
         secret = self.secret
 
-        subscriptions: Union[Unset, list[dict[str, Any]]] = UNSET
+        subscriptions: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.subscriptions, Unset):
             subscriptions = []
             for subscriptions_item_data in self.subscriptions:
@@ -74,12 +76,14 @@ class AzureComputeCloudCredentialsSubscriptionModel:
 
         secret = d.pop("secret", UNSET)
 
-        subscriptions = []
         _subscriptions = d.pop("subscriptions", UNSET)
-        for subscriptions_item_data in _subscriptions or []:
-            subscriptions_item = AzureComputeCloudCredentialsSubscriptionInfo.from_dict(subscriptions_item_data)
+        subscriptions: list[AzureComputeCloudCredentialsSubscriptionInfo] | Unset = UNSET
+        if _subscriptions is not UNSET:
+            subscriptions = []
+            for subscriptions_item_data in _subscriptions:
+                subscriptions_item = AzureComputeCloudCredentialsSubscriptionInfo.from_dict(subscriptions_item_data)
 
-            subscriptions.append(subscriptions_item)
+                subscriptions.append(subscriptions_item)
 
         azure_compute_cloud_credentials_subscription_model = cls(
             tenant_id=tenant_id,

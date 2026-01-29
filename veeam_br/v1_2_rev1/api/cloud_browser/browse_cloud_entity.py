@@ -1,49 +1,20 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.amazon_ec2_browser_model import AmazonEC2BrowserModel
-from ...models.amazon_ec2_browser_spec import AmazonEC2BrowserSpec
-from ...models.amazon_s3_browser_model import AmazonS3BrowserModel
-from ...models.amazon_s3_browser_spec import AmazonS3BrowserSpec
-from ...models.amazon_snowball_edge_browser_model import AmazonSnowballEdgeBrowserModel
-from ...models.amazon_snowball_edge_browser_spec import AmazonSnowballEdgeBrowserSpec
-from ...models.azure_blob_browser_model import AzureBlobBrowserModel
-from ...models.azure_blob_browser_spec import AzureBlobBrowserSpec
-from ...models.azure_compute_browser_model import AzureComputeBrowserModel
-from ...models.azure_compute_browser_spec import AzureComputeBrowserSpec
-from ...models.azure_data_box_browser_model import AzureDataBoxBrowserModel
-from ...models.azure_data_box_browser_spec import AzureDataBoxBrowserSpec
+from ...models.cloud_browser_model import CloudBrowserModel
+from ...models.cloud_browser_spec import CloudBrowserSpec
 from ...models.error import Error
-from ...models.google_cloud_storage_browser_model import GoogleCloudStorageBrowserModel
-from ...models.google_cloud_storage_browser_spec import GoogleCloudStorageBrowserSpec
-from ...models.ibm_cloud_storage_browser_model import IBMCloudStorageBrowserModel
-from ...models.ibm_cloud_storage_browser_spec import IBMCloudStorageBrowserSpec
-from ...models.s3_compatible_browser_model import S3CompatibleBrowserModel
-from ...models.s3_compatible_browser_spec import S3CompatibleBrowserSpec
-from ...models.wasabi_cloud_storage_browser_model import WasabiCloudStorageBrowserModel
-from ...models.wasabi_cloud_storage_browser_spec import WasabiCloudStorageBrowserSpec
 from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     *,
-    body: Union[
-        "AmazonEC2BrowserSpec",
-        "AmazonS3BrowserSpec",
-        "AmazonSnowballEdgeBrowserSpec",
-        "AzureBlobBrowserSpec",
-        "AzureComputeBrowserSpec",
-        "AzureDataBoxBrowserSpec",
-        "GoogleCloudStorageBrowserSpec",
-        "IBMCloudStorageBrowserSpec",
-        "S3CompatibleBrowserSpec",
-        "WasabiCloudStorageBrowserSpec",
-    ],
-    reset_cache: Union[Unset, bool] = UNSET,
+    body: CloudBrowserSpec | Unset = UNSET,
+    reset_cache: bool | Unset = UNSET,
     x_api_version: str = "1.2-rev1",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -61,26 +32,7 @@ def _get_kwargs(
         "params": params,
     }
 
-    _kwargs["json"]: dict[str, Any]
-    if isinstance(body, AzureBlobBrowserSpec):
-        _kwargs["json"] = body.to_dict()
-    elif isinstance(body, AzureDataBoxBrowserSpec):
-        _kwargs["json"] = body.to_dict()
-    elif isinstance(body, AmazonS3BrowserSpec):
-        _kwargs["json"] = body.to_dict()
-    elif isinstance(body, S3CompatibleBrowserSpec):
-        _kwargs["json"] = body.to_dict()
-    elif isinstance(body, AmazonSnowballEdgeBrowserSpec):
-        _kwargs["json"] = body.to_dict()
-    elif isinstance(body, GoogleCloudStorageBrowserSpec):
-        _kwargs["json"] = body.to_dict()
-    elif isinstance(body, IBMCloudStorageBrowserSpec):
-        _kwargs["json"] = body.to_dict()
-    elif isinstance(body, AzureComputeBrowserSpec):
-        _kwargs["json"] = body.to_dict()
-    elif isinstance(body, AmazonEC2BrowserSpec):
-        _kwargs["json"] = body.to_dict()
-    else:
+    if not isinstance(body, Unset):
         _kwargs["json"] = body.to_dict()
 
     headers["Content-Type"] = "application/json"
@@ -90,119 +42,10 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[
-    Union[
-        Error,
-        Union[
-            "AmazonEC2BrowserModel",
-            "AmazonS3BrowserModel",
-            "AmazonSnowballEdgeBrowserModel",
-            "AzureBlobBrowserModel",
-            "AzureComputeBrowserModel",
-            "AzureDataBoxBrowserModel",
-            "GoogleCloudStorageBrowserModel",
-            "IBMCloudStorageBrowserModel",
-            "S3CompatibleBrowserModel",
-            "WasabiCloudStorageBrowserModel",
-        ],
-    ]
-]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> CloudBrowserModel | Error | None:
     if response.status_code == 200:
-
-        def _parse_response_200(
-            data: object,
-        ) -> Union[
-            "AmazonEC2BrowserModel",
-            "AmazonS3BrowserModel",
-            "AmazonSnowballEdgeBrowserModel",
-            "AzureBlobBrowserModel",
-            "AzureComputeBrowserModel",
-            "AzureDataBoxBrowserModel",
-            "GoogleCloudStorageBrowserModel",
-            "IBMCloudStorageBrowserModel",
-            "S3CompatibleBrowserModel",
-            "WasabiCloudStorageBrowserModel",
-        ]:
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_cloud_browser_model_type_0 = AzureBlobBrowserModel.from_dict(data)
-
-                return componentsschemas_cloud_browser_model_type_0
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_cloud_browser_model_type_1 = AzureDataBoxBrowserModel.from_dict(data)
-
-                return componentsschemas_cloud_browser_model_type_1
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_cloud_browser_model_type_2 = AmazonS3BrowserModel.from_dict(data)
-
-                return componentsschemas_cloud_browser_model_type_2
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_cloud_browser_model_type_3 = AmazonSnowballEdgeBrowserModel.from_dict(data)
-
-                return componentsschemas_cloud_browser_model_type_3
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_cloud_browser_model_type_4 = S3CompatibleBrowserModel.from_dict(data)
-
-                return componentsschemas_cloud_browser_model_type_4
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_cloud_browser_model_type_5 = GoogleCloudStorageBrowserModel.from_dict(data)
-
-                return componentsschemas_cloud_browser_model_type_5
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_cloud_browser_model_type_6 = IBMCloudStorageBrowserModel.from_dict(data)
-
-                return componentsschemas_cloud_browser_model_type_6
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_cloud_browser_model_type_7 = AzureComputeBrowserModel.from_dict(data)
-
-                return componentsschemas_cloud_browser_model_type_7
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_cloud_browser_model_type_8 = AmazonEC2BrowserModel.from_dict(data)
-
-                return componentsschemas_cloud_browser_model_type_8
-            except:  # noqa: E722
-                pass
-            if not isinstance(data, dict):
-                raise TypeError()
-            componentsschemas_cloud_browser_model_type_9 = WasabiCloudStorageBrowserModel.from_dict(data)
-
-            return componentsschemas_cloud_browser_model_type_9
-
-        response_200 = _parse_response_200(response.json())
+        response_200 = CloudBrowserModel.from_dict(response.json())
 
         return response_200
 
@@ -233,24 +76,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[
-    Union[
-        Error,
-        Union[
-            "AmazonEC2BrowserModel",
-            "AmazonS3BrowserModel",
-            "AmazonSnowballEdgeBrowserModel",
-            "AzureBlobBrowserModel",
-            "AzureComputeBrowserModel",
-            "AzureDataBoxBrowserModel",
-            "GoogleCloudStorageBrowserModel",
-            "IBMCloudStorageBrowserModel",
-            "S3CompatibleBrowserModel",
-            "WasabiCloudStorageBrowserModel",
-        ],
-    ]
-]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[CloudBrowserModel | Error]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -261,38 +88,11 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union[
-        "AmazonEC2BrowserSpec",
-        "AmazonS3BrowserSpec",
-        "AmazonSnowballEdgeBrowserSpec",
-        "AzureBlobBrowserSpec",
-        "AzureComputeBrowserSpec",
-        "AzureDataBoxBrowserSpec",
-        "GoogleCloudStorageBrowserSpec",
-        "IBMCloudStorageBrowserSpec",
-        "S3CompatibleBrowserSpec",
-        "WasabiCloudStorageBrowserSpec",
-    ],
-    reset_cache: Union[Unset, bool] = UNSET,
+    client: AuthenticatedClient | Client,
+    body: CloudBrowserSpec | Unset = UNSET,
+    reset_cache: bool | Unset = UNSET,
     x_api_version: str = "1.2-rev1",
-) -> Response[
-    Union[
-        Error,
-        Union[
-            "AmazonEC2BrowserModel",
-            "AmazonS3BrowserModel",
-            "AmazonSnowballEdgeBrowserModel",
-            "AzureBlobBrowserModel",
-            "AzureComputeBrowserModel",
-            "AzureDataBoxBrowserModel",
-            "GoogleCloudStorageBrowserModel",
-            "IBMCloudStorageBrowserModel",
-            "S3CompatibleBrowserModel",
-            "WasabiCloudStorageBrowserModel",
-        ],
-    ]
-]:
+) -> Response[CloudBrowserModel | Error]:
     """Get Cloud Hierarchy
 
      The HTTP POST request to the `/api/v1/cloudBrowser` path allows you to browse cloud resources
@@ -301,19 +101,16 @@ def sync_detailed(
     Backup Administrator.</p>
 
     Args:
-        reset_cache (Union[Unset, bool]):
+        reset_cache (bool | Unset):
         x_api_version (str):  Default: '1.2-rev1'.
-        body (Union['AmazonEC2BrowserSpec', 'AmazonS3BrowserSpec',
-            'AmazonSnowballEdgeBrowserSpec', 'AzureBlobBrowserSpec', 'AzureComputeBrowserSpec',
-            'AzureDataBoxBrowserSpec', 'GoogleCloudStorageBrowserSpec', 'IBMCloudStorageBrowserSpec',
-            'S3CompatibleBrowserSpec', 'WasabiCloudStorageBrowserSpec']):
+        body (CloudBrowserSpec | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, Union['AmazonEC2BrowserModel', 'AmazonS3BrowserModel', 'AmazonSnowballEdgeBrowserModel', 'AzureBlobBrowserModel', 'AzureComputeBrowserModel', 'AzureDataBoxBrowserModel', 'GoogleCloudStorageBrowserModel', 'IBMCloudStorageBrowserModel', 'S3CompatibleBrowserModel', 'WasabiCloudStorageBrowserModel']]]
+        Response[CloudBrowserModel | Error]
     """
 
     kwargs = _get_kwargs(
@@ -331,38 +128,11 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union[
-        "AmazonEC2BrowserSpec",
-        "AmazonS3BrowserSpec",
-        "AmazonSnowballEdgeBrowserSpec",
-        "AzureBlobBrowserSpec",
-        "AzureComputeBrowserSpec",
-        "AzureDataBoxBrowserSpec",
-        "GoogleCloudStorageBrowserSpec",
-        "IBMCloudStorageBrowserSpec",
-        "S3CompatibleBrowserSpec",
-        "WasabiCloudStorageBrowserSpec",
-    ],
-    reset_cache: Union[Unset, bool] = UNSET,
+    client: AuthenticatedClient | Client,
+    body: CloudBrowserSpec | Unset = UNSET,
+    reset_cache: bool | Unset = UNSET,
     x_api_version: str = "1.2-rev1",
-) -> Optional[
-    Union[
-        Error,
-        Union[
-            "AmazonEC2BrowserModel",
-            "AmazonS3BrowserModel",
-            "AmazonSnowballEdgeBrowserModel",
-            "AzureBlobBrowserModel",
-            "AzureComputeBrowserModel",
-            "AzureDataBoxBrowserModel",
-            "GoogleCloudStorageBrowserModel",
-            "IBMCloudStorageBrowserModel",
-            "S3CompatibleBrowserModel",
-            "WasabiCloudStorageBrowserModel",
-        ],
-    ]
-]:
+) -> CloudBrowserModel | Error | None:
     """Get Cloud Hierarchy
 
      The HTTP POST request to the `/api/v1/cloudBrowser` path allows you to browse cloud resources
@@ -371,19 +141,16 @@ def sync(
     Backup Administrator.</p>
 
     Args:
-        reset_cache (Union[Unset, bool]):
+        reset_cache (bool | Unset):
         x_api_version (str):  Default: '1.2-rev1'.
-        body (Union['AmazonEC2BrowserSpec', 'AmazonS3BrowserSpec',
-            'AmazonSnowballEdgeBrowserSpec', 'AzureBlobBrowserSpec', 'AzureComputeBrowserSpec',
-            'AzureDataBoxBrowserSpec', 'GoogleCloudStorageBrowserSpec', 'IBMCloudStorageBrowserSpec',
-            'S3CompatibleBrowserSpec', 'WasabiCloudStorageBrowserSpec']):
+        body (CloudBrowserSpec | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, Union['AmazonEC2BrowserModel', 'AmazonS3BrowserModel', 'AmazonSnowballEdgeBrowserModel', 'AzureBlobBrowserModel', 'AzureComputeBrowserModel', 'AzureDataBoxBrowserModel', 'GoogleCloudStorageBrowserModel', 'IBMCloudStorageBrowserModel', 'S3CompatibleBrowserModel', 'WasabiCloudStorageBrowserModel']]
+        CloudBrowserModel | Error
     """
 
     return sync_detailed(
@@ -396,38 +163,11 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union[
-        "AmazonEC2BrowserSpec",
-        "AmazonS3BrowserSpec",
-        "AmazonSnowballEdgeBrowserSpec",
-        "AzureBlobBrowserSpec",
-        "AzureComputeBrowserSpec",
-        "AzureDataBoxBrowserSpec",
-        "GoogleCloudStorageBrowserSpec",
-        "IBMCloudStorageBrowserSpec",
-        "S3CompatibleBrowserSpec",
-        "WasabiCloudStorageBrowserSpec",
-    ],
-    reset_cache: Union[Unset, bool] = UNSET,
+    client: AuthenticatedClient | Client,
+    body: CloudBrowserSpec | Unset = UNSET,
+    reset_cache: bool | Unset = UNSET,
     x_api_version: str = "1.2-rev1",
-) -> Response[
-    Union[
-        Error,
-        Union[
-            "AmazonEC2BrowserModel",
-            "AmazonS3BrowserModel",
-            "AmazonSnowballEdgeBrowserModel",
-            "AzureBlobBrowserModel",
-            "AzureComputeBrowserModel",
-            "AzureDataBoxBrowserModel",
-            "GoogleCloudStorageBrowserModel",
-            "IBMCloudStorageBrowserModel",
-            "S3CompatibleBrowserModel",
-            "WasabiCloudStorageBrowserModel",
-        ],
-    ]
-]:
+) -> Response[CloudBrowserModel | Error]:
     """Get Cloud Hierarchy
 
      The HTTP POST request to the `/api/v1/cloudBrowser` path allows you to browse cloud resources
@@ -436,19 +176,16 @@ async def asyncio_detailed(
     Backup Administrator.</p>
 
     Args:
-        reset_cache (Union[Unset, bool]):
+        reset_cache (bool | Unset):
         x_api_version (str):  Default: '1.2-rev1'.
-        body (Union['AmazonEC2BrowserSpec', 'AmazonS3BrowserSpec',
-            'AmazonSnowballEdgeBrowserSpec', 'AzureBlobBrowserSpec', 'AzureComputeBrowserSpec',
-            'AzureDataBoxBrowserSpec', 'GoogleCloudStorageBrowserSpec', 'IBMCloudStorageBrowserSpec',
-            'S3CompatibleBrowserSpec', 'WasabiCloudStorageBrowserSpec']):
+        body (CloudBrowserSpec | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, Union['AmazonEC2BrowserModel', 'AmazonS3BrowserModel', 'AmazonSnowballEdgeBrowserModel', 'AzureBlobBrowserModel', 'AzureComputeBrowserModel', 'AzureDataBoxBrowserModel', 'GoogleCloudStorageBrowserModel', 'IBMCloudStorageBrowserModel', 'S3CompatibleBrowserModel', 'WasabiCloudStorageBrowserModel']]]
+        Response[CloudBrowserModel | Error]
     """
 
     kwargs = _get_kwargs(
@@ -464,38 +201,11 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union[
-        "AmazonEC2BrowserSpec",
-        "AmazonS3BrowserSpec",
-        "AmazonSnowballEdgeBrowserSpec",
-        "AzureBlobBrowserSpec",
-        "AzureComputeBrowserSpec",
-        "AzureDataBoxBrowserSpec",
-        "GoogleCloudStorageBrowserSpec",
-        "IBMCloudStorageBrowserSpec",
-        "S3CompatibleBrowserSpec",
-        "WasabiCloudStorageBrowserSpec",
-    ],
-    reset_cache: Union[Unset, bool] = UNSET,
+    client: AuthenticatedClient | Client,
+    body: CloudBrowserSpec | Unset = UNSET,
+    reset_cache: bool | Unset = UNSET,
     x_api_version: str = "1.2-rev1",
-) -> Optional[
-    Union[
-        Error,
-        Union[
-            "AmazonEC2BrowserModel",
-            "AmazonS3BrowserModel",
-            "AmazonSnowballEdgeBrowserModel",
-            "AzureBlobBrowserModel",
-            "AzureComputeBrowserModel",
-            "AzureDataBoxBrowserModel",
-            "GoogleCloudStorageBrowserModel",
-            "IBMCloudStorageBrowserModel",
-            "S3CompatibleBrowserModel",
-            "WasabiCloudStorageBrowserModel",
-        ],
-    ]
-]:
+) -> CloudBrowserModel | Error | None:
     """Get Cloud Hierarchy
 
      The HTTP POST request to the `/api/v1/cloudBrowser` path allows you to browse cloud resources
@@ -504,19 +214,16 @@ async def asyncio(
     Backup Administrator.</p>
 
     Args:
-        reset_cache (Union[Unset, bool]):
+        reset_cache (bool | Unset):
         x_api_version (str):  Default: '1.2-rev1'.
-        body (Union['AmazonEC2BrowserSpec', 'AmazonS3BrowserSpec',
-            'AmazonSnowballEdgeBrowserSpec', 'AzureBlobBrowserSpec', 'AzureComputeBrowserSpec',
-            'AzureDataBoxBrowserSpec', 'GoogleCloudStorageBrowserSpec', 'IBMCloudStorageBrowserSpec',
-            'S3CompatibleBrowserSpec', 'WasabiCloudStorageBrowserSpec']):
+        body (CloudBrowserSpec | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, Union['AmazonEC2BrowserModel', 'AmazonS3BrowserModel', 'AmazonSnowballEdgeBrowserModel', 'AzureBlobBrowserModel', 'AzureComputeBrowserModel', 'AzureDataBoxBrowserModel', 'GoogleCloudStorageBrowserModel', 'IBMCloudStorageBrowserModel', 'S3CompatibleBrowserModel', 'WasabiCloudStorageBrowserModel']]
+        CloudBrowserModel | Error
     """
 
     return (

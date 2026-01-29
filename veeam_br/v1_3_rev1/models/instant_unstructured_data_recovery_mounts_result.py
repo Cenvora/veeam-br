@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 
@@ -17,13 +19,12 @@ class InstantUnstructuredDataRecoveryMountsResult:
     """Details on Instant Recovery mount points of unstructured data.
 
     Attributes:
-        data (list['InstantUnstructuredDataRecoveryMount']): Array of Instant Recovery mount points of unstructured
-            data.
+        data (list[InstantUnstructuredDataRecoveryMount]): Array of Instant Recovery mount points of unstructured data.
         pagination (PaginationResult): Pagination settings.
     """
 
-    data: list["InstantUnstructuredDataRecoveryMount"]
-    pagination: "PaginationResult"
+    data: list[InstantUnstructuredDataRecoveryMount]
+    pagination: PaginationResult
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,21 +21,21 @@ class BackupCopyJobRPOMonitorModel:
     """RPO monitor settings for backup copy job.
 
     Attributes:
-        new_backup_threshold (Union[Unset, BackupRPOMonitorModel]): RPO monitor settings if new backup is not copied.
-        new_log_backup_threshold (Union[Unset, LogBackupRPOMonitorModel]): RPO monitor settings if new log backup is not
+        new_backup_threshold (BackupRPOMonitorModel | Unset): RPO monitor settings if new backup is not copied.
+        new_log_backup_threshold (LogBackupRPOMonitorModel | Unset): RPO monitor settings if new log backup is not
             copied.
     """
 
-    new_backup_threshold: Union[Unset, "BackupRPOMonitorModel"] = UNSET
-    new_log_backup_threshold: Union[Unset, "LogBackupRPOMonitorModel"] = UNSET
+    new_backup_threshold: BackupRPOMonitorModel | Unset = UNSET
+    new_log_backup_threshold: LogBackupRPOMonitorModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        new_backup_threshold: Union[Unset, dict[str, Any]] = UNSET
+        new_backup_threshold: dict[str, Any] | Unset = UNSET
         if not isinstance(self.new_backup_threshold, Unset):
             new_backup_threshold = self.new_backup_threshold.to_dict()
 
-        new_log_backup_threshold: Union[Unset, dict[str, Any]] = UNSET
+        new_log_backup_threshold: dict[str, Any] | Unset = UNSET
         if not isinstance(self.new_log_backup_threshold, Unset):
             new_log_backup_threshold = self.new_log_backup_threshold.to_dict()
 
@@ -54,14 +56,14 @@ class BackupCopyJobRPOMonitorModel:
 
         d = dict(src_dict)
         _new_backup_threshold = d.pop("newBackupThreshold", UNSET)
-        new_backup_threshold: Union[Unset, BackupRPOMonitorModel]
+        new_backup_threshold: BackupRPOMonitorModel | Unset
         if isinstance(_new_backup_threshold, Unset):
             new_backup_threshold = UNSET
         else:
             new_backup_threshold = BackupRPOMonitorModel.from_dict(_new_backup_threshold)
 
         _new_log_backup_threshold = d.pop("newLogBackupThreshold", UNSET)
-        new_log_backup_threshold: Union[Unset, LogBackupRPOMonitorModel]
+        new_log_backup_threshold: LogBackupRPOMonitorModel | Unset
         if isinstance(_new_log_backup_threshold, Unset):
             new_log_backup_threshold = UNSET
         else:

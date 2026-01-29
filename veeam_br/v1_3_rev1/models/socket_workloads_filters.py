@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -16,31 +18,31 @@ T = TypeVar("T", bound="SocketWorkloadsFilters")
 class SocketWorkloadsFilters:
     """
     Attributes:
-        skip (Union[Unset, int]): Number of workloads to skip.
-        limit (Union[Unset, int]): Maximum number of results to return.
-        order_column (Union[Unset, ESocketWorkloadsFiltersOrderColumn]): Sorts licensed hosts according to one of the
+        skip (int | Unset): Number of workloads to skip.
+        limit (int | Unset): Maximum number of results to return.
+        order_column (ESocketWorkloadsFiltersOrderColumn | Unset): Sorts licensed hosts according to one of the
             parameters.
-        order_asc (Union[Unset, bool]): If `true`, sorts workloads in ascending order by the `orderColumn` parameter.
-        name_filter (Union[Unset, str]): Filters workloads by the `nameFilter` pattern. The pattern can match any
-            workload parameter. To substitute one or more characters, use the asterisk (*) character at the beginning, at
-            the end or both.
-        host_name_filter (Union[Unset, str]): Filters workloads by hostname.
-        host_id_filter (Union[Unset, UUID]): Filters workloads by host ID.
-        sockets_number_filter (Union[Unset, int]): Filters workloads by the number of sockets they use.
-        cores_number_filter (Union[Unset, int]): Filters workloads by the number of CPU cores they use.
-        type_filter (Union[Unset, ESocketLicenseObjectType]): Type of host covered by socket license.
+        order_asc (bool | Unset): If `true`, sorts workloads in ascending order by the `orderColumn` parameter.
+        name_filter (str | Unset): Filters workloads by the `nameFilter` pattern. The pattern can match any workload
+            parameter. To substitute one or more characters, use the asterisk (*) character at the beginning, at the end or
+            both.
+        host_name_filter (str | Unset): Filters workloads by hostname.
+        host_id_filter (UUID | Unset): Filters workloads by host ID.
+        sockets_number_filter (int | Unset): Filters workloads by the number of sockets they use.
+        cores_number_filter (int | Unset): Filters workloads by the number of CPU cores they use.
+        type_filter (ESocketLicenseObjectType | Unset): Type of host covered by socket license.
     """
 
-    skip: Union[Unset, int] = UNSET
-    limit: Union[Unset, int] = UNSET
-    order_column: Union[Unset, ESocketWorkloadsFiltersOrderColumn] = UNSET
-    order_asc: Union[Unset, bool] = UNSET
-    name_filter: Union[Unset, str] = UNSET
-    host_name_filter: Union[Unset, str] = UNSET
-    host_id_filter: Union[Unset, UUID] = UNSET
-    sockets_number_filter: Union[Unset, int] = UNSET
-    cores_number_filter: Union[Unset, int] = UNSET
-    type_filter: Union[Unset, ESocketLicenseObjectType] = UNSET
+    skip: int | Unset = UNSET
+    limit: int | Unset = UNSET
+    order_column: ESocketWorkloadsFiltersOrderColumn | Unset = UNSET
+    order_asc: bool | Unset = UNSET
+    name_filter: str | Unset = UNSET
+    host_name_filter: str | Unset = UNSET
+    host_id_filter: UUID | Unset = UNSET
+    sockets_number_filter: int | Unset = UNSET
+    cores_number_filter: int | Unset = UNSET
+    type_filter: ESocketLicenseObjectType | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -48,7 +50,7 @@ class SocketWorkloadsFilters:
 
         limit = self.limit
 
-        order_column: Union[Unset, str] = UNSET
+        order_column: str | Unset = UNSET
         if not isinstance(self.order_column, Unset):
             order_column = self.order_column.value
 
@@ -58,7 +60,7 @@ class SocketWorkloadsFilters:
 
         host_name_filter = self.host_name_filter
 
-        host_id_filter: Union[Unset, str] = UNSET
+        host_id_filter: str | Unset = UNSET
         if not isinstance(self.host_id_filter, Unset):
             host_id_filter = str(self.host_id_filter)
 
@@ -66,7 +68,7 @@ class SocketWorkloadsFilters:
 
         cores_number_filter = self.cores_number_filter
 
-        type_filter: Union[Unset, str] = UNSET
+        type_filter: str | Unset = UNSET
         if not isinstance(self.type_filter, Unset):
             type_filter = self.type_filter.value
 
@@ -104,7 +106,7 @@ class SocketWorkloadsFilters:
         limit = d.pop("limit", UNSET)
 
         _order_column = d.pop("orderColumn", UNSET)
-        order_column: Union[Unset, ESocketWorkloadsFiltersOrderColumn]
+        order_column: ESocketWorkloadsFiltersOrderColumn | Unset
         if isinstance(_order_column, Unset):
             order_column = UNSET
         else:
@@ -117,7 +119,7 @@ class SocketWorkloadsFilters:
         host_name_filter = d.pop("hostNameFilter", UNSET)
 
         _host_id_filter = d.pop("hostIdFilter", UNSET)
-        host_id_filter: Union[Unset, UUID]
+        host_id_filter: UUID | Unset
         if isinstance(_host_id_filter, Unset):
             host_id_filter = UNSET
         else:
@@ -128,7 +130,7 @@ class SocketWorkloadsFilters:
         cores_number_filter = d.pop("coresNumberFilter", UNSET)
 
         _type_filter = d.pop("typeFilter", UNSET)
-        type_filter: Union[Unset, ESocketLicenseObjectType]
+        type_filter: ESocketLicenseObjectType | Unset
         if isinstance(_type_filter, Unset):
             type_filter = UNSET
         else:

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
@@ -21,16 +23,16 @@ class EntraIdTenantItemComparisonModel:
     Attributes:
         exists_in_old_restore_point (bool): If `true`, the item exists in the earlier restore point.
         exists_in_new_restore_point (bool): If `true`, the item exists in the later restore point.
-        properties (list['EntraIdTenantItemComparisonPropertyModel']): Array of properties.
-        references (list['EntraIdTenantItemComparisonReferenceModel']): Array of item references (relationship with
-            other items).
+        properties (list[EntraIdTenantItemComparisonPropertyModel]): Array of properties.
+        references (list[EntraIdTenantItemComparisonReferenceModel]): Array of item references (relationship with other
+            items).
         cache_timestamp (datetime.datetime): Date and time the mount session cache was last updated.
     """
 
     exists_in_old_restore_point: bool
     exists_in_new_restore_point: bool
-    properties: list["EntraIdTenantItemComparisonPropertyModel"]
-    references: list["EntraIdTenantItemComparisonReferenceModel"]
+    properties: list[EntraIdTenantItemComparisonPropertyModel]
+    references: list[EntraIdTenantItemComparisonReferenceModel]
     cache_timestamp: datetime.datetime
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 

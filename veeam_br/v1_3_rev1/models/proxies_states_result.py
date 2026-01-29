@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 
@@ -17,12 +19,12 @@ class ProxiesStatesResult:
     """Details on backup proxy states.
 
     Attributes:
-        data (list['ProxyStateModel']): Array of backup proxy states.
+        data (list[ProxyStateModel]): Array of backup proxy states.
         pagination (PaginationResult): Pagination settings.
     """
 
-    data: list["ProxyStateModel"]
-    pagination: "PaginationResult"
+    data: list[ProxyStateModel]
+    pagination: PaginationResult
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

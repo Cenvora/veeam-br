@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,14 +22,14 @@ class CloudDirectorViHostImportSpec:
     Attributes:
         vi_server_name (str): vCenter Server name.
         vi_credentials (CredentialsImportModel): Credentials used for connection.
-        certificate_thumbprint (Union[Unset, str]): Certificate thumbprint used to verify the server identity. For
-            details on how to get the thumbprint, see [Request TLS Certificate or SSH
+        certificate_thumbprint (str | Unset): Certificate thumbprint used to verify the server identity. For details on
+            how to get the thumbprint, see [Request TLS Certificate or SSH
             Fingerprint](Connection#operation/GetConnectionCertificate).
     """
 
     vi_server_name: str
-    vi_credentials: "CredentialsImportModel"
-    certificate_thumbprint: Union[Unset, str] = UNSET
+    vi_credentials: CredentialsImportModel
+    certificate_thumbprint: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,18 +16,18 @@ class AzureStorageAccountInstanceSizeModel:
     """Instance size of Microsoft Azure storage account.
 
     Attributes:
-        cores (Union[Unset, int]): Number of cores.
-        memory (Union[Unset, int]): Amount of memory in bytes.
-        max_disks (Union[Unset, int]): Maximum number of disks.
-        family (Union[Unset, str]): Microsoft Azure VM size family.
-        name (Union[Unset, str]): Name of the Microsoft Azure VM size.
+        cores (int | Unset): Number of cores.
+        memory (int | Unset): Amount of memory in bytes.
+        max_disks (int | Unset): Maximum number of disks.
+        family (str | Unset): Microsoft Azure VM size family.
+        name (str | Unset): Name of the Microsoft Azure VM size.
     """
 
-    cores: Union[Unset, int] = UNSET
-    memory: Union[Unset, int] = UNSET
-    max_disks: Union[Unset, int] = UNSET
-    family: Union[Unset, str] = UNSET
-    name: Union[Unset, str] = UNSET
+    cores: int | Unset = UNSET
+    memory: int | Unset = UNSET
+    max_disks: int | Unset = UNSET
+    family: str | Unset = UNSET
+    name: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

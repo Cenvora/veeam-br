@@ -1,5 +1,6 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
@@ -21,7 +22,9 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": f"/api/v1/dataIntegration/{mount_id}",
+        "url": "/api/v1/dataIntegration/{mount_id}".format(
+            mount_id=quote(str(mount_id), safe=""),
+        ),
     }
 
     _kwargs["headers"] = headers
@@ -29,8 +32,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[BackupContentMountModel, Error]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> BackupContentMountModel | Error | None:
     if response.status_code == 200:
         response_200 = BackupContentMountModel.from_dict(response.json())
 
@@ -63,8 +66,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[BackupContentMountModel, Error]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[BackupContentMountModel | Error]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -76,9 +79,9 @@ def _build_response(
 def sync_detailed(
     mount_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.2-rev1",
-) -> Response[Union[BackupContentMountModel, Error]]:
+) -> Response[BackupContentMountModel | Error]:
     """Get Disk Publishing Mount Point
 
      The HTTP GET request to the `/api/v1/dataIntegration/{mountId}` path allows you to get a disk
@@ -94,7 +97,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[BackupContentMountModel, Error]]
+        Response[BackupContentMountModel | Error]
     """
 
     kwargs = _get_kwargs(
@@ -112,9 +115,9 @@ def sync_detailed(
 def sync(
     mount_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.2-rev1",
-) -> Optional[Union[BackupContentMountModel, Error]]:
+) -> BackupContentMountModel | Error | None:
     """Get Disk Publishing Mount Point
 
      The HTTP GET request to the `/api/v1/dataIntegration/{mountId}` path allows you to get a disk
@@ -130,7 +133,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[BackupContentMountModel, Error]
+        BackupContentMountModel | Error
     """
 
     return sync_detailed(
@@ -143,9 +146,9 @@ def sync(
 async def asyncio_detailed(
     mount_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.2-rev1",
-) -> Response[Union[BackupContentMountModel, Error]]:
+) -> Response[BackupContentMountModel | Error]:
     """Get Disk Publishing Mount Point
 
      The HTTP GET request to the `/api/v1/dataIntegration/{mountId}` path allows you to get a disk
@@ -161,7 +164,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[BackupContentMountModel, Error]]
+        Response[BackupContentMountModel | Error]
     """
 
     kwargs = _get_kwargs(
@@ -177,9 +180,9 @@ async def asyncio_detailed(
 async def asyncio(
     mount_id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.2-rev1",
-) -> Optional[Union[BackupContentMountModel, Error]]:
+) -> BackupContentMountModel | Error | None:
     """Get Disk Publishing Mount Point
 
      The HTTP GET request to the `/api/v1/dataIntegration/{mountId}` path allows you to get a disk
@@ -195,7 +198,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[BackupContentMountModel, Error]
+        BackupContentMountModel | Error
     """
 
     return (

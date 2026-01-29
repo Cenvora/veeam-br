@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,20 +21,20 @@ class FlrSearchForResultSpec:
     """Settings for browsing search results.
 
     Attributes:
-        pagination (Union[Unset, PaginationSpec]): Pagination settings.
-        order (Union[Unset, FlrSearchForResultOrderSpec]): Sorting settings.
+        pagination (PaginationSpec | Unset): Pagination settings.
+        order (FlrSearchForResultOrderSpec | Unset): Sorting settings.
     """
 
-    pagination: Union[Unset, "PaginationSpec"] = UNSET
-    order: Union[Unset, "FlrSearchForResultOrderSpec"] = UNSET
+    pagination: PaginationSpec | Unset = UNSET
+    order: FlrSearchForResultOrderSpec | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        pagination: Union[Unset, dict[str, Any]] = UNSET
+        pagination: dict[str, Any] | Unset = UNSET
         if not isinstance(self.pagination, Unset):
             pagination = self.pagination.to_dict()
 
-        order: Union[Unset, dict[str, Any]] = UNSET
+        order: dict[str, Any] | Unset = UNSET
         if not isinstance(self.order, Unset):
             order = self.order.to_dict()
 
@@ -53,14 +55,14 @@ class FlrSearchForResultSpec:
 
         d = dict(src_dict)
         _pagination = d.pop("pagination", UNSET)
-        pagination: Union[Unset, PaginationSpec]
+        pagination: PaginationSpec | Unset
         if isinstance(_pagination, Unset):
             pagination = UNSET
         else:
             pagination = PaginationSpec.from_dict(_pagination)
 
         _order = d.pop("order", UNSET)
-        order: Union[Unset, FlrSearchForResultOrderSpec]
+        order: FlrSearchForResultOrderSpec | Unset
         if isinstance(_order, Unset):
             order = UNSET
         else:

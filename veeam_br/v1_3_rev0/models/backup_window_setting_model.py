@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 
@@ -16,10 +18,10 @@ class BackupWindowSettingModel:
     """Time scheme that defines permitted days and hours for the job to start.
 
     Attributes:
-        days (list['BackupWindowDayHoursModel']): Array of per-day schemes.
+        days (list[BackupWindowDayHoursModel]): Array of per-day schemes.
     """
 
-    days: list["BackupWindowDayHoursModel"]
+    days: list[BackupWindowDayHoursModel]
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

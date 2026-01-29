@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -8,10 +10,7 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.agent_object_model import AgentObjectModel
-    from ..models.cloud_director_object_model import CloudDirectorObjectModel
-    from ..models.hyper_v_object_model import HyperVObjectModel
-    from ..models.vmware_object_model import VmwareObjectModel
+    from ..models.inventory_object_model import InventoryObjectModel
 
 
 T = TypeVar("T", bound="ViVMSnapshotReplicaFailbackTargetHostSpec")
@@ -22,34 +21,21 @@ class ViVMSnapshotReplicaFailbackTargetHostSpec:
     """Target host settings.
 
     Attributes:
-        replica_point_id (Union[Unset, UUID]): Restore point ID.
-        host (Union['AgentObjectModel', 'CloudDirectorObjectModel', 'HyperVObjectModel', 'VmwareObjectModel', Unset]):
-            Inventory object properties.
+        replica_point_id (UUID | Unset): Restore point ID.
+        host (InventoryObjectModel | Unset): Inventory object properties.
     """
 
-    replica_point_id: Union[Unset, UUID] = UNSET
-    host: Union["AgentObjectModel", "CloudDirectorObjectModel", "HyperVObjectModel", "VmwareObjectModel", Unset] = UNSET
+    replica_point_id: UUID | Unset = UNSET
+    host: InventoryObjectModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.cloud_director_object_model import CloudDirectorObjectModel
-        from ..models.hyper_v_object_model import HyperVObjectModel
-        from ..models.vmware_object_model import VmwareObjectModel
-
-        replica_point_id: Union[Unset, str] = UNSET
+        replica_point_id: str | Unset = UNSET
         if not isinstance(self.replica_point_id, Unset):
             replica_point_id = str(self.replica_point_id)
 
-        host: Union[Unset, dict[str, Any]]
-        if isinstance(self.host, Unset):
-            host = UNSET
-        elif isinstance(self.host, VmwareObjectModel):
-            host = self.host.to_dict()
-        elif isinstance(self.host, CloudDirectorObjectModel):
-            host = self.host.to_dict()
-        elif isinstance(self.host, HyperVObjectModel):
-            host = self.host.to_dict()
-        else:
+        host: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.host, Unset):
             host = self.host.to_dict()
 
         field_dict: dict[str, Any] = {}
@@ -64,55 +50,22 @@ class ViVMSnapshotReplicaFailbackTargetHostSpec:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.agent_object_model import AgentObjectModel
-        from ..models.cloud_director_object_model import CloudDirectorObjectModel
-        from ..models.hyper_v_object_model import HyperVObjectModel
-        from ..models.vmware_object_model import VmwareObjectModel
+        from ..models.inventory_object_model import InventoryObjectModel
 
         d = dict(src_dict)
         _replica_point_id = d.pop("replicaPointId", UNSET)
-        replica_point_id: Union[Unset, UUID]
+        replica_point_id: UUID | Unset
         if isinstance(_replica_point_id, Unset):
             replica_point_id = UNSET
         else:
             replica_point_id = UUID(_replica_point_id)
 
-        def _parse_host(
-            data: object,
-        ) -> Union["AgentObjectModel", "CloudDirectorObjectModel", "HyperVObjectModel", "VmwareObjectModel", Unset]:
-            if isinstance(data, Unset):
-                return data
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_0 = VmwareObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_0
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_1 = CloudDirectorObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_1
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_2 = HyperVObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_2
-            except:  # noqa: E722
-                pass
-            if not isinstance(data, dict):
-                raise TypeError()
-            componentsschemas_inventory_object_model_type_3 = AgentObjectModel.from_dict(data)
-
-            return componentsschemas_inventory_object_model_type_3
-
-        host = _parse_host(d.pop("host", UNSET))
+        _host = d.pop("host", UNSET)
+        host: InventoryObjectModel | Unset
+        if isinstance(_host, Unset):
+            host = UNSET
+        else:
+            host = InventoryObjectModel.from_dict(_host)
 
         vi_vm_snapshot_replica_failback_target_host_spec = cls(
             replica_point_id=replica_point_id,

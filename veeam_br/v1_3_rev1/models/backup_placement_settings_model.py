@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -18,12 +20,12 @@ class BackupPlacementSettingsModel:
     Attributes:
         extent_id (UUID): ID of a performance extent.
         allowed_backups (EAllowedBackupsType): Type of backup files that can be stored on the extent.
-        name (Union[Unset, str]): Name of a performance extent.
+        name (str | Unset): Name of a performance extent.
     """
 
     extent_id: UUID
     allowed_backups: EAllowedBackupsType
-    name: Union[Unset, str] = UNSET
+    name: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -24,41 +26,41 @@ class EntraIdTenantRestoreItemAttributesSpec:
         restore_point_id (UUID): Restore point ID.
         item_id (str): Item ID.
         item_type (EEntraIdTenantItemType): Item type.
-        credentials_id (Union[Unset, UUID]): ID of the credentials record used for connection to the target tenant. The
+        credentials_id (UUID | Unset): ID of the credentials record used for connection to the target tenant. The
             property is used only for delegated restore by restore operator that does not have access to presaved
             credentials. To obtain the credentials, use the following requests&#58; <ol><li>Obtain a user code&#58; [Get
             User Code for Microsoft Entra ID Item Restore](Restore#operation/GetEntraIdTenantRestoreDeviceCode).</li>
             <li>Use the user code to get the credentials ID&#58; [Get Credentials for Microsoft Entra ID Item
             Restore](Restore#operation/GetEntraIdTenantRestoreDeviceCodeState).</li></ol>
-        included_properties (Union[Unset, list['EntraIdTenantItemIncludedPropertyModel']]): Array of item properties
-            that you want to restore.
-        skip_relationships (Union[Unset, bool]): If `true`, item relationships (such as assigned roles, group
-            memberships, group ownerships, and admin unit memberships) are not restored.
-        skip_recycle_bin_restore (Union[Unset, bool]): If `true`, all of the items are restored from the backup.
-            <p>Otherwise, the items are restored from the Microsoft Entra ID recycle bin. If an item is not found in the
-            recycle bin, it will not be restored.</p>
-        skip_objects_if_exist (Union[Unset, bool]): If `true`, only non-existing items are restored.
-        request_password_change_on_logon (Union[Unset, bool]): If `true`, restored users will be forced to change their
+        included_properties (list[EntraIdTenantItemIncludedPropertyModel] | Unset): Array of item properties that you
+            want to restore.
+        skip_relationships (bool | Unset): If `true`, item relationships (such as assigned roles, group memberships,
+            group ownerships, and admin unit memberships) are not restored.
+        skip_recycle_bin_restore (bool | Unset): If `true`, all of the items are restored from the backup. <p>Otherwise,
+            the items are restored from the Microsoft Entra ID recycle bin. If an item is not found in the recycle bin, it
+            will not be restored.</p>
+        skip_objects_if_exist (bool | Unset): If `true`, only non-existing items are restored.
+        request_password_change_on_logon (bool | Unset): If `true`, restored users will be forced to change their
             passwords after their first logon.
-        default_user_password (Union[Unset, str]): Default password that will be set for all users.
-        users_passwords (Union[Unset, list['EntraIdTenantRestoreUserPasswordSpec']]): Array of custom user passwords. To
+        default_user_password (str | Unset): Default password that will be set for all users.
+        users_passwords (list[EntraIdTenantRestoreUserPasswordSpec] | Unset): Array of custom user passwords. To
             generate the passwords, use the [Generate Microsoft Entra ID User Passwords](Backup-
             Browsers#operation/GenerateEntraIdTenantPassword) request.
-        reason (Union[Unset, str]): Reason for restoring Microsoft Entra ID items.
+        reason (str | Unset): Reason for restoring Microsoft Entra ID items.
     """
 
     restore_point_id: UUID
     item_id: str
     item_type: EEntraIdTenantItemType
-    credentials_id: Union[Unset, UUID] = UNSET
-    included_properties: Union[Unset, list["EntraIdTenantItemIncludedPropertyModel"]] = UNSET
-    skip_relationships: Union[Unset, bool] = UNSET
-    skip_recycle_bin_restore: Union[Unset, bool] = UNSET
-    skip_objects_if_exist: Union[Unset, bool] = UNSET
-    request_password_change_on_logon: Union[Unset, bool] = UNSET
-    default_user_password: Union[Unset, str] = UNSET
-    users_passwords: Union[Unset, list["EntraIdTenantRestoreUserPasswordSpec"]] = UNSET
-    reason: Union[Unset, str] = UNSET
+    credentials_id: UUID | Unset = UNSET
+    included_properties: list[EntraIdTenantItemIncludedPropertyModel] | Unset = UNSET
+    skip_relationships: bool | Unset = UNSET
+    skip_recycle_bin_restore: bool | Unset = UNSET
+    skip_objects_if_exist: bool | Unset = UNSET
+    request_password_change_on_logon: bool | Unset = UNSET
+    default_user_password: str | Unset = UNSET
+    users_passwords: list[EntraIdTenantRestoreUserPasswordSpec] | Unset = UNSET
+    reason: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -68,11 +70,11 @@ class EntraIdTenantRestoreItemAttributesSpec:
 
         item_type = self.item_type.value
 
-        credentials_id: Union[Unset, str] = UNSET
+        credentials_id: str | Unset = UNSET
         if not isinstance(self.credentials_id, Unset):
             credentials_id = str(self.credentials_id)
 
-        included_properties: Union[Unset, list[dict[str, Any]]] = UNSET
+        included_properties: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.included_properties, Unset):
             included_properties = []
             for included_properties_item_data in self.included_properties:
@@ -89,7 +91,7 @@ class EntraIdTenantRestoreItemAttributesSpec:
 
         default_user_password = self.default_user_password
 
-        users_passwords: Union[Unset, list[dict[str, Any]]] = UNSET
+        users_passwords: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.users_passwords, Unset):
             users_passwords = []
             for users_passwords_item_data in self.users_passwords:
@@ -141,18 +143,22 @@ class EntraIdTenantRestoreItemAttributesSpec:
         item_type = EEntraIdTenantItemType(d.pop("itemType"))
 
         _credentials_id = d.pop("credentialsId", UNSET)
-        credentials_id: Union[Unset, UUID]
+        credentials_id: UUID | Unset
         if isinstance(_credentials_id, Unset):
             credentials_id = UNSET
         else:
             credentials_id = UUID(_credentials_id)
 
-        included_properties = []
         _included_properties = d.pop("includedProperties", UNSET)
-        for included_properties_item_data in _included_properties or []:
-            included_properties_item = EntraIdTenantItemIncludedPropertyModel.from_dict(included_properties_item_data)
+        included_properties: list[EntraIdTenantItemIncludedPropertyModel] | Unset = UNSET
+        if _included_properties is not UNSET:
+            included_properties = []
+            for included_properties_item_data in _included_properties:
+                included_properties_item = EntraIdTenantItemIncludedPropertyModel.from_dict(
+                    included_properties_item_data
+                )
 
-            included_properties.append(included_properties_item)
+                included_properties.append(included_properties_item)
 
         skip_relationships = d.pop("skipRelationships", UNSET)
 
@@ -164,12 +170,14 @@ class EntraIdTenantRestoreItemAttributesSpec:
 
         default_user_password = d.pop("defaultUserPassword", UNSET)
 
-        users_passwords = []
         _users_passwords = d.pop("usersPasswords", UNSET)
-        for users_passwords_item_data in _users_passwords or []:
-            users_passwords_item = EntraIdTenantRestoreUserPasswordSpec.from_dict(users_passwords_item_data)
+        users_passwords: list[EntraIdTenantRestoreUserPasswordSpec] | Unset = UNSET
+        if _users_passwords is not UNSET:
+            users_passwords = []
+            for users_passwords_item_data in _users_passwords:
+                users_passwords_item = EntraIdTenantRestoreUserPasswordSpec.from_dict(users_passwords_item_data)
 
-            users_passwords.append(users_passwords_item)
+                users_passwords.append(users_passwords_item)
 
         reason = d.pop("reason", UNSET)
 

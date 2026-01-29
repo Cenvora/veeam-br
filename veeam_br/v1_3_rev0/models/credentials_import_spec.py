@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -22,18 +24,17 @@ class CredentialsImportSpec:
         username (str): User name.
         unique_id (str): Unique ID that identifies the credentials record.
         type_ (ECredentialsType): Credentials type.
-        password (Union[Unset, str]): Password.
-        description (Union[Unset, str]): Description of the credentials record.
-        linux_additional_settings (Union[Unset, CredentialsLinuxSettingsImportModel]): Additional Linux account
-            settings.
+        password (str | Unset): Password.
+        description (str | Unset): Description of the credentials record.
+        linux_additional_settings (CredentialsLinuxSettingsImportModel | Unset): Additional Linux account settings.
     """
 
     username: str
     unique_id: str
     type_: ECredentialsType
-    password: Union[Unset, str] = UNSET
-    description: Union[Unset, str] = UNSET
-    linux_additional_settings: Union[Unset, "CredentialsLinuxSettingsImportModel"] = UNSET
+    password: str | Unset = UNSET
+    description: str | Unset = UNSET
+    linux_additional_settings: CredentialsLinuxSettingsImportModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -47,7 +48,7 @@ class CredentialsImportSpec:
 
         description = self.description
 
-        linux_additional_settings: Union[Unset, dict[str, Any]] = UNSET
+        linux_additional_settings: dict[str, Any] | Unset = UNSET
         if not isinstance(self.linux_additional_settings, Unset):
             linux_additional_settings = self.linux_additional_settings.to_dict()
 
@@ -85,7 +86,7 @@ class CredentialsImportSpec:
         description = d.pop("description", UNSET)
 
         _linux_additional_settings = d.pop("linuxAdditionalSettings", UNSET)
-        linux_additional_settings: Union[Unset, CredentialsLinuxSettingsImportModel]
+        linux_additional_settings: CredentialsLinuxSettingsImportModel | Unset
         if isinstance(_linux_additional_settings, Unset):
             linux_additional_settings = UNSET
         else:

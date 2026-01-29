@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,13 +21,13 @@ class EntraIDTenantAuthenticationSpec:
 
     Attributes:
         application_id (str): Application (client) ID.
-        secret (Union[Unset, str]): Application (client) secret.
-        certificate (Union[Unset, CertificateUploadSpec]): Certificate settings (for certificate-based authentication).
+        secret (str | Unset): Application (client) secret.
+        certificate (CertificateUploadSpec | Unset): Certificate settings (for certificate-based authentication).
     """
 
     application_id: str
-    secret: Union[Unset, str] = UNSET
-    certificate: Union[Unset, "CertificateUploadSpec"] = UNSET
+    secret: str | Unset = UNSET
+    certificate: CertificateUploadSpec | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -33,7 +35,7 @@ class EntraIDTenantAuthenticationSpec:
 
         secret = self.secret
 
-        certificate: Union[Unset, dict[str, Any]] = UNSET
+        certificate: dict[str, Any] | Unset = UNSET
         if not isinstance(self.certificate, Unset):
             certificate = self.certificate.to_dict()
 
@@ -61,7 +63,7 @@ class EntraIDTenantAuthenticationSpec:
         secret = d.pop("secret", UNSET)
 
         _certificate = d.pop("certificate", UNSET)
-        certificate: Union[Unset, CertificateUploadSpec]
+        certificate: CertificateUploadSpec | Unset
         if isinstance(_certificate, Unset):
             certificate = UNSET
         else:

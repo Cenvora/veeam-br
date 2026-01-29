@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,24 +21,24 @@ class NotificationSettingsModel:
     """Notification settings.
 
     Attributes:
-        send_snmp_notifications (Union[Unset, bool]): If `true`, SNMP notifications are enabled for this job.
-        email_notifications (Union[Unset, EmailNotificationSettingsModel]): Email notification settings for the job.
-        vm_attribute (Union[Unset, NotificationVmAttributeSettingsModel]): VM attribute settings.
+        send_snmp_notifications (bool | Unset): If `true`, SNMP notifications are enabled for this job.
+        email_notifications (EmailNotificationSettingsModel | Unset): Email notification settings for the job.
+        vm_attribute (NotificationVmAttributeSettingsModel | Unset): VM attribute settings.
     """
 
-    send_snmp_notifications: Union[Unset, bool] = UNSET
-    email_notifications: Union[Unset, "EmailNotificationSettingsModel"] = UNSET
-    vm_attribute: Union[Unset, "NotificationVmAttributeSettingsModel"] = UNSET
+    send_snmp_notifications: bool | Unset = UNSET
+    email_notifications: EmailNotificationSettingsModel | Unset = UNSET
+    vm_attribute: NotificationVmAttributeSettingsModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         send_snmp_notifications = self.send_snmp_notifications
 
-        email_notifications: Union[Unset, dict[str, Any]] = UNSET
+        email_notifications: dict[str, Any] | Unset = UNSET
         if not isinstance(self.email_notifications, Unset):
             email_notifications = self.email_notifications.to_dict()
 
-        vm_attribute: Union[Unset, dict[str, Any]] = UNSET
+        vm_attribute: dict[str, Any] | Unset = UNSET
         if not isinstance(self.vm_attribute, Unset):
             vm_attribute = self.vm_attribute.to_dict()
 
@@ -61,14 +63,14 @@ class NotificationSettingsModel:
         send_snmp_notifications = d.pop("sendSNMPNotifications", UNSET)
 
         _email_notifications = d.pop("emailNotifications", UNSET)
-        email_notifications: Union[Unset, EmailNotificationSettingsModel]
+        email_notifications: EmailNotificationSettingsModel | Unset
         if isinstance(_email_notifications, Unset):
             email_notifications = UNSET
         else:
             email_notifications = EmailNotificationSettingsModel.from_dict(_email_notifications)
 
         _vm_attribute = d.pop("vmAttribute", UNSET)
-        vm_attribute: Union[Unset, NotificationVmAttributeSettingsModel]
+        vm_attribute: NotificationVmAttributeSettingsModel | Unset
         if isinstance(_vm_attribute, Unset):
             vm_attribute = UNSET
         else:

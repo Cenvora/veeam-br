@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -20,34 +22,34 @@ T = TypeVar("T", bound="SessionsFilters")
 class SessionsFilters:
     """
     Attributes:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):
-        order_column (Union[Unset, ESessionsFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        created_after_filter (Union[Unset, datetime.datetime]):
-        created_before_filter (Union[Unset, datetime.datetime]):
-        ended_after_filter (Union[Unset, datetime.datetime]):
-        ended_before_filter (Union[Unset, datetime.datetime]):
-        type_filter (Union[Unset, ESessionType]): Type of the session.
-        state_filter (Union[Unset, ESessionState]): State of the session.
-        result_filter (Union[Unset, ESessionResult]): Result status.
-        job_id_filter (Union[Unset, UUID]):
+        skip (int | Unset):
+        limit (int | Unset):
+        order_column (ESessionsFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        created_after_filter (datetime.datetime | Unset):
+        created_before_filter (datetime.datetime | Unset):
+        ended_after_filter (datetime.datetime | Unset):
+        ended_before_filter (datetime.datetime | Unset):
+        type_filter (ESessionType | Unset): Type of the session.
+        state_filter (ESessionState | Unset): State of the session.
+        result_filter (ESessionResult | Unset): Result status.
+        job_id_filter (UUID | Unset):
     """
 
-    skip: Union[Unset, int] = UNSET
-    limit: Union[Unset, int] = UNSET
-    order_column: Union[Unset, ESessionsFiltersOrderColumn] = UNSET
-    order_asc: Union[Unset, bool] = UNSET
-    name_filter: Union[Unset, str] = UNSET
-    created_after_filter: Union[Unset, datetime.datetime] = UNSET
-    created_before_filter: Union[Unset, datetime.datetime] = UNSET
-    ended_after_filter: Union[Unset, datetime.datetime] = UNSET
-    ended_before_filter: Union[Unset, datetime.datetime] = UNSET
-    type_filter: Union[Unset, ESessionType] = UNSET
-    state_filter: Union[Unset, ESessionState] = UNSET
-    result_filter: Union[Unset, ESessionResult] = UNSET
-    job_id_filter: Union[Unset, UUID] = UNSET
+    skip: int | Unset = UNSET
+    limit: int | Unset = UNSET
+    order_column: ESessionsFiltersOrderColumn | Unset = UNSET
+    order_asc: bool | Unset = UNSET
+    name_filter: str | Unset = UNSET
+    created_after_filter: datetime.datetime | Unset = UNSET
+    created_before_filter: datetime.datetime | Unset = UNSET
+    ended_after_filter: datetime.datetime | Unset = UNSET
+    ended_before_filter: datetime.datetime | Unset = UNSET
+    type_filter: ESessionType | Unset = UNSET
+    state_filter: ESessionState | Unset = UNSET
+    result_filter: ESessionResult | Unset = UNSET
+    job_id_filter: UUID | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -55,7 +57,7 @@ class SessionsFilters:
 
         limit = self.limit
 
-        order_column: Union[Unset, str] = UNSET
+        order_column: str | Unset = UNSET
         if not isinstance(self.order_column, Unset):
             order_column = self.order_column.value
 
@@ -63,35 +65,35 @@ class SessionsFilters:
 
         name_filter = self.name_filter
 
-        created_after_filter: Union[Unset, str] = UNSET
+        created_after_filter: str | Unset = UNSET
         if not isinstance(self.created_after_filter, Unset):
             created_after_filter = self.created_after_filter.isoformat()
 
-        created_before_filter: Union[Unset, str] = UNSET
+        created_before_filter: str | Unset = UNSET
         if not isinstance(self.created_before_filter, Unset):
             created_before_filter = self.created_before_filter.isoformat()
 
-        ended_after_filter: Union[Unset, str] = UNSET
+        ended_after_filter: str | Unset = UNSET
         if not isinstance(self.ended_after_filter, Unset):
             ended_after_filter = self.ended_after_filter.isoformat()
 
-        ended_before_filter: Union[Unset, str] = UNSET
+        ended_before_filter: str | Unset = UNSET
         if not isinstance(self.ended_before_filter, Unset):
             ended_before_filter = self.ended_before_filter.isoformat()
 
-        type_filter: Union[Unset, str] = UNSET
+        type_filter: str | Unset = UNSET
         if not isinstance(self.type_filter, Unset):
             type_filter = self.type_filter.value
 
-        state_filter: Union[Unset, str] = UNSET
+        state_filter: str | Unset = UNSET
         if not isinstance(self.state_filter, Unset):
             state_filter = self.state_filter.value
 
-        result_filter: Union[Unset, str] = UNSET
+        result_filter: str | Unset = UNSET
         if not isinstance(self.result_filter, Unset):
             result_filter = self.result_filter.value
 
-        job_id_filter: Union[Unset, str] = UNSET
+        job_id_filter: str | Unset = UNSET
         if not isinstance(self.job_id_filter, Unset):
             job_id_filter = str(self.job_id_filter)
 
@@ -135,7 +137,7 @@ class SessionsFilters:
         limit = d.pop("limit", UNSET)
 
         _order_column = d.pop("orderColumn", UNSET)
-        order_column: Union[Unset, ESessionsFiltersOrderColumn]
+        order_column: ESessionsFiltersOrderColumn | Unset
         if isinstance(_order_column, Unset):
             order_column = UNSET
         else:
@@ -146,56 +148,56 @@ class SessionsFilters:
         name_filter = d.pop("nameFilter", UNSET)
 
         _created_after_filter = d.pop("createdAfterFilter", UNSET)
-        created_after_filter: Union[Unset, datetime.datetime]
+        created_after_filter: datetime.datetime | Unset
         if isinstance(_created_after_filter, Unset):
             created_after_filter = UNSET
         else:
             created_after_filter = isoparse(_created_after_filter)
 
         _created_before_filter = d.pop("createdBeforeFilter", UNSET)
-        created_before_filter: Union[Unset, datetime.datetime]
+        created_before_filter: datetime.datetime | Unset
         if isinstance(_created_before_filter, Unset):
             created_before_filter = UNSET
         else:
             created_before_filter = isoparse(_created_before_filter)
 
         _ended_after_filter = d.pop("endedAfterFilter", UNSET)
-        ended_after_filter: Union[Unset, datetime.datetime]
+        ended_after_filter: datetime.datetime | Unset
         if isinstance(_ended_after_filter, Unset):
             ended_after_filter = UNSET
         else:
             ended_after_filter = isoparse(_ended_after_filter)
 
         _ended_before_filter = d.pop("endedBeforeFilter", UNSET)
-        ended_before_filter: Union[Unset, datetime.datetime]
+        ended_before_filter: datetime.datetime | Unset
         if isinstance(_ended_before_filter, Unset):
             ended_before_filter = UNSET
         else:
             ended_before_filter = isoparse(_ended_before_filter)
 
         _type_filter = d.pop("typeFilter", UNSET)
-        type_filter: Union[Unset, ESessionType]
+        type_filter: ESessionType | Unset
         if isinstance(_type_filter, Unset):
             type_filter = UNSET
         else:
             type_filter = ESessionType(_type_filter)
 
         _state_filter = d.pop("stateFilter", UNSET)
-        state_filter: Union[Unset, ESessionState]
+        state_filter: ESessionState | Unset
         if isinstance(_state_filter, Unset):
             state_filter = UNSET
         else:
             state_filter = ESessionState(_state_filter)
 
         _result_filter = d.pop("resultFilter", UNSET)
-        result_filter: Union[Unset, ESessionResult]
+        result_filter: ESessionResult | Unset
         if isinstance(_result_filter, Unset):
             result_filter = UNSET
         else:
             result_filter = ESessionResult(_result_filter)
 
         _job_id_filter = d.pop("jobIdFilter", UNSET)
-        job_id_filter: Union[Unset, UUID]
+        job_id_filter: UUID | Unset
         if isinstance(_job_id_filter, Unset):
             job_id_filter = UNSET
         else:

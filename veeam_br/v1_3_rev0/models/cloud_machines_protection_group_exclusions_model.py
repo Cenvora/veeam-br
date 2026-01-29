@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -18,18 +20,18 @@ class CloudMachinesProtectionGroupExclusionsModel:
     """Exclusion settings for cloud objects.
 
     Attributes:
-        exclude_selected_objects (Union[Unset, bool]): If `true`, the selected objects will be excluded from processing.
-        excluded_objects (Union[Unset, list['CloudMachinesProtectionGroupObjectsModel']]): Array of excluded objects.
+        exclude_selected_objects (bool | Unset): If `true`, the selected objects will be excluded from processing.
+        excluded_objects (list[CloudMachinesProtectionGroupObjectsModel] | Unset): Array of excluded objects.
     """
 
-    exclude_selected_objects: Union[Unset, bool] = UNSET
-    excluded_objects: Union[Unset, list["CloudMachinesProtectionGroupObjectsModel"]] = UNSET
+    exclude_selected_objects: bool | Unset = UNSET
+    excluded_objects: list[CloudMachinesProtectionGroupObjectsModel] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         exclude_selected_objects = self.exclude_selected_objects
 
-        excluded_objects: Union[Unset, list[dict[str, Any]]] = UNSET
+        excluded_objects: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.excluded_objects, Unset):
             excluded_objects = []
             for excluded_objects_item_data in self.excluded_objects:
@@ -53,12 +55,14 @@ class CloudMachinesProtectionGroupExclusionsModel:
         d = dict(src_dict)
         exclude_selected_objects = d.pop("excludeSelectedObjects", UNSET)
 
-        excluded_objects = []
         _excluded_objects = d.pop("excludedObjects", UNSET)
-        for excluded_objects_item_data in _excluded_objects or []:
-            excluded_objects_item = CloudMachinesProtectionGroupObjectsModel.from_dict(excluded_objects_item_data)
+        excluded_objects: list[CloudMachinesProtectionGroupObjectsModel] | Unset = UNSET
+        if _excluded_objects is not UNSET:
+            excluded_objects = []
+            for excluded_objects_item_data in _excluded_objects:
+                excluded_objects_item = CloudMachinesProtectionGroupObjectsModel.from_dict(excluded_objects_item_data)
 
-            excluded_objects.append(excluded_objects_item)
+                excluded_objects.append(excluded_objects_item)
 
         cloud_machines_protection_group_exclusions_model = cls(
             exclude_selected_objects=exclude_selected_objects,

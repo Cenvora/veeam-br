@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -18,12 +20,12 @@ class PerformanceExtentModel:
     Attributes:
         id (UUID): ID of the backup repository added as a performance extent.
         name (str): Name of the backup repository added as a performance extent.
-        status (Union[Unset, list[ERepositoryExtentStatusType]]): Array of statuses for the performance extent.
+        status (list[ERepositoryExtentStatusType] | Unset): Array of statuses for the performance extent.
     """
 
     id: UUID
     name: str
-    status: Union[Unset, list[ERepositoryExtentStatusType]] = UNSET
+    status: list[ERepositoryExtentStatusType] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -31,7 +33,7 @@ class PerformanceExtentModel:
 
         name = self.name
 
-        status: Union[Unset, list[str]] = UNSET
+        status: list[str] | Unset = UNSET
         if not isinstance(self.status, Unset):
             status = []
             for status_item_data in self.status:
@@ -58,12 +60,14 @@ class PerformanceExtentModel:
 
         name = d.pop("name")
 
-        status = []
         _status = d.pop("status", UNSET)
-        for status_item_data in _status or []:
-            status_item = ERepositoryExtentStatusType(status_item_data)
+        status: list[ERepositoryExtentStatusType] | Unset = UNSET
+        if _status is not UNSET:
+            status = []
+            for status_item_data in _status:
+                status_item = ERepositoryExtentStatusType(status_item_data)
 
-            status.append(status_item)
+                status.append(status_item)
 
         performance_extent_model = cls(
             id=id,

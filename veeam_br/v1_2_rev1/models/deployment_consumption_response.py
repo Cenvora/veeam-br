@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -21,19 +23,19 @@ class DeploymentConsumptionResponse:
     """
     Attributes:
         instance_id (str): ID of an instance where Veeam Backup & Replication is deployed.
-        tenants (list['DeploymentConsumptionTenantResponse']): Array of tenants added to the backup server.
+        tenants (list[DeploymentConsumptionTenantResponse]): Array of tenants added to the backup server.
         instance_consumption (EntraIdResource): Resource consumption.
         issue (Issue): Issue status.
         entra_id_plugin_settings (EntraIDPluginSettings):
-        template_id (Union[Unset, str]):
+        template_id (str | Unset):
     """
 
     instance_id: str
-    tenants: list["DeploymentConsumptionTenantResponse"]
-    instance_consumption: "EntraIdResource"
-    issue: "Issue"
-    entra_id_plugin_settings: "EntraIDPluginSettings"
-    template_id: Union[Unset, str] = UNSET
+    tenants: list[DeploymentConsumptionTenantResponse]
+    instance_consumption: EntraIdResource
+    issue: Issue
+    entra_id_plugin_settings: EntraIDPluginSettings
+    template_id: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -22,12 +24,12 @@ class AmazonS3StorageAccountModel:
     Attributes:
         credentials_id (UUID): ID of the cloud credentials record.
         region_type (EAmazonRegionType): AWS region type.
-        connection_settings (Union[Unset, ObjectStorageConnectionModel]): Object storage connection settings.
+        connection_settings (ObjectStorageConnectionModel | Unset): Object storage connection settings.
     """
 
     credentials_id: UUID
     region_type: EAmazonRegionType
-    connection_settings: Union[Unset, "ObjectStorageConnectionModel"] = UNSET
+    connection_settings: ObjectStorageConnectionModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -35,7 +37,7 @@ class AmazonS3StorageAccountModel:
 
         region_type = self.region_type.value
 
-        connection_settings: Union[Unset, dict[str, Any]] = UNSET
+        connection_settings: dict[str, Any] | Unset = UNSET
         if not isinstance(self.connection_settings, Unset):
             connection_settings = self.connection_settings.to_dict()
 
@@ -62,7 +64,7 @@ class AmazonS3StorageAccountModel:
         region_type = EAmazonRegionType(d.pop("regionType"))
 
         _connection_settings = d.pop("connectionSettings", UNSET)
-        connection_settings: Union[Unset, ObjectStorageConnectionModel]
+        connection_settings: ObjectStorageConnectionModel | Unset
         if isinstance(_connection_settings, Unset):
             connection_settings = UNSET
         else:

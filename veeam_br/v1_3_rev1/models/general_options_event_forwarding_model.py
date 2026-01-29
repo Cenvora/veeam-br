@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,30 +22,29 @@ class GeneralOptionsEventForwardingModel:
     """Event forwarding settings.
 
     Attributes:
-        snmp_servers (Union[Unset, list['GeneralOptionsSNMPServerModel']]): Array of SNMP servers.
-        syslog_server (Union[Unset, GeneralOptionsSyslogServerModel]): Syslog server settings.
-        syslog_event_filtering (Union[Unset, list['GeneralOptionsSyslogEventFilteringModel']]): Array of syslog event
-            filters.
+        snmp_servers (list[GeneralOptionsSNMPServerModel] | Unset): Array of SNMP servers.
+        syslog_server (GeneralOptionsSyslogServerModel | Unset): Syslog server settings.
+        syslog_event_filtering (list[GeneralOptionsSyslogEventFilteringModel] | Unset): Array of syslog event filters.
     """
 
-    snmp_servers: Union[Unset, list["GeneralOptionsSNMPServerModel"]] = UNSET
-    syslog_server: Union[Unset, "GeneralOptionsSyslogServerModel"] = UNSET
-    syslog_event_filtering: Union[Unset, list["GeneralOptionsSyslogEventFilteringModel"]] = UNSET
+    snmp_servers: list[GeneralOptionsSNMPServerModel] | Unset = UNSET
+    syslog_server: GeneralOptionsSyslogServerModel | Unset = UNSET
+    syslog_event_filtering: list[GeneralOptionsSyslogEventFilteringModel] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        snmp_servers: Union[Unset, list[dict[str, Any]]] = UNSET
+        snmp_servers: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.snmp_servers, Unset):
             snmp_servers = []
             for snmp_servers_item_data in self.snmp_servers:
                 snmp_servers_item = snmp_servers_item_data.to_dict()
                 snmp_servers.append(snmp_servers_item)
 
-        syslog_server: Union[Unset, dict[str, Any]] = UNSET
+        syslog_server: dict[str, Any] | Unset = UNSET
         if not isinstance(self.syslog_server, Unset):
             syslog_server = self.syslog_server.to_dict()
 
-        syslog_event_filtering: Union[Unset, list[dict[str, Any]]] = UNSET
+        syslog_event_filtering: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.syslog_event_filtering, Unset):
             syslog_event_filtering = []
             for syslog_event_filtering_item_data in self.syslog_event_filtering:
@@ -69,28 +70,32 @@ class GeneralOptionsEventForwardingModel:
         from ..models.general_options_syslog_server_model import GeneralOptionsSyslogServerModel
 
         d = dict(src_dict)
-        snmp_servers = []
         _snmp_servers = d.pop("SNMPServers", UNSET)
-        for snmp_servers_item_data in _snmp_servers or []:
-            snmp_servers_item = GeneralOptionsSNMPServerModel.from_dict(snmp_servers_item_data)
+        snmp_servers: list[GeneralOptionsSNMPServerModel] | Unset = UNSET
+        if _snmp_servers is not UNSET:
+            snmp_servers = []
+            for snmp_servers_item_data in _snmp_servers:
+                snmp_servers_item = GeneralOptionsSNMPServerModel.from_dict(snmp_servers_item_data)
 
-            snmp_servers.append(snmp_servers_item)
+                snmp_servers.append(snmp_servers_item)
 
         _syslog_server = d.pop("syslogServer", UNSET)
-        syslog_server: Union[Unset, GeneralOptionsSyslogServerModel]
+        syslog_server: GeneralOptionsSyslogServerModel | Unset
         if isinstance(_syslog_server, Unset):
             syslog_server = UNSET
         else:
             syslog_server = GeneralOptionsSyslogServerModel.from_dict(_syslog_server)
 
-        syslog_event_filtering = []
         _syslog_event_filtering = d.pop("syslogEventFiltering", UNSET)
-        for syslog_event_filtering_item_data in _syslog_event_filtering or []:
-            syslog_event_filtering_item = GeneralOptionsSyslogEventFilteringModel.from_dict(
-                syslog_event_filtering_item_data
-            )
+        syslog_event_filtering: list[GeneralOptionsSyslogEventFilteringModel] | Unset = UNSET
+        if _syslog_event_filtering is not UNSET:
+            syslog_event_filtering = []
+            for syslog_event_filtering_item_data in _syslog_event_filtering:
+                syslog_event_filtering_item = GeneralOptionsSyslogEventFilteringModel.from_dict(
+                    syslog_event_filtering_item_data
+                )
 
-            syslog_event_filtering.append(syslog_event_filtering_item)
+                syslog_event_filtering.append(syslog_event_filtering_item)
 
         general_options_event_forwarding_model = cls(
             snmp_servers=snmp_servers,

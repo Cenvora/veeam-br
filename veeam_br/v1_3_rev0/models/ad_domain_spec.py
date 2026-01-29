@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -17,12 +19,12 @@ class ADDomainSpec:
     Attributes:
         server_name (str): DNS name or IP address of Active Directory server.
         credentials_id (UUID): Credentials ID.
-        port (Union[Unset, int]): Used port.
+        port (int | Unset): Used port.
     """
 
     server_name: str
     credentials_id: UUID
-    port: Union[Unset, int] = UNSET
+    port: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

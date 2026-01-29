@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,17 +21,17 @@ class BackupJobImportProxiesModel:
 
     Attributes:
         automatic_selection (bool): If `true`, backup proxies are detected and assigned automatically. Default: True.
-        proxies (Union[Unset, list['BackupProxyImportModel']]): Array of backup proxies.
+        proxies (list[BackupProxyImportModel] | Unset): Array of backup proxies.
     """
 
     automatic_selection: bool = True
-    proxies: Union[Unset, list["BackupProxyImportModel"]] = UNSET
+    proxies: list[BackupProxyImportModel] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         automatic_selection = self.automatic_selection
 
-        proxies: Union[Unset, list[dict[str, Any]]] = UNSET
+        proxies: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.proxies, Unset):
             proxies = []
             for proxies_item_data in self.proxies:
@@ -55,12 +57,14 @@ class BackupJobImportProxiesModel:
         d = dict(src_dict)
         automatic_selection = d.pop("automaticSelection")
 
-        proxies = []
         _proxies = d.pop("proxies", UNSET)
-        for proxies_item_data in _proxies or []:
-            proxies_item = BackupProxyImportModel.from_dict(proxies_item_data)
+        proxies: list[BackupProxyImportModel] | Unset = UNSET
+        if _proxies is not UNSET:
+            proxies = []
+            for proxies_item_data in _proxies:
+                proxies_item = BackupProxyImportModel.from_dict(proxies_item_data)
 
-            proxies.append(proxies_item)
+                proxies.append(proxies_item)
 
         backup_job_import_proxies_model = cls(
             automatic_selection=automatic_selection,

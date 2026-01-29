@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -21,12 +23,12 @@ class VSphereReplicaJobDataTransferModel:
     Attributes:
         source_proxies (BackupProxiesSettingsModel): Backup proxy settings.
         target_proxies (BackupProxiesSettingsModel): Backup proxy settings.
-        wan_accelerator_settings (Union[Unset, WanAcceleratorSettingsModel]): WAN accelerator settings.
+        wan_accelerator_settings (WanAcceleratorSettingsModel | Unset): WAN accelerator settings.
     """
 
-    source_proxies: "BackupProxiesSettingsModel"
-    target_proxies: "BackupProxiesSettingsModel"
-    wan_accelerator_settings: Union[Unset, "WanAcceleratorSettingsModel"] = UNSET
+    source_proxies: BackupProxiesSettingsModel
+    target_proxies: BackupProxiesSettingsModel
+    wan_accelerator_settings: WanAcceleratorSettingsModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -34,7 +36,7 @@ class VSphereReplicaJobDataTransferModel:
 
         target_proxies = self.target_proxies.to_dict()
 
-        wan_accelerator_settings: Union[Unset, dict[str, Any]] = UNSET
+        wan_accelerator_settings: dict[str, Any] | Unset = UNSET
         if not isinstance(self.wan_accelerator_settings, Unset):
             wan_accelerator_settings = self.wan_accelerator_settings.to_dict()
 
@@ -62,7 +64,7 @@ class VSphereReplicaJobDataTransferModel:
         target_proxies = BackupProxiesSettingsModel.from_dict(d.pop("targetProxies"))
 
         _wan_accelerator_settings = d.pop("wanAcceleratorSettings", UNSET)
-        wan_accelerator_settings: Union[Unset, WanAcceleratorSettingsModel]
+        wan_accelerator_settings: WanAcceleratorSettingsModel | Unset
         if isinstance(_wan_accelerator_settings, Unset):
             wan_accelerator_settings = UNSET
         else:

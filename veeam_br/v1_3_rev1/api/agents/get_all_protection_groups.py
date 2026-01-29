@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -8,17 +8,18 @@ from ...client import AuthenticatedClient, Client
 from ...models.e_protection_group_filters_order_column import EProtectionGroupFiltersOrderColumn
 from ...models.e_protection_group_type import EProtectionGroupType
 from ...models.error import Error
+from ...models.protection_groups_result import ProtectionGroupsResult
 from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     *,
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EProtectionGroupFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, EProtectionGroupType] = UNSET,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EProtectionGroupFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: EProtectionGroupType | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -30,7 +31,7 @@ def _get_kwargs(
 
     params["limit"] = limit
 
-    json_order_column: Union[Unset, str] = UNSET
+    json_order_column: str | Unset = UNSET
     if not isinstance(order_column, Unset):
         json_order_column = order_column.value
 
@@ -40,7 +41,7 @@ def _get_kwargs(
 
     params["nameFilter"] = name_filter
 
-    json_type_filter: Union[Unset, str] = UNSET
+    json_type_filter: str | Unset = UNSET
     if not isinstance(type_filter, Unset):
         json_type_filter = type_filter.value
 
@@ -58,7 +59,14 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Error]:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Error | ProtectionGroupsResult | None:
+    if response.status_code == 200:
+        response_200 = ProtectionGroupsResult.from_dict(response.json())
+
+        return response_200
+
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
 
@@ -80,7 +88,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Error]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | ProtectionGroupsResult]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -91,15 +101,15 @@ def _build_response(*, client: Union[AuthenticatedClient, Client], response: htt
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EProtectionGroupFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, EProtectionGroupType] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EProtectionGroupFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: EProtectionGroupType | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Response[Error]:
+) -> Response[Error | ProtectionGroupsResult]:
     """Get Protection Groups
 
      The HTTP GET request to the `/api/v1/agents/protectionGroups` endpoint gets an array of protection
@@ -107,13 +117,13 @@ def sync_detailed(
     Administrator, Veeam Restore Operator, Veeam Tape Operator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EProtectionGroupFiltersOrderColumn]): Sorts protection groups
-            by one of the protection group parameters.
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, EProtectionGroupType]): Protection group type
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EProtectionGroupFiltersOrderColumn | Unset): Sorts protection groups by one
+            of the protection group parameters.
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        type_filter (EProtectionGroupType | Unset): Protection group type
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -121,7 +131,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error]
+        Response[Error | ProtectionGroupsResult]
     """
 
     kwargs = _get_kwargs(
@@ -143,15 +153,15 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EProtectionGroupFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, EProtectionGroupType] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EProtectionGroupFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: EProtectionGroupType | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Error]:
+) -> Error | ProtectionGroupsResult | None:
     """Get Protection Groups
 
      The HTTP GET request to the `/api/v1/agents/protectionGroups` endpoint gets an array of protection
@@ -159,13 +169,13 @@ def sync(
     Administrator, Veeam Restore Operator, Veeam Tape Operator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EProtectionGroupFiltersOrderColumn]): Sorts protection groups
-            by one of the protection group parameters.
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, EProtectionGroupType]): Protection group type
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EProtectionGroupFiltersOrderColumn | Unset): Sorts protection groups by one
+            of the protection group parameters.
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        type_filter (EProtectionGroupType | Unset): Protection group type
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -173,7 +183,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error
+        Error | ProtectionGroupsResult
     """
 
     return sync_detailed(
@@ -190,15 +200,15 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EProtectionGroupFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, EProtectionGroupType] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EProtectionGroupFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: EProtectionGroupType | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Response[Error]:
+) -> Response[Error | ProtectionGroupsResult]:
     """Get Protection Groups
 
      The HTTP GET request to the `/api/v1/agents/protectionGroups` endpoint gets an array of protection
@@ -206,13 +216,13 @@ async def asyncio_detailed(
     Administrator, Veeam Restore Operator, Veeam Tape Operator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EProtectionGroupFiltersOrderColumn]): Sorts protection groups
-            by one of the protection group parameters.
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, EProtectionGroupType]): Protection group type
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EProtectionGroupFiltersOrderColumn | Unset): Sorts protection groups by one
+            of the protection group parameters.
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        type_filter (EProtectionGroupType | Unset): Protection group type
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -220,7 +230,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error]
+        Response[Error | ProtectionGroupsResult]
     """
 
     kwargs = _get_kwargs(
@@ -240,15 +250,15 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EProtectionGroupFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, EProtectionGroupType] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EProtectionGroupFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: EProtectionGroupType | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Error]:
+) -> Error | ProtectionGroupsResult | None:
     """Get Protection Groups
 
      The HTTP GET request to the `/api/v1/agents/protectionGroups` endpoint gets an array of protection
@@ -256,13 +266,13 @@ async def asyncio(
     Administrator, Veeam Restore Operator, Veeam Tape Operator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EProtectionGroupFiltersOrderColumn]): Sorts protection groups
-            by one of the protection group parameters.
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, EProtectionGroupType]): Protection group type
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EProtectionGroupFiltersOrderColumn | Unset): Sorts protection groups by one
+            of the protection group parameters.
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        type_filter (EProtectionGroupType | Unset): Protection group type
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -270,7 +280,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error
+        Error | ProtectionGroupsResult
     """
 
     return (

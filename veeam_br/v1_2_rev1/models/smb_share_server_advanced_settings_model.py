@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,18 +16,18 @@ T = TypeVar("T", bound="SMBShareServerAdvancedSettingsModel")
 class SMBShareServerAdvancedSettingsModel:
     """
     Attributes:
-        processing_mode (Union[Unset, ESMBShareServerProcessingMode]):
-        direct_backup_failover_enabled (Union[Unset, bool]):
-        storage_snapshot_path (Union[Unset, str]):
+        processing_mode (ESMBShareServerProcessingMode | Unset):
+        direct_backup_failover_enabled (bool | Unset):
+        storage_snapshot_path (str | Unset):
     """
 
-    processing_mode: Union[Unset, ESMBShareServerProcessingMode] = UNSET
-    direct_backup_failover_enabled: Union[Unset, bool] = UNSET
-    storage_snapshot_path: Union[Unset, str] = UNSET
+    processing_mode: ESMBShareServerProcessingMode | Unset = UNSET
+    direct_backup_failover_enabled: bool | Unset = UNSET
+    storage_snapshot_path: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        processing_mode: Union[Unset, str] = UNSET
+        processing_mode: str | Unset = UNSET
         if not isinstance(self.processing_mode, Unset):
             processing_mode = self.processing_mode.value
 
@@ -49,7 +51,7 @@ class SMBShareServerAdvancedSettingsModel:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _processing_mode = d.pop("processingMode", UNSET)
-        processing_mode: Union[Unset, ESMBShareServerProcessingMode]
+        processing_mode: ESMBShareServerProcessingMode | Unset
         if isinstance(_processing_mode, Unset):
             processing_mode = UNSET
         else:

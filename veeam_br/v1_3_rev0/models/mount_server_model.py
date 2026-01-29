@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -22,25 +24,25 @@ class MountServerModel:
     Attributes:
         id (UUID): Mount server ID. The ID is the same as the ID of the managed server that was assigned a mount server
             role.
-        type_ (Union[Unset, EMountServerType]): Mount server type.
-        settings (Union[Unset, MountServerOptionsModel]): Mount server settings.
-        is_default (Union[Unset, bool]): If `true`, the mount server is set as default.
+        type_ (EMountServerType | Unset): Mount server type.
+        settings (MountServerOptionsModel | Unset): Mount server settings.
+        is_default (bool | Unset): If `true`, the mount server is set as default.
     """
 
     id: UUID
-    type_: Union[Unset, EMountServerType] = UNSET
-    settings: Union[Unset, "MountServerOptionsModel"] = UNSET
-    is_default: Union[Unset, bool] = UNSET
+    type_: EMountServerType | Unset = UNSET
+    settings: MountServerOptionsModel | Unset = UNSET
+    is_default: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         id = str(self.id)
 
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
-        settings: Union[Unset, dict[str, Any]] = UNSET
+        settings: dict[str, Any] | Unset = UNSET
         if not isinstance(self.settings, Unset):
             settings = self.settings.to_dict()
 
@@ -70,14 +72,14 @@ class MountServerModel:
         id = UUID(d.pop("id"))
 
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, EMountServerType]
+        type_: EMountServerType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:
             type_ = EMountServerType(_type_)
 
         _settings = d.pop("settings", UNSET)
-        settings: Union[Unset, MountServerOptionsModel]
+        settings: MountServerOptionsModel | Unset
         if isinstance(_settings, Unset):
             settings = UNSET
         else:

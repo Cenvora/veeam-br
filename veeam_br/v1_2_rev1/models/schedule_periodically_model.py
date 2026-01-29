@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,30 +22,30 @@ class SchedulePeriodicallyModel:
 
     Attributes:
         is_enabled (bool): If `true`, periodic schedule is enabled. Default: False.
-        periodically_kind (Union[Unset, EPeriodicallyKinds]): Time unit for periodic job scheduling.
-        frequency (Union[Unset, int]): Number of time units that defines the time interval.
-        backup_window (Union[Unset, BackupWindowSettingModel]): Time scheme that defines permitted days and hours for
-            the job to start.
-        start_time_within_an_hour (Union[Unset, int]): Start time within an hour, in minutes.
+        periodically_kind (EPeriodicallyKinds | Unset): Time unit for periodic job scheduling.
+        frequency (int | Unset): Number of time units that defines the time interval.
+        backup_window (BackupWindowSettingModel | Unset): Time scheme that defines permitted days and hours for the job
+            to start.
+        start_time_within_an_hour (int | Unset): Start time within an hour, in minutes.
     """
 
     is_enabled: bool = False
-    periodically_kind: Union[Unset, EPeriodicallyKinds] = UNSET
-    frequency: Union[Unset, int] = UNSET
-    backup_window: Union[Unset, "BackupWindowSettingModel"] = UNSET
-    start_time_within_an_hour: Union[Unset, int] = UNSET
+    periodically_kind: EPeriodicallyKinds | Unset = UNSET
+    frequency: int | Unset = UNSET
+    backup_window: BackupWindowSettingModel | Unset = UNSET
+    start_time_within_an_hour: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         is_enabled = self.is_enabled
 
-        periodically_kind: Union[Unset, str] = UNSET
+        periodically_kind: str | Unset = UNSET
         if not isinstance(self.periodically_kind, Unset):
             periodically_kind = self.periodically_kind.value
 
         frequency = self.frequency
 
-        backup_window: Union[Unset, dict[str, Any]] = UNSET
+        backup_window: dict[str, Any] | Unset = UNSET
         if not isinstance(self.backup_window, Unset):
             backup_window = self.backup_window.to_dict()
 
@@ -75,7 +77,7 @@ class SchedulePeriodicallyModel:
         is_enabled = d.pop("isEnabled")
 
         _periodically_kind = d.pop("periodicallyKind", UNSET)
-        periodically_kind: Union[Unset, EPeriodicallyKinds]
+        periodically_kind: EPeriodicallyKinds | Unset
         if isinstance(_periodically_kind, Unset):
             periodically_kind = UNSET
         else:
@@ -84,7 +86,7 @@ class SchedulePeriodicallyModel:
         frequency = d.pop("frequency", UNSET)
 
         _backup_window = d.pop("backupWindow", UNSET)
-        backup_window: Union[Unset, BackupWindowSettingModel]
+        backup_window: BackupWindowSettingModel | Unset
         if isinstance(_backup_window, Unset):
             backup_window = UNSET
         else:

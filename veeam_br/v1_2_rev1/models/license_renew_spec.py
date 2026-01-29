@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,13 +16,13 @@ class LicenseRenewSpec:
     """Renew the license.
 
     Attributes:
-        force_standalone_mode (Union[Unset, bool]): This property is only used with backup servers managed by Veeam
-            Backup Enterprise Manager.<ul><li>If `true`, the request will renew the license.</li><li>If `false` or the
-            property is not specified, the request will produce an error, warning you that the backup server is managed by
-            Enterprise Manager.</li></ul>
+        force_standalone_mode (bool | Unset): This property is only used with backup servers managed by Veeam Backup
+            Enterprise Manager.<ul><li>If `true`, the request will renew the license.</li><li>If `false` or the property is
+            not specified, the request will produce an error, warning you that the backup server is managed by Enterprise
+            Manager.</li></ul>
     """
 
-    force_standalone_mode: Union[Unset, bool] = UNSET
+    force_standalone_mode: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

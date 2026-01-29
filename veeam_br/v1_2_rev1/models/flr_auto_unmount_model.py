@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -16,11 +18,11 @@ class FlrAutoUnmountModel:
     Attributes:
         is_enabled (bool): If `true`, the file system will be unmounted and the FileLevelRestore session will be stopped
             automaticaly after the specified time period of inactivity.
-        no_activity_period_in_minutes (Union[Unset, int]): Time period in munutes. Default: 30.
+        no_activity_period_in_minutes (int | Unset): Time period in munutes. Default: 30.
     """
 
     is_enabled: bool
-    no_activity_period_in_minutes: Union[Unset, int] = 30
+    no_activity_period_in_minutes: int | Unset = 30
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

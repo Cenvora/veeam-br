@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,18 +16,18 @@ T = TypeVar("T", bound="EntraIdTenantApplicationFilterBrowseSpec")
 class EntraIdTenantApplicationFilterBrowseSpec:
     """
     Attributes:
-        display_name (Union[Unset, str]):
-        included_types (Union[Unset, list[EEntraIdTenantApplicationType]]):
+        display_name (str | Unset):
+        included_types (list[EEntraIdTenantApplicationType] | Unset):
     """
 
-    display_name: Union[Unset, str] = UNSET
-    included_types: Union[Unset, list[EEntraIdTenantApplicationType]] = UNSET
+    display_name: str | Unset = UNSET
+    included_types: list[EEntraIdTenantApplicationType] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         display_name = self.display_name
 
-        included_types: Union[Unset, list[str]] = UNSET
+        included_types: list[str] | Unset = UNSET
         if not isinstance(self.included_types, Unset):
             included_types = []
             for included_types_item_data in self.included_types:
@@ -47,12 +49,14 @@ class EntraIdTenantApplicationFilterBrowseSpec:
         d = dict(src_dict)
         display_name = d.pop("displayName", UNSET)
 
-        included_types = []
         _included_types = d.pop("includedTypes", UNSET)
-        for included_types_item_data in _included_types or []:
-            included_types_item = EEntraIdTenantApplicationType(included_types_item_data)
+        included_types: list[EEntraIdTenantApplicationType] | Unset = UNSET
+        if _included_types is not UNSET:
+            included_types = []
+            for included_types_item_data in _included_types:
+                included_types_item = EEntraIdTenantApplicationType(included_types_item_data)
 
-            included_types.append(included_types_item)
+                included_types.append(included_types_item)
 
         entra_id_tenant_application_filter_browse_spec = cls(
             display_name=display_name,

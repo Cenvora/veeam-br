@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,32 +16,32 @@ class EntraIdTenantUserFilterBrowseSpec:
     """Filtering options.
 
     Attributes:
-        display_name (Union[Unset, str]): User display name.
-        mail_address (Union[Unset, str]): User email address.
-        user_name (Union[Unset, str]): User principal name.
-        user_type (Union[Unset, str]): User type.
-        employee_type (Union[Unset, str]): Employee type.
-        account_enabled (Union[Unset, bool]): If `true`, the user account is enabled.
-        company_name (Union[Unset, str]): Company name.
-        creation_type (Union[Unset, str]): Creation type.
-        department (Union[Unset, str]): Company department.
-        country (Union[Unset, str]): Country or region.
-        job_title (Union[Unset, str]): Job title.
-        office_location (Union[Unset, str]): Office location.
+        display_name (str | Unset): User display name.
+        mail_address (str | Unset): User email address.
+        user_name (str | Unset): User principal name.
+        user_type (str | Unset): User type.
+        employee_type (str | Unset): Employee type.
+        account_enabled (bool | Unset): If `true`, the user account is enabled.
+        company_name (str | Unset): Company name.
+        creation_type (str | Unset): Creation type.
+        department (str | Unset): Company department.
+        country (str | Unset): Country or region.
+        job_title (str | Unset): Job title.
+        office_location (str | Unset): Office location.
     """
 
-    display_name: Union[Unset, str] = UNSET
-    mail_address: Union[Unset, str] = UNSET
-    user_name: Union[Unset, str] = UNSET
-    user_type: Union[Unset, str] = UNSET
-    employee_type: Union[Unset, str] = UNSET
-    account_enabled: Union[Unset, bool] = UNSET
-    company_name: Union[Unset, str] = UNSET
-    creation_type: Union[Unset, str] = UNSET
-    department: Union[Unset, str] = UNSET
-    country: Union[Unset, str] = UNSET
-    job_title: Union[Unset, str] = UNSET
-    office_location: Union[Unset, str] = UNSET
+    display_name: str | Unset = UNSET
+    mail_address: str | Unset = UNSET
+    user_name: str | Unset = UNSET
+    user_type: str | Unset = UNSET
+    employee_type: str | Unset = UNSET
+    account_enabled: bool | Unset = UNSET
+    company_name: str | Unset = UNSET
+    creation_type: str | Unset = UNSET
+    department: str | Unset = UNSET
+    country: str | Unset = UNSET
+    job_title: str | Unset = UNSET
+    office_location: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -13,14 +15,14 @@ T = TypeVar("T", bound="EntraIdTenantGeneratedPasswordsModel")
 class EntraIdTenantGeneratedPasswordsModel:
     """
     Attributes:
-        passwords (Union[Unset, list[str]]): Array of user passwords.
+        passwords (list[str] | Unset): Array of user passwords.
     """
 
-    passwords: Union[Unset, list[str]] = UNSET
+    passwords: list[str] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        passwords: Union[Unset, list[str]] = UNSET
+        passwords: list[str] | Unset = UNSET
         if not isinstance(self.passwords, Unset):
             passwords = self.passwords
 

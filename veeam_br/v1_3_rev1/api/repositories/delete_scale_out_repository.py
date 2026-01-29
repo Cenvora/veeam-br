@@ -1,5 +1,6 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union, cast
+from typing import Any, cast
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
@@ -13,7 +14,7 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     id: UUID,
     *,
-    delete_backups: Union[Unset, bool] = UNSET,
+    delete_backups: bool | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -27,7 +28,9 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "delete",
-        "url": f"/api/v1/backupInfrastructure/scaleOutRepositories/{id}",
+        "url": "/api/v1/backupInfrastructure/scaleOutRepositories/{id}".format(
+            id=quote(str(id), safe=""),
+        ),
         "params": params,
     }
 
@@ -35,9 +38,7 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Any, Error]]:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Any | Error | None:
     if response.status_code == 204:
         response_204 = cast(Any, None)
         return response_204
@@ -68,9 +69,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Any, Error]]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[Any | Error]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -82,10 +81,10 @@ def _build_response(
 def sync_detailed(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    delete_backups: Union[Unset, bool] = UNSET,
+    client: AuthenticatedClient | Client,
+    delete_backups: bool | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Any, Error]]:
+) -> Response[Any | Error]:
     """Remove Scale-Out Backup Repository
 
      The HTTP DELETE request to the `/api/v1/backupInfrastructure/scaleOutRepositories/{id}` endpoint
@@ -94,7 +93,7 @@ def sync_detailed(
 
     Args:
         id (UUID):
-        delete_backups (Union[Unset, bool]):
+        delete_backups (bool | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -102,7 +101,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Any, Error]]
+        Response[Any | Error]
     """
 
     kwargs = _get_kwargs(
@@ -121,10 +120,10 @@ def sync_detailed(
 def sync(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    delete_backups: Union[Unset, bool] = UNSET,
+    client: AuthenticatedClient | Client,
+    delete_backups: bool | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Any, Error]]:
+) -> Any | Error | None:
     """Remove Scale-Out Backup Repository
 
      The HTTP DELETE request to the `/api/v1/backupInfrastructure/scaleOutRepositories/{id}` endpoint
@@ -133,7 +132,7 @@ def sync(
 
     Args:
         id (UUID):
-        delete_backups (Union[Unset, bool]):
+        delete_backups (bool | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -141,7 +140,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Any, Error]
+        Any | Error
     """
 
     return sync_detailed(
@@ -155,10 +154,10 @@ def sync(
 async def asyncio_detailed(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    delete_backups: Union[Unset, bool] = UNSET,
+    client: AuthenticatedClient | Client,
+    delete_backups: bool | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[Any, Error]]:
+) -> Response[Any | Error]:
     """Remove Scale-Out Backup Repository
 
      The HTTP DELETE request to the `/api/v1/backupInfrastructure/scaleOutRepositories/{id}` endpoint
@@ -167,7 +166,7 @@ async def asyncio_detailed(
 
     Args:
         id (UUID):
-        delete_backups (Union[Unset, bool]):
+        delete_backups (bool | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -175,7 +174,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Any, Error]]
+        Response[Any | Error]
     """
 
     kwargs = _get_kwargs(
@@ -192,10 +191,10 @@ async def asyncio_detailed(
 async def asyncio(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    delete_backups: Union[Unset, bool] = UNSET,
+    client: AuthenticatedClient | Client,
+    delete_backups: bool | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[Any, Error]]:
+) -> Any | Error | None:
     """Remove Scale-Out Backup Repository
 
      The HTTP DELETE request to the `/api/v1/backupInfrastructure/scaleOutRepositories/{id}` endpoint
@@ -204,7 +203,7 @@ async def asyncio(
 
     Args:
         id (UUID):
-        delete_backups (Union[Unset, bool]):
+        delete_backups (bool | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -212,7 +211,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Any, Error]
+        Any | Error
     """
 
     return (

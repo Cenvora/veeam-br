@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -13,14 +15,14 @@ T = TypeVar("T", bound="EntraIdTenantDeviceConfigurationFilterBrowseSpec")
 class EntraIdTenantDeviceConfigurationFilterBrowseSpec:
     """
     Attributes:
-        display_name (Union[Unset, str]):
-        description (Union[Unset, str]):
-        version (Union[Unset, int]):
+        display_name (str | Unset):
+        description (str | Unset):
+        version (int | Unset):
     """
 
-    display_name: Union[Unset, str] = UNSET
-    description: Union[Unset, str] = UNSET
-    version: Union[Unset, int] = UNSET
+    display_name: str | Unset = UNSET
+    description: str | Unset = UNSET
+    version: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

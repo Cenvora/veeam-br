@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -19,32 +21,32 @@ class UnstructuredDataMountSpec:
     """Unstructured data restore settings.
 
     Attributes:
-        unstructured_data_server_id (Union[Unset, UUID]): Unstructured data server ID.
-        restore_point_id (Union[Unset, UUID]): Restore point ID.
-        backup_id (Union[Unset, UUID]): Backup ID.
-        auto_unmount (Union[Unset, FlrAutoUnmountModel]): Settings for automatic unmount of the file system.
+        unstructured_data_server_id (UUID | Unset): Unstructured data server ID.
+        restore_point_id (UUID | Unset): Restore point ID.
+        backup_id (UUID | Unset): Backup ID.
+        auto_unmount (FlrAutoUnmountModel | Unset): Settings for automatic unmount of the file system.
     """
 
-    unstructured_data_server_id: Union[Unset, UUID] = UNSET
-    restore_point_id: Union[Unset, UUID] = UNSET
-    backup_id: Union[Unset, UUID] = UNSET
-    auto_unmount: Union[Unset, "FlrAutoUnmountModel"] = UNSET
+    unstructured_data_server_id: UUID | Unset = UNSET
+    restore_point_id: UUID | Unset = UNSET
+    backup_id: UUID | Unset = UNSET
+    auto_unmount: FlrAutoUnmountModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        unstructured_data_server_id: Union[Unset, str] = UNSET
+        unstructured_data_server_id: str | Unset = UNSET
         if not isinstance(self.unstructured_data_server_id, Unset):
             unstructured_data_server_id = str(self.unstructured_data_server_id)
 
-        restore_point_id: Union[Unset, str] = UNSET
+        restore_point_id: str | Unset = UNSET
         if not isinstance(self.restore_point_id, Unset):
             restore_point_id = str(self.restore_point_id)
 
-        backup_id: Union[Unset, str] = UNSET
+        backup_id: str | Unset = UNSET
         if not isinstance(self.backup_id, Unset):
             backup_id = str(self.backup_id)
 
-        auto_unmount: Union[Unset, dict[str, Any]] = UNSET
+        auto_unmount: dict[str, Any] | Unset = UNSET
         if not isinstance(self.auto_unmount, Unset):
             auto_unmount = self.auto_unmount.to_dict()
 
@@ -68,28 +70,28 @@ class UnstructuredDataMountSpec:
 
         d = dict(src_dict)
         _unstructured_data_server_id = d.pop("unstructuredDataServerId", UNSET)
-        unstructured_data_server_id: Union[Unset, UUID]
+        unstructured_data_server_id: UUID | Unset
         if isinstance(_unstructured_data_server_id, Unset):
             unstructured_data_server_id = UNSET
         else:
             unstructured_data_server_id = UUID(_unstructured_data_server_id)
 
         _restore_point_id = d.pop("restorePointId", UNSET)
-        restore_point_id: Union[Unset, UUID]
+        restore_point_id: UUID | Unset
         if isinstance(_restore_point_id, Unset):
             restore_point_id = UNSET
         else:
             restore_point_id = UUID(_restore_point_id)
 
         _backup_id = d.pop("backupId", UNSET)
-        backup_id: Union[Unset, UUID]
+        backup_id: UUID | Unset
         if isinstance(_backup_id, Unset):
             backup_id = UNSET
         else:
             backup_id = UUID(_backup_id)
 
         _auto_unmount = d.pop("autoUnmount", UNSET)
-        auto_unmount: Union[Unset, FlrAutoUnmountModel]
+        auto_unmount: FlrAutoUnmountModel | Unset
         if isinstance(_auto_unmount, Unset):
             auto_unmount = UNSET
         else:

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -16,19 +18,19 @@ class ReplicaTrafficSettingsModel:
     """Traffic settings.
 
     Attributes:
-        exclude_swap_file_blocks (Union[Unset, bool]): If `true`, Veeam Backup & Replication excludes swap file blocks
-            from processing.
-        exclude_deleted_file_blocks (Union[Unset, bool]): If `true`, Veeam Backup & Replication does not copy deleted
-            file blocks.
-        compression_level (Union[Unset, ECompressionLevel]): Compression level.
-        storage_optimization (Union[Unset, EStorageOptimization]): Storage optimization (depends on the target storage
-            type and the size of your files).
+        exclude_swap_file_blocks (bool | Unset): If `true`, Veeam Backup & Replication excludes swap file blocks from
+            processing.
+        exclude_deleted_file_blocks (bool | Unset): If `true`, Veeam Backup & Replication does not copy deleted file
+            blocks.
+        compression_level (ECompressionLevel | Unset): Compression level.
+        storage_optimization (EStorageOptimization | Unset): Storage optimization (depends on the target storage type
+            and the size of your files).
     """
 
-    exclude_swap_file_blocks: Union[Unset, bool] = UNSET
-    exclude_deleted_file_blocks: Union[Unset, bool] = UNSET
-    compression_level: Union[Unset, ECompressionLevel] = UNSET
-    storage_optimization: Union[Unset, EStorageOptimization] = UNSET
+    exclude_swap_file_blocks: bool | Unset = UNSET
+    exclude_deleted_file_blocks: bool | Unset = UNSET
+    compression_level: ECompressionLevel | Unset = UNSET
+    storage_optimization: EStorageOptimization | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -36,11 +38,11 @@ class ReplicaTrafficSettingsModel:
 
         exclude_deleted_file_blocks = self.exclude_deleted_file_blocks
 
-        compression_level: Union[Unset, str] = UNSET
+        compression_level: str | Unset = UNSET
         if not isinstance(self.compression_level, Unset):
             compression_level = self.compression_level.value
 
-        storage_optimization: Union[Unset, str] = UNSET
+        storage_optimization: str | Unset = UNSET
         if not isinstance(self.storage_optimization, Unset):
             storage_optimization = self.storage_optimization.value
 
@@ -66,14 +68,14 @@ class ReplicaTrafficSettingsModel:
         exclude_deleted_file_blocks = d.pop("excludeDeletedFileBlocks", UNSET)
 
         _compression_level = d.pop("compressionLevel", UNSET)
-        compression_level: Union[Unset, ECompressionLevel]
+        compression_level: ECompressionLevel | Unset
         if isinstance(_compression_level, Unset):
             compression_level = UNSET
         else:
             compression_level = ECompressionLevel(_compression_level)
 
         _storage_optimization = d.pop("storageOptimization", UNSET)
-        storage_optimization: Union[Unset, EStorageOptimization]
+        storage_optimization: EStorageOptimization | Unset
         if isinstance(_storage_optimization, Unset):
             storage_optimization = UNSET
         else:

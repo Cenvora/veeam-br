@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,23 +17,23 @@ T = TypeVar("T", bound="ProtectedComputerFilters")
 class ProtectedComputerFilters:
     """
     Attributes:
-        skip (Union[Unset, int]): Skips the specified number of Protected Computers.
-        limit (Union[Unset, int]): Returns the specified number of Protected Computers.
-        order_column (Union[Unset, EProtectedComputerFiltersOrderColumn]): Orders jobs by the specified column.
-        order_asc (Union[Unset, bool]): If `true`, sorts Protected Computers in the ascending order by the `orderColumn`
+        skip (int | Unset): Skips the specified number of Protected Computers.
+        limit (int | Unset): Returns the specified number of Protected Computers.
+        order_column (EProtectedComputerFiltersOrderColumn | Unset): Orders jobs by the specified column.
+        order_asc (bool | Unset): If `true`, sorts Protected Computers in the ascending order by the `orderColumn`
             parameter.
-        name_filter (Union[Unset, str]): Filters Protected Computers by the `nameFilter` pattern. The pattern can match
-            any job parameter. To substitute one or more characters, use the asterisk (*) character at the beginning, at the
-            end or both.
-        type_filter (Union[Unset, EProtectedComputerType]): Type of the protected computer.
+        name_filter (str | Unset): Filters Protected Computers by the `nameFilter` pattern. The pattern can match any
+            job parameter. To substitute one or more characters, use the asterisk (*) character at the beginning, at the end
+            or both.
+        type_filter (EProtectedComputerType | Unset): Type of the protected computer.
     """
 
-    skip: Union[Unset, int] = UNSET
-    limit: Union[Unset, int] = UNSET
-    order_column: Union[Unset, EProtectedComputerFiltersOrderColumn] = UNSET
-    order_asc: Union[Unset, bool] = UNSET
-    name_filter: Union[Unset, str] = UNSET
-    type_filter: Union[Unset, EProtectedComputerType] = UNSET
+    skip: int | Unset = UNSET
+    limit: int | Unset = UNSET
+    order_column: EProtectedComputerFiltersOrderColumn | Unset = UNSET
+    order_asc: bool | Unset = UNSET
+    name_filter: str | Unset = UNSET
+    type_filter: EProtectedComputerType | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -39,7 +41,7 @@ class ProtectedComputerFilters:
 
         limit = self.limit
 
-        order_column: Union[Unset, str] = UNSET
+        order_column: str | Unset = UNSET
         if not isinstance(self.order_column, Unset):
             order_column = self.order_column.value
 
@@ -47,7 +49,7 @@ class ProtectedComputerFilters:
 
         name_filter = self.name_filter
 
-        type_filter: Union[Unset, str] = UNSET
+        type_filter: str | Unset = UNSET
         if not isinstance(self.type_filter, Unset):
             type_filter = self.type_filter.value
 
@@ -77,7 +79,7 @@ class ProtectedComputerFilters:
         limit = d.pop("limit", UNSET)
 
         _order_column = d.pop("orderColumn", UNSET)
-        order_column: Union[Unset, EProtectedComputerFiltersOrderColumn]
+        order_column: EProtectedComputerFiltersOrderColumn | Unset
         if isinstance(_order_column, Unset):
             order_column = UNSET
         else:
@@ -88,7 +90,7 @@ class ProtectedComputerFilters:
         name_filter = d.pop("nameFilter", UNSET)
 
         _type_filter = d.pop("typeFilter", UNSET)
-        type_filter: Union[Unset, EProtectedComputerType]
+        type_filter: EProtectedComputerType | Unset
         if isinstance(_type_filter, Unset):
             type_filter = UNSET
         else:

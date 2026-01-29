@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -16,25 +18,25 @@ T = TypeVar("T", bound="InstantViVMRecoveryMountsFilters")
 class InstantViVMRecoveryMountsFilters:
     """
     Attributes:
-        skip (Union[Unset, int]): Number of mount points to skip.
-        limit (Union[Unset, int]): Maximum number of mount points to return.
-        order_column (Union[Unset, EInstantViVMRecoveryMountsFiltersOrderColumn]): Sorts mount points by one of the
-            mount point parameters.
-        order_asc (Union[Unset, bool]): If `true`, sorts mount points in ascending order by the `orderColumn` parameter.
-        vm_name_filter (Union[Unset, str]): Filters mount points by the `nameFilter` pattern. The pattern can match any
-            mount parameter. To substitute one or more characters, use the asterisk (*) character at the beginning, at the
-            end or both.
-        state_filter (Union[Unset, EInstantRecoveryMountState]): Mount state.
-        mount_id_filter (Union[Unset, list[UUID]]): Filters mount points by mount ID.
+        skip (int | Unset): Number of mount points to skip.
+        limit (int | Unset): Maximum number of mount points to return.
+        order_column (EInstantViVMRecoveryMountsFiltersOrderColumn | Unset): Sorts mount points by one of the mount
+            point parameters.
+        order_asc (bool | Unset): If `true`, sorts mount points in ascending order by the `orderColumn` parameter.
+        vm_name_filter (str | Unset): Filters mount points by the `nameFilter` pattern. The pattern can match any mount
+            parameter. To substitute one or more characters, use the asterisk (*) character at the beginning, at the end or
+            both.
+        state_filter (EInstantRecoveryMountState | Unset): Mount state.
+        mount_id_filter (list[UUID] | Unset): Filters mount points by mount ID.
     """
 
-    skip: Union[Unset, int] = UNSET
-    limit: Union[Unset, int] = UNSET
-    order_column: Union[Unset, EInstantViVMRecoveryMountsFiltersOrderColumn] = UNSET
-    order_asc: Union[Unset, bool] = UNSET
-    vm_name_filter: Union[Unset, str] = UNSET
-    state_filter: Union[Unset, EInstantRecoveryMountState] = UNSET
-    mount_id_filter: Union[Unset, list[UUID]] = UNSET
+    skip: int | Unset = UNSET
+    limit: int | Unset = UNSET
+    order_column: EInstantViVMRecoveryMountsFiltersOrderColumn | Unset = UNSET
+    order_asc: bool | Unset = UNSET
+    vm_name_filter: str | Unset = UNSET
+    state_filter: EInstantRecoveryMountState | Unset = UNSET
+    mount_id_filter: list[UUID] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -42,7 +44,7 @@ class InstantViVMRecoveryMountsFilters:
 
         limit = self.limit
 
-        order_column: Union[Unset, str] = UNSET
+        order_column: str | Unset = UNSET
         if not isinstance(self.order_column, Unset):
             order_column = self.order_column.value
 
@@ -50,11 +52,11 @@ class InstantViVMRecoveryMountsFilters:
 
         vm_name_filter = self.vm_name_filter
 
-        state_filter: Union[Unset, str] = UNSET
+        state_filter: str | Unset = UNSET
         if not isinstance(self.state_filter, Unset):
             state_filter = self.state_filter.value
 
-        mount_id_filter: Union[Unset, list[str]] = UNSET
+        mount_id_filter: list[str] | Unset = UNSET
         if not isinstance(self.mount_id_filter, Unset):
             mount_id_filter = []
             for mount_id_filter_item_data in self.mount_id_filter:
@@ -89,7 +91,7 @@ class InstantViVMRecoveryMountsFilters:
         limit = d.pop("limit", UNSET)
 
         _order_column = d.pop("orderColumn", UNSET)
-        order_column: Union[Unset, EInstantViVMRecoveryMountsFiltersOrderColumn]
+        order_column: EInstantViVMRecoveryMountsFiltersOrderColumn | Unset
         if isinstance(_order_column, Unset):
             order_column = UNSET
         else:
@@ -100,18 +102,20 @@ class InstantViVMRecoveryMountsFilters:
         vm_name_filter = d.pop("vmNameFilter", UNSET)
 
         _state_filter = d.pop("stateFilter", UNSET)
-        state_filter: Union[Unset, EInstantRecoveryMountState]
+        state_filter: EInstantRecoveryMountState | Unset
         if isinstance(_state_filter, Unset):
             state_filter = UNSET
         else:
             state_filter = EInstantRecoveryMountState(_state_filter)
 
-        mount_id_filter = []
         _mount_id_filter = d.pop("mountIdFilter", UNSET)
-        for mount_id_filter_item_data in _mount_id_filter or []:
-            mount_id_filter_item = UUID(mount_id_filter_item_data)
+        mount_id_filter: list[UUID] | Unset = UNSET
+        if _mount_id_filter is not UNSET:
+            mount_id_filter = []
+            for mount_id_filter_item_data in _mount_id_filter:
+                mount_id_filter_item = UUID(mount_id_filter_item_data)
 
-            mount_id_filter.append(mount_id_filter_item)
+                mount_id_filter.append(mount_id_filter_item)
 
         instant_vi_vm_recovery_mounts_filters = cls(
             skip=skip,

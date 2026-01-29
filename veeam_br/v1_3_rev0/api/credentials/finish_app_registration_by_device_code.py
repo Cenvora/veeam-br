@@ -1,10 +1,12 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
+from urllib.parse import quote
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...models.cloud_native_application_model import CloudNativeApplicationModel
 from ...models.error import Error
 from ...types import Response
 
@@ -19,14 +21,23 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": f"/api/v1/cloudCredentials/appRegistration/{verification_code}",
+        "url": "/api/v1/cloudCredentials/appRegistration/{verification_code}".format(
+            verification_code=quote(str(verification_code), safe=""),
+        ),
     }
 
     _kwargs["headers"] = headers
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Error]:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> CloudNativeApplicationModel | Error | None:
+    if response.status_code == 201:
+        response_201 = CloudNativeApplicationModel.from_dict(response.json())
+
+        return response_201
+
     if response.status_code == 400:
         response_400 = Error.from_dict(response.json())
 
@@ -53,7 +64,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Error]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[CloudNativeApplicationModel | Error]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -65,9 +78,9 @@ def _build_response(*, client: Union[AuthenticatedClient, Client], response: htt
 def sync_detailed(
     verification_code: str,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.3-rev0",
-) -> Response[Error]:
+) -> Response[CloudNativeApplicationModel | Error]:
     """Register Microsoft Entra ID Application
 
      The HTTP POST request to the `/api/v1/cloudCredentials/appRegistration/{verificationCode}` path
@@ -84,7 +97,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error]
+        Response[CloudNativeApplicationModel | Error]
     """
 
     kwargs = _get_kwargs(
@@ -102,9 +115,9 @@ def sync_detailed(
 def sync(
     verification_code: str,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Error]:
+) -> CloudNativeApplicationModel | Error | None:
     """Register Microsoft Entra ID Application
 
      The HTTP POST request to the `/api/v1/cloudCredentials/appRegistration/{verificationCode}` path
@@ -121,7 +134,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error
+        CloudNativeApplicationModel | Error
     """
 
     return sync_detailed(
@@ -134,9 +147,9 @@ def sync(
 async def asyncio_detailed(
     verification_code: str,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.3-rev0",
-) -> Response[Error]:
+) -> Response[CloudNativeApplicationModel | Error]:
     """Register Microsoft Entra ID Application
 
      The HTTP POST request to the `/api/v1/cloudCredentials/appRegistration/{verificationCode}` path
@@ -153,7 +166,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error]
+        Response[CloudNativeApplicationModel | Error]
     """
 
     kwargs = _get_kwargs(
@@ -169,9 +182,9 @@ async def asyncio_detailed(
 async def asyncio(
     verification_code: str,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient | Client,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Error]:
+) -> CloudNativeApplicationModel | Error | None:
     """Register Microsoft Entra ID Application
 
      The HTTP POST request to the `/api/v1/cloudCredentials/appRegistration/{verificationCode}` path
@@ -188,7 +201,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error
+        CloudNativeApplicationModel | Error
     """
 
     return (

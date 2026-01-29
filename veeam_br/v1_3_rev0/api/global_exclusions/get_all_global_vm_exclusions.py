@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
@@ -13,10 +13,10 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     *,
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EGlobalVMExclusionsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EGlobalVMExclusionsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -28,7 +28,7 @@ def _get_kwargs(
 
     params["limit"] = limit
 
-    json_order_column: Union[Unset, str] = UNSET
+    json_order_column: str | Unset = UNSET
     if not isinstance(order_column, Unset):
         json_order_column = order_column.value
 
@@ -49,8 +49,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, GlobalVMExclusionsResult]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Error | GlobalVMExclusionsResult | None:
     if response.status_code == 200:
         response_200 = GlobalVMExclusionsResult.from_dict(response.json())
 
@@ -78,8 +78,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, GlobalVMExclusionsResult]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | GlobalVMExclusionsResult]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -90,23 +90,23 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EGlobalVMExclusionsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EGlobalVMExclusionsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Response[Union[Error, GlobalVMExclusionsResult]]:
+) -> Response[Error | GlobalVMExclusionsResult]:
     """Get All Global VM Exclusions
 
      The HTTP GET request to the `/api/v1/globalExclusions/vm` path allows you to get an array of VMs
     that are excluded from processing. <p>**Available to**&#58; Veeam Backup Administrator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EGlobalVMExclusionsFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EGlobalVMExclusionsFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
         x_api_version (str):  Default: '1.3-rev0'.
 
     Raises:
@@ -114,7 +114,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, GlobalVMExclusionsResult]]
+        Response[Error | GlobalVMExclusionsResult]
     """
 
     kwargs = _get_kwargs(
@@ -134,23 +134,23 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EGlobalVMExclusionsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EGlobalVMExclusionsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Union[Error, GlobalVMExclusionsResult]]:
+) -> Error | GlobalVMExclusionsResult | None:
     """Get All Global VM Exclusions
 
      The HTTP GET request to the `/api/v1/globalExclusions/vm` path allows you to get an array of VMs
     that are excluded from processing. <p>**Available to**&#58; Veeam Backup Administrator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EGlobalVMExclusionsFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EGlobalVMExclusionsFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
         x_api_version (str):  Default: '1.3-rev0'.
 
     Raises:
@@ -158,7 +158,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, GlobalVMExclusionsResult]
+        Error | GlobalVMExclusionsResult
     """
 
     return sync_detailed(
@@ -173,23 +173,23 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EGlobalVMExclusionsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EGlobalVMExclusionsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Response[Union[Error, GlobalVMExclusionsResult]]:
+) -> Response[Error | GlobalVMExclusionsResult]:
     """Get All Global VM Exclusions
 
      The HTTP GET request to the `/api/v1/globalExclusions/vm` path allows you to get an array of VMs
     that are excluded from processing. <p>**Available to**&#58; Veeam Backup Administrator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EGlobalVMExclusionsFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EGlobalVMExclusionsFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
         x_api_version (str):  Default: '1.3-rev0'.
 
     Raises:
@@ -197,7 +197,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, GlobalVMExclusionsResult]]
+        Response[Error | GlobalVMExclusionsResult]
     """
 
     kwargs = _get_kwargs(
@@ -215,23 +215,23 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EGlobalVMExclusionsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EGlobalVMExclusionsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Union[Error, GlobalVMExclusionsResult]]:
+) -> Error | GlobalVMExclusionsResult | None:
     """Get All Global VM Exclusions
 
      The HTTP GET request to the `/api/v1/globalExclusions/vm` path allows you to get an array of VMs
     that are excluded from processing. <p>**Available to**&#58; Veeam Backup Administrator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EGlobalVMExclusionsFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EGlobalVMExclusionsFiltersOrderColumn | Unset):
+        order_asc (bool | Unset):
         x_api_version (str):  Default: '1.3-rev0'.
 
     Raises:
@@ -239,7 +239,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, GlobalVMExclusionsResult]
+        Error | GlobalVMExclusionsResult
     """
 
     return (

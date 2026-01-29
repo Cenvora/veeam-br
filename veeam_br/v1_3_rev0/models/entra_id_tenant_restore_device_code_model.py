@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,17 +21,17 @@ class EntraIdTenantRestoreDeviceCodeModel:
         user_code (str): User code.
         device_code (str): Device code.
         verification_url (str): Verification URL (redirect URI).
-        message (Union[Unset, str]): Message text.
-        client_id (Union[Unset, str]): Application (client) ID.
-        expires_on (Union[Unset, datetime.datetime]): Expiration date and time of the verification code.
+        message (str | Unset): Message text.
+        client_id (str | Unset): Application (client) ID.
+        expires_on (datetime.datetime | Unset): Expiration date and time of the verification code.
     """
 
     user_code: str
     device_code: str
     verification_url: str
-    message: Union[Unset, str] = UNSET
-    client_id: Union[Unset, str] = UNSET
-    expires_on: Union[Unset, datetime.datetime] = UNSET
+    message: str | Unset = UNSET
+    client_id: str | Unset = UNSET
+    expires_on: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -43,7 +45,7 @@ class EntraIdTenantRestoreDeviceCodeModel:
 
         client_id = self.client_id
 
-        expires_on: Union[Unset, str] = UNSET
+        expires_on: str | Unset = UNSET
         if not isinstance(self.expires_on, Unset):
             expires_on = self.expires_on.isoformat()
 
@@ -79,7 +81,7 @@ class EntraIdTenantRestoreDeviceCodeModel:
         client_id = d.pop("clientId", UNSET)
 
         _expires_on = d.pop("expiresOn", UNSET)
-        expires_on: Union[Unset, datetime.datetime]
+        expires_on: datetime.datetime | Unset
         if isinstance(_expires_on, Unset):
             expires_on = UNSET
         else:

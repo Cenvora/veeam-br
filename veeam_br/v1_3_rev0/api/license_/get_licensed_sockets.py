@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 from uuid import UUID
 
 import httpx
@@ -15,16 +15,16 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     *,
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, ESocketWorkloadsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    host_name_filter: Union[Unset, str] = UNSET,
-    host_id_filter: Union[Unset, UUID] = UNSET,
-    sockets_number_filter: Union[Unset, int] = UNSET,
-    cores_number_filter: Union[Unset, int] = UNSET,
-    type_filter: Union[Unset, ESocketLicenseObjectType] = UNSET,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: ESocketWorkloadsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    host_name_filter: str | Unset = UNSET,
+    host_id_filter: UUID | Unset = UNSET,
+    sockets_number_filter: int | Unset = UNSET,
+    cores_number_filter: int | Unset = UNSET,
+    type_filter: ESocketLicenseObjectType | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -36,7 +36,7 @@ def _get_kwargs(
 
     params["limit"] = limit
 
-    json_order_column: Union[Unset, str] = UNSET
+    json_order_column: str | Unset = UNSET
     if not isinstance(order_column, Unset):
         json_order_column = order_column.value
 
@@ -48,7 +48,7 @@ def _get_kwargs(
 
     params["hostNameFilter"] = host_name_filter
 
-    json_host_id_filter: Union[Unset, str] = UNSET
+    json_host_id_filter: str | Unset = UNSET
     if not isinstance(host_id_filter, Unset):
         json_host_id_filter = str(host_id_filter)
     params["hostIdFilter"] = json_host_id_filter
@@ -57,7 +57,7 @@ def _get_kwargs(
 
     params["coresNumberFilter"] = cores_number_filter
 
-    json_type_filter: Union[Unset, str] = UNSET
+    json_type_filter: str | Unset = UNSET
     if not isinstance(type_filter, Unset):
         json_type_filter = type_filter.value
 
@@ -76,8 +76,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, SocketLicenseWorkloadResult]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Error | SocketLicenseWorkloadResult | None:
     if response.status_code == 200:
         response_200 = SocketLicenseWorkloadResult.from_dict(response.json())
 
@@ -110,8 +110,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, SocketLicenseWorkloadResult]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | SocketLicenseWorkloadResult]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -122,19 +122,19 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, ESocketWorkloadsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    host_name_filter: Union[Unset, str] = UNSET,
-    host_id_filter: Union[Unset, UUID] = UNSET,
-    sockets_number_filter: Union[Unset, int] = UNSET,
-    cores_number_filter: Union[Unset, int] = UNSET,
-    type_filter: Union[Unset, ESocketLicenseObjectType] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: ESocketWorkloadsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    host_name_filter: str | Unset = UNSET,
+    host_id_filter: UUID | Unset = UNSET,
+    sockets_number_filter: int | Unset = UNSET,
+    cores_number_filter: int | Unset = UNSET,
+    type_filter: ESocketLicenseObjectType | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Response[Union[Error, SocketLicenseWorkloadResult]]:
+) -> Response[Error | SocketLicenseWorkloadResult]:
     """Get Consumption of Socket Licenses
 
      The HTTP GET request to the `/api/v1/license/sockets` path allows you to get information about the
@@ -142,18 +142,17 @@ def sync_detailed(
     Administrator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, ESocketWorkloadsFiltersOrderColumn]): Sorts licensed hosts
-            according to one of the parameters.
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        host_name_filter (Union[Unset, str]):
-        host_id_filter (Union[Unset, UUID]):
-        sockets_number_filter (Union[Unset, int]):
-        cores_number_filter (Union[Unset, int]):
-        type_filter (Union[Unset, ESocketLicenseObjectType]): Type of host covered by socket
-            license.
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (ESocketWorkloadsFiltersOrderColumn | Unset): Sorts licensed hosts according
+            to one of the parameters.
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        host_name_filter (str | Unset):
+        host_id_filter (UUID | Unset):
+        sockets_number_filter (int | Unset):
+        cores_number_filter (int | Unset):
+        type_filter (ESocketLicenseObjectType | Unset): Type of host covered by socket license.
         x_api_version (str):  Default: '1.3-rev0'.
 
     Raises:
@@ -161,7 +160,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, SocketLicenseWorkloadResult]]
+        Response[Error | SocketLicenseWorkloadResult]
     """
 
     kwargs = _get_kwargs(
@@ -187,19 +186,19 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, ESocketWorkloadsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    host_name_filter: Union[Unset, str] = UNSET,
-    host_id_filter: Union[Unset, UUID] = UNSET,
-    sockets_number_filter: Union[Unset, int] = UNSET,
-    cores_number_filter: Union[Unset, int] = UNSET,
-    type_filter: Union[Unset, ESocketLicenseObjectType] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: ESocketWorkloadsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    host_name_filter: str | Unset = UNSET,
+    host_id_filter: UUID | Unset = UNSET,
+    sockets_number_filter: int | Unset = UNSET,
+    cores_number_filter: int | Unset = UNSET,
+    type_filter: ESocketLicenseObjectType | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Union[Error, SocketLicenseWorkloadResult]]:
+) -> Error | SocketLicenseWorkloadResult | None:
     """Get Consumption of Socket Licenses
 
      The HTTP GET request to the `/api/v1/license/sockets` path allows you to get information about the
@@ -207,18 +206,17 @@ def sync(
     Administrator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, ESocketWorkloadsFiltersOrderColumn]): Sorts licensed hosts
-            according to one of the parameters.
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        host_name_filter (Union[Unset, str]):
-        host_id_filter (Union[Unset, UUID]):
-        sockets_number_filter (Union[Unset, int]):
-        cores_number_filter (Union[Unset, int]):
-        type_filter (Union[Unset, ESocketLicenseObjectType]): Type of host covered by socket
-            license.
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (ESocketWorkloadsFiltersOrderColumn | Unset): Sorts licensed hosts according
+            to one of the parameters.
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        host_name_filter (str | Unset):
+        host_id_filter (UUID | Unset):
+        sockets_number_filter (int | Unset):
+        cores_number_filter (int | Unset):
+        type_filter (ESocketLicenseObjectType | Unset): Type of host covered by socket license.
         x_api_version (str):  Default: '1.3-rev0'.
 
     Raises:
@@ -226,7 +224,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, SocketLicenseWorkloadResult]
+        Error | SocketLicenseWorkloadResult
     """
 
     return sync_detailed(
@@ -247,19 +245,19 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, ESocketWorkloadsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    host_name_filter: Union[Unset, str] = UNSET,
-    host_id_filter: Union[Unset, UUID] = UNSET,
-    sockets_number_filter: Union[Unset, int] = UNSET,
-    cores_number_filter: Union[Unset, int] = UNSET,
-    type_filter: Union[Unset, ESocketLicenseObjectType] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: ESocketWorkloadsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    host_name_filter: str | Unset = UNSET,
+    host_id_filter: UUID | Unset = UNSET,
+    sockets_number_filter: int | Unset = UNSET,
+    cores_number_filter: int | Unset = UNSET,
+    type_filter: ESocketLicenseObjectType | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Response[Union[Error, SocketLicenseWorkloadResult]]:
+) -> Response[Error | SocketLicenseWorkloadResult]:
     """Get Consumption of Socket Licenses
 
      The HTTP GET request to the `/api/v1/license/sockets` path allows you to get information about the
@@ -267,18 +265,17 @@ async def asyncio_detailed(
     Administrator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, ESocketWorkloadsFiltersOrderColumn]): Sorts licensed hosts
-            according to one of the parameters.
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        host_name_filter (Union[Unset, str]):
-        host_id_filter (Union[Unset, UUID]):
-        sockets_number_filter (Union[Unset, int]):
-        cores_number_filter (Union[Unset, int]):
-        type_filter (Union[Unset, ESocketLicenseObjectType]): Type of host covered by socket
-            license.
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (ESocketWorkloadsFiltersOrderColumn | Unset): Sorts licensed hosts according
+            to one of the parameters.
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        host_name_filter (str | Unset):
+        host_id_filter (UUID | Unset):
+        sockets_number_filter (int | Unset):
+        cores_number_filter (int | Unset):
+        type_filter (ESocketLicenseObjectType | Unset): Type of host covered by socket license.
         x_api_version (str):  Default: '1.3-rev0'.
 
     Raises:
@@ -286,7 +283,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, SocketLicenseWorkloadResult]]
+        Response[Error | SocketLicenseWorkloadResult]
     """
 
     kwargs = _get_kwargs(
@@ -310,19 +307,19 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, ESocketWorkloadsFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    host_name_filter: Union[Unset, str] = UNSET,
-    host_id_filter: Union[Unset, UUID] = UNSET,
-    sockets_number_filter: Union[Unset, int] = UNSET,
-    cores_number_filter: Union[Unset, int] = UNSET,
-    type_filter: Union[Unset, ESocketLicenseObjectType] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: ESocketWorkloadsFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    host_name_filter: str | Unset = UNSET,
+    host_id_filter: UUID | Unset = UNSET,
+    sockets_number_filter: int | Unset = UNSET,
+    cores_number_filter: int | Unset = UNSET,
+    type_filter: ESocketLicenseObjectType | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Union[Error, SocketLicenseWorkloadResult]]:
+) -> Error | SocketLicenseWorkloadResult | None:
     """Get Consumption of Socket Licenses
 
      The HTTP GET request to the `/api/v1/license/sockets` path allows you to get information about the
@@ -330,18 +327,17 @@ async def asyncio(
     Administrator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, ESocketWorkloadsFiltersOrderColumn]): Sorts licensed hosts
-            according to one of the parameters.
-        order_asc (Union[Unset, bool]):
-        name_filter (Union[Unset, str]):
-        host_name_filter (Union[Unset, str]):
-        host_id_filter (Union[Unset, UUID]):
-        sockets_number_filter (Union[Unset, int]):
-        cores_number_filter (Union[Unset, int]):
-        type_filter (Union[Unset, ESocketLicenseObjectType]): Type of host covered by socket
-            license.
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (ESocketWorkloadsFiltersOrderColumn | Unset): Sorts licensed hosts according
+            to one of the parameters.
+        order_asc (bool | Unset):
+        name_filter (str | Unset):
+        host_name_filter (str | Unset):
+        host_id_filter (UUID | Unset):
+        sockets_number_filter (int | Unset):
+        cores_number_filter (int | Unset):
+        type_filter (ESocketLicenseObjectType | Unset): Type of host covered by socket license.
         x_api_version (str):  Default: '1.3-rev0'.
 
     Raises:
@@ -349,7 +345,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, SocketLicenseWorkloadResult]
+        Error | SocketLicenseWorkloadResult
     """
 
     return (

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -17,12 +19,12 @@ class PerformanceExtentModel:
     Attributes:
         id (UUID): ID of the backup repository added as a performance extent.
         name (str): Name of the backup repository added as a performance extent.
-        status (Union[Unset, ERepositoryExtentStatusType]): Performance extent status.
+        status (ERepositoryExtentStatusType | Unset): Performance extent status.
     """
 
     id: UUID
     name: str
-    status: Union[Unset, ERepositoryExtentStatusType] = UNSET
+    status: ERepositoryExtentStatusType | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -30,7 +32,7 @@ class PerformanceExtentModel:
 
         name = self.name
 
-        status: Union[Unset, str] = UNSET
+        status: str | Unset = UNSET
         if not isinstance(self.status, Unset):
             status = self.status.value
 
@@ -55,7 +57,7 @@ class PerformanceExtentModel:
         name = d.pop("name")
 
         _status = d.pop("status", UNSET)
-        status: Union[Unset, ERepositoryExtentStatusType]
+        status: ERepositoryExtentStatusType | Unset
         if isinstance(_status, Unset):
             status = UNSET
         else:

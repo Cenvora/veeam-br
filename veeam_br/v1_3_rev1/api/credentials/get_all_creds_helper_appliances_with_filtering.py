@@ -1,11 +1,13 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...models.cloud_helper_appliance_result import CloudHelperApplianceResult
 from ...models.error import Error
 from ...types import UNSET, Response, Unset
 
@@ -13,8 +15,8 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     id: UUID,
     *,
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
     x_api_version: str = "1.3-rev1",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -30,7 +32,9 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": f"/api/v1/cloudCredentials/{id}/helperAppliances",
+        "url": "/api/v1/cloudCredentials/{id}/helperAppliances".format(
+            id=quote(str(id), safe=""),
+        ),
         "params": params,
     }
 
@@ -38,7 +42,14 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[Error]:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> CloudHelperApplianceResult | Error | None:
+    if response.status_code == 200:
+        response_200 = CloudHelperApplianceResult.from_dict(response.json())
+
+        return response_200
+
     if response.status_code == 400:
         response_400 = Error.from_dict(response.json())
 
@@ -65,7 +76,9 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[Error]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[CloudHelperApplianceResult | Error]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -77,11 +90,11 @@ def _build_response(*, client: Union[AuthenticatedClient, Client], response: htt
 def sync_detailed(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
     x_api_version: str = "1.3-rev1",
-) -> Response[Error]:
+) -> Response[CloudHelperApplianceResult | Error]:
     """Get All Helper Appliances
 
      The HTTP GET request to the `/api/v1/cloudCredentials/{id}/helperAppliances` endpoint gets an array
@@ -91,8 +104,8 @@ def sync_detailed(
 
     Args:
         id (UUID):
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -100,7 +113,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error]
+        Response[CloudHelperApplianceResult | Error]
     """
 
     kwargs = _get_kwargs(
@@ -120,11 +133,11 @@ def sync_detailed(
 def sync(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Error]:
+) -> CloudHelperApplianceResult | Error | None:
     """Get All Helper Appliances
 
      The HTTP GET request to the `/api/v1/cloudCredentials/{id}/helperAppliances` endpoint gets an array
@@ -134,8 +147,8 @@ def sync(
 
     Args:
         id (UUID):
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -143,7 +156,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error
+        CloudHelperApplianceResult | Error
     """
 
     return sync_detailed(
@@ -158,11 +171,11 @@ def sync(
 async def asyncio_detailed(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
     x_api_version: str = "1.3-rev1",
-) -> Response[Error]:
+) -> Response[CloudHelperApplianceResult | Error]:
     """Get All Helper Appliances
 
      The HTTP GET request to the `/api/v1/cloudCredentials/{id}/helperAppliances` endpoint gets an array
@@ -172,8 +185,8 @@ async def asyncio_detailed(
 
     Args:
         id (UUID):
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -181,7 +194,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error]
+        Response[CloudHelperApplianceResult | Error]
     """
 
     kwargs = _get_kwargs(
@@ -199,11 +212,11 @@ async def asyncio_detailed(
 async def asyncio(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Error]:
+) -> CloudHelperApplianceResult | Error | None:
     """Get All Helper Appliances
 
      The HTTP GET request to the `/api/v1/cloudCredentials/{id}/helperAppliances` endpoint gets an array
@@ -213,8 +226,8 @@ async def asyncio(
 
     Args:
         id (UUID):
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -222,7 +235,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error
+        CloudHelperApplianceResult | Error
     """
 
     return (

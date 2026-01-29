@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -13,14 +15,14 @@ T = TypeVar("T", bound="PreferredNetworkModel")
 class PreferredNetworkModel:
     """
     Attributes:
-        ip_address (Union[Unset, str]): IP address.
-        subnet_mask (Union[Unset, str]): Subnet mask.
-        cidr_notation (Union[Unset, str]): CIDR notation.
+        ip_address (str | Unset): IP address.
+        subnet_mask (str | Unset): Subnet mask.
+        cidr_notation (str | Unset): CIDR notation.
     """
 
-    ip_address: Union[Unset, str] = UNSET
-    subnet_mask: Union[Unset, str] = UNSET
-    cidr_notation: Union[Unset, str] = UNSET
+    ip_address: str | Unset = UNSET
+    subnet_mask: str | Unset = UNSET
+    cidr_notation: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

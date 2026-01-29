@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 
@@ -20,7 +22,7 @@ class HvRestoreTargetDatastoreSpec:
         target_folder (str): Absolute path to the folder, where the disk should be placed in the target datastore.
     """
 
-    disk: "HyperVDiskExtentModel"
+    disk: HyperVDiskExtentModel
     target_folder: str
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -16,13 +18,13 @@ class GeneralPurposeProxyServerSettingsModel:
 
     Attributes:
         host_id (UUID): ID of the server.
-        host_name (Union[Unset, str]): Name of the server.
-        max_task_count (Union[Unset, int]): Maximum number of concurrent tasks.
+        host_name (str | Unset): Name of the server.
+        max_task_count (int | Unset): Maximum number of concurrent tasks.
     """
 
     host_id: UUID
-    host_name: Union[Unset, str] = UNSET
-    max_task_count: Union[Unset, int] = UNSET
+    host_name: str | Unset = UNSET
+    max_task_count: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

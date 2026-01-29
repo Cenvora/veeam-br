@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -14,14 +16,14 @@ T = TypeVar("T", bound="WANAcceleratorPopulateCacheSpec")
 class WANAcceleratorPopulateCacheSpec:
     """
     Attributes:
-        repository_ids (Union[Unset, list[UUID]]):
+        repository_ids (list[UUID] | Unset):
     """
 
-    repository_ids: Union[Unset, list[UUID]] = UNSET
+    repository_ids: list[UUID] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        repository_ids: Union[Unset, list[str]] = UNSET
+        repository_ids: list[str] | Unset = UNSET
         if not isinstance(self.repository_ids, Unset):
             repository_ids = []
             for repository_ids_item_data in self.repository_ids:
@@ -39,12 +41,14 @@ class WANAcceleratorPopulateCacheSpec:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        repository_ids = []
         _repository_ids = d.pop("repositoryIds", UNSET)
-        for repository_ids_item_data in _repository_ids or []:
-            repository_ids_item = UUID(repository_ids_item_data)
+        repository_ids: list[UUID] | Unset = UNSET
+        if _repository_ids is not UNSET:
+            repository_ids = []
+            for repository_ids_item_data in _repository_ids:
+                repository_ids_item = UUID(repository_ids_item_data)
 
-            repository_ids.append(repository_ids_item)
+                repository_ids.append(repository_ids_item)
 
         wan_accelerator_populate_cache_spec = cls(
             repository_ids=repository_ids,

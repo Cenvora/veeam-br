@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -16,17 +18,17 @@ class CSVFileOptionsProtectionGroupModel:
 
     Attributes:
         path (str): Path to the CSV file.
-        network_credentials_id (Union[Unset, UUID]): Network credentials ID.
+        network_credentials_id (UUID | Unset): Network credentials ID.
     """
 
     path: str
-    network_credentials_id: Union[Unset, UUID] = UNSET
+    network_credentials_id: UUID | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         path = self.path
 
-        network_credentials_id: Union[Unset, str] = UNSET
+        network_credentials_id: str | Unset = UNSET
         if not isinstance(self.network_credentials_id, Unset):
             network_credentials_id = str(self.network_credentials_id)
 
@@ -48,7 +50,7 @@ class CSVFileOptionsProtectionGroupModel:
         path = d.pop("path")
 
         _network_credentials_id = d.pop("networkCredentialsId", UNSET)
-        network_credentials_id: Union[Unset, UUID]
+        network_credentials_id: UUID | Unset
         if isinstance(_network_credentials_id, Unset):
             network_credentials_id = UNSET
         else:

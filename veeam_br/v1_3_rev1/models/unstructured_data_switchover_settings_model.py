@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -18,17 +20,17 @@ class UnstructuredDataSwitchoverSettingsModel:
 
     Attributes:
         type_ (EUnstructuredDataInstantRecoverySwitchoverType): Switchover type.
-        schedule_time (Union[Unset, datetime.datetime]): Date and time when switchover will be triggered.
+        schedule_time (datetime.datetime | Unset): Date and time when switchover will be triggered.
     """
 
     type_: EUnstructuredDataInstantRecoverySwitchoverType
-    schedule_time: Union[Unset, datetime.datetime] = UNSET
+    schedule_time: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         type_ = self.type_.value
 
-        schedule_time: Union[Unset, str] = UNSET
+        schedule_time: str | Unset = UNSET
         if not isinstance(self.schedule_time, Unset):
             schedule_time = self.schedule_time.isoformat()
 
@@ -50,7 +52,7 @@ class UnstructuredDataSwitchoverSettingsModel:
         type_ = EUnstructuredDataInstantRecoverySwitchoverType(d.pop("type"))
 
         _schedule_time = d.pop("scheduleTime", UNSET)
-        schedule_time: Union[Unset, datetime.datetime]
+        schedule_time: datetime.datetime | Unset
         if isinstance(_schedule_time, Unset):
             schedule_time = UNSET
         else:

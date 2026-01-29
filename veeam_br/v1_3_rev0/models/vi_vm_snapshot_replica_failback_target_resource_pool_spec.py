@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -8,10 +10,7 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.agent_object_model import AgentObjectModel
-    from ..models.cloud_director_object_model import CloudDirectorObjectModel
-    from ..models.hyper_v_object_model import HyperVObjectModel
-    from ..models.vmware_object_model import VmwareObjectModel
+    from ..models.inventory_object_model import InventoryObjectModel
 
 
 T = TypeVar("T", bound="ViVMSnapshotReplicaFailbackTargetResourcePoolSpec")
@@ -22,36 +21,21 @@ class ViVMSnapshotReplicaFailbackTargetResourcePoolSpec:
     """Target resource pool settings.
 
     Attributes:
-        replica_point_id (Union[Unset, UUID]): Restore point ID.
-        resource_pool (Union['AgentObjectModel', 'CloudDirectorObjectModel', 'HyperVObjectModel', 'VmwareObjectModel',
-            Unset]): Inventory object properties.
+        replica_point_id (UUID | Unset): Restore point ID.
+        resource_pool (InventoryObjectModel | Unset): Inventory object properties.
     """
 
-    replica_point_id: Union[Unset, UUID] = UNSET
-    resource_pool: Union[
-        "AgentObjectModel", "CloudDirectorObjectModel", "HyperVObjectModel", "VmwareObjectModel", Unset
-    ] = UNSET
+    replica_point_id: UUID | Unset = UNSET
+    resource_pool: InventoryObjectModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.cloud_director_object_model import CloudDirectorObjectModel
-        from ..models.hyper_v_object_model import HyperVObjectModel
-        from ..models.vmware_object_model import VmwareObjectModel
-
-        replica_point_id: Union[Unset, str] = UNSET
+        replica_point_id: str | Unset = UNSET
         if not isinstance(self.replica_point_id, Unset):
             replica_point_id = str(self.replica_point_id)
 
-        resource_pool: Union[Unset, dict[str, Any]]
-        if isinstance(self.resource_pool, Unset):
-            resource_pool = UNSET
-        elif isinstance(self.resource_pool, VmwareObjectModel):
-            resource_pool = self.resource_pool.to_dict()
-        elif isinstance(self.resource_pool, CloudDirectorObjectModel):
-            resource_pool = self.resource_pool.to_dict()
-        elif isinstance(self.resource_pool, HyperVObjectModel):
-            resource_pool = self.resource_pool.to_dict()
-        else:
+        resource_pool: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.resource_pool, Unset):
             resource_pool = self.resource_pool.to_dict()
 
         field_dict: dict[str, Any] = {}
@@ -66,55 +50,22 @@ class ViVMSnapshotReplicaFailbackTargetResourcePoolSpec:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.agent_object_model import AgentObjectModel
-        from ..models.cloud_director_object_model import CloudDirectorObjectModel
-        from ..models.hyper_v_object_model import HyperVObjectModel
-        from ..models.vmware_object_model import VmwareObjectModel
+        from ..models.inventory_object_model import InventoryObjectModel
 
         d = dict(src_dict)
         _replica_point_id = d.pop("replicaPointId", UNSET)
-        replica_point_id: Union[Unset, UUID]
+        replica_point_id: UUID | Unset
         if isinstance(_replica_point_id, Unset):
             replica_point_id = UNSET
         else:
             replica_point_id = UUID(_replica_point_id)
 
-        def _parse_resource_pool(
-            data: object,
-        ) -> Union["AgentObjectModel", "CloudDirectorObjectModel", "HyperVObjectModel", "VmwareObjectModel", Unset]:
-            if isinstance(data, Unset):
-                return data
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_0 = VmwareObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_0
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_1 = CloudDirectorObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_1
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_2 = HyperVObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_2
-            except:  # noqa: E722
-                pass
-            if not isinstance(data, dict):
-                raise TypeError()
-            componentsschemas_inventory_object_model_type_3 = AgentObjectModel.from_dict(data)
-
-            return componentsschemas_inventory_object_model_type_3
-
-        resource_pool = _parse_resource_pool(d.pop("resourcePool", UNSET))
+        _resource_pool = d.pop("resourcePool", UNSET)
+        resource_pool: InventoryObjectModel | Unset
+        if isinstance(_resource_pool, Unset):
+            resource_pool = UNSET
+        else:
+            resource_pool = InventoryObjectModel.from_dict(_resource_pool)
 
         vi_vm_snapshot_replica_failback_target_resource_pool_spec = cls(
             replica_point_id=replica_point_id,

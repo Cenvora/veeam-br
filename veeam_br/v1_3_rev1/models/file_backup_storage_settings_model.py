@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,20 +21,20 @@ class FileBackupStorageSettingsModel:
     """Storage settings for file share backup.
 
     Attributes:
-        compression_level (Union[Unset, ECompressionLevel]): Compression level.
-        encryption (Union[Unset, BackupStorageSettingsEncryptionModel]): Encryption of backup files.
+        compression_level (ECompressionLevel | Unset): Compression level.
+        encryption (BackupStorageSettingsEncryptionModel | Unset): Encryption of backup files.
     """
 
-    compression_level: Union[Unset, ECompressionLevel] = UNSET
-    encryption: Union[Unset, "BackupStorageSettingsEncryptionModel"] = UNSET
+    compression_level: ECompressionLevel | Unset = UNSET
+    encryption: BackupStorageSettingsEncryptionModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        compression_level: Union[Unset, str] = UNSET
+        compression_level: str | Unset = UNSET
         if not isinstance(self.compression_level, Unset):
             compression_level = self.compression_level.value
 
-        encryption: Union[Unset, dict[str, Any]] = UNSET
+        encryption: dict[str, Any] | Unset = UNSET
         if not isinstance(self.encryption, Unset):
             encryption = self.encryption.to_dict()
 
@@ -52,14 +54,14 @@ class FileBackupStorageSettingsModel:
 
         d = dict(src_dict)
         _compression_level = d.pop("compressionLevel", UNSET)
-        compression_level: Union[Unset, ECompressionLevel]
+        compression_level: ECompressionLevel | Unset
         if isinstance(_compression_level, Unset):
             compression_level = UNSET
         else:
             compression_level = ECompressionLevel(_compression_level)
 
         _encryption = d.pop("encryption", UNSET)
-        encryption: Union[Unset, BackupStorageSettingsEncryptionModel]
+        encryption: BackupStorageSettingsEncryptionModel | Unset
         if isinstance(_encryption, Unset):
             encryption = UNSET
         else:

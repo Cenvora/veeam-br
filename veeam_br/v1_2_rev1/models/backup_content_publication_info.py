@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union, cast
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,31 +21,31 @@ class BackupContentPublicationInfo:
     """Details about the publishing operation.
 
     Attributes:
-        mode (Union[Unset, EBackupContentDiskPublishMode]): Disk publishing mount mode.
-        server_port (Union[Unset, int]): Port used by the mount point.
-        server_ips (Union[Unset, list[str]]): Array of target server IP addresses.
-        disks (Union[Unset, list['BackupContentDiskPublicationInfo']]): Array of objects containing details about the
-            published disks.
+        mode (EBackupContentDiskPublishMode | Unset): Disk publishing mount mode.
+        server_port (int | Unset): Port used by the mount point.
+        server_ips (list[str] | Unset): Array of target server IP addresses.
+        disks (list[BackupContentDiskPublicationInfo] | Unset): Array of objects containing details about the published
+            disks.
     """
 
-    mode: Union[Unset, EBackupContentDiskPublishMode] = UNSET
-    server_port: Union[Unset, int] = UNSET
-    server_ips: Union[Unset, list[str]] = UNSET
-    disks: Union[Unset, list["BackupContentDiskPublicationInfo"]] = UNSET
+    mode: EBackupContentDiskPublishMode | Unset = UNSET
+    server_port: int | Unset = UNSET
+    server_ips: list[str] | Unset = UNSET
+    disks: list[BackupContentDiskPublicationInfo] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        mode: Union[Unset, str] = UNSET
+        mode: str | Unset = UNSET
         if not isinstance(self.mode, Unset):
             mode = self.mode.value
 
         server_port = self.server_port
 
-        server_ips: Union[Unset, list[str]] = UNSET
+        server_ips: list[str] | Unset = UNSET
         if not isinstance(self.server_ips, Unset):
             server_ips = self.server_ips
 
-        disks: Union[Unset, list[dict[str, Any]]] = UNSET
+        disks: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.disks, Unset):
             disks = []
             for disks_item_data in self.disks:
@@ -70,7 +72,7 @@ class BackupContentPublicationInfo:
 
         d = dict(src_dict)
         _mode = d.pop("mode", UNSET)
-        mode: Union[Unset, EBackupContentDiskPublishMode]
+        mode: EBackupContentDiskPublishMode | Unset
         if isinstance(_mode, Unset):
             mode = UNSET
         else:
@@ -80,12 +82,14 @@ class BackupContentPublicationInfo:
 
         server_ips = cast(list[str], d.pop("serverIps", UNSET))
 
-        disks = []
         _disks = d.pop("disks", UNSET)
-        for disks_item_data in _disks or []:
-            disks_item = BackupContentDiskPublicationInfo.from_dict(disks_item_data)
+        disks: list[BackupContentDiskPublicationInfo] | Unset = UNSET
+        if _disks is not UNSET:
+            disks = []
+            for disks_item_data in _disks:
+                disks_item = BackupContentDiskPublicationInfo.from_dict(disks_item_data)
 
-            disks.append(disks_item)
+                disks.append(disks_item)
 
         backup_content_publication_info = cls(
             mode=mode,

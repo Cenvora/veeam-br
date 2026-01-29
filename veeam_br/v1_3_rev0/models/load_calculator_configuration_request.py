@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -15,72 +17,71 @@ class LoadCalculatorConfigurationRequest:
     """Load calculator configuration settings.
 
     Attributes:
-        avg_administrative_units_per_minute_backup_count (Union[Unset, int]): Average number of administrative units
-            backed up in a minute.
-        avg_arm_role_assignments_per_minute_backup_count (Union[Unset, int]): Average number of ARM role assignments
-            backed up in a minute.
-        avg_applications_per_minute_backup_count (Union[Unset, int]): Average number of applications backed up in a
-            minute.
-        avg_conditional_access_policies_per_minute_backup_count (Union[Unset, int]): Average number of Conditional
-            Access policies backed up in a minute.
-        avg_groups_per_minute_backup_count (Union[Unset, int]): Average number of groups backed up in a minute.
-        avg_schema_extensions_per_minute_backup_count (Union[Unset, int]): Average number of schema extensions backed up
+        avg_administrative_units_per_minute_backup_count (int | Unset): Average number of administrative units backed up
             in a minute.
-        avg_service_principals_per_minute_backup_count (Union[Unset, int]): Average number of service principals backed
-            up in a minute.
-        avg_users_per_minute_backup_count (Union[Unset, int]): Average number of users backed up in a minute.
-        avg_unified_role_assignments_per_minute_backup_count (Union[Unset, int]): Average number of unified role
-            assignments backed up in a minute.
-        avg_unified_role_assignment_schedules_per_minute_backup_count (Union[Unset, int]): Average number of unified
-            role assignment schedules backed up in a minute.
-        avg_unified_role_assignment_schedule_instances_per_minute_backup_count (Union[Unset, int]): Average number of
-            unified role assignment schedule instances backed up in a minute.
-        avg_unified_role_definitions_per_minute_backup_count (Union[Unset, int]): Average number of ARM role definitions
+        avg_arm_role_assignments_per_minute_backup_count (int | Unset): Average number of ARM role assignments backed up
+            in a minute.
+        avg_applications_per_minute_backup_count (int | Unset): Average number of applications backed up in a minute.
+        avg_conditional_access_policies_per_minute_backup_count (int | Unset): Average number of Conditional Access
+            policies backed up in a minute.
+        avg_groups_per_minute_backup_count (int | Unset): Average number of groups backed up in a minute.
+        avg_schema_extensions_per_minute_backup_count (int | Unset): Average number of schema extensions backed up in a
+            minute.
+        avg_service_principals_per_minute_backup_count (int | Unset): Average number of service principals backed up in
+            a minute.
+        avg_users_per_minute_backup_count (int | Unset): Average number of users backed up in a minute.
+        avg_unified_role_assignments_per_minute_backup_count (int | Unset): Average number of unified role assignments
             backed up in a minute.
-        avg_unified_role_eligibility_schedule_per_minute_backup_count (Union[Unset, int]): Average number of unified
-            role eligibility schedules backed up in a minute.
-        avg_unified_role_eligibility_schedule_instance_per_minute_backup_count (Union[Unset, int]): Average number of
-            unified role eligibility schedule instances backed up in a minute.
-        avg_cpu_consumption_count (Union[Unset, int]): Average CPU consumption.
-        avg_ram_consumption_mb (Union[Unset, int]): Average RAM consuption in MB.
-        vbr_reserved_ram_consumption_mb (Union[Unset, int]): The amount of RAM the Load Calculator reserves for Veeam
-            Backup & Replication.
-        resources_consumption_soft_issue_threshold (Union[Unset, int]): Soft threshold for resource consumption.
-        resources_consumption_hard_issue_threshold (Union[Unset, int]): Hard threshold for resource consumption.
-        tenant_restore_cpu_consumption (Union[Unset, float]): CPU consumption for tenant restore.
-        tenant_restore_percentage (Union[Unset, float]): Tenant restore percentage.
-        cpu_allocation_for_backup (Union[Unset, float]): CPU allocation for tenant backup.
-        cpu_allocation_for_restore (Union[Unset, float]): CPU allocation for tenant restore.
-        dummy_azure_tenant_id (Union[Unset, UUID]): ID assigned by Microsoft Entra to a dummy tenant used by the Load
+        avg_unified_role_assignment_schedules_per_minute_backup_count (int | Unset): Average number of unified role
+            assignment schedules backed up in a minute.
+        avg_unified_role_assignment_schedule_instances_per_minute_backup_count (int | Unset): Average number of unified
+            role assignment schedule instances backed up in a minute.
+        avg_unified_role_definitions_per_minute_backup_count (int | Unset): Average number of ARM role definitions
+            backed up in a minute.
+        avg_unified_role_eligibility_schedule_per_minute_backup_count (int | Unset): Average number of unified role
+            eligibility schedules backed up in a minute.
+        avg_unified_role_eligibility_schedule_instance_per_minute_backup_count (int | Unset): Average number of unified
+            role eligibility schedule instances backed up in a minute.
+        avg_cpu_consumption_count (int | Unset): Average CPU consumption.
+        avg_ram_consumption_mb (int | Unset): Average RAM consuption in MB.
+        vbr_reserved_ram_consumption_mb (int | Unset): The amount of RAM the Load Calculator reserves for Veeam Backup &
+            Replication.
+        resources_consumption_soft_issue_threshold (int | Unset): Soft threshold for resource consumption.
+        resources_consumption_hard_issue_threshold (int | Unset): Hard threshold for resource consumption.
+        tenant_restore_cpu_consumption (float | Unset): CPU consumption for tenant restore.
+        tenant_restore_percentage (float | Unset): Tenant restore percentage.
+        cpu_allocation_for_backup (float | Unset): CPU allocation for tenant backup.
+        cpu_allocation_for_restore (float | Unset): CPU allocation for tenant restore.
+        dummy_azure_tenant_id (UUID | Unset): ID assigned by Microsoft Entra to a dummy tenant used by the Load
             Calculator for statistics collection. The tenant is added to Veeam Backup & Replication.
-        tenant_reservation_lifetime_minutes (Union[Unset, int]): Tenant time reservation, in minutes.
+        tenant_reservation_lifetime_minutes (int | Unset): Tenant time reservation, in minutes.
     """
 
-    avg_administrative_units_per_minute_backup_count: Union[Unset, int] = UNSET
-    avg_arm_role_assignments_per_minute_backup_count: Union[Unset, int] = UNSET
-    avg_applications_per_minute_backup_count: Union[Unset, int] = UNSET
-    avg_conditional_access_policies_per_minute_backup_count: Union[Unset, int] = UNSET
-    avg_groups_per_minute_backup_count: Union[Unset, int] = UNSET
-    avg_schema_extensions_per_minute_backup_count: Union[Unset, int] = UNSET
-    avg_service_principals_per_minute_backup_count: Union[Unset, int] = UNSET
-    avg_users_per_minute_backup_count: Union[Unset, int] = UNSET
-    avg_unified_role_assignments_per_minute_backup_count: Union[Unset, int] = UNSET
-    avg_unified_role_assignment_schedules_per_minute_backup_count: Union[Unset, int] = UNSET
-    avg_unified_role_assignment_schedule_instances_per_minute_backup_count: Union[Unset, int] = UNSET
-    avg_unified_role_definitions_per_minute_backup_count: Union[Unset, int] = UNSET
-    avg_unified_role_eligibility_schedule_per_minute_backup_count: Union[Unset, int] = UNSET
-    avg_unified_role_eligibility_schedule_instance_per_minute_backup_count: Union[Unset, int] = UNSET
-    avg_cpu_consumption_count: Union[Unset, int] = UNSET
-    avg_ram_consumption_mb: Union[Unset, int] = UNSET
-    vbr_reserved_ram_consumption_mb: Union[Unset, int] = UNSET
-    resources_consumption_soft_issue_threshold: Union[Unset, int] = UNSET
-    resources_consumption_hard_issue_threshold: Union[Unset, int] = UNSET
-    tenant_restore_cpu_consumption: Union[Unset, float] = UNSET
-    tenant_restore_percentage: Union[Unset, float] = UNSET
-    cpu_allocation_for_backup: Union[Unset, float] = UNSET
-    cpu_allocation_for_restore: Union[Unset, float] = UNSET
-    dummy_azure_tenant_id: Union[Unset, UUID] = UNSET
-    tenant_reservation_lifetime_minutes: Union[Unset, int] = UNSET
+    avg_administrative_units_per_minute_backup_count: int | Unset = UNSET
+    avg_arm_role_assignments_per_minute_backup_count: int | Unset = UNSET
+    avg_applications_per_minute_backup_count: int | Unset = UNSET
+    avg_conditional_access_policies_per_minute_backup_count: int | Unset = UNSET
+    avg_groups_per_minute_backup_count: int | Unset = UNSET
+    avg_schema_extensions_per_minute_backup_count: int | Unset = UNSET
+    avg_service_principals_per_minute_backup_count: int | Unset = UNSET
+    avg_users_per_minute_backup_count: int | Unset = UNSET
+    avg_unified_role_assignments_per_minute_backup_count: int | Unset = UNSET
+    avg_unified_role_assignment_schedules_per_minute_backup_count: int | Unset = UNSET
+    avg_unified_role_assignment_schedule_instances_per_minute_backup_count: int | Unset = UNSET
+    avg_unified_role_definitions_per_minute_backup_count: int | Unset = UNSET
+    avg_unified_role_eligibility_schedule_per_minute_backup_count: int | Unset = UNSET
+    avg_unified_role_eligibility_schedule_instance_per_minute_backup_count: int | Unset = UNSET
+    avg_cpu_consumption_count: int | Unset = UNSET
+    avg_ram_consumption_mb: int | Unset = UNSET
+    vbr_reserved_ram_consumption_mb: int | Unset = UNSET
+    resources_consumption_soft_issue_threshold: int | Unset = UNSET
+    resources_consumption_hard_issue_threshold: int | Unset = UNSET
+    tenant_restore_cpu_consumption: float | Unset = UNSET
+    tenant_restore_percentage: float | Unset = UNSET
+    cpu_allocation_for_backup: float | Unset = UNSET
+    cpu_allocation_for_restore: float | Unset = UNSET
+    dummy_azure_tenant_id: UUID | Unset = UNSET
+    tenant_reservation_lifetime_minutes: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -140,7 +141,7 @@ class LoadCalculatorConfigurationRequest:
 
         cpu_allocation_for_restore = self.cpu_allocation_for_restore
 
-        dummy_azure_tenant_id: Union[Unset, str] = UNSET
+        dummy_azure_tenant_id: str | Unset = UNSET
         if not isinstance(self.dummy_azure_tenant_id, Unset):
             dummy_azure_tenant_id = str(self.dummy_azure_tenant_id)
 
@@ -280,7 +281,7 @@ class LoadCalculatorConfigurationRequest:
         cpu_allocation_for_restore = d.pop("cpuAllocationForRestore", UNSET)
 
         _dummy_azure_tenant_id = d.pop("dummyAzureTenantId", UNSET)
-        dummy_azure_tenant_id: Union[Unset, UUID]
+        dummy_azure_tenant_id: UUID | Unset
         if isinstance(_dummy_azure_tenant_id, Unset):
             dummy_azure_tenant_id = UNSET
         else:

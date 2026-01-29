@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -16,31 +18,29 @@ T = TypeVar("T", bound="VCenterInventoryFilters")
 class VCenterInventoryFilters:
     """
     Attributes:
-        skip (Union[Unset, int]): Number of objects to skip.
-        limit (Union[Unset, int]): Maximum number of objects to return.
-        order_column (Union[Unset, EvCentersInventoryFiltersOrderColumn]): Sorts vCenter Servers by one of the job
-            parameters.
-        order_asc (Union[Unset, bool]): If `true`, sorts objects in the ascending order by the `orderColumn` parameter.
-        object_id_filter (Union[Unset, str]): Filters objects by object ID.
-        hierarchy_type_filter (Union[Unset, EHierarchyType]): VMware vSphere hierarchy type.
-        name_filter (Union[Unset, str]): Filters objects by the `nameFilter` pattern. The pattern can match any object
+        skip (int | Unset): Number of objects to skip.
+        limit (int | Unset): Maximum number of objects to return.
+        order_column (EvCentersInventoryFiltersOrderColumn | Unset): Sorts vCenter Servers by one of the job parameters.
+        order_asc (bool | Unset): If `true`, sorts objects in the ascending order by the `orderColumn` parameter.
+        object_id_filter (str | Unset): Filters objects by object ID.
+        hierarchy_type_filter (EHierarchyType | Unset): VMware vSphere hierarchy type.
+        name_filter (str | Unset): Filters objects by the `nameFilter` pattern. The pattern can match any object
             parameter. To substitute one or more characters, use the asterisk (*) character at the beginning, at the end or
             both.
-        type_filter (Union[Unset, EVmwareInventoryType]): Type of the VMware vSphere object.<p> Note that inventory
-            objects with multiple tags (*Multitag* type) can only be added in the Veeam Backup & Replication UI or
-            PowerShell.
-        parent_container_name_filter (Union[Unset, str]): Filters objects by name of the parent container.
+        type_filter (EVmwareInventoryType | Unset): Type of the VMware vSphere object.<p> Note that inventory objects
+            with multiple tags (*Multitag* type) can only be added in the Veeam Backup & Replication UI or PowerShell.
+        parent_container_name_filter (str | Unset): Filters objects by name of the parent container.
     """
 
-    skip: Union[Unset, int] = UNSET
-    limit: Union[Unset, int] = UNSET
-    order_column: Union[Unset, EvCentersInventoryFiltersOrderColumn] = UNSET
-    order_asc: Union[Unset, bool] = UNSET
-    object_id_filter: Union[Unset, str] = UNSET
-    hierarchy_type_filter: Union[Unset, EHierarchyType] = UNSET
-    name_filter: Union[Unset, str] = UNSET
-    type_filter: Union[Unset, EVmwareInventoryType] = UNSET
-    parent_container_name_filter: Union[Unset, str] = UNSET
+    skip: int | Unset = UNSET
+    limit: int | Unset = UNSET
+    order_column: EvCentersInventoryFiltersOrderColumn | Unset = UNSET
+    order_asc: bool | Unset = UNSET
+    object_id_filter: str | Unset = UNSET
+    hierarchy_type_filter: EHierarchyType | Unset = UNSET
+    name_filter: str | Unset = UNSET
+    type_filter: EVmwareInventoryType | Unset = UNSET
+    parent_container_name_filter: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -48,7 +48,7 @@ class VCenterInventoryFilters:
 
         limit = self.limit
 
-        order_column: Union[Unset, str] = UNSET
+        order_column: str | Unset = UNSET
         if not isinstance(self.order_column, Unset):
             order_column = self.order_column.value
 
@@ -56,13 +56,13 @@ class VCenterInventoryFilters:
 
         object_id_filter = self.object_id_filter
 
-        hierarchy_type_filter: Union[Unset, str] = UNSET
+        hierarchy_type_filter: str | Unset = UNSET
         if not isinstance(self.hierarchy_type_filter, Unset):
             hierarchy_type_filter = self.hierarchy_type_filter.value
 
         name_filter = self.name_filter
 
-        type_filter: Union[Unset, str] = UNSET
+        type_filter: str | Unset = UNSET
         if not isinstance(self.type_filter, Unset):
             type_filter = self.type_filter.value
 
@@ -100,7 +100,7 @@ class VCenterInventoryFilters:
         limit = d.pop("limit", UNSET)
 
         _order_column = d.pop("orderColumn", UNSET)
-        order_column: Union[Unset, EvCentersInventoryFiltersOrderColumn]
+        order_column: EvCentersInventoryFiltersOrderColumn | Unset
         if isinstance(_order_column, Unset):
             order_column = UNSET
         else:
@@ -111,7 +111,7 @@ class VCenterInventoryFilters:
         object_id_filter = d.pop("objectIdFilter", UNSET)
 
         _hierarchy_type_filter = d.pop("hierarchyTypeFilter", UNSET)
-        hierarchy_type_filter: Union[Unset, EHierarchyType]
+        hierarchy_type_filter: EHierarchyType | Unset
         if isinstance(_hierarchy_type_filter, Unset):
             hierarchy_type_filter = UNSET
         else:
@@ -120,7 +120,7 @@ class VCenterInventoryFilters:
         name_filter = d.pop("nameFilter", UNSET)
 
         _type_filter = d.pop("typeFilter", UNSET)
-        type_filter: Union[Unset, EVmwareInventoryType]
+        type_filter: EVmwareInventoryType | Unset
         if isinstance(_type_filter, Unset):
             type_filter = UNSET
         else:

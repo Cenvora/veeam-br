@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -14,18 +16,18 @@ T = TypeVar("T", bound="EntraIDItemIncludeRestoreSpec")
 class EntraIDItemIncludeRestoreSpec:
     """
     Attributes:
-        item_id (Union[Unset, str]):
-        restore_point_id (Union[Unset, UUID]):
+        item_id (str | Unset):
+        restore_point_id (UUID | Unset):
     """
 
-    item_id: Union[Unset, str] = UNSET
-    restore_point_id: Union[Unset, UUID] = UNSET
+    item_id: str | Unset = UNSET
+    restore_point_id: UUID | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         item_id = self.item_id
 
-        restore_point_id: Union[Unset, str] = UNSET
+        restore_point_id: str | Unset = UNSET
         if not isinstance(self.restore_point_id, Unset):
             restore_point_id = str(self.restore_point_id)
 
@@ -45,7 +47,7 @@ class EntraIDItemIncludeRestoreSpec:
         item_id = d.pop("itemId", UNSET)
 
         _restore_point_id = d.pop("restorePointId", UNSET)
-        restore_point_id: Union[Unset, UUID]
+        restore_point_id: UUID | Unset
         if isinstance(_restore_point_id, Unset):
             restore_point_id = UNSET
         else:

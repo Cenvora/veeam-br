@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,12 +17,12 @@ class AzureMachinesBrowserFilters:
     also the response time.
 
         Attributes:
-            resource_group (Union[Unset, str]): Filters compute resources by Microsoft Azure resource group.
-            name (Union[Unset, str]): Filters compute resources by Microsoft Azure virtual machine name.
+            resource_group (str | Unset): Filters compute resources by Microsoft Azure resource group.
+            name (str | Unset): Filters compute resources by Microsoft Azure virtual machine name.
     """
 
-    resource_group: Union[Unset, str] = UNSET
-    name: Union[Unset, str] = UNSET
+    resource_group: str | Unset = UNSET
+    name: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,12 +16,12 @@ class ObjectStorageImmutabilityModel:
     """Object storage immutability.
 
     Attributes:
-        is_enabled (Union[Unset, bool]): If `true`, storage immutability is enabled.
-        days_count (Union[Unset, int]): Immutability period.
+        is_enabled (bool | Unset): If `true`, storage immutability is enabled.
+        days_count (int | Unset): Immutability period.
     """
 
-    is_enabled: Union[Unset, bool] = UNSET
-    days_count: Union[Unset, int] = UNSET
+    is_enabled: bool | Unset = UNSET
+    days_count: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

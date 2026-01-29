@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,26 +22,26 @@ class ProtectionGroupOptionsRescanScheduleModel:
     """Rescan schedule settings for the protection group.
 
     Attributes:
-        daily (Union[Unset, ScheduleDailyModel]): Daily scheduling options.
-        periodically (Union[Unset, SchedulePeriodicallyModel]): Periodic scheduling options.
-        continuously (Union[Unset, ScheduleBackupWindowModel]): Backup window settings.
+        daily (ScheduleDailyModel | Unset): Daily scheduling options.
+        periodically (SchedulePeriodicallyModel | Unset): Periodic scheduling options.
+        continuously (ScheduleBackupWindowModel | Unset): Backup window settings.
     """
 
-    daily: Union[Unset, "ScheduleDailyModel"] = UNSET
-    periodically: Union[Unset, "SchedulePeriodicallyModel"] = UNSET
-    continuously: Union[Unset, "ScheduleBackupWindowModel"] = UNSET
+    daily: ScheduleDailyModel | Unset = UNSET
+    periodically: SchedulePeriodicallyModel | Unset = UNSET
+    continuously: ScheduleBackupWindowModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        daily: Union[Unset, dict[str, Any]] = UNSET
+        daily: dict[str, Any] | Unset = UNSET
         if not isinstance(self.daily, Unset):
             daily = self.daily.to_dict()
 
-        periodically: Union[Unset, dict[str, Any]] = UNSET
+        periodically: dict[str, Any] | Unset = UNSET
         if not isinstance(self.periodically, Unset):
             periodically = self.periodically.to_dict()
 
-        continuously: Union[Unset, dict[str, Any]] = UNSET
+        continuously: dict[str, Any] | Unset = UNSET
         if not isinstance(self.continuously, Unset):
             continuously = self.continuously.to_dict()
 
@@ -63,21 +65,21 @@ class ProtectionGroupOptionsRescanScheduleModel:
 
         d = dict(src_dict)
         _daily = d.pop("daily", UNSET)
-        daily: Union[Unset, ScheduleDailyModel]
+        daily: ScheduleDailyModel | Unset
         if isinstance(_daily, Unset):
             daily = UNSET
         else:
             daily = ScheduleDailyModel.from_dict(_daily)
 
         _periodically = d.pop("periodically", UNSET)
-        periodically: Union[Unset, SchedulePeriodicallyModel]
+        periodically: SchedulePeriodicallyModel | Unset
         if isinstance(_periodically, Unset):
             periodically = UNSET
         else:
             periodically = SchedulePeriodicallyModel.from_dict(_periodically)
 
         _continuously = d.pop("continuously", UNSET)
-        continuously: Union[Unset, ScheduleBackupWindowModel]
+        continuously: ScheduleBackupWindowModel | Unset
         if isinstance(_continuously, Unset):
             continuously = UNSET
         else:

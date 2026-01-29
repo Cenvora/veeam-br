@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, Any, TypeVar
 
@@ -23,8 +25,8 @@ class AzureDataBoxStorageAccountImportModel:
     """
 
     service_endpoint: str
-    credentials: "CloudCredentialsImportModel"
-    connection_settings: "ObjectStorageConnectionImportSpec"
+    credentials: CloudCredentialsImportModel
+    connection_settings: ObjectStorageConnectionImportSpec
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -18,18 +20,18 @@ class SessionLogResult:
     """Log of the session.
 
     Attributes:
-        total_records (Union[Unset, int]): Total number of records.
-        records (Union[Unset, list['SessionLogRecordModel']]): Array of log records.
+        total_records (int | Unset): Total number of records.
+        records (list[SessionLogRecordModel] | Unset): Array of log records.
     """
 
-    total_records: Union[Unset, int] = UNSET
-    records: Union[Unset, list["SessionLogRecordModel"]] = UNSET
+    total_records: int | Unset = UNSET
+    records: list[SessionLogRecordModel] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         total_records = self.total_records
 
-        records: Union[Unset, list[dict[str, Any]]] = UNSET
+        records: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.records, Unset):
             records = []
             for records_item_data in self.records:
@@ -53,12 +55,14 @@ class SessionLogResult:
         d = dict(src_dict)
         total_records = d.pop("totalRecords", UNSET)
 
-        records = []
         _records = d.pop("records", UNSET)
-        for records_item_data in _records or []:
-            records_item = SessionLogRecordModel.from_dict(records_item_data)
+        records: list[SessionLogRecordModel] | Unset = UNSET
+        if _records is not UNSET:
+            records = []
+            for records_item_data in _records:
+                records_item = SessionLogRecordModel.from_dict(records_item_data)
 
-            records.append(records_item)
+                records.append(records_item)
 
         session_log_result = cls(
             total_records=total_records,

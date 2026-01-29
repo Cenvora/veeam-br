@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -19,25 +21,24 @@ class AgentBackupPolicyStorageBackupCacheModel:
         is_enabled (bool): If `true`, backup cache is enabled. This feature allows you to create restore points in
             temporary local storage where Veeam Agent creates backup files in case a remote backup location is unavailable
             at the time of backup. Note that this option is only supported with Veeam Agent for Microsoft Windows.
-        type_ (Union[Unset, EBackupCacheSelectionType]): Type of selecting backup cache location.
-        local_path (Union[Unset, str]): Path to the folder on a protected computer in which backup files will be stored.
+        type_ (EBackupCacheSelectionType | Unset): Type of selecting backup cache location.
+        local_path (str | Unset): Path to the folder on a protected computer in which backup files will be stored.
             Specify this property if you have specified the `Manual` option for the `type` property.
-        size_limit (Union[Unset, int]): Maximum size of the backup cache. The unit is specified in the `sizeUnit`
-            property.
-        size_unit (Union[Unset, EBackupCacheSizeUnit]): Unit for backup cache size.
+        size_limit (int | Unset): Maximum size of the backup cache. The unit is specified in the `sizeUnit` property.
+        size_unit (EBackupCacheSizeUnit | Unset): Unit for backup cache size.
     """
 
     is_enabled: bool
-    type_: Union[Unset, EBackupCacheSelectionType] = UNSET
-    local_path: Union[Unset, str] = UNSET
-    size_limit: Union[Unset, int] = UNSET
-    size_unit: Union[Unset, EBackupCacheSizeUnit] = UNSET
+    type_: EBackupCacheSelectionType | Unset = UNSET
+    local_path: str | Unset = UNSET
+    size_limit: int | Unset = UNSET
+    size_unit: EBackupCacheSizeUnit | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         is_enabled = self.is_enabled
 
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
@@ -45,7 +46,7 @@ class AgentBackupPolicyStorageBackupCacheModel:
 
         size_limit = self.size_limit
 
-        size_unit: Union[Unset, str] = UNSET
+        size_unit: str | Unset = UNSET
         if not isinstance(self.size_unit, Unset):
             size_unit = self.size_unit.value
 
@@ -73,7 +74,7 @@ class AgentBackupPolicyStorageBackupCacheModel:
         is_enabled = d.pop("isEnabled")
 
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, EBackupCacheSelectionType]
+        type_: EBackupCacheSelectionType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:
@@ -84,7 +85,7 @@ class AgentBackupPolicyStorageBackupCacheModel:
         size_limit = d.pop("sizeLimit", UNSET)
 
         _size_unit = d.pop("sizeUnit", UNSET)
-        size_unit: Union[Unset, EBackupCacheSizeUnit]
+        size_unit: EBackupCacheSizeUnit | Unset
         if isinstance(_size_unit, Unset):
             size_unit = UNSET
         else:

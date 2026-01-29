@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -24,39 +26,39 @@ class LinuxFlrMountServerSettings:
 
         Attributes:
             mount_server_type (EFlrMountModeServerType): Mount server mode.
-            mount_server_id (Union[Unset, UUID]): Mount server ID. Specify this property if the `mountServerType` property
-                is `MountServer`.
-            helper_host (Union[Unset, LinuxFlrHelperHostModel]): Helper host settings. Use this option if you want to mount
-                the file system to a Linux server added to the backup infrastructure.
-            helper_appliance (Union[Unset, LinuxFlrHelperApplianceSpec]): Helper appliance settings. Use this option if you
-                want to mount the file system to a temporary helper appliance.
-            original_host (Union[Unset, LinuxFlrOriginalHostSpec]): Original host settings. Use this option if you want to
-                mount the file system to the original machine.
+            mount_server_id (UUID | Unset): Mount server ID. Specify this property if the `mountServerType` property is
+                `MountServer`.
+            helper_host (LinuxFlrHelperHostModel | Unset): Helper host settings. Use this option if you want to mount the
+                file system to a Linux server added to the backup infrastructure.
+            helper_appliance (LinuxFlrHelperApplianceSpec | Unset): Helper appliance settings. Use this option if you want
+                to mount the file system to a temporary helper appliance.
+            original_host (LinuxFlrOriginalHostSpec | Unset): Original host settings. Use this option if you want to mount
+                the file system to the original machine.
     """
 
     mount_server_type: EFlrMountModeServerType
-    mount_server_id: Union[Unset, UUID] = UNSET
-    helper_host: Union[Unset, "LinuxFlrHelperHostModel"] = UNSET
-    helper_appliance: Union[Unset, "LinuxFlrHelperApplianceSpec"] = UNSET
-    original_host: Union[Unset, "LinuxFlrOriginalHostSpec"] = UNSET
+    mount_server_id: UUID | Unset = UNSET
+    helper_host: LinuxFlrHelperHostModel | Unset = UNSET
+    helper_appliance: LinuxFlrHelperApplianceSpec | Unset = UNSET
+    original_host: LinuxFlrOriginalHostSpec | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         mount_server_type = self.mount_server_type.value
 
-        mount_server_id: Union[Unset, str] = UNSET
+        mount_server_id: str | Unset = UNSET
         if not isinstance(self.mount_server_id, Unset):
             mount_server_id = str(self.mount_server_id)
 
-        helper_host: Union[Unset, dict[str, Any]] = UNSET
+        helper_host: dict[str, Any] | Unset = UNSET
         if not isinstance(self.helper_host, Unset):
             helper_host = self.helper_host.to_dict()
 
-        helper_appliance: Union[Unset, dict[str, Any]] = UNSET
+        helper_appliance: dict[str, Any] | Unset = UNSET
         if not isinstance(self.helper_appliance, Unset):
             helper_appliance = self.helper_appliance.to_dict()
 
-        original_host: Union[Unset, dict[str, Any]] = UNSET
+        original_host: dict[str, Any] | Unset = UNSET
         if not isinstance(self.original_host, Unset):
             original_host = self.original_host.to_dict()
 
@@ -88,28 +90,28 @@ class LinuxFlrMountServerSettings:
         mount_server_type = EFlrMountModeServerType(d.pop("mountServerType"))
 
         _mount_server_id = d.pop("mountServerId", UNSET)
-        mount_server_id: Union[Unset, UUID]
+        mount_server_id: UUID | Unset
         if isinstance(_mount_server_id, Unset):
             mount_server_id = UNSET
         else:
             mount_server_id = UUID(_mount_server_id)
 
         _helper_host = d.pop("helperHost", UNSET)
-        helper_host: Union[Unset, LinuxFlrHelperHostModel]
+        helper_host: LinuxFlrHelperHostModel | Unset
         if isinstance(_helper_host, Unset):
             helper_host = UNSET
         else:
             helper_host = LinuxFlrHelperHostModel.from_dict(_helper_host)
 
         _helper_appliance = d.pop("helperAppliance", UNSET)
-        helper_appliance: Union[Unset, LinuxFlrHelperApplianceSpec]
+        helper_appliance: LinuxFlrHelperApplianceSpec | Unset
         if isinstance(_helper_appliance, Unset):
             helper_appliance = UNSET
         else:
             helper_appliance = LinuxFlrHelperApplianceSpec.from_dict(_helper_appliance)
 
         _original_host = d.pop("originalHost", UNSET)
-        original_host: Union[Unset, LinuxFlrOriginalHostSpec]
+        original_host: LinuxFlrOriginalHostSpec | Unset
         if isinstance(_original_host, Unset):
             original_host = UNSET
         else:

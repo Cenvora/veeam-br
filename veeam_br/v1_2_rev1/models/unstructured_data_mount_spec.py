@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -19,17 +21,17 @@ class UnstructuredDataMountSpec:
     """
     Attributes:
         backup_id (UUID): Backup ID.
-        auto_unmount (Union[Unset, FlrAutoUnmountModel]): Settings for automatic unmount of the file system.
+        auto_unmount (FlrAutoUnmountModel | Unset): Settings for automatic unmount of the file system.
     """
 
     backup_id: UUID
-    auto_unmount: Union[Unset, "FlrAutoUnmountModel"] = UNSET
+    auto_unmount: FlrAutoUnmountModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         backup_id = str(self.backup_id)
 
-        auto_unmount: Union[Unset, dict[str, Any]] = UNSET
+        auto_unmount: dict[str, Any] | Unset = UNSET
         if not isinstance(self.auto_unmount, Unset):
             auto_unmount = self.auto_unmount.to_dict()
 
@@ -53,7 +55,7 @@ class UnstructuredDataMountSpec:
         backup_id = UUID(d.pop("backupId"))
 
         _auto_unmount = d.pop("autoUnmount", UNSET)
-        auto_unmount: Union[Unset, FlrAutoUnmountModel]
+        auto_unmount: FlrAutoUnmountModel | Unset
         if isinstance(_auto_unmount, Unset):
             auto_unmount = UNSET
         else:

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -20,40 +22,39 @@ class EntraIDTenantModel:
     """
     Attributes:
         id (UUID): Tenant ID assigned by Veeam Backup & Replication.
-        azure_tenant_id (Union[Unset, UUID]): Tenant ID assigned by Microsoft Entra ID.
-        description (Union[Unset, str]): Tenant description.
-        cache_repository_id (Union[Unset, UUID]): ID of a backup repository that is used as a cache repository for the
-            tenant.
-        region (Union[Unset, EAzureRegionType]): Microsoft Azure region.
-        authentication (Union[Unset, EntraIDTenantAuthenticationModel]): Authentication settings.
+        azure_tenant_id (UUID | Unset): Tenant ID assigned by Microsoft Entra ID.
+        description (str | Unset): Tenant description.
+        cache_repository_id (UUID | Unset): ID of a backup repository that is used as a cache repository for the tenant.
+        region (EAzureRegionType | Unset): Microsoft Azure region.
+        authentication (EntraIDTenantAuthenticationModel | Unset): Authentication settings.
     """
 
     id: UUID
-    azure_tenant_id: Union[Unset, UUID] = UNSET
-    description: Union[Unset, str] = UNSET
-    cache_repository_id: Union[Unset, UUID] = UNSET
-    region: Union[Unset, EAzureRegionType] = UNSET
-    authentication: Union[Unset, "EntraIDTenantAuthenticationModel"] = UNSET
+    azure_tenant_id: UUID | Unset = UNSET
+    description: str | Unset = UNSET
+    cache_repository_id: UUID | Unset = UNSET
+    region: EAzureRegionType | Unset = UNSET
+    authentication: EntraIDTenantAuthenticationModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         id = str(self.id)
 
-        azure_tenant_id: Union[Unset, str] = UNSET
+        azure_tenant_id: str | Unset = UNSET
         if not isinstance(self.azure_tenant_id, Unset):
             azure_tenant_id = str(self.azure_tenant_id)
 
         description = self.description
 
-        cache_repository_id: Union[Unset, str] = UNSET
+        cache_repository_id: str | Unset = UNSET
         if not isinstance(self.cache_repository_id, Unset):
             cache_repository_id = str(self.cache_repository_id)
 
-        region: Union[Unset, str] = UNSET
+        region: str | Unset = UNSET
         if not isinstance(self.region, Unset):
             region = self.region.value
 
-        authentication: Union[Unset, dict[str, Any]] = UNSET
+        authentication: dict[str, Any] | Unset = UNSET
         if not isinstance(self.authentication, Unset):
             authentication = self.authentication.to_dict()
 
@@ -85,7 +86,7 @@ class EntraIDTenantModel:
         id = UUID(d.pop("id"))
 
         _azure_tenant_id = d.pop("azureTenantId", UNSET)
-        azure_tenant_id: Union[Unset, UUID]
+        azure_tenant_id: UUID | Unset
         if isinstance(_azure_tenant_id, Unset):
             azure_tenant_id = UNSET
         else:
@@ -94,21 +95,21 @@ class EntraIDTenantModel:
         description = d.pop("description", UNSET)
 
         _cache_repository_id = d.pop("cacheRepositoryId", UNSET)
-        cache_repository_id: Union[Unset, UUID]
+        cache_repository_id: UUID | Unset
         if isinstance(_cache_repository_id, Unset):
             cache_repository_id = UNSET
         else:
             cache_repository_id = UUID(_cache_repository_id)
 
         _region = d.pop("region", UNSET)
-        region: Union[Unset, EAzureRegionType]
+        region: EAzureRegionType | Unset
         if isinstance(_region, Unset):
             region = UNSET
         else:
             region = EAzureRegionType(_region)
 
         _authentication = d.pop("authentication", UNSET)
-        authentication: Union[Unset, EntraIDTenantAuthenticationModel]
+        authentication: EntraIDTenantAuthenticationModel | Unset
         if isinstance(_authentication, Unset):
             authentication = UNSET
         else:

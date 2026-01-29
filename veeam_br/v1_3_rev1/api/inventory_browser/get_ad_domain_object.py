@@ -1,5 +1,6 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
@@ -15,12 +16,12 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     id: UUID,
     *,
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EADDomainFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    full_name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, str] = UNSET,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EADDomainFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    full_name_filter: str | Unset = UNSET,
+    type_filter: str | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -32,7 +33,7 @@ def _get_kwargs(
 
     params["limit"] = limit
 
-    json_order_column: Union[Unset, str] = UNSET
+    json_order_column: str | Unset = UNSET
     if not isinstance(order_column, Unset):
         json_order_column = order_column.value
 
@@ -48,7 +49,9 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": f"/api/v1/inventory/activeDirectory/domains/{id}",
+        "url": "/api/v1/inventory/activeDirectory/domains/{id}".format(
+            id=quote(str(id), safe=""),
+        ),
         "params": params,
     }
 
@@ -57,8 +60,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[ADDomainInventoryResult, Error]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> ADDomainInventoryResult | Error | None:
     if response.status_code == 200:
         response_200 = ADDomainInventoryResult.from_dict(response.json())
 
@@ -91,8 +94,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[ADDomainInventoryResult, Error]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[ADDomainInventoryResult | Error]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -104,15 +107,15 @@ def _build_response(
 def sync_detailed(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EADDomainFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    full_name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, str] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EADDomainFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    full_name_filter: str | Unset = UNSET,
+    type_filter: str | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[ADDomainInventoryResult, Error]]:
+) -> Response[ADDomainInventoryResult | Error]:
     """Get Active Directory Objects from Domain
 
      The HTTP GET request to the `/api/v1/inventory/activeDirectory/domains/{id}` endpoint gets an array
@@ -121,13 +124,13 @@ def sync_detailed(
 
     Args:
         id (UUID):
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EADDomainFiltersOrderColumn]): Sorts Active Directory domains
-            by one of the Active Directory domain parameters.
-        order_asc (Union[Unset, bool]):
-        full_name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, str]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EADDomainFiltersOrderColumn | Unset): Sorts Active Directory domains by one
+            of the Active Directory domain parameters.
+        order_asc (bool | Unset):
+        full_name_filter (str | Unset):
+        type_filter (str | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -135,7 +138,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[ADDomainInventoryResult, Error]]
+        Response[ADDomainInventoryResult | Error]
     """
 
     kwargs = _get_kwargs(
@@ -159,15 +162,15 @@ def sync_detailed(
 def sync(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EADDomainFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    full_name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, str] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EADDomainFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    full_name_filter: str | Unset = UNSET,
+    type_filter: str | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[ADDomainInventoryResult, Error]]:
+) -> ADDomainInventoryResult | Error | None:
     """Get Active Directory Objects from Domain
 
      The HTTP GET request to the `/api/v1/inventory/activeDirectory/domains/{id}` endpoint gets an array
@@ -176,13 +179,13 @@ def sync(
 
     Args:
         id (UUID):
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EADDomainFiltersOrderColumn]): Sorts Active Directory domains
-            by one of the Active Directory domain parameters.
-        order_asc (Union[Unset, bool]):
-        full_name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, str]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EADDomainFiltersOrderColumn | Unset): Sorts Active Directory domains by one
+            of the Active Directory domain parameters.
+        order_asc (bool | Unset):
+        full_name_filter (str | Unset):
+        type_filter (str | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -190,7 +193,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[ADDomainInventoryResult, Error]
+        ADDomainInventoryResult | Error
     """
 
     return sync_detailed(
@@ -209,15 +212,15 @@ def sync(
 async def asyncio_detailed(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EADDomainFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    full_name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, str] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EADDomainFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    full_name_filter: str | Unset = UNSET,
+    type_filter: str | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Response[Union[ADDomainInventoryResult, Error]]:
+) -> Response[ADDomainInventoryResult | Error]:
     """Get Active Directory Objects from Domain
 
      The HTTP GET request to the `/api/v1/inventory/activeDirectory/domains/{id}` endpoint gets an array
@@ -226,13 +229,13 @@ async def asyncio_detailed(
 
     Args:
         id (UUID):
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EADDomainFiltersOrderColumn]): Sorts Active Directory domains
-            by one of the Active Directory domain parameters.
-        order_asc (Union[Unset, bool]):
-        full_name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, str]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EADDomainFiltersOrderColumn | Unset): Sorts Active Directory domains by one
+            of the Active Directory domain parameters.
+        order_asc (bool | Unset):
+        full_name_filter (str | Unset):
+        type_filter (str | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -240,7 +243,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[ADDomainInventoryResult, Error]]
+        Response[ADDomainInventoryResult | Error]
     """
 
     kwargs = _get_kwargs(
@@ -262,15 +265,15 @@ async def asyncio_detailed(
 async def asyncio(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = 200,
-    order_column: Union[Unset, EADDomainFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    full_name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, str] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = 200,
+    order_column: EADDomainFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    full_name_filter: str | Unset = UNSET,
+    type_filter: str | Unset = UNSET,
     x_api_version: str = "1.3-rev1",
-) -> Optional[Union[ADDomainInventoryResult, Error]]:
+) -> ADDomainInventoryResult | Error | None:
     """Get Active Directory Objects from Domain
 
      The HTTP GET request to the `/api/v1/inventory/activeDirectory/domains/{id}` endpoint gets an array
@@ -279,13 +282,13 @@ async def asyncio(
 
     Args:
         id (UUID):
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):  Default: 200.
-        order_column (Union[Unset, EADDomainFiltersOrderColumn]): Sorts Active Directory domains
-            by one of the Active Directory domain parameters.
-        order_asc (Union[Unset, bool]):
-        full_name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, str]):
+        skip (int | Unset):
+        limit (int | Unset):  Default: 200.
+        order_column (EADDomainFiltersOrderColumn | Unset): Sorts Active Directory domains by one
+            of the Active Directory domain parameters.
+        order_asc (bool | Unset):
+        full_name_filter (str | Unset):
+        type_filter (str | Unset):
         x_api_version (str):  Default: '1.3-rev1'.
 
     Raises:
@@ -293,7 +296,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[ADDomainInventoryResult, Error]
+        ADDomainInventoryResult | Error
     """
 
     return (

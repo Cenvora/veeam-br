@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -15,15 +17,14 @@ class ViVMSnapshotReplicaUndoFailbackSpec:
     """Settings for undoing failback of snapshot replicas of VMware vSphere VMs.
 
     Attributes:
-        replica_point_ids (Union[Unset, list[UUID]]): Array of replica restore points for which you want to undo
-            failback.
+        replica_point_ids (list[UUID] | Unset): Array of replica restore points for which you want to undo failback.
     """
 
-    replica_point_ids: Union[Unset, list[UUID]] = UNSET
+    replica_point_ids: list[UUID] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        replica_point_ids: Union[Unset, list[str]] = UNSET
+        replica_point_ids: list[str] | Unset = UNSET
         if not isinstance(self.replica_point_ids, Unset):
             replica_point_ids = []
             for replica_point_ids_item_data in self.replica_point_ids:
@@ -41,12 +42,14 @@ class ViVMSnapshotReplicaUndoFailbackSpec:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        replica_point_ids = []
         _replica_point_ids = d.pop("replicaPointIds", UNSET)
-        for replica_point_ids_item_data in _replica_point_ids or []:
-            replica_point_ids_item = UUID(replica_point_ids_item_data)
+        replica_point_ids: list[UUID] | Unset = UNSET
+        if _replica_point_ids is not UNSET:
+            replica_point_ids = []
+            for replica_point_ids_item_data in _replica_point_ids:
+                replica_point_ids_item = UUID(replica_point_ids_item_data)
 
-            replica_point_ids.append(replica_point_ids_item)
+                replica_point_ids.append(replica_point_ids_item)
 
         vi_vm_snapshot_replica_undo_failback_spec = cls(
             replica_point_ids=replica_point_ids,

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,12 +16,12 @@ class FailoverPlanScriptModel:
     """Pre-failover or post-failover plan script.
 
     Attributes:
-        is_enabled (Union[Unset, bool]): If `true`, the pre-failover or post-failover script is run.
-        path (Union[Unset, str]): Path to the script.
+        is_enabled (bool | Unset): If `true`, the pre-failover or post-failover script is run.
+        path (str | Unset): Path to the script.
     """
 
-    is_enabled: Union[Unset, bool] = UNSET
-    path: Union[Unset, str] = UNSET
+    is_enabled: bool | Unset = UNSET
+    path: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

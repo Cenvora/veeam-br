@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -21,29 +23,29 @@ class GFSPolicySettingsModel:
 
     Attributes:
         is_enabled (bool): If `true`, the long-term (GFS) retention policy is enabled.
-        weekly (Union[Unset, GFSPolicySettingsWeeklyModel]): Weekly GFS retention policy.
-        monthly (Union[Unset, GFSPolicySettingsMonthlyModel]): Monthly GFS retention policy.
-        yearly (Union[Unset, GFSPolicySettingsYearlyModel]): Yearly GFS retention policy.
+        weekly (GFSPolicySettingsWeeklyModel | Unset): Weekly GFS retention policy.
+        monthly (GFSPolicySettingsMonthlyModel | Unset): Monthly GFS retention policy.
+        yearly (GFSPolicySettingsYearlyModel | Unset): Yearly GFS retention policy.
     """
 
     is_enabled: bool
-    weekly: Union[Unset, "GFSPolicySettingsWeeklyModel"] = UNSET
-    monthly: Union[Unset, "GFSPolicySettingsMonthlyModel"] = UNSET
-    yearly: Union[Unset, "GFSPolicySettingsYearlyModel"] = UNSET
+    weekly: GFSPolicySettingsWeeklyModel | Unset = UNSET
+    monthly: GFSPolicySettingsMonthlyModel | Unset = UNSET
+    yearly: GFSPolicySettingsYearlyModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         is_enabled = self.is_enabled
 
-        weekly: Union[Unset, dict[str, Any]] = UNSET
+        weekly: dict[str, Any] | Unset = UNSET
         if not isinstance(self.weekly, Unset):
             weekly = self.weekly.to_dict()
 
-        monthly: Union[Unset, dict[str, Any]] = UNSET
+        monthly: dict[str, Any] | Unset = UNSET
         if not isinstance(self.monthly, Unset):
             monthly = self.monthly.to_dict()
 
-        yearly: Union[Unset, dict[str, Any]] = UNSET
+        yearly: dict[str, Any] | Unset = UNSET
         if not isinstance(self.yearly, Unset):
             yearly = self.yearly.to_dict()
 
@@ -73,21 +75,21 @@ class GFSPolicySettingsModel:
         is_enabled = d.pop("isEnabled")
 
         _weekly = d.pop("weekly", UNSET)
-        weekly: Union[Unset, GFSPolicySettingsWeeklyModel]
+        weekly: GFSPolicySettingsWeeklyModel | Unset
         if isinstance(_weekly, Unset):
             weekly = UNSET
         else:
             weekly = GFSPolicySettingsWeeklyModel.from_dict(_weekly)
 
         _monthly = d.pop("monthly", UNSET)
-        monthly: Union[Unset, GFSPolicySettingsMonthlyModel]
+        monthly: GFSPolicySettingsMonthlyModel | Unset
         if isinstance(_monthly, Unset):
             monthly = UNSET
         else:
             monthly = GFSPolicySettingsMonthlyModel.from_dict(_monthly)
 
         _yearly = d.pop("yearly", UNSET)
-        yearly: Union[Unset, GFSPolicySettingsYearlyModel]
+        yearly: GFSPolicySettingsYearlyModel | Unset
         if isinstance(_yearly, Unset):
             yearly = UNSET
         else:

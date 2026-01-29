@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -16,11 +18,11 @@ class FullBackupMaintenanceRemoveDataModel:
     Attributes:
         is_enabled (bool): If `true`, Veeam Backup & Replication keeps the backup data of deleted VMs for the
             `afterDays` number of days.
-        after_days (Union[Unset, int]): Number of days.
+        after_days (int | Unset): Number of days.
     """
 
     is_enabled: bool
-    after_days: Union[Unset, int] = UNSET
+    after_days: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

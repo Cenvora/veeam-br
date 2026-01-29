@@ -1,6 +1,6 @@
 import datetime
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 from uuid import UUID
 
 import httpx
@@ -19,21 +19,21 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     *,
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = UNSET,
-    order_column: Union[Unset, EJobStatesFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    id_filter: Union[Unset, UUID] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, EJobType] = UNSET,
-    last_result_filter: Union[Unset, ESessionResult] = UNSET,
-    status_filter: Union[Unset, EJobStatus] = UNSET,
-    workload_filter: Union[Unset, EJobWorkload] = UNSET,
-    last_run_after_filter: Union[Unset, datetime.datetime] = UNSET,
-    last_run_before_filter: Union[Unset, datetime.datetime] = UNSET,
-    is_high_priority_job_filter: Union[Unset, bool] = UNSET,
-    repository_id_filter: Union[Unset, UUID] = UNSET,
-    objects_count_filter: Union[Unset, int] = UNSET,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = UNSET,
+    order_column: EJobStatesFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    id_filter: UUID | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: EJobType | Unset = UNSET,
+    last_result_filter: ESessionResult | Unset = UNSET,
+    status_filter: EJobStatus | Unset = UNSET,
+    workload_filter: EJobWorkload | Unset = UNSET,
+    last_run_after_filter: datetime.datetime | Unset = UNSET,
+    last_run_before_filter: datetime.datetime | Unset = UNSET,
+    is_high_priority_job_filter: bool | Unset = UNSET,
+    repository_id_filter: UUID | Unset = UNSET,
+    objects_count_filter: int | Unset = UNSET,
     x_api_version: str = "1.2-rev1",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -45,7 +45,7 @@ def _get_kwargs(
 
     params["limit"] = limit
 
-    json_order_column: Union[Unset, str] = UNSET
+    json_order_column: str | Unset = UNSET
     if not isinstance(order_column, Unset):
         json_order_column = order_column.value
 
@@ -53,50 +53,50 @@ def _get_kwargs(
 
     params["orderAsc"] = order_asc
 
-    json_id_filter: Union[Unset, str] = UNSET
+    json_id_filter: str | Unset = UNSET
     if not isinstance(id_filter, Unset):
         json_id_filter = str(id_filter)
     params["idFilter"] = json_id_filter
 
     params["nameFilter"] = name_filter
 
-    json_type_filter: Union[Unset, str] = UNSET
+    json_type_filter: str | Unset = UNSET
     if not isinstance(type_filter, Unset):
         json_type_filter = type_filter.value
 
     params["typeFilter"] = json_type_filter
 
-    json_last_result_filter: Union[Unset, str] = UNSET
+    json_last_result_filter: str | Unset = UNSET
     if not isinstance(last_result_filter, Unset):
         json_last_result_filter = last_result_filter.value
 
     params["lastResultFilter"] = json_last_result_filter
 
-    json_status_filter: Union[Unset, str] = UNSET
+    json_status_filter: str | Unset = UNSET
     if not isinstance(status_filter, Unset):
         json_status_filter = status_filter.value
 
     params["statusFilter"] = json_status_filter
 
-    json_workload_filter: Union[Unset, str] = UNSET
+    json_workload_filter: str | Unset = UNSET
     if not isinstance(workload_filter, Unset):
         json_workload_filter = workload_filter.value
 
     params["workloadFilter"] = json_workload_filter
 
-    json_last_run_after_filter: Union[Unset, str] = UNSET
+    json_last_run_after_filter: str | Unset = UNSET
     if not isinstance(last_run_after_filter, Unset):
         json_last_run_after_filter = last_run_after_filter.isoformat()
     params["lastRunAfterFilter"] = json_last_run_after_filter
 
-    json_last_run_before_filter: Union[Unset, str] = UNSET
+    json_last_run_before_filter: str | Unset = UNSET
     if not isinstance(last_run_before_filter, Unset):
         json_last_run_before_filter = last_run_before_filter.isoformat()
     params["lastRunBeforeFilter"] = json_last_run_before_filter
 
     params["isHighPriorityJobFilter"] = is_high_priority_job_filter
 
-    json_repository_id_filter: Union[Unset, str] = UNSET
+    json_repository_id_filter: str | Unset = UNSET
     if not isinstance(repository_id_filter, Unset):
         json_repository_id_filter = str(repository_id_filter)
     params["repositoryIdFilter"] = json_repository_id_filter
@@ -116,8 +116,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, JobStatesResult]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Error | JobStatesResult | None:
     if response.status_code == 200:
         response_200 = JobStatesResult.from_dict(response.json())
 
@@ -145,8 +145,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, JobStatesResult]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | JobStatesResult]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -157,24 +157,24 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = UNSET,
-    order_column: Union[Unset, EJobStatesFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    id_filter: Union[Unset, UUID] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, EJobType] = UNSET,
-    last_result_filter: Union[Unset, ESessionResult] = UNSET,
-    status_filter: Union[Unset, EJobStatus] = UNSET,
-    workload_filter: Union[Unset, EJobWorkload] = UNSET,
-    last_run_after_filter: Union[Unset, datetime.datetime] = UNSET,
-    last_run_before_filter: Union[Unset, datetime.datetime] = UNSET,
-    is_high_priority_job_filter: Union[Unset, bool] = UNSET,
-    repository_id_filter: Union[Unset, UUID] = UNSET,
-    objects_count_filter: Union[Unset, int] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = UNSET,
+    order_column: EJobStatesFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    id_filter: UUID | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: EJobType | Unset = UNSET,
+    last_result_filter: ESessionResult | Unset = UNSET,
+    status_filter: EJobStatus | Unset = UNSET,
+    workload_filter: EJobWorkload | Unset = UNSET,
+    last_run_after_filter: datetime.datetime | Unset = UNSET,
+    last_run_before_filter: datetime.datetime | Unset = UNSET,
+    is_high_priority_job_filter: bool | Unset = UNSET,
+    repository_id_filter: UUID | Unset = UNSET,
+    objects_count_filter: int | Unset = UNSET,
     x_api_version: str = "1.2-rev1",
-) -> Response[Union[Error, JobStatesResult]]:
+) -> Response[Error | JobStatesResult]:
     """Get All Job States
 
      The HTTP GET request to the `/api/v1/jobs/states` path allows you to get an array of all job states.
@@ -183,22 +183,22 @@ def sync_detailed(
     Operator, Veeam Restore Operator, Veeam Backup Viewer, Veeam Tape Operator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):
-        order_column (Union[Unset, EJobStatesFiltersOrderColumn]): Orders job states by the
-            specified column.
-        order_asc (Union[Unset, bool]):
-        id_filter (Union[Unset, UUID]):
-        name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, EJobType]): Type of the job.
-        last_result_filter (Union[Unset, ESessionResult]): Result status.
-        status_filter (Union[Unset, EJobStatus]): Current status of the job.
-        workload_filter (Union[Unset, EJobWorkload]): Workload which the job must process.
-        last_run_after_filter (Union[Unset, datetime.datetime]):
-        last_run_before_filter (Union[Unset, datetime.datetime]):
-        is_high_priority_job_filter (Union[Unset, bool]):
-        repository_id_filter (Union[Unset, UUID]):
-        objects_count_filter (Union[Unset, int]):
+        skip (int | Unset):
+        limit (int | Unset):
+        order_column (EJobStatesFiltersOrderColumn | Unset): Orders job states by the specified
+            column.
+        order_asc (bool | Unset):
+        id_filter (UUID | Unset):
+        name_filter (str | Unset):
+        type_filter (EJobType | Unset): Type of the job.
+        last_result_filter (ESessionResult | Unset): Result status.
+        status_filter (EJobStatus | Unset): Current status of the job.
+        workload_filter (EJobWorkload | Unset): Workload which the job must process.
+        last_run_after_filter (datetime.datetime | Unset):
+        last_run_before_filter (datetime.datetime | Unset):
+        is_high_priority_job_filter (bool | Unset):
+        repository_id_filter (UUID | Unset):
+        objects_count_filter (int | Unset):
         x_api_version (str):  Default: '1.2-rev1'.
 
     Raises:
@@ -206,7 +206,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, JobStatesResult]]
+        Response[Error | JobStatesResult]
     """
 
     kwargs = _get_kwargs(
@@ -237,24 +237,24 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = UNSET,
-    order_column: Union[Unset, EJobStatesFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    id_filter: Union[Unset, UUID] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, EJobType] = UNSET,
-    last_result_filter: Union[Unset, ESessionResult] = UNSET,
-    status_filter: Union[Unset, EJobStatus] = UNSET,
-    workload_filter: Union[Unset, EJobWorkload] = UNSET,
-    last_run_after_filter: Union[Unset, datetime.datetime] = UNSET,
-    last_run_before_filter: Union[Unset, datetime.datetime] = UNSET,
-    is_high_priority_job_filter: Union[Unset, bool] = UNSET,
-    repository_id_filter: Union[Unset, UUID] = UNSET,
-    objects_count_filter: Union[Unset, int] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = UNSET,
+    order_column: EJobStatesFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    id_filter: UUID | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: EJobType | Unset = UNSET,
+    last_result_filter: ESessionResult | Unset = UNSET,
+    status_filter: EJobStatus | Unset = UNSET,
+    workload_filter: EJobWorkload | Unset = UNSET,
+    last_run_after_filter: datetime.datetime | Unset = UNSET,
+    last_run_before_filter: datetime.datetime | Unset = UNSET,
+    is_high_priority_job_filter: bool | Unset = UNSET,
+    repository_id_filter: UUID | Unset = UNSET,
+    objects_count_filter: int | Unset = UNSET,
     x_api_version: str = "1.2-rev1",
-) -> Optional[Union[Error, JobStatesResult]]:
+) -> Error | JobStatesResult | None:
     """Get All Job States
 
      The HTTP GET request to the `/api/v1/jobs/states` path allows you to get an array of all job states.
@@ -263,22 +263,22 @@ def sync(
     Operator, Veeam Restore Operator, Veeam Backup Viewer, Veeam Tape Operator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):
-        order_column (Union[Unset, EJobStatesFiltersOrderColumn]): Orders job states by the
-            specified column.
-        order_asc (Union[Unset, bool]):
-        id_filter (Union[Unset, UUID]):
-        name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, EJobType]): Type of the job.
-        last_result_filter (Union[Unset, ESessionResult]): Result status.
-        status_filter (Union[Unset, EJobStatus]): Current status of the job.
-        workload_filter (Union[Unset, EJobWorkload]): Workload which the job must process.
-        last_run_after_filter (Union[Unset, datetime.datetime]):
-        last_run_before_filter (Union[Unset, datetime.datetime]):
-        is_high_priority_job_filter (Union[Unset, bool]):
-        repository_id_filter (Union[Unset, UUID]):
-        objects_count_filter (Union[Unset, int]):
+        skip (int | Unset):
+        limit (int | Unset):
+        order_column (EJobStatesFiltersOrderColumn | Unset): Orders job states by the specified
+            column.
+        order_asc (bool | Unset):
+        id_filter (UUID | Unset):
+        name_filter (str | Unset):
+        type_filter (EJobType | Unset): Type of the job.
+        last_result_filter (ESessionResult | Unset): Result status.
+        status_filter (EJobStatus | Unset): Current status of the job.
+        workload_filter (EJobWorkload | Unset): Workload which the job must process.
+        last_run_after_filter (datetime.datetime | Unset):
+        last_run_before_filter (datetime.datetime | Unset):
+        is_high_priority_job_filter (bool | Unset):
+        repository_id_filter (UUID | Unset):
+        objects_count_filter (int | Unset):
         x_api_version (str):  Default: '1.2-rev1'.
 
     Raises:
@@ -286,7 +286,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, JobStatesResult]
+        Error | JobStatesResult
     """
 
     return sync_detailed(
@@ -312,24 +312,24 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = UNSET,
-    order_column: Union[Unset, EJobStatesFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    id_filter: Union[Unset, UUID] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, EJobType] = UNSET,
-    last_result_filter: Union[Unset, ESessionResult] = UNSET,
-    status_filter: Union[Unset, EJobStatus] = UNSET,
-    workload_filter: Union[Unset, EJobWorkload] = UNSET,
-    last_run_after_filter: Union[Unset, datetime.datetime] = UNSET,
-    last_run_before_filter: Union[Unset, datetime.datetime] = UNSET,
-    is_high_priority_job_filter: Union[Unset, bool] = UNSET,
-    repository_id_filter: Union[Unset, UUID] = UNSET,
-    objects_count_filter: Union[Unset, int] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = UNSET,
+    order_column: EJobStatesFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    id_filter: UUID | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: EJobType | Unset = UNSET,
+    last_result_filter: ESessionResult | Unset = UNSET,
+    status_filter: EJobStatus | Unset = UNSET,
+    workload_filter: EJobWorkload | Unset = UNSET,
+    last_run_after_filter: datetime.datetime | Unset = UNSET,
+    last_run_before_filter: datetime.datetime | Unset = UNSET,
+    is_high_priority_job_filter: bool | Unset = UNSET,
+    repository_id_filter: UUID | Unset = UNSET,
+    objects_count_filter: int | Unset = UNSET,
     x_api_version: str = "1.2-rev1",
-) -> Response[Union[Error, JobStatesResult]]:
+) -> Response[Error | JobStatesResult]:
     """Get All Job States
 
      The HTTP GET request to the `/api/v1/jobs/states` path allows you to get an array of all job states.
@@ -338,22 +338,22 @@ async def asyncio_detailed(
     Operator, Veeam Restore Operator, Veeam Backup Viewer, Veeam Tape Operator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):
-        order_column (Union[Unset, EJobStatesFiltersOrderColumn]): Orders job states by the
-            specified column.
-        order_asc (Union[Unset, bool]):
-        id_filter (Union[Unset, UUID]):
-        name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, EJobType]): Type of the job.
-        last_result_filter (Union[Unset, ESessionResult]): Result status.
-        status_filter (Union[Unset, EJobStatus]): Current status of the job.
-        workload_filter (Union[Unset, EJobWorkload]): Workload which the job must process.
-        last_run_after_filter (Union[Unset, datetime.datetime]):
-        last_run_before_filter (Union[Unset, datetime.datetime]):
-        is_high_priority_job_filter (Union[Unset, bool]):
-        repository_id_filter (Union[Unset, UUID]):
-        objects_count_filter (Union[Unset, int]):
+        skip (int | Unset):
+        limit (int | Unset):
+        order_column (EJobStatesFiltersOrderColumn | Unset): Orders job states by the specified
+            column.
+        order_asc (bool | Unset):
+        id_filter (UUID | Unset):
+        name_filter (str | Unset):
+        type_filter (EJobType | Unset): Type of the job.
+        last_result_filter (ESessionResult | Unset): Result status.
+        status_filter (EJobStatus | Unset): Current status of the job.
+        workload_filter (EJobWorkload | Unset): Workload which the job must process.
+        last_run_after_filter (datetime.datetime | Unset):
+        last_run_before_filter (datetime.datetime | Unset):
+        is_high_priority_job_filter (bool | Unset):
+        repository_id_filter (UUID | Unset):
+        objects_count_filter (int | Unset):
         x_api_version (str):  Default: '1.2-rev1'.
 
     Raises:
@@ -361,7 +361,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, JobStatesResult]]
+        Response[Error | JobStatesResult]
     """
 
     kwargs = _get_kwargs(
@@ -390,24 +390,24 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-    skip: Union[Unset, int] = UNSET,
-    limit: Union[Unset, int] = UNSET,
-    order_column: Union[Unset, EJobStatesFiltersOrderColumn] = UNSET,
-    order_asc: Union[Unset, bool] = UNSET,
-    id_filter: Union[Unset, UUID] = UNSET,
-    name_filter: Union[Unset, str] = UNSET,
-    type_filter: Union[Unset, EJobType] = UNSET,
-    last_result_filter: Union[Unset, ESessionResult] = UNSET,
-    status_filter: Union[Unset, EJobStatus] = UNSET,
-    workload_filter: Union[Unset, EJobWorkload] = UNSET,
-    last_run_after_filter: Union[Unset, datetime.datetime] = UNSET,
-    last_run_before_filter: Union[Unset, datetime.datetime] = UNSET,
-    is_high_priority_job_filter: Union[Unset, bool] = UNSET,
-    repository_id_filter: Union[Unset, UUID] = UNSET,
-    objects_count_filter: Union[Unset, int] = UNSET,
+    client: AuthenticatedClient | Client,
+    skip: int | Unset = UNSET,
+    limit: int | Unset = UNSET,
+    order_column: EJobStatesFiltersOrderColumn | Unset = UNSET,
+    order_asc: bool | Unset = UNSET,
+    id_filter: UUID | Unset = UNSET,
+    name_filter: str | Unset = UNSET,
+    type_filter: EJobType | Unset = UNSET,
+    last_result_filter: ESessionResult | Unset = UNSET,
+    status_filter: EJobStatus | Unset = UNSET,
+    workload_filter: EJobWorkload | Unset = UNSET,
+    last_run_after_filter: datetime.datetime | Unset = UNSET,
+    last_run_before_filter: datetime.datetime | Unset = UNSET,
+    is_high_priority_job_filter: bool | Unset = UNSET,
+    repository_id_filter: UUID | Unset = UNSET,
+    objects_count_filter: int | Unset = UNSET,
     x_api_version: str = "1.2-rev1",
-) -> Optional[Union[Error, JobStatesResult]]:
+) -> Error | JobStatesResult | None:
     """Get All Job States
 
      The HTTP GET request to the `/api/v1/jobs/states` path allows you to get an array of all job states.
@@ -416,22 +416,22 @@ async def asyncio(
     Operator, Veeam Restore Operator, Veeam Backup Viewer, Veeam Tape Operator.</p>
 
     Args:
-        skip (Union[Unset, int]):
-        limit (Union[Unset, int]):
-        order_column (Union[Unset, EJobStatesFiltersOrderColumn]): Orders job states by the
-            specified column.
-        order_asc (Union[Unset, bool]):
-        id_filter (Union[Unset, UUID]):
-        name_filter (Union[Unset, str]):
-        type_filter (Union[Unset, EJobType]): Type of the job.
-        last_result_filter (Union[Unset, ESessionResult]): Result status.
-        status_filter (Union[Unset, EJobStatus]): Current status of the job.
-        workload_filter (Union[Unset, EJobWorkload]): Workload which the job must process.
-        last_run_after_filter (Union[Unset, datetime.datetime]):
-        last_run_before_filter (Union[Unset, datetime.datetime]):
-        is_high_priority_job_filter (Union[Unset, bool]):
-        repository_id_filter (Union[Unset, UUID]):
-        objects_count_filter (Union[Unset, int]):
+        skip (int | Unset):
+        limit (int | Unset):
+        order_column (EJobStatesFiltersOrderColumn | Unset): Orders job states by the specified
+            column.
+        order_asc (bool | Unset):
+        id_filter (UUID | Unset):
+        name_filter (str | Unset):
+        type_filter (EJobType | Unset): Type of the job.
+        last_result_filter (ESessionResult | Unset): Result status.
+        status_filter (EJobStatus | Unset): Current status of the job.
+        workload_filter (EJobWorkload | Unset): Workload which the job must process.
+        last_run_after_filter (datetime.datetime | Unset):
+        last_run_before_filter (datetime.datetime | Unset):
+        is_high_priority_job_filter (bool | Unset):
+        repository_id_filter (UUID | Unset):
+        objects_count_filter (int | Unset):
         x_api_version (str):  Default: '1.2-rev1'.
 
     Raises:
@@ -439,7 +439,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, JobStatesResult]
+        Error | JobStatesResult
     """
 
     return (

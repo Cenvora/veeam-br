@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -17,33 +19,32 @@ class RepositoryStatesFilters:
     """Filters repositories by the specified parameters.
 
     Attributes:
-        skip (Union[Unset, int]): Skips the specified number of repositories.
-        limit (Union[Unset, int]): Returns the specified number of repositories.
-        order_column (Union[Unset, ERepositoryStatesFiltersOrderColumn]): Orders repositories by the specified column.
-        order_asc (Union[Unset, bool]): If `true`, sorts repositories in the ascending order by the `orderColumn`
-            parameter.
-        id_filter (Union[Unset, UUID]):
-        name_filter (Union[Unset, str]): Filters repositories by the `nameFilter` pattern. The pattern can match any
+        skip (int | Unset): Skips the specified number of repositories.
+        limit (int | Unset): Returns the specified number of repositories.
+        order_column (ERepositoryStatesFiltersOrderColumn | Unset): Orders repositories by the specified column.
+        order_asc (bool | Unset): If `true`, sorts repositories in the ascending order by the `orderColumn` parameter.
+        id_filter (UUID | Unset):
+        name_filter (str | Unset): Filters repositories by the `nameFilter` pattern. The pattern can match any
             repository parameter. To substitute one or more characters, use the asterisk (*) character at the beginning
             and/or at the end.
-        type_filter (Union[Unset, ERepositoryType]): Repository type.
-        capacity_filter (Union[Unset, float]): Filters repositories by repository capacity.
-        free_space_filter (Union[Unset, float]): Filters repositories by repository free space.
-        used_space_filter (Union[Unset, float]): Filters repositories by repository used space.
-        is_online_filter (Union[Unset, bool]): Filters repositories by repository connection status.
+        type_filter (ERepositoryType | Unset): Repository type.
+        capacity_filter (float | Unset): Filters repositories by repository capacity.
+        free_space_filter (float | Unset): Filters repositories by repository free space.
+        used_space_filter (float | Unset): Filters repositories by repository used space.
+        is_online_filter (bool | Unset): Filters repositories by repository connection status.
     """
 
-    skip: Union[Unset, int] = UNSET
-    limit: Union[Unset, int] = UNSET
-    order_column: Union[Unset, ERepositoryStatesFiltersOrderColumn] = UNSET
-    order_asc: Union[Unset, bool] = UNSET
-    id_filter: Union[Unset, UUID] = UNSET
-    name_filter: Union[Unset, str] = UNSET
-    type_filter: Union[Unset, ERepositoryType] = UNSET
-    capacity_filter: Union[Unset, float] = UNSET
-    free_space_filter: Union[Unset, float] = UNSET
-    used_space_filter: Union[Unset, float] = UNSET
-    is_online_filter: Union[Unset, bool] = UNSET
+    skip: int | Unset = UNSET
+    limit: int | Unset = UNSET
+    order_column: ERepositoryStatesFiltersOrderColumn | Unset = UNSET
+    order_asc: bool | Unset = UNSET
+    id_filter: UUID | Unset = UNSET
+    name_filter: str | Unset = UNSET
+    type_filter: ERepositoryType | Unset = UNSET
+    capacity_filter: float | Unset = UNSET
+    free_space_filter: float | Unset = UNSET
+    used_space_filter: float | Unset = UNSET
+    is_online_filter: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -51,19 +52,19 @@ class RepositoryStatesFilters:
 
         limit = self.limit
 
-        order_column: Union[Unset, str] = UNSET
+        order_column: str | Unset = UNSET
         if not isinstance(self.order_column, Unset):
             order_column = self.order_column.value
 
         order_asc = self.order_asc
 
-        id_filter: Union[Unset, str] = UNSET
+        id_filter: str | Unset = UNSET
         if not isinstance(self.id_filter, Unset):
             id_filter = str(self.id_filter)
 
         name_filter = self.name_filter
 
-        type_filter: Union[Unset, str] = UNSET
+        type_filter: str | Unset = UNSET
         if not isinstance(self.type_filter, Unset):
             type_filter = self.type_filter.value
 
@@ -111,7 +112,7 @@ class RepositoryStatesFilters:
         limit = d.pop("limit", UNSET)
 
         _order_column = d.pop("orderColumn", UNSET)
-        order_column: Union[Unset, ERepositoryStatesFiltersOrderColumn]
+        order_column: ERepositoryStatesFiltersOrderColumn | Unset
         if isinstance(_order_column, Unset):
             order_column = UNSET
         else:
@@ -120,7 +121,7 @@ class RepositoryStatesFilters:
         order_asc = d.pop("orderAsc", UNSET)
 
         _id_filter = d.pop("idFilter", UNSET)
-        id_filter: Union[Unset, UUID]
+        id_filter: UUID | Unset
         if isinstance(_id_filter, Unset):
             id_filter = UNSET
         else:
@@ -129,7 +130,7 @@ class RepositoryStatesFilters:
         name_filter = d.pop("nameFilter", UNSET)
 
         _type_filter = d.pop("typeFilter", UNSET)
-        type_filter: Union[Unset, ERepositoryType]
+        type_filter: ERepositoryType | Unset
         if isinstance(_type_filter, Unset):
             type_filter = UNSET
         else:

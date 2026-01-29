@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,16 +16,16 @@ T = TypeVar("T", bound="EntraIdTenantDeviceConfigurationFilterBrowseSpec")
 class EntraIdTenantDeviceConfigurationFilterBrowseSpec:
     """
     Attributes:
-        display_name (Union[Unset, str]):
-        description (Union[Unset, str]):
-        version (Union[Unset, int]):
-        included_types (Union[Unset, list[EEntraIdTenantDeviceConfigurationType]]):
+        display_name (str | Unset):
+        description (str | Unset):
+        version (int | Unset):
+        included_types (list[EEntraIdTenantDeviceConfigurationType] | Unset):
     """
 
-    display_name: Union[Unset, str] = UNSET
-    description: Union[Unset, str] = UNSET
-    version: Union[Unset, int] = UNSET
-    included_types: Union[Unset, list[EEntraIdTenantDeviceConfigurationType]] = UNSET
+    display_name: str | Unset = UNSET
+    description: str | Unset = UNSET
+    version: int | Unset = UNSET
+    included_types: list[EEntraIdTenantDeviceConfigurationType] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -33,7 +35,7 @@ class EntraIdTenantDeviceConfigurationFilterBrowseSpec:
 
         version = self.version
 
-        included_types: Union[Unset, list[str]] = UNSET
+        included_types: list[str] | Unset = UNSET
         if not isinstance(self.included_types, Unset):
             included_types = []
             for included_types_item_data in self.included_types:
@@ -63,12 +65,14 @@ class EntraIdTenantDeviceConfigurationFilterBrowseSpec:
 
         version = d.pop("version", UNSET)
 
-        included_types = []
         _included_types = d.pop("includedTypes", UNSET)
-        for included_types_item_data in _included_types or []:
-            included_types_item = EEntraIdTenantDeviceConfigurationType(included_types_item_data)
+        included_types: list[EEntraIdTenantDeviceConfigurationType] | Unset = UNSET
+        if _included_types is not UNSET:
+            included_types = []
+            for included_types_item_data in _included_types:
+                included_types_item = EEntraIdTenantDeviceConfigurationType(included_types_item_data)
 
-            included_types.append(included_types_item)
+                included_types.append(included_types_item)
 
         entra_id_tenant_device_configuration_filter_browse_spec = cls(
             display_name=display_name,

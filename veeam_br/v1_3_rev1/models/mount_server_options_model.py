@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -18,15 +20,14 @@ class MountServerOptionsModel:
     """Mount server settings.
 
     Attributes:
-        write_cache_folder (Union[Unset, str]): Path to the folder used for writing cache during mount operations.
-        v_power_nfs_enabled (Union[Unset, bool]): If `true`, the vPower NFS Service is enabled on the mount server.
-        v_power_nfs_port_settings (Union[Unset, VPowerNFSPortSettingsModel]): Network ports used by the vPower NFS
-            Service.
+        write_cache_folder (str | Unset): Path to the folder used for writing cache during mount operations.
+        v_power_nfs_enabled (bool | Unset): If `true`, the vPower NFS Service is enabled on the mount server.
+        v_power_nfs_port_settings (VPowerNFSPortSettingsModel | Unset): Network ports used by the vPower NFS Service.
     """
 
-    write_cache_folder: Union[Unset, str] = UNSET
-    v_power_nfs_enabled: Union[Unset, bool] = UNSET
-    v_power_nfs_port_settings: Union[Unset, "VPowerNFSPortSettingsModel"] = UNSET
+    write_cache_folder: str | Unset = UNSET
+    v_power_nfs_enabled: bool | Unset = UNSET
+    v_power_nfs_port_settings: VPowerNFSPortSettingsModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -34,7 +35,7 @@ class MountServerOptionsModel:
 
         v_power_nfs_enabled = self.v_power_nfs_enabled
 
-        v_power_nfs_port_settings: Union[Unset, dict[str, Any]] = UNSET
+        v_power_nfs_port_settings: dict[str, Any] | Unset = UNSET
         if not isinstance(self.v_power_nfs_port_settings, Unset):
             v_power_nfs_port_settings = self.v_power_nfs_port_settings.to_dict()
 
@@ -60,7 +61,7 @@ class MountServerOptionsModel:
         v_power_nfs_enabled = d.pop("vPowerNFSEnabled", UNSET)
 
         _v_power_nfs_port_settings = d.pop("vPowerNFSPortSettings", UNSET)
-        v_power_nfs_port_settings: Union[Unset, VPowerNFSPortSettingsModel]
+        v_power_nfs_port_settings: VPowerNFSPortSettingsModel | Unset
         if isinstance(_v_power_nfs_port_settings, Unset):
             v_power_nfs_port_settings = UNSET
         else:

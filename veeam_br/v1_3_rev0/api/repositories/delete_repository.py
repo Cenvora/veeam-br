@@ -1,5 +1,6 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
+from urllib.parse import quote
 from uuid import UUID
 
 import httpx
@@ -14,7 +15,7 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     id: UUID,
     *,
-    delete_backups: Union[Unset, bool] = UNSET,
+    delete_backups: bool | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -28,7 +29,9 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "delete",
-        "url": f"/api/v1/backupInfrastructure/repositories/{id}",
+        "url": "/api/v1/backupInfrastructure/repositories/{id}".format(
+            id=quote(str(id), safe=""),
+        ),
         "params": params,
     }
 
@@ -37,8 +40,8 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[EmptySuccessResponse, Error]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> EmptySuccessResponse | Error | None:
     if response.status_code == 204:
         response_204 = EmptySuccessResponse.from_dict(response.json())
 
@@ -71,8 +74,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[EmptySuccessResponse, Error]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[EmptySuccessResponse | Error]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -84,10 +87,10 @@ def _build_response(
 def sync_detailed(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    delete_backups: Union[Unset, bool] = UNSET,
+    client: AuthenticatedClient | Client,
+    delete_backups: bool | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Response[Union[EmptySuccessResponse, Error]]:
+) -> Response[EmptySuccessResponse | Error]:
     """Remove Repository
 
      The HTTP DELETE request to the `/api/v1/backupInfrastructure/repositories/{id}` path allows you to
@@ -96,7 +99,7 @@ def sync_detailed(
 
     Args:
         id (UUID):
-        delete_backups (Union[Unset, bool]):
+        delete_backups (bool | Unset):
         x_api_version (str):  Default: '1.3-rev0'.
 
     Raises:
@@ -104,7 +107,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[EmptySuccessResponse, Error]]
+        Response[EmptySuccessResponse | Error]
     """
 
     kwargs = _get_kwargs(
@@ -123,10 +126,10 @@ def sync_detailed(
 def sync(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    delete_backups: Union[Unset, bool] = UNSET,
+    client: AuthenticatedClient | Client,
+    delete_backups: bool | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Union[EmptySuccessResponse, Error]]:
+) -> EmptySuccessResponse | Error | None:
     """Remove Repository
 
      The HTTP DELETE request to the `/api/v1/backupInfrastructure/repositories/{id}` path allows you to
@@ -135,7 +138,7 @@ def sync(
 
     Args:
         id (UUID):
-        delete_backups (Union[Unset, bool]):
+        delete_backups (bool | Unset):
         x_api_version (str):  Default: '1.3-rev0'.
 
     Raises:
@@ -143,7 +146,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[EmptySuccessResponse, Error]
+        EmptySuccessResponse | Error
     """
 
     return sync_detailed(
@@ -157,10 +160,10 @@ def sync(
 async def asyncio_detailed(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    delete_backups: Union[Unset, bool] = UNSET,
+    client: AuthenticatedClient | Client,
+    delete_backups: bool | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Response[Union[EmptySuccessResponse, Error]]:
+) -> Response[EmptySuccessResponse | Error]:
     """Remove Repository
 
      The HTTP DELETE request to the `/api/v1/backupInfrastructure/repositories/{id}` path allows you to
@@ -169,7 +172,7 @@ async def asyncio_detailed(
 
     Args:
         id (UUID):
-        delete_backups (Union[Unset, bool]):
+        delete_backups (bool | Unset):
         x_api_version (str):  Default: '1.3-rev0'.
 
     Raises:
@@ -177,7 +180,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[EmptySuccessResponse, Error]]
+        Response[EmptySuccessResponse | Error]
     """
 
     kwargs = _get_kwargs(
@@ -194,10 +197,10 @@ async def asyncio_detailed(
 async def asyncio(
     id: UUID,
     *,
-    client: Union[AuthenticatedClient, Client],
-    delete_backups: Union[Unset, bool] = UNSET,
+    client: AuthenticatedClient | Client,
+    delete_backups: bool | Unset = UNSET,
     x_api_version: str = "1.3-rev0",
-) -> Optional[Union[EmptySuccessResponse, Error]]:
+) -> EmptySuccessResponse | Error | None:
     """Remove Repository
 
      The HTTP DELETE request to the `/api/v1/backupInfrastructure/repositories/{id}` path allows you to
@@ -206,7 +209,7 @@ async def asyncio(
 
     Args:
         id (UUID):
-        delete_backups (Union[Unset, bool]):
+        delete_backups (bool | Unset):
         x_api_version (str):  Default: '1.3-rev0'.
 
     Raises:
@@ -214,7 +217,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[EmptySuccessResponse, Error]
+        EmptySuccessResponse | Error
     """
 
     return (

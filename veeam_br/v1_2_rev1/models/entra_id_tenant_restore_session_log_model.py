@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -24,7 +26,7 @@ class EntraIdTenantRestoreSessionLogModel:
         start_time (datetime.datetime): Date and time when the event was started.
         status (EEntraIdTenantRestoreSessionLogStatus): Event status.
         style (EEntraIdTenantRestoreSessionLogStyle): Font style of the log record.
-        update_time (Union[Unset, datetime.datetime]): Date and time when the event was updated.
+        update_time (datetime.datetime | Unset): Date and time when the event was updated.
     """
 
     id: UUID
@@ -33,7 +35,7 @@ class EntraIdTenantRestoreSessionLogModel:
     start_time: datetime.datetime
     status: EEntraIdTenantRestoreSessionLogStatus
     style: EEntraIdTenantRestoreSessionLogStyle
-    update_time: Union[Unset, datetime.datetime] = UNSET
+    update_time: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -49,7 +51,7 @@ class EntraIdTenantRestoreSessionLogModel:
 
         style = self.style.value
 
-        update_time: Union[Unset, str] = UNSET
+        update_time: str | Unset = UNSET
         if not isinstance(self.update_time, Unset):
             update_time = self.update_time.isoformat()
 
@@ -86,7 +88,7 @@ class EntraIdTenantRestoreSessionLogModel:
         style = EEntraIdTenantRestoreSessionLogStyle(d.pop("style"))
 
         _update_time = d.pop("updateTime", UNSET)
-        update_time: Union[Unset, datetime.datetime]
+        update_time: datetime.datetime | Unset
         if isinstance(_update_time, Unset):
             update_time = UNSET
         else:

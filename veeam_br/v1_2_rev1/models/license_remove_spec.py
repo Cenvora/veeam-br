@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,21 +17,21 @@ class LicenseRemoveSpec:
     """Remove the license.
 
     Attributes:
-        force_standalone_mode (Union[Unset, bool]): This property is only used with backup servers managed by Veeam
-            Backup Enterprise Manager.<ul><li>If `true`, the request will remove the license.</li><li>If `false` or the
-            property is not specified, the request will produce an error, warning you that the backup server is managed by
-            Enterprise Manager.</li></ul>
-        section (Union[Unset, ELicenseSectionType]): Type of the removed license.
+        force_standalone_mode (bool | Unset): This property is only used with backup servers managed by Veeam Backup
+            Enterprise Manager.<ul><li>If `true`, the request will remove the license.</li><li>If `false` or the property is
+            not specified, the request will produce an error, warning you that the backup server is managed by Enterprise
+            Manager.</li></ul>
+        section (ELicenseSectionType | Unset): Type of the removed license.
     """
 
-    force_standalone_mode: Union[Unset, bool] = UNSET
-    section: Union[Unset, ELicenseSectionType] = UNSET
+    force_standalone_mode: bool | Unset = UNSET
+    section: ELicenseSectionType | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         force_standalone_mode = self.force_standalone_mode
 
-        section: Union[Unset, str] = UNSET
+        section: str | Unset = UNSET
         if not isinstance(self.section, Unset):
             section = self.section.value
 
@@ -49,7 +51,7 @@ class LicenseRemoveSpec:
         force_standalone_mode = d.pop("forceStandaloneMode", UNSET)
 
         _section = d.pop("section", UNSET)
-        section: Union[Unset, ELicenseSectionType]
+        section: ELicenseSectionType | Unset
         if isinstance(_section, Unset):
             section = UNSET
         else:

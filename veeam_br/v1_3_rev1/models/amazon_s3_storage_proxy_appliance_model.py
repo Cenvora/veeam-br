@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,26 +16,24 @@ class AmazonS3StorageProxyApplianceModel:
     """Amazon S3 proxy appliance.
 
     Attributes:
-        ec_2_instance_type (Union[Unset, str]): EC2 instance type for the proxy appliance.
-        vpc_name (Union[Unset, str]): Name of the Amazon VPC where Veeam Backup & Replication launches the target
-            instance.
-        vpc_id (Union[Unset, str]): ID of the Amazon VPC where Veeam Backup & Replication launches the target instance.
-            Use the ID to uniquely identify Amazon VPC.
-        subnet_name (Union[Unset, str]): Name of the subnet for the proxy appliance.
-        subnet_id (Union[Unset, str]): ID of the subnet for the proxy appliance. Use the ID to uniquely identify the
-            subnet.
-        security_group (Union[Unset, str]): Security group associated with the proxy appliance.
-        redirector_port (Union[Unset, int]): TCP port used to route requests between the proxy appliance and backup
+        ec_2_instance_type (str | Unset): EC2 instance type for the proxy appliance.
+        vpc_name (str | Unset): Name of the Amazon VPC where Veeam Backup & Replication launches the target instance.
+        vpc_id (str | Unset): ID of the Amazon VPC where Veeam Backup & Replication launches the target instance. Use
+            the ID to uniquely identify Amazon VPC.
+        subnet_name (str | Unset): Name of the subnet for the proxy appliance.
+        subnet_id (str | Unset): ID of the subnet for the proxy appliance. Use the ID to uniquely identify the subnet.
+        security_group (str | Unset): Security group associated with the proxy appliance.
+        redirector_port (int | Unset): TCP port used to route requests between the proxy appliance and backup
             infrastructure components.
     """
 
-    ec_2_instance_type: Union[Unset, str] = UNSET
-    vpc_name: Union[Unset, str] = UNSET
-    vpc_id: Union[Unset, str] = UNSET
-    subnet_name: Union[Unset, str] = UNSET
-    subnet_id: Union[Unset, str] = UNSET
-    security_group: Union[Unset, str] = UNSET
-    redirector_port: Union[Unset, int] = UNSET
+    ec_2_instance_type: str | Unset = UNSET
+    vpc_name: str | Unset = UNSET
+    vpc_id: str | Unset = UNSET
+    subnet_name: str | Unset = UNSET
+    subnet_id: str | Unset = UNSET
+    security_group: str | Unset = UNSET
+    redirector_port: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -20,28 +22,28 @@ class GeneralOptionsModel:
     """Veeam Backup & Replication settings.
 
     Attributes:
-        email_settings (Union[Unset, GeneralOptionsEmailNotificationsModel]): Global email notification settings and job
+        email_settings (GeneralOptionsEmailNotificationsModel | Unset): Global email notification settings and job
             notifications.
-        notifications (Union[Unset, GeneralOptionsNotificationsModel]): Other notifications such as notifications on low
-            disk space, support contract expiration, and available updates.
-        siem_integration (Union[Unset, GeneralOptionsSiemIntegrationModel]): SIEM integration settings.
+        notifications (GeneralOptionsNotificationsModel | Unset): Other notifications such as notifications on low disk
+            space, support contract expiration, and available updates.
+        siem_integration (GeneralOptionsSiemIntegrationModel | Unset): SIEM integration settings.
     """
 
-    email_settings: Union[Unset, "GeneralOptionsEmailNotificationsModel"] = UNSET
-    notifications: Union[Unset, "GeneralOptionsNotificationsModel"] = UNSET
-    siem_integration: Union[Unset, "GeneralOptionsSiemIntegrationModel"] = UNSET
+    email_settings: GeneralOptionsEmailNotificationsModel | Unset = UNSET
+    notifications: GeneralOptionsNotificationsModel | Unset = UNSET
+    siem_integration: GeneralOptionsSiemIntegrationModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        email_settings: Union[Unset, dict[str, Any]] = UNSET
+        email_settings: dict[str, Any] | Unset = UNSET
         if not isinstance(self.email_settings, Unset):
             email_settings = self.email_settings.to_dict()
 
-        notifications: Union[Unset, dict[str, Any]] = UNSET
+        notifications: dict[str, Any] | Unset = UNSET
         if not isinstance(self.notifications, Unset):
             notifications = self.notifications.to_dict()
 
-        siem_integration: Union[Unset, dict[str, Any]] = UNSET
+        siem_integration: dict[str, Any] | Unset = UNSET
         if not isinstance(self.siem_integration, Unset):
             siem_integration = self.siem_integration.to_dict()
 
@@ -65,21 +67,21 @@ class GeneralOptionsModel:
 
         d = dict(src_dict)
         _email_settings = d.pop("emailSettings", UNSET)
-        email_settings: Union[Unset, GeneralOptionsEmailNotificationsModel]
+        email_settings: GeneralOptionsEmailNotificationsModel | Unset
         if isinstance(_email_settings, Unset):
             email_settings = UNSET
         else:
             email_settings = GeneralOptionsEmailNotificationsModel.from_dict(_email_settings)
 
         _notifications = d.pop("notifications", UNSET)
-        notifications: Union[Unset, GeneralOptionsNotificationsModel]
+        notifications: GeneralOptionsNotificationsModel | Unset
         if isinstance(_notifications, Unset):
             notifications = UNSET
         else:
             notifications = GeneralOptionsNotificationsModel.from_dict(_notifications)
 
         _siem_integration = d.pop("siemIntegration", UNSET)
-        siem_integration: Union[Unset, GeneralOptionsSiemIntegrationModel]
+        siem_integration: GeneralOptionsSiemIntegrationModel | Unset
         if isinstance(_siem_integration, Unset):
             siem_integration = UNSET
         else:

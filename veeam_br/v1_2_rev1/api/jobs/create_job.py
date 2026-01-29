@@ -1,36 +1,19 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.backup_job_model import BackupJobModel
-from ...models.backup_job_spec import BackupJobSpec
-from ...models.cloud_director_backup_job_model import CloudDirectorBackupJobModel
-from ...models.cloud_director_backup_job_spec import CloudDirectorBackupJobSpec
-from ...models.entra_id_audit_log_backup_job_model import EntraIDAuditLogBackupJobModel
-from ...models.entra_id_audit_log_backup_job_spec import EntraIDAuditLogBackupJobSpec
-from ...models.entra_id_tenant_backup_job_model import EntraIDTenantBackupJobModel
-from ...models.entra_id_tenant_backup_job_spec import EntraIDTenantBackupJobSpec
 from ...models.error import Error
-from ...models.file_backup_copy_job_model import FileBackupCopyJobModel
-from ...models.file_backup_copy_job_spec import FileBackupCopyJobSpec
-from ...models.v_sphere_replica_job_model import VSphereReplicaJobModel
-from ...models.v_sphere_replica_job_spec import VSphereReplicaJobSpec
+from ...models.job_model import JobModel
+from ...models.job_spec import JobSpec
 from ...types import Response
 
 
 def _get_kwargs(
     *,
-    body: Union[
-        "BackupJobSpec",
-        "CloudDirectorBackupJobSpec",
-        "EntraIDAuditLogBackupJobSpec",
-        "EntraIDTenantBackupJobSpec",
-        "FileBackupCopyJobSpec",
-        "VSphereReplicaJobSpec",
-    ],
+    body: JobSpec,
     x_api_version: str = "1.2-rev1",
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
@@ -41,19 +24,7 @@ def _get_kwargs(
         "url": "/api/v1/jobs",
     }
 
-    _kwargs["json"]: dict[str, Any]
-    if isinstance(body, BackupJobSpec):
-        _kwargs["json"] = body.to_dict()
-    elif isinstance(body, CloudDirectorBackupJobSpec):
-        _kwargs["json"] = body.to_dict()
-    elif isinstance(body, VSphereReplicaJobSpec):
-        _kwargs["json"] = body.to_dict()
-    elif isinstance(body, EntraIDTenantBackupJobSpec):
-        _kwargs["json"] = body.to_dict()
-    elif isinstance(body, EntraIDAuditLogBackupJobSpec):
-        _kwargs["json"] = body.to_dict()
-    else:
-        _kwargs["json"] = body.to_dict()
+    _kwargs["json"] = body.to_dict()
 
     headers["Content-Type"] = "application/json"
 
@@ -61,80 +32,9 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[
-    Union[
-        Error,
-        Union[
-            "BackupJobModel",
-            "CloudDirectorBackupJobModel",
-            "EntraIDAuditLogBackupJobModel",
-            "EntraIDTenantBackupJobModel",
-            "FileBackupCopyJobModel",
-            "VSphereReplicaJobModel",
-        ],
-    ]
-]:
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Error | JobModel | None:
     if response.status_code == 201:
-
-        def _parse_response_201(
-            data: object,
-        ) -> Union[
-            "BackupJobModel",
-            "CloudDirectorBackupJobModel",
-            "EntraIDAuditLogBackupJobModel",
-            "EntraIDTenantBackupJobModel",
-            "FileBackupCopyJobModel",
-            "VSphereReplicaJobModel",
-        ]:
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_job_model_type_0 = BackupJobModel.from_dict(data)
-
-                return componentsschemas_job_model_type_0
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_job_model_type_1 = CloudDirectorBackupJobModel.from_dict(data)
-
-                return componentsschemas_job_model_type_1
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_job_model_type_2 = VSphereReplicaJobModel.from_dict(data)
-
-                return componentsschemas_job_model_type_2
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_job_model_type_3 = EntraIDTenantBackupJobModel.from_dict(data)
-
-                return componentsschemas_job_model_type_3
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_job_model_type_4 = EntraIDAuditLogBackupJobModel.from_dict(data)
-
-                return componentsschemas_job_model_type_4
-            except:  # noqa: E722
-                pass
-            if not isinstance(data, dict):
-                raise TypeError()
-            componentsschemas_job_model_type_5 = FileBackupCopyJobModel.from_dict(data)
-
-            return componentsschemas_job_model_type_5
-
-        response_201 = _parse_response_201(response.json())
+        response_201 = JobModel.from_dict(response.json())
 
         return response_201
 
@@ -164,21 +64,7 @@ def _parse_response(
         return None
 
 
-def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[
-    Union[
-        Error,
-        Union[
-            "BackupJobModel",
-            "CloudDirectorBackupJobModel",
-            "EntraIDAuditLogBackupJobModel",
-            "EntraIDTenantBackupJobModel",
-            "FileBackupCopyJobModel",
-            "VSphereReplicaJobModel",
-        ],
-    ]
-]:
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[Error | JobModel]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -189,29 +75,10 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union[
-        "BackupJobSpec",
-        "CloudDirectorBackupJobSpec",
-        "EntraIDAuditLogBackupJobSpec",
-        "EntraIDTenantBackupJobSpec",
-        "FileBackupCopyJobSpec",
-        "VSphereReplicaJobSpec",
-    ],
+    client: AuthenticatedClient | Client,
+    body: JobSpec,
     x_api_version: str = "1.2-rev1",
-) -> Response[
-    Union[
-        Error,
-        Union[
-            "BackupJobModel",
-            "CloudDirectorBackupJobModel",
-            "EntraIDAuditLogBackupJobModel",
-            "EntraIDTenantBackupJobModel",
-            "FileBackupCopyJobModel",
-            "VSphereReplicaJobModel",
-        ],
-    ]
-]:
+) -> Response[Error | JobModel]:
     """Create Job
 
      The HTTP POST request to the `/api/v1/jobs` path allows you to create a new job that has the
@@ -219,15 +86,14 @@ def sync_detailed(
 
     Args:
         x_api_version (str):  Default: '1.2-rev1'.
-        body (Union['BackupJobSpec', 'CloudDirectorBackupJobSpec', 'EntraIDAuditLogBackupJobSpec',
-            'EntraIDTenantBackupJobSpec', 'FileBackupCopyJobSpec', 'VSphereReplicaJobSpec']):
+        body (JobSpec):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, Union['BackupJobModel', 'CloudDirectorBackupJobModel', 'EntraIDAuditLogBackupJobModel', 'EntraIDTenantBackupJobModel', 'FileBackupCopyJobModel', 'VSphereReplicaJobModel']]]
+        Response[Error | JobModel]
     """
 
     kwargs = _get_kwargs(
@@ -244,29 +110,10 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union[
-        "BackupJobSpec",
-        "CloudDirectorBackupJobSpec",
-        "EntraIDAuditLogBackupJobSpec",
-        "EntraIDTenantBackupJobSpec",
-        "FileBackupCopyJobSpec",
-        "VSphereReplicaJobSpec",
-    ],
+    client: AuthenticatedClient | Client,
+    body: JobSpec,
     x_api_version: str = "1.2-rev1",
-) -> Optional[
-    Union[
-        Error,
-        Union[
-            "BackupJobModel",
-            "CloudDirectorBackupJobModel",
-            "EntraIDAuditLogBackupJobModel",
-            "EntraIDTenantBackupJobModel",
-            "FileBackupCopyJobModel",
-            "VSphereReplicaJobModel",
-        ],
-    ]
-]:
+) -> Error | JobModel | None:
     """Create Job
 
      The HTTP POST request to the `/api/v1/jobs` path allows you to create a new job that has the
@@ -274,15 +121,14 @@ def sync(
 
     Args:
         x_api_version (str):  Default: '1.2-rev1'.
-        body (Union['BackupJobSpec', 'CloudDirectorBackupJobSpec', 'EntraIDAuditLogBackupJobSpec',
-            'EntraIDTenantBackupJobSpec', 'FileBackupCopyJobSpec', 'VSphereReplicaJobSpec']):
+        body (JobSpec):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, Union['BackupJobModel', 'CloudDirectorBackupJobModel', 'EntraIDAuditLogBackupJobModel', 'EntraIDTenantBackupJobModel', 'FileBackupCopyJobModel', 'VSphereReplicaJobModel']]
+        Error | JobModel
     """
 
     return sync_detailed(
@@ -294,29 +140,10 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union[
-        "BackupJobSpec",
-        "CloudDirectorBackupJobSpec",
-        "EntraIDAuditLogBackupJobSpec",
-        "EntraIDTenantBackupJobSpec",
-        "FileBackupCopyJobSpec",
-        "VSphereReplicaJobSpec",
-    ],
+    client: AuthenticatedClient | Client,
+    body: JobSpec,
     x_api_version: str = "1.2-rev1",
-) -> Response[
-    Union[
-        Error,
-        Union[
-            "BackupJobModel",
-            "CloudDirectorBackupJobModel",
-            "EntraIDAuditLogBackupJobModel",
-            "EntraIDTenantBackupJobModel",
-            "FileBackupCopyJobModel",
-            "VSphereReplicaJobModel",
-        ],
-    ]
-]:
+) -> Response[Error | JobModel]:
     """Create Job
 
      The HTTP POST request to the `/api/v1/jobs` path allows you to create a new job that has the
@@ -324,15 +151,14 @@ async def asyncio_detailed(
 
     Args:
         x_api_version (str):  Default: '1.2-rev1'.
-        body (Union['BackupJobSpec', 'CloudDirectorBackupJobSpec', 'EntraIDAuditLogBackupJobSpec',
-            'EntraIDTenantBackupJobSpec', 'FileBackupCopyJobSpec', 'VSphereReplicaJobSpec']):
+        body (JobSpec):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, Union['BackupJobModel', 'CloudDirectorBackupJobModel', 'EntraIDAuditLogBackupJobModel', 'EntraIDTenantBackupJobModel', 'FileBackupCopyJobModel', 'VSphereReplicaJobModel']]]
+        Response[Error | JobModel]
     """
 
     kwargs = _get_kwargs(
@@ -347,29 +173,10 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
-    body: Union[
-        "BackupJobSpec",
-        "CloudDirectorBackupJobSpec",
-        "EntraIDAuditLogBackupJobSpec",
-        "EntraIDTenantBackupJobSpec",
-        "FileBackupCopyJobSpec",
-        "VSphereReplicaJobSpec",
-    ],
+    client: AuthenticatedClient | Client,
+    body: JobSpec,
     x_api_version: str = "1.2-rev1",
-) -> Optional[
-    Union[
-        Error,
-        Union[
-            "BackupJobModel",
-            "CloudDirectorBackupJobModel",
-            "EntraIDAuditLogBackupJobModel",
-            "EntraIDTenantBackupJobModel",
-            "FileBackupCopyJobModel",
-            "VSphereReplicaJobModel",
-        ],
-    ]
-]:
+) -> Error | JobModel | None:
     """Create Job
 
      The HTTP POST request to the `/api/v1/jobs` path allows you to create a new job that has the
@@ -377,15 +184,14 @@ async def asyncio(
 
     Args:
         x_api_version (str):  Default: '1.2-rev1'.
-        body (Union['BackupJobSpec', 'CloudDirectorBackupJobSpec', 'EntraIDAuditLogBackupJobSpec',
-            'EntraIDTenantBackupJobSpec', 'FileBackupCopyJobSpec', 'VSphereReplicaJobSpec']):
+        body (JobSpec):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, Union['BackupJobModel', 'CloudDirectorBackupJobModel', 'EntraIDAuditLogBackupJobModel', 'EntraIDTenantBackupJobModel', 'FileBackupCopyJobModel', 'VSphereReplicaJobModel']]
+        Error | JobModel
     """
 
     return (

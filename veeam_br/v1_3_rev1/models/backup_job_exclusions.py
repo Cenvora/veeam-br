@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -7,12 +9,9 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.agent_object_model import AgentObjectModel
     from ..models.backup_job_exclusions_templates import BackupJobExclusionsTemplates
-    from ..models.cloud_director_object_model import CloudDirectorObjectModel
-    from ..models.hyper_v_object_model import HyperVObjectModel
+    from ..models.inventory_object_model import InventoryObjectModel
     from ..models.vmware_object_disk_model import VmwareObjectDiskModel
-    from ..models.vmware_object_model import VmwareObjectModel
 
 
 T = TypeVar("T", bound="BackupJobExclusions")
@@ -23,49 +22,33 @@ class BackupJobExclusions:
     """Objects excluded from the job.
 
     Attributes:
-        vms (Union[Unset, list[Union['AgentObjectModel', 'CloudDirectorObjectModel', 'HyperVObjectModel',
-            'VmwareObjectModel']]]): Array of VMs excluded from the job. To get a VM object, run the [Get Inventory
-            Objects](Inventory-Browser#operation/GetInventoryObjects) request.
-        disks (Union[Unset, list['VmwareObjectDiskModel']]): Array of VM disks excluded from the job.
-        templates (Union[Unset, BackupJobExclusionsTemplates]): VM templates exclusion.
+        vms (list[InventoryObjectModel] | Unset): Array of VMs excluded from the job. To get a VM object, run the [Get
+            Inventory Objects](Inventory-Browser#operation/GetInventoryObjects) request.
+        disks (list[VmwareObjectDiskModel] | Unset): Array of VM disks excluded from the job.
+        templates (BackupJobExclusionsTemplates | Unset): VM templates exclusion.
     """
 
-    vms: Union[
-        Unset, list[Union["AgentObjectModel", "CloudDirectorObjectModel", "HyperVObjectModel", "VmwareObjectModel"]]
-    ] = UNSET
-    disks: Union[Unset, list["VmwareObjectDiskModel"]] = UNSET
-    templates: Union[Unset, "BackupJobExclusionsTemplates"] = UNSET
+    vms: list[InventoryObjectModel] | Unset = UNSET
+    disks: list[VmwareObjectDiskModel] | Unset = UNSET
+    templates: BackupJobExclusionsTemplates | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.cloud_director_object_model import CloudDirectorObjectModel
-        from ..models.hyper_v_object_model import HyperVObjectModel
-        from ..models.vmware_object_model import VmwareObjectModel
-
-        vms: Union[Unset, list[dict[str, Any]]] = UNSET
+        vms: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.vms, Unset):
             vms = []
             for vms_item_data in self.vms:
-                vms_item: dict[str, Any]
-                if isinstance(vms_item_data, VmwareObjectModel):
-                    vms_item = vms_item_data.to_dict()
-                elif isinstance(vms_item_data, CloudDirectorObjectModel):
-                    vms_item = vms_item_data.to_dict()
-                elif isinstance(vms_item_data, HyperVObjectModel):
-                    vms_item = vms_item_data.to_dict()
-                else:
-                    vms_item = vms_item_data.to_dict()
-
+                vms_item = vms_item_data.to_dict()
                 vms.append(vms_item)
 
-        disks: Union[Unset, list[dict[str, Any]]] = UNSET
+        disks: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.disks, Unset):
             disks = []
             for disks_item_data in self.disks:
                 disks_item = disks_item_data.to_dict()
                 disks.append(disks_item)
 
-        templates: Union[Unset, dict[str, Any]] = UNSET
+        templates: dict[str, Any] | Unset = UNSET
         if not isinstance(self.templates, Unset):
             templates = self.templates.to_dict()
 
@@ -83,64 +66,31 @@ class BackupJobExclusions:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.agent_object_model import AgentObjectModel
         from ..models.backup_job_exclusions_templates import BackupJobExclusionsTemplates
-        from ..models.cloud_director_object_model import CloudDirectorObjectModel
-        from ..models.hyper_v_object_model import HyperVObjectModel
+        from ..models.inventory_object_model import InventoryObjectModel
         from ..models.vmware_object_disk_model import VmwareObjectDiskModel
-        from ..models.vmware_object_model import VmwareObjectModel
 
         d = dict(src_dict)
-        vms = []
         _vms = d.pop("vms", UNSET)
-        for vms_item_data in _vms or []:
+        vms: list[InventoryObjectModel] | Unset = UNSET
+        if _vms is not UNSET:
+            vms = []
+            for vms_item_data in _vms:
+                vms_item = InventoryObjectModel.from_dict(vms_item_data)
 
-            def _parse_vms_item(
-                data: object,
-            ) -> Union["AgentObjectModel", "CloudDirectorObjectModel", "HyperVObjectModel", "VmwareObjectModel"]:
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    componentsschemas_inventory_object_model_type_0 = VmwareObjectModel.from_dict(data)
+                vms.append(vms_item)
 
-                    return componentsschemas_inventory_object_model_type_0
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    componentsschemas_inventory_object_model_type_1 = CloudDirectorObjectModel.from_dict(data)
-
-                    return componentsschemas_inventory_object_model_type_1
-                except:  # noqa: E722
-                    pass
-                try:
-                    if not isinstance(data, dict):
-                        raise TypeError()
-                    componentsschemas_inventory_object_model_type_2 = HyperVObjectModel.from_dict(data)
-
-                    return componentsschemas_inventory_object_model_type_2
-                except:  # noqa: E722
-                    pass
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_3 = AgentObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_3
-
-            vms_item = _parse_vms_item(vms_item_data)
-
-            vms.append(vms_item)
-
-        disks = []
         _disks = d.pop("disks", UNSET)
-        for disks_item_data in _disks or []:
-            disks_item = VmwareObjectDiskModel.from_dict(disks_item_data)
+        disks: list[VmwareObjectDiskModel] | Unset = UNSET
+        if _disks is not UNSET:
+            disks = []
+            for disks_item_data in _disks:
+                disks_item = VmwareObjectDiskModel.from_dict(disks_item_data)
 
-            disks.append(disks_item)
+                disks.append(disks_item)
 
         _templates = d.pop("templates", UNSET)
-        templates: Union[Unset, BackupJobExclusionsTemplates]
+        templates: BackupJobExclusionsTemplates | Unset
         if isinstance(_templates, Unset):
             templates = UNSET
         else:

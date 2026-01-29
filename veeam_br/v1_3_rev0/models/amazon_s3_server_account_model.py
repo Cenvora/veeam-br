@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -18,14 +20,14 @@ class AmazonS3ServerAccountModel:
     Attributes:
         friendly_name (str): Friendly name which will be assigned to your object storage.
         credentials_id (UUID): ID of the credentials used to access your Amazon S3 object storage.
-        region_type (Union[Unset, EAmazonRegionType]): AWS region type.
-        region_id (Union[Unset, str]): ID of a region where the storage is located.
+        region_type (EAmazonRegionType | Unset): AWS region type.
+        region_id (str | Unset): ID of a region where the storage is located.
     """
 
     friendly_name: str
     credentials_id: UUID
-    region_type: Union[Unset, EAmazonRegionType] = UNSET
-    region_id: Union[Unset, str] = UNSET
+    region_type: EAmazonRegionType | Unset = UNSET
+    region_id: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -33,7 +35,7 @@ class AmazonS3ServerAccountModel:
 
         credentials_id = str(self.credentials_id)
 
-        region_type: Union[Unset, str] = UNSET
+        region_type: str | Unset = UNSET
         if not isinstance(self.region_type, Unset):
             region_type = self.region_type.value
 
@@ -62,7 +64,7 @@ class AmazonS3ServerAccountModel:
         credentials_id = UUID(d.pop("credentialsId"))
 
         _region_type = d.pop("regionType", UNSET)
-        region_type: Union[Unset, EAmazonRegionType]
+        region_type: EAmazonRegionType | Unset
         if isinstance(_region_type, Unset):
             region_type = UNSET
         else:

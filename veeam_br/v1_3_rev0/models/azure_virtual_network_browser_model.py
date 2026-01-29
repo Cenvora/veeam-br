@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -18,14 +20,14 @@ class AzureVirtualNetworkBrowserModel:
     """Microsoft Azure virtual network.
 
     Attributes:
-        virtual_network_name (Union[Unset, str]): Virtual network name.
-        virtual_network_id (Union[Unset, str]): Virtual network ID.
-        subnets (Union[Unset, list['AzureSubnetBrowserModel']]): Array of subnets.
+        virtual_network_name (str | Unset): Virtual network name.
+        virtual_network_id (str | Unset): Virtual network ID.
+        subnets (list[AzureSubnetBrowserModel] | Unset): Array of subnets.
     """
 
-    virtual_network_name: Union[Unset, str] = UNSET
-    virtual_network_id: Union[Unset, str] = UNSET
-    subnets: Union[Unset, list["AzureSubnetBrowserModel"]] = UNSET
+    virtual_network_name: str | Unset = UNSET
+    virtual_network_id: str | Unset = UNSET
+    subnets: list[AzureSubnetBrowserModel] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -33,7 +35,7 @@ class AzureVirtualNetworkBrowserModel:
 
         virtual_network_id = self.virtual_network_id
 
-        subnets: Union[Unset, list[dict[str, Any]]] = UNSET
+        subnets: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.subnets, Unset):
             subnets = []
             for subnets_item_data in self.subnets:
@@ -61,12 +63,14 @@ class AzureVirtualNetworkBrowserModel:
 
         virtual_network_id = d.pop("virtualNetworkId", UNSET)
 
-        subnets = []
         _subnets = d.pop("subnets", UNSET)
-        for subnets_item_data in _subnets or []:
-            subnets_item = AzureSubnetBrowserModel.from_dict(subnets_item_data)
+        subnets: list[AzureSubnetBrowserModel] | Unset = UNSET
+        if _subnets is not UNSET:
+            subnets = []
+            for subnets_item_data in _subnets:
+                subnets_item = AzureSubnetBrowserModel.from_dict(subnets_item_data)
 
-            subnets.append(subnets_item)
+                subnets.append(subnets_item)
 
         azure_virtual_network_browser_model = cls(
             virtual_network_name=virtual_network_name,

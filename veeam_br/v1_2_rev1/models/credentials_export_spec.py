@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union, cast
+from typing import Any, TypeVar, cast
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -15,36 +17,36 @@ T = TypeVar("T", bound="CredentialsExportSpec")
 class CredentialsExportSpec:
     """
     Attributes:
-        show_hidden_creds (Union[Unset, bool]): If `true`, service credentials are exported.
-        ids (Union[Unset, list[UUID]]): Array of credentials IDs.
-        types (Union[Unset, list[ECredentialsType]]): Array of credentials types.
-        names (Union[Unset, list[str]]): Array of credentials user names. Wildcard characters are supported.
+        show_hidden_creds (bool | Unset): If `true`, service credentials are exported.
+        ids (list[UUID] | Unset): Array of credentials IDs.
+        types (list[ECredentialsType] | Unset): Array of credentials types.
+        names (list[str] | Unset): Array of credentials user names. Wildcard characters are supported.
     """
 
-    show_hidden_creds: Union[Unset, bool] = UNSET
-    ids: Union[Unset, list[UUID]] = UNSET
-    types: Union[Unset, list[ECredentialsType]] = UNSET
-    names: Union[Unset, list[str]] = UNSET
+    show_hidden_creds: bool | Unset = UNSET
+    ids: list[UUID] | Unset = UNSET
+    types: list[ECredentialsType] | Unset = UNSET
+    names: list[str] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         show_hidden_creds = self.show_hidden_creds
 
-        ids: Union[Unset, list[str]] = UNSET
+        ids: list[str] | Unset = UNSET
         if not isinstance(self.ids, Unset):
             ids = []
             for ids_item_data in self.ids:
                 ids_item = str(ids_item_data)
                 ids.append(ids_item)
 
-        types: Union[Unset, list[str]] = UNSET
+        types: list[str] | Unset = UNSET
         if not isinstance(self.types, Unset):
             types = []
             for types_item_data in self.types:
                 types_item = types_item_data.value
                 types.append(types_item)
 
-        names: Union[Unset, list[str]] = UNSET
+        names: list[str] | Unset = UNSET
         if not isinstance(self.names, Unset):
             names = self.names
 
@@ -67,19 +69,23 @@ class CredentialsExportSpec:
         d = dict(src_dict)
         show_hidden_creds = d.pop("showHiddenCreds", UNSET)
 
-        ids = []
         _ids = d.pop("ids", UNSET)
-        for ids_item_data in _ids or []:
-            ids_item = UUID(ids_item_data)
+        ids: list[UUID] | Unset = UNSET
+        if _ids is not UNSET:
+            ids = []
+            for ids_item_data in _ids:
+                ids_item = UUID(ids_item_data)
 
-            ids.append(ids_item)
+                ids.append(ids_item)
 
-        types = []
         _types = d.pop("types", UNSET)
-        for types_item_data in _types or []:
-            types_item = ECredentialsType(types_item_data)
+        types: list[ECredentialsType] | Unset = UNSET
+        if _types is not UNSET:
+            types = []
+            for types_item_data in _types:
+                types_item = ECredentialsType(types_item_data)
 
-            types.append(types_item)
+                types.append(types_item)
 
         names = cast(list[str], d.pop("names", UNSET))
 

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -15,14 +17,14 @@ class UnstructuredBackupDownloadMetaSpec:
     """Settings for downloading backup metadata.
 
     Attributes:
-        target_repository_id (Union[Unset, UUID]): ID of the repository where the backup metadata will be stored.
+        target_repository_id (UUID | Unset): ID of the repository where the backup metadata will be stored.
     """
 
-    target_repository_id: Union[Unset, UUID] = UNSET
+    target_repository_id: UUID | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        target_repository_id: Union[Unset, str] = UNSET
+        target_repository_id: str | Unset = UNSET
         if not isinstance(self.target_repository_id, Unset):
             target_repository_id = str(self.target_repository_id)
 
@@ -38,7 +40,7 @@ class UnstructuredBackupDownloadMetaSpec:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _target_repository_id = d.pop("targetRepositoryId", UNSET)
-        target_repository_id: Union[Unset, UUID]
+        target_repository_id: UUID | Unset
         if isinstance(_target_repository_id, Unset):
             target_repository_id = UNSET
         else:

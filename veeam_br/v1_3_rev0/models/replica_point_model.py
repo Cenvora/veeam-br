@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -28,8 +30,8 @@ class ReplicaPointModel:
         creation_time (datetime.datetime): Date and time when the restore point was created.
         replica_id (UUID): ID of a replica that contains the restore point.
         allowed_operations (list[EObjectRestorePointOperation]): Array of operations allowed for the restore point.
-        state (Union[Unset, EReplicaState]): Replica state.
-        malware_status (Union[Unset, ESuspiciousActivitySeverity]): Malware status.
+        state (EReplicaState | Unset): Replica state.
+        malware_status (ESuspiciousActivitySeverity | Unset): Malware status.
     """
 
     id: UUID
@@ -39,8 +41,8 @@ class ReplicaPointModel:
     creation_time: datetime.datetime
     replica_id: UUID
     allowed_operations: list[EObjectRestorePointOperation]
-    state: Union[Unset, EReplicaState] = UNSET
-    malware_status: Union[Unset, ESuspiciousActivitySeverity] = UNSET
+    state: EReplicaState | Unset = UNSET
+    malware_status: ESuspiciousActivitySeverity | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -61,11 +63,11 @@ class ReplicaPointModel:
             allowed_operations_item = allowed_operations_item_data.value
             allowed_operations.append(allowed_operations_item)
 
-        state: Union[Unset, str] = UNSET
+        state: str | Unset = UNSET
         if not isinstance(self.state, Unset):
             state = self.state.value
 
-        malware_status: Union[Unset, str] = UNSET
+        malware_status: str | Unset = UNSET
         if not isinstance(self.malware_status, Unset):
             malware_status = self.malware_status.value
 
@@ -112,14 +114,14 @@ class ReplicaPointModel:
             allowed_operations.append(allowed_operations_item)
 
         _state = d.pop("state", UNSET)
-        state: Union[Unset, EReplicaState]
+        state: EReplicaState | Unset
         if isinstance(_state, Unset):
             state = UNSET
         else:
             state = EReplicaState(_state)
 
         _malware_status = d.pop("malwareStatus", UNSET)
-        malware_status: Union[Unset, ESuspiciousActivitySeverity]
+        malware_status: ESuspiciousActivitySeverity | Unset
         if isinstance(_malware_status, Unset):
             malware_status = UNSET
         else:

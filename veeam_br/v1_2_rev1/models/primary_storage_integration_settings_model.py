@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -16,17 +18,17 @@ class PrimaryStorageIntegrationSettingsModel:
     Attributes:
         is_enabled (bool): If `true`, the primary storage integration is enabled. In this case, storage snapshots
             (instead of VM snapshots) are used for VM data processing.
-        processed_vms_limit_enabled (Union[Unset, bool]): If `true`, the number of processed VMs per storage snapshot is
+        processed_vms_limit_enabled (bool | Unset): If `true`, the number of processed VMs per storage snapshot is
             limited.
-        processed_vms_count (Union[Unset, int]): Number of processed VMs per storage snapshot.
-        failover_to_standard_backup (Union[Unset, bool]): If `true`, failover to the regular VM processing mode is
-            enabled. In this case, if backup from storage snapshot fails, VM snapshots are used.
+        processed_vms_count (int | Unset): Number of processed VMs per storage snapshot.
+        failover_to_standard_backup (bool | Unset): If `true`, failover to the regular VM processing mode is enabled. In
+            this case, if backup from storage snapshot fails, VM snapshots are used.
     """
 
     is_enabled: bool
-    processed_vms_limit_enabled: Union[Unset, bool] = UNSET
-    processed_vms_count: Union[Unset, int] = UNSET
-    failover_to_standard_backup: Union[Unset, bool] = UNSET
+    processed_vms_limit_enabled: bool | Unset = UNSET
+    processed_vms_count: int | Unset = UNSET
+    failover_to_standard_backup: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -15,18 +17,18 @@ class EntraIdTenantConditionalAccessPolicyFilterBrowseSpec:
     """Filtering options.
 
     Attributes:
-        display_name (Union[Unset, str]): Display name of the Conditional Access policy.
-        state (Union[Unset, list[EEntraIdTenantConditionalAccessPolicyState]]):
+        display_name (str | Unset): Display name of the Conditional Access policy.
+        state (list[EEntraIdTenantConditionalAccessPolicyState] | Unset):
     """
 
-    display_name: Union[Unset, str] = UNSET
-    state: Union[Unset, list[EEntraIdTenantConditionalAccessPolicyState]] = UNSET
+    display_name: str | Unset = UNSET
+    state: list[EEntraIdTenantConditionalAccessPolicyState] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         display_name = self.display_name
 
-        state: Union[Unset, list[str]] = UNSET
+        state: list[str] | Unset = UNSET
         if not isinstance(self.state, Unset):
             state = []
             for state_item_data in self.state:
@@ -48,12 +50,14 @@ class EntraIdTenantConditionalAccessPolicyFilterBrowseSpec:
         d = dict(src_dict)
         display_name = d.pop("displayName", UNSET)
 
-        state = []
         _state = d.pop("state", UNSET)
-        for state_item_data in _state or []:
-            state_item = EEntraIdTenantConditionalAccessPolicyState(state_item_data)
+        state: list[EEntraIdTenantConditionalAccessPolicyState] | Unset = UNSET
+        if _state is not UNSET:
+            state = []
+            for state_item_data in _state:
+                state_item = EEntraIdTenantConditionalAccessPolicyState(state_item_data)
 
-            state.append(state_item)
+                state.append(state_item)
 
         entra_id_tenant_conditional_access_policy_filter_browse_spec = cls(
             display_name=display_name,

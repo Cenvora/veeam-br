@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -16,13 +18,13 @@ class FlrStartSearchForSpec:
     Attributes:
         path (str): Search path.
         search_string (str): Search string. The following wildcard characters are supported&#58; "*", "?" and "+".
-        disable_recursive_search (Union[Unset, bool]): If `true`, Veeam Backup & Replication will not search the child
+        disable_recursive_search (bool | Unset): If `true`, Veeam Backup & Replication will not search the child
             folders, only the files in the parent folder.
     """
 
     path: str
     search_string: str
-    disable_recursive_search: Union[Unset, bool] = UNSET
+    disable_recursive_search: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

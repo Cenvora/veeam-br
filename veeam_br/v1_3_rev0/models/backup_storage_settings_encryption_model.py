@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -17,35 +19,35 @@ class BackupStorageSettingsEncryptionModel:
 
     Attributes:
         is_enabled (bool): If `true`, the content of backup files is encrypted.
-        encryption_type (Union[Unset, EEncryptionType]): Encryption type. The property is required if data encryption is
+        encryption_type (EEncryptionType | Unset): Encryption type. The property is required if data encryption is
             enabled.
-        encryption_password_id (Union[Unset, UUID]): ID of the password used for encryption. The value is *null* for
-            exported objects.
-        encryption_password_unique_id (Union[Unset, str]): Unique ID that identifies the password.
-        kms_server_id (Union[Unset, UUID]): ID of the KMS server for KMS key generation.
+        encryption_password_id (UUID | Unset): ID of the password used for encryption. The value is *null* for exported
+            objects.
+        encryption_password_unique_id (str | Unset): Unique ID that identifies the password.
+        kms_server_id (UUID | Unset): ID of the KMS server for KMS key generation.
     """
 
     is_enabled: bool
-    encryption_type: Union[Unset, EEncryptionType] = UNSET
-    encryption_password_id: Union[Unset, UUID] = UNSET
-    encryption_password_unique_id: Union[Unset, str] = UNSET
-    kms_server_id: Union[Unset, UUID] = UNSET
+    encryption_type: EEncryptionType | Unset = UNSET
+    encryption_password_id: UUID | Unset = UNSET
+    encryption_password_unique_id: str | Unset = UNSET
+    kms_server_id: UUID | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         is_enabled = self.is_enabled
 
-        encryption_type: Union[Unset, str] = UNSET
+        encryption_type: str | Unset = UNSET
         if not isinstance(self.encryption_type, Unset):
             encryption_type = self.encryption_type.value
 
-        encryption_password_id: Union[Unset, str] = UNSET
+        encryption_password_id: str | Unset = UNSET
         if not isinstance(self.encryption_password_id, Unset):
             encryption_password_id = str(self.encryption_password_id)
 
         encryption_password_unique_id = self.encryption_password_unique_id
 
-        kms_server_id: Union[Unset, str] = UNSET
+        kms_server_id: str | Unset = UNSET
         if not isinstance(self.kms_server_id, Unset):
             kms_server_id = str(self.kms_server_id)
 
@@ -73,14 +75,14 @@ class BackupStorageSettingsEncryptionModel:
         is_enabled = d.pop("isEnabled")
 
         _encryption_type = d.pop("encryptionType", UNSET)
-        encryption_type: Union[Unset, EEncryptionType]
+        encryption_type: EEncryptionType | Unset
         if isinstance(_encryption_type, Unset):
             encryption_type = UNSET
         else:
             encryption_type = EEncryptionType(_encryption_type)
 
         _encryption_password_id = d.pop("encryptionPasswordId", UNSET)
-        encryption_password_id: Union[Unset, UUID]
+        encryption_password_id: UUID | Unset
         if isinstance(_encryption_password_id, Unset):
             encryption_password_id = UNSET
         else:
@@ -89,7 +91,7 @@ class BackupStorageSettingsEncryptionModel:
         encryption_password_unique_id = d.pop("encryptionPasswordUniqueId", UNSET)
 
         _kms_server_id = d.pop("kmsServerId", UNSET)
-        kms_server_id: Union[Unset, UUID]
+        kms_server_id: UUID | Unset
         if isinstance(_kms_server_id, Unset):
             kms_server_id = UNSET
         else:

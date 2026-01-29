@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -23,15 +25,15 @@ class BackupJobGuestProcessingModel:
     Attributes:
         app_aware_processing (BackupApplicationAwareProcessingModel): Application-aware processing settings.
         guest_fs_indexing (GuestFileSystemIndexingModel): VM guest OS file indexing.
-        guest_interaction_proxies (Union[Unset, GuestInteractionProxiesSettingsModel]): Guest interaction proxy used to
-            deploy the runtime process on the VM guest OS.
-        guest_credentials (Union[Unset, GuestOsCredentialsModel]): VM custom credentials.
+        guest_interaction_proxies (GuestInteractionProxiesSettingsModel | Unset): Guest interaction proxy used to deploy
+            the runtime process on the VM guest OS.
+        guest_credentials (GuestOsCredentialsModel | Unset): VM custom credentials.
     """
 
-    app_aware_processing: "BackupApplicationAwareProcessingModel"
-    guest_fs_indexing: "GuestFileSystemIndexingModel"
-    guest_interaction_proxies: Union[Unset, "GuestInteractionProxiesSettingsModel"] = UNSET
-    guest_credentials: Union[Unset, "GuestOsCredentialsModel"] = UNSET
+    app_aware_processing: BackupApplicationAwareProcessingModel
+    guest_fs_indexing: GuestFileSystemIndexingModel
+    guest_interaction_proxies: GuestInteractionProxiesSettingsModel | Unset = UNSET
+    guest_credentials: GuestOsCredentialsModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -39,11 +41,11 @@ class BackupJobGuestProcessingModel:
 
         guest_fs_indexing = self.guest_fs_indexing.to_dict()
 
-        guest_interaction_proxies: Union[Unset, dict[str, Any]] = UNSET
+        guest_interaction_proxies: dict[str, Any] | Unset = UNSET
         if not isinstance(self.guest_interaction_proxies, Unset):
             guest_interaction_proxies = self.guest_interaction_proxies.to_dict()
 
-        guest_credentials: Union[Unset, dict[str, Any]] = UNSET
+        guest_credentials: dict[str, Any] | Unset = UNSET
         if not isinstance(self.guest_credentials, Unset):
             guest_credentials = self.guest_credentials.to_dict()
 
@@ -75,14 +77,14 @@ class BackupJobGuestProcessingModel:
         guest_fs_indexing = GuestFileSystemIndexingModel.from_dict(d.pop("guestFSIndexing"))
 
         _guest_interaction_proxies = d.pop("guestInteractionProxies", UNSET)
-        guest_interaction_proxies: Union[Unset, GuestInteractionProxiesSettingsModel]
+        guest_interaction_proxies: GuestInteractionProxiesSettingsModel | Unset
         if isinstance(_guest_interaction_proxies, Unset):
             guest_interaction_proxies = UNSET
         else:
             guest_interaction_proxies = GuestInteractionProxiesSettingsModel.from_dict(_guest_interaction_proxies)
 
         _guest_credentials = d.pop("guestCredentials", UNSET)
-        guest_credentials: Union[Unset, GuestOsCredentialsModel]
+        guest_credentials: GuestOsCredentialsModel | Unset
         if isinstance(_guest_credentials, Unset):
             guest_credentials = UNSET
         else:

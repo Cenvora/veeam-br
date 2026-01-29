@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -17,27 +19,26 @@ T = TypeVar("T", bound="CredentialsFilters")
 class CredentialsFilters:
     """
     Attributes:
-        skip (Union[Unset, int]): Number of credentials records to skip.
-        limit (Union[Unset, int]): Maximum number of credentials records to return.
-        order_column (Union[Unset, ECredentialsFiltersOrderColumn]):
-        order_asc (Union[Unset, bool]): If `true`, sorts credentials in the ascending order by the `orderColumn`
-            parameter.
-        name_filter (Union[Unset, str]): Filters credentials by the `nameFilter` pattern. The pattern can match any
+        skip (int | Unset): Number of credentials records to skip.
+        limit (int | Unset): Maximum number of credentials records to return.
+        order_column (ECredentialsFiltersOrderColumn | Unset):
+        order_asc (bool | Unset): If `true`, sorts credentials in the ascending order by the `orderColumn` parameter.
+        name_filter (str | Unset): Filters credentials by the `nameFilter` pattern. The pattern can match any
             credentials parameter. To substitute one or more characters, use the asterisk (*) character at the beginning
             and/or at the end.
-        type_filter (Union[Unset, ECredentialsType]): Credentials type.
-        created_after_filter (Union[Unset, datetime.datetime]):
-        created_before_filter (Union[Unset, datetime.datetime]):
+        type_filter (ECredentialsType | Unset): Credentials type.
+        created_after_filter (datetime.datetime | Unset):
+        created_before_filter (datetime.datetime | Unset):
     """
 
-    skip: Union[Unset, int] = UNSET
-    limit: Union[Unset, int] = UNSET
-    order_column: Union[Unset, ECredentialsFiltersOrderColumn] = UNSET
-    order_asc: Union[Unset, bool] = UNSET
-    name_filter: Union[Unset, str] = UNSET
-    type_filter: Union[Unset, ECredentialsType] = UNSET
-    created_after_filter: Union[Unset, datetime.datetime] = UNSET
-    created_before_filter: Union[Unset, datetime.datetime] = UNSET
+    skip: int | Unset = UNSET
+    limit: int | Unset = UNSET
+    order_column: ECredentialsFiltersOrderColumn | Unset = UNSET
+    order_asc: bool | Unset = UNSET
+    name_filter: str | Unset = UNSET
+    type_filter: ECredentialsType | Unset = UNSET
+    created_after_filter: datetime.datetime | Unset = UNSET
+    created_before_filter: datetime.datetime | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -45,7 +46,7 @@ class CredentialsFilters:
 
         limit = self.limit
 
-        order_column: Union[Unset, str] = UNSET
+        order_column: str | Unset = UNSET
         if not isinstance(self.order_column, Unset):
             order_column = self.order_column.value
 
@@ -53,15 +54,15 @@ class CredentialsFilters:
 
         name_filter = self.name_filter
 
-        type_filter: Union[Unset, str] = UNSET
+        type_filter: str | Unset = UNSET
         if not isinstance(self.type_filter, Unset):
             type_filter = self.type_filter.value
 
-        created_after_filter: Union[Unset, str] = UNSET
+        created_after_filter: str | Unset = UNSET
         if not isinstance(self.created_after_filter, Unset):
             created_after_filter = self.created_after_filter.isoformat()
 
-        created_before_filter: Union[Unset, str] = UNSET
+        created_before_filter: str | Unset = UNSET
         if not isinstance(self.created_before_filter, Unset):
             created_before_filter = self.created_before_filter.isoformat()
 
@@ -95,7 +96,7 @@ class CredentialsFilters:
         limit = d.pop("limit", UNSET)
 
         _order_column = d.pop("orderColumn", UNSET)
-        order_column: Union[Unset, ECredentialsFiltersOrderColumn]
+        order_column: ECredentialsFiltersOrderColumn | Unset
         if isinstance(_order_column, Unset):
             order_column = UNSET
         else:
@@ -106,21 +107,21 @@ class CredentialsFilters:
         name_filter = d.pop("nameFilter", UNSET)
 
         _type_filter = d.pop("typeFilter", UNSET)
-        type_filter: Union[Unset, ECredentialsType]
+        type_filter: ECredentialsType | Unset
         if isinstance(_type_filter, Unset):
             type_filter = UNSET
         else:
             type_filter = ECredentialsType(_type_filter)
 
         _created_after_filter = d.pop("createdAfterFilter", UNSET)
-        created_after_filter: Union[Unset, datetime.datetime]
+        created_after_filter: datetime.datetime | Unset
         if isinstance(_created_after_filter, Unset):
             created_after_filter = UNSET
         else:
             created_after_filter = isoparse(_created_after_filter)
 
         _created_before_filter = d.pop("createdBeforeFilter", UNSET)
-        created_before_filter: Union[Unset, datetime.datetime]
+        created_before_filter: datetime.datetime | Unset
         if isinstance(_created_before_filter, Unset):
             created_before_filter = UNSET
         else:

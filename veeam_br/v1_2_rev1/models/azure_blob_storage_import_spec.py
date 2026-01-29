@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -29,21 +31,21 @@ class AzureBlobStorageImportSpec:
         container (AzureBlobStorageContainerModel): Azure Blob storage container.
         mount_server (MountServerSettingsImportSpec): Settings for the mount server that is used for file and
             application items restore.
-        enable_task_limit (Union[Unset, bool]): If `true`, the maximum number of concurrent tasks is limited.
-        max_task_count (Union[Unset, int]): Maximum number of concurrent tasks.
-        proxy_appliance (Union[Unset, AzureStorageProxyModel]): Azure storage proxy appliance.
+        enable_task_limit (bool | Unset): If `true`, the maximum number of concurrent tasks is limited.
+        max_task_count (int | Unset): Maximum number of concurrent tasks.
+        proxy_appliance (AzureStorageProxyModel | Unset): Azure storage proxy appliance.
     """
 
     name: str
     description: str
     unique_id: str
     type_: ERepositoryType
-    account: "AzureBlobStorageAccountImportModel"
-    container: "AzureBlobStorageContainerModel"
-    mount_server: "MountServerSettingsImportSpec"
-    enable_task_limit: Union[Unset, bool] = UNSET
-    max_task_count: Union[Unset, int] = UNSET
-    proxy_appliance: Union[Unset, "AzureStorageProxyModel"] = UNSET
+    account: AzureBlobStorageAccountImportModel
+    container: AzureBlobStorageContainerModel
+    mount_server: MountServerSettingsImportSpec
+    enable_task_limit: bool | Unset = UNSET
+    max_task_count: int | Unset = UNSET
+    proxy_appliance: AzureStorageProxyModel | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -65,7 +67,7 @@ class AzureBlobStorageImportSpec:
 
         max_task_count = self.max_task_count
 
-        proxy_appliance: Union[Unset, dict[str, Any]] = UNSET
+        proxy_appliance: dict[str, Any] | Unset = UNSET
         if not isinstance(self.proxy_appliance, Unset):
             proxy_appliance = self.proxy_appliance.to_dict()
 
@@ -118,7 +120,7 @@ class AzureBlobStorageImportSpec:
         max_task_count = d.pop("maxTaskCount", UNSET)
 
         _proxy_appliance = d.pop("proxyAppliance", UNSET)
-        proxy_appliance: Union[Unset, AzureStorageProxyModel]
+        proxy_appliance: AzureStorageProxyModel | Unset
         if isinstance(_proxy_appliance, Unset):
             proxy_appliance = UNSET
         else:

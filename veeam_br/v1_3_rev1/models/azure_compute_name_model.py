@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -18,19 +20,19 @@ class AzureComputeNameModel:
     """Name of Microsoft Azure VM.
 
     Attributes:
-        name (Union[Unset, str]): Name of the restored Microsoft Azure VM.
-        tags (Union[Unset, list['AzureComputeVMTagModel']]): Array of Microsoft Azure metadata tags that you want to
-            assign to the VM.
+        name (str | Unset): Name of the restored Microsoft Azure VM.
+        tags (list[AzureComputeVMTagModel] | Unset): Array of Microsoft Azure metadata tags that you want to assign to
+            the VM.
     """
 
-    name: Union[Unset, str] = UNSET
-    tags: Union[Unset, list["AzureComputeVMTagModel"]] = UNSET
+    name: str | Unset = UNSET
+    tags: list[AzureComputeVMTagModel] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         name = self.name
 
-        tags: Union[Unset, list[dict[str, Any]]] = UNSET
+        tags: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.tags, Unset):
             tags = []
             for tags_item_data in self.tags:
@@ -54,12 +56,14 @@ class AzureComputeNameModel:
         d = dict(src_dict)
         name = d.pop("name", UNSET)
 
-        tags = []
         _tags = d.pop("tags", UNSET)
-        for tags_item_data in _tags or []:
-            tags_item = AzureComputeVMTagModel.from_dict(tags_item_data)
+        tags: list[AzureComputeVMTagModel] | Unset = UNSET
+        if _tags is not UNSET:
+            tags = []
+            for tags_item_data in _tags:
+                tags_item = AzureComputeVMTagModel.from_dict(tags_item_data)
 
-            tags.append(tags_item)
+                tags.append(tags_item)
 
         azure_compute_name_model = cls(
             name=name,

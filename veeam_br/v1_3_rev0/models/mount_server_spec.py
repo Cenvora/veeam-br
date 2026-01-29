@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from uuid import UUID
 
 from attrs import define as _attrs_define
@@ -21,19 +23,19 @@ class MountServerSpec:
     Attributes:
         host_id (UUID): Host ID. To get the ID, run the [Get All Servers](Managed-
             Servers#operation/GetAllManagedServers) request.
-        settings (Union[Unset, MountServerOptionsModel]): Mount server settings.
-        set_as_default (Union[Unset, bool]): If `true`, the mount server will be set as the default mount server.
+        settings (MountServerOptionsModel | Unset): Mount server settings.
+        set_as_default (bool | Unset): If `true`, the mount server will be set as the default mount server.
     """
 
     host_id: UUID
-    settings: Union[Unset, "MountServerOptionsModel"] = UNSET
-    set_as_default: Union[Unset, bool] = UNSET
+    settings: MountServerOptionsModel | Unset = UNSET
+    set_as_default: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         host_id = str(self.host_id)
 
-        settings: Union[Unset, dict[str, Any]] = UNSET
+        settings: dict[str, Any] | Unset = UNSET
         if not isinstance(self.settings, Unset):
             settings = self.settings.to_dict()
 
@@ -61,7 +63,7 @@ class MountServerSpec:
         host_id = UUID(d.pop("hostId"))
 
         _settings = d.pop("settings", UNSET)
-        settings: Union[Unset, MountServerOptionsModel]
+        settings: MountServerOptionsModel | Unset
         if isinstance(_settings, Unset):
             settings = UNSET
         else:

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -18,20 +20,20 @@ class ManagedHostPortsModel:
     """Veeam Backup & Replication components installed on the server and ports used by the components.
 
     Attributes:
-        components (Union[Unset, list['HostComponentPortModel']]): Array of Veeam Backup & Replication components.
-        port_range_start (Union[Unset, int]): Start of the port range used for data transfer.
-        port_range_end (Union[Unset, int]): End of the port range used for data transfer.
-        server_side (Union[Unset, bool]): If `true`, the server is run on this side.
+        components (list[HostComponentPortModel] | Unset): Array of Veeam Backup & Replication components.
+        port_range_start (int | Unset): Start of the port range used for data transfer.
+        port_range_end (int | Unset): End of the port range used for data transfer.
+        server_side (bool | Unset): If `true`, the server is run on this side.
     """
 
-    components: Union[Unset, list["HostComponentPortModel"]] = UNSET
-    port_range_start: Union[Unset, int] = UNSET
-    port_range_end: Union[Unset, int] = UNSET
-    server_side: Union[Unset, bool] = UNSET
+    components: list[HostComponentPortModel] | Unset = UNSET
+    port_range_start: int | Unset = UNSET
+    port_range_end: int | Unset = UNSET
+    server_side: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        components: Union[Unset, list[dict[str, Any]]] = UNSET
+        components: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.components, Unset):
             components = []
             for components_item_data in self.components:
@@ -63,12 +65,14 @@ class ManagedHostPortsModel:
         from ..models.host_component_port_model import HostComponentPortModel
 
         d = dict(src_dict)
-        components = []
         _components = d.pop("components", UNSET)
-        for components_item_data in _components or []:
-            components_item = HostComponentPortModel.from_dict(components_item_data)
+        components: list[HostComponentPortModel] | Unset = UNSET
+        if _components is not UNSET:
+            components = []
+            for components_item_data in _components:
+                components_item = HostComponentPortModel.from_dict(components_item_data)
 
-            components.append(components_item)
+                components.append(components_item)
 
         port_range_start = d.pop("portRangeStart", UNSET)
 

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,14 +16,13 @@ class RepositoryImportOptions:
     """Repository import options.
 
     Attributes:
-        import_backup (Union[Unset, bool]): If `true`, Veeam Backup & Replication will search the repository for
-            existing backups and import them automatically.
-        import_index (Union[Unset, bool]): If `true`, Veeam Backup & Replication will import the guest OS file system
-            index.
+        import_backup (bool | Unset): If `true`, Veeam Backup & Replication will search the repository for existing
+            backups and import them automatically.
+        import_index (bool | Unset): If `true`, Veeam Backup & Replication will import the guest OS file system index.
     """
 
-    import_backup: Union[Unset, bool] = UNSET
-    import_index: Union[Unset, bool] = UNSET
+    import_backup: bool | Unset = UNSET
+    import_index: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

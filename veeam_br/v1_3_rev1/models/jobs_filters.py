@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import Any, TypeVar, Union
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -16,22 +18,21 @@ class JobsFilters:
     """Filters jobs by the specified parameters.
 
     Attributes:
-        skip (Union[Unset, int]): Skips the specified number of jobs.
-        limit (Union[Unset, int]): Returns the specified number of jobs.
-        order_column (Union[Unset, EJobFiltersOrderColumn]): Orders jobs by the specified column.
-        order_asc (Union[Unset, bool]): If `true`, sorts jobs in ascending order by the `orderColumn` parameter.
-        name_filter (Union[Unset, str]): Filters jobs by the `nameFilter` pattern. The pattern can match any job
-            parameter. To substitute one or more characters, use the asterisk (*) character at the beginning, at the end or
-            both.
-        type_filter (Union[Unset, EJobType]): Type of the job.
+        skip (int | Unset): Skips the specified number of jobs.
+        limit (int | Unset): Returns the specified number of jobs.
+        order_column (EJobFiltersOrderColumn | Unset): Orders jobs by the specified column.
+        order_asc (bool | Unset): If `true`, sorts jobs in ascending order by the `orderColumn` parameter.
+        name_filter (str | Unset): Filters jobs by the `nameFilter` pattern. The pattern can match any job parameter. To
+            substitute one or more characters, use the asterisk (*) character at the beginning, at the end or both.
+        type_filter (EJobType | Unset): Type of the job.
     """
 
-    skip: Union[Unset, int] = UNSET
-    limit: Union[Unset, int] = UNSET
-    order_column: Union[Unset, EJobFiltersOrderColumn] = UNSET
-    order_asc: Union[Unset, bool] = UNSET
-    name_filter: Union[Unset, str] = UNSET
-    type_filter: Union[Unset, EJobType] = UNSET
+    skip: int | Unset = UNSET
+    limit: int | Unset = UNSET
+    order_column: EJobFiltersOrderColumn | Unset = UNSET
+    order_asc: bool | Unset = UNSET
+    name_filter: str | Unset = UNSET
+    type_filter: EJobType | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -39,7 +40,7 @@ class JobsFilters:
 
         limit = self.limit
 
-        order_column: Union[Unset, str] = UNSET
+        order_column: str | Unset = UNSET
         if not isinstance(self.order_column, Unset):
             order_column = self.order_column.value
 
@@ -47,7 +48,7 @@ class JobsFilters:
 
         name_filter = self.name_filter
 
-        type_filter: Union[Unset, str] = UNSET
+        type_filter: str | Unset = UNSET
         if not isinstance(self.type_filter, Unset):
             type_filter = self.type_filter.value
 
@@ -77,7 +78,7 @@ class JobsFilters:
         limit = d.pop("limit", UNSET)
 
         _order_column = d.pop("orderColumn", UNSET)
-        order_column: Union[Unset, EJobFiltersOrderColumn]
+        order_column: EJobFiltersOrderColumn | Unset
         if isinstance(_order_column, Unset):
             order_column = UNSET
         else:
@@ -88,7 +89,7 @@ class JobsFilters:
         name_filter = d.pop("nameFilter", UNSET)
 
         _type_filter = d.pop("typeFilter", UNSET)
-        type_filter: Union[Unset, EJobType]
+        type_filter: EJobType | Unset
         if isinstance(_type_filter, Unset):
             type_filter = UNSET
         else:

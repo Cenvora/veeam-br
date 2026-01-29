@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -7,11 +9,8 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.agent_object_model import AgentObjectModel
-    from ..models.cloud_director_object_model import CloudDirectorObjectModel
-    from ..models.hyper_v_object_model import HyperVObjectModel
+    from ..models.inventory_object_model import InventoryObjectModel
     from ..models.v_sphere_replica_job_destination_mapping_model import VSphereReplicaJobDestinationMappingModel
-    from ..models.vmware_object_model import VmwareObjectModel
 
 
 T = TypeVar("T", bound="VSphereReplicaJobDestinationModel")
@@ -23,85 +22,39 @@ class VSphereReplicaJobDestinationModel:
     rules.
 
         Attributes:
-            host (Union['AgentObjectModel', 'CloudDirectorObjectModel', 'HyperVObjectModel', 'VmwareObjectModel']):
-                Inventory object properties.
-            resource_pool (Union['AgentObjectModel', 'CloudDirectorObjectModel', 'HyperVObjectModel', 'VmwareObjectModel',
-                Unset]): Inventory object properties.
-            folder (Union['AgentObjectModel', 'CloudDirectorObjectModel', 'HyperVObjectModel', 'VmwareObjectModel', Unset]):
-                Inventory object properties.
-            datastore (Union['AgentObjectModel', 'CloudDirectorObjectModel', 'HyperVObjectModel', 'VmwareObjectModel',
-                Unset]): Inventory object properties.
-            mapping_rules (Union[Unset, list['VSphereReplicaJobDestinationMappingModel']]): Mapping rules that define files
-                location and disk provisioning types for replica VMs.<ul><li>`vmObject` — VM that you customize files location
+            host (InventoryObjectModel): Inventory object properties.
+            resource_pool (InventoryObjectModel | Unset): Inventory object properties.
+            folder (InventoryObjectModel | Unset): Inventory object properties.
+            datastore (InventoryObjectModel | Unset): Inventory object properties.
+            mapping_rules (list[VSphereReplicaJobDestinationMappingModel] | Unset): Mapping rules that define files location
+                and disk provisioning types for replica VMs.<ul><li>`vmObject` — VM that you customize files location
                 for.</li><li>`configurationFilesDatastoreMapping` — Datastore for replica configuration
                 files.</li><li>`diskFilesMapping` — Mapping rules for VM disks.</li></ul>
     """
 
-    host: Union["AgentObjectModel", "CloudDirectorObjectModel", "HyperVObjectModel", "VmwareObjectModel"]
-    resource_pool: Union[
-        "AgentObjectModel", "CloudDirectorObjectModel", "HyperVObjectModel", "VmwareObjectModel", Unset
-    ] = UNSET
-    folder: Union["AgentObjectModel", "CloudDirectorObjectModel", "HyperVObjectModel", "VmwareObjectModel", Unset] = (
-        UNSET
-    )
-    datastore: Union[
-        "AgentObjectModel", "CloudDirectorObjectModel", "HyperVObjectModel", "VmwareObjectModel", Unset
-    ] = UNSET
-    mapping_rules: Union[Unset, list["VSphereReplicaJobDestinationMappingModel"]] = UNSET
+    host: InventoryObjectModel
+    resource_pool: InventoryObjectModel | Unset = UNSET
+    folder: InventoryObjectModel | Unset = UNSET
+    datastore: InventoryObjectModel | Unset = UNSET
+    mapping_rules: list[VSphereReplicaJobDestinationMappingModel] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.cloud_director_object_model import CloudDirectorObjectModel
-        from ..models.hyper_v_object_model import HyperVObjectModel
-        from ..models.vmware_object_model import VmwareObjectModel
+        host = self.host.to_dict()
 
-        host: dict[str, Any]
-        if isinstance(self.host, VmwareObjectModel):
-            host = self.host.to_dict()
-        elif isinstance(self.host, CloudDirectorObjectModel):
-            host = self.host.to_dict()
-        elif isinstance(self.host, HyperVObjectModel):
-            host = self.host.to_dict()
-        else:
-            host = self.host.to_dict()
-
-        resource_pool: Union[Unset, dict[str, Any]]
-        if isinstance(self.resource_pool, Unset):
-            resource_pool = UNSET
-        elif isinstance(self.resource_pool, VmwareObjectModel):
-            resource_pool = self.resource_pool.to_dict()
-        elif isinstance(self.resource_pool, CloudDirectorObjectModel):
-            resource_pool = self.resource_pool.to_dict()
-        elif isinstance(self.resource_pool, HyperVObjectModel):
-            resource_pool = self.resource_pool.to_dict()
-        else:
+        resource_pool: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.resource_pool, Unset):
             resource_pool = self.resource_pool.to_dict()
 
-        folder: Union[Unset, dict[str, Any]]
-        if isinstance(self.folder, Unset):
-            folder = UNSET
-        elif isinstance(self.folder, VmwareObjectModel):
-            folder = self.folder.to_dict()
-        elif isinstance(self.folder, CloudDirectorObjectModel):
-            folder = self.folder.to_dict()
-        elif isinstance(self.folder, HyperVObjectModel):
-            folder = self.folder.to_dict()
-        else:
+        folder: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.folder, Unset):
             folder = self.folder.to_dict()
 
-        datastore: Union[Unset, dict[str, Any]]
-        if isinstance(self.datastore, Unset):
-            datastore = UNSET
-        elif isinstance(self.datastore, VmwareObjectModel):
-            datastore = self.datastore.to_dict()
-        elif isinstance(self.datastore, CloudDirectorObjectModel):
-            datastore = self.datastore.to_dict()
-        elif isinstance(self.datastore, HyperVObjectModel):
-            datastore = self.datastore.to_dict()
-        else:
+        datastore: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.datastore, Unset):
             datastore = self.datastore.to_dict()
 
-        mapping_rules: Union[Unset, list[dict[str, Any]]] = UNSET
+        mapping_rules: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.mapping_rules, Unset):
             mapping_rules = []
             for mapping_rules_item_data in self.mapping_rules:
@@ -128,166 +81,41 @@ class VSphereReplicaJobDestinationModel:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.agent_object_model import AgentObjectModel
-        from ..models.cloud_director_object_model import CloudDirectorObjectModel
-        from ..models.hyper_v_object_model import HyperVObjectModel
+        from ..models.inventory_object_model import InventoryObjectModel
         from ..models.v_sphere_replica_job_destination_mapping_model import VSphereReplicaJobDestinationMappingModel
-        from ..models.vmware_object_model import VmwareObjectModel
 
         d = dict(src_dict)
+        host = InventoryObjectModel.from_dict(d.pop("host"))
 
-        def _parse_host(
-            data: object,
-        ) -> Union["AgentObjectModel", "CloudDirectorObjectModel", "HyperVObjectModel", "VmwareObjectModel"]:
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_0 = VmwareObjectModel.from_dict(data)
+        _resource_pool = d.pop("resourcePool", UNSET)
+        resource_pool: InventoryObjectModel | Unset
+        if isinstance(_resource_pool, Unset):
+            resource_pool = UNSET
+        else:
+            resource_pool = InventoryObjectModel.from_dict(_resource_pool)
 
-                return componentsschemas_inventory_object_model_type_0
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_1 = CloudDirectorObjectModel.from_dict(data)
+        _folder = d.pop("folder", UNSET)
+        folder: InventoryObjectModel | Unset
+        if isinstance(_folder, Unset):
+            folder = UNSET
+        else:
+            folder = InventoryObjectModel.from_dict(_folder)
 
-                return componentsschemas_inventory_object_model_type_1
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_2 = HyperVObjectModel.from_dict(data)
+        _datastore = d.pop("datastore", UNSET)
+        datastore: InventoryObjectModel | Unset
+        if isinstance(_datastore, Unset):
+            datastore = UNSET
+        else:
+            datastore = InventoryObjectModel.from_dict(_datastore)
 
-                return componentsschemas_inventory_object_model_type_2
-            except:  # noqa: E722
-                pass
-            if not isinstance(data, dict):
-                raise TypeError()
-            componentsschemas_inventory_object_model_type_3 = AgentObjectModel.from_dict(data)
-
-            return componentsschemas_inventory_object_model_type_3
-
-        host = _parse_host(d.pop("host"))
-
-        def _parse_resource_pool(
-            data: object,
-        ) -> Union["AgentObjectModel", "CloudDirectorObjectModel", "HyperVObjectModel", "VmwareObjectModel", Unset]:
-            if isinstance(data, Unset):
-                return data
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_0 = VmwareObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_0
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_1 = CloudDirectorObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_1
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_2 = HyperVObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_2
-            except:  # noqa: E722
-                pass
-            if not isinstance(data, dict):
-                raise TypeError()
-            componentsschemas_inventory_object_model_type_3 = AgentObjectModel.from_dict(data)
-
-            return componentsschemas_inventory_object_model_type_3
-
-        resource_pool = _parse_resource_pool(d.pop("resourcePool", UNSET))
-
-        def _parse_folder(
-            data: object,
-        ) -> Union["AgentObjectModel", "CloudDirectorObjectModel", "HyperVObjectModel", "VmwareObjectModel", Unset]:
-            if isinstance(data, Unset):
-                return data
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_0 = VmwareObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_0
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_1 = CloudDirectorObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_1
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_2 = HyperVObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_2
-            except:  # noqa: E722
-                pass
-            if not isinstance(data, dict):
-                raise TypeError()
-            componentsschemas_inventory_object_model_type_3 = AgentObjectModel.from_dict(data)
-
-            return componentsschemas_inventory_object_model_type_3
-
-        folder = _parse_folder(d.pop("folder", UNSET))
-
-        def _parse_datastore(
-            data: object,
-        ) -> Union["AgentObjectModel", "CloudDirectorObjectModel", "HyperVObjectModel", "VmwareObjectModel", Unset]:
-            if isinstance(data, Unset):
-                return data
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_0 = VmwareObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_0
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_1 = CloudDirectorObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_1
-            except:  # noqa: E722
-                pass
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_inventory_object_model_type_2 = HyperVObjectModel.from_dict(data)
-
-                return componentsschemas_inventory_object_model_type_2
-            except:  # noqa: E722
-                pass
-            if not isinstance(data, dict):
-                raise TypeError()
-            componentsschemas_inventory_object_model_type_3 = AgentObjectModel.from_dict(data)
-
-            return componentsschemas_inventory_object_model_type_3
-
-        datastore = _parse_datastore(d.pop("datastore", UNSET))
-
-        mapping_rules = []
         _mapping_rules = d.pop("mappingRules", UNSET)
-        for mapping_rules_item_data in _mapping_rules or []:
-            mapping_rules_item = VSphereReplicaJobDestinationMappingModel.from_dict(mapping_rules_item_data)
+        mapping_rules: list[VSphereReplicaJobDestinationMappingModel] | Unset = UNSET
+        if _mapping_rules is not UNSET:
+            mapping_rules = []
+            for mapping_rules_item_data in _mapping_rules:
+                mapping_rules_item = VSphereReplicaJobDestinationMappingModel.from_dict(mapping_rules_item_data)
 
-            mapping_rules.append(mapping_rules_item)
+                mapping_rules.append(mapping_rules_item)
 
         v_sphere_replica_job_destination_model = cls(
             host=host,
