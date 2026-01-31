@@ -54,11 +54,12 @@ This project is an independent, open source Python client for the Veeam Backup &
 1. Download the OpenAPI schema into openapi_schemas
 2. Install the openapi-python-client package
 3. Run `python fix_openapi_yaml.py .\openapi_schemas\vbr_rest_{version}.yaml .\openapi_schemas\vbr_rest_{version}_fixed.yaml` 
-2. Run `openapi-python-client generate --path ".\openapi_schemas\vbr_rest_{version}_fixed.json" --output-path ".\veeam_br" --overwrite`
-3. Fix any warnings/errors
-4. Rename the folder to match the API version (i.e., `v1.3-rev1`)
-6. Write pytest tests
-7. If an older API has been deprecated, delete its folder and yaml, then update the supported versions section of the readme
+4. Run `openapi-python-client generate --path ".\openapi_schemas\vbr_rest_{version}_fixed.json" --output-path ".\veeam_br" --overwrite`
+5. Fix any warnings/errors
+6. Rename the folder to match the API version (i.e., `v1.3-rev1`)
+7. Add the version mapping to versions.py
+8. Write pytest tests
+9. If an older API has been deprecated, delete its folder, json, and version.py entry, then update the supported versions section of the readme
 
 ## Install
 ### From PyPi
@@ -74,104 +75,106 @@ pip install -e .
 ```
 
 ## Usage
-### Basic Usage
-First, create a client from the appropriate API version:
+### Recommended Usage (Smart Client)
+The `VeeamClient` handles:
+- API version routing
+- Authentication
+- Token refresh
+- `x-api-version` header injection so package API version matches header values
+- Async calls
+- Operation discovery
 
+Each packaged version can be called independently through separate imports, but this is the <strong>recommended way</strong>  to use this library.
+
+#### Create a client and connect
 ```python
-from veeam_br.v1_3_rev1 import Client
+import asyncio
+from veeam_br.client import VeeamClient
 
-client = Client(base_url="https://api.example.com:9419")
-```
-
-Log in to the service (this requires an account with MFA disabled):
-```python
-from veeam_br.v1_3_rev1.client import Client
-from veeam_br.v1_3_rev1.models.token_login_spec import TokenLoginSpec
-from veeam_br.v1_3_rev1.api.login import create_token
-from veeam_br.v1_3_rev1.models.e_login_grant_type import ELoginGrantType
-
-client = Client(
-    base_url="https://vbr.example.com:9419",
-    verify_ssl=False
-)
-
-body = TokenLoginSpec(
-    grant_type=ELoginGrantType.PASSWORD,
-    username="administrator",
-    password="SuperSecretPassword"
-)
-
-with client as client:
-    token = create_token.sync(
-        client=client,
-        body=body,
-        x_api_version="1.3-rev1",
+async def main():
+    vc = VeeamClient(
+        host="https://vbr.example.com:9419",
+        username="administrator",
+        password="SuperSecretPassword",
+        api_version="1.3-rev1",
+        verify_ssl=False,
     )
+
+    await vc.connect()
+
+    # use the client...
+
+    await vc.close()
+
+asyncio.run(main())
 ```
 
-Now switch to the AuthenticatedClient:
+#### Call an API endpoint (async)
 ```python
-auth_client = AuthenticatedClient(
-    base_url=client._base_url,
-    token=token.access_token,
-    verify_ssl=client._verify_ssl,
+repos = await vc.call(
+    vc.api("repositories").get_all_repositories
 )
 ```
 
-Now call your endpoint and use your models:
+#### Filter certain object types
+Some objects, such as SmartObjectS3, use polymorphic subtypes with circular inheritance. These tend to not play well with package creation tools, so as part of the import process into this project, those relationships are broken. Where a repository would normally have a `bucket` object with immutability information inside, this breakage instead causes `bucket` to always be `UNSET` and instead populates the data into `additional_properties`. For example:
 ```python
-from veeam_br.v1_3_rev1.models import ServerTimeModel
-from veeam_br.v1_3_rev1.api.service import get_server_time
-from veeam_br.v1_3_rev1.types import Response
+from veeam_br.v1_3_rev1.models.e_repository_type import ERepositoryType
 
-with auth_client as auth_client:
-    my_data: ServerTimeModel = get_server_time.sync(client=auth_client, x_api_version="1.3-rev1")
-    # or if you need more info (e.g. status_code)
-    response: Response[ServerTimeModel] = get_server_time.sync_detailed(client=auth_client, x_api_version="1.3-rev1")
+smart_s3 = [
+    r for r in repos.data
+    if r.type_ == ERepositoryType.SMARTOBJECTS3
+]
 ```
 
-### Async Usage
-Or do the same thing with an async version:
+So to access bucket & immutability data:
 ```python
-from veeam_br.v1_3_rev1.models import ServerTimeModel
-from veeam_br.v1_3_rev1.api.service import get_server_time
-from veeam_br.v1_3_rev1.types import Response
+for repo in smart_s3:
+    bucket = repo.additional_properties.get("bucket", {})
+    immutability = bucket.get("immutability", {})
 
-async with auth_client as auth_client:
-    my_data: ServerTimeModel = await get_server_time.asyncio(client=auth_client, x_api_version="1.3-rev1")
-    response: Response[ServerTimeModel] = await get_server_time.asyncio_detailed(client=auth_client, x_api_version="1.3-rev1")
+    print({
+        "name": repo.name,
+        "bucket": bucket.get("bucketName"),
+        "days": immutability.get("daysCount"),
+        "enabled": immutability.get("isEnabled"),
+    })
 ```
 
-### SSL Verification
-By default, HTTPS APIs will verify SSL certificates. You can pass a custom certificate bundle or disable verification (not recommended):
+Until `openapi-python-client` figures out and implements a way around this or Veeam rewrites their OpenAPI schemas to not use circular references/inheritance, this is a known limitation.
+
+#### Call any endpoint
+Operations map directly to the OpenAPI layout:
+```markdown
+api/
+└── repositories/
+    └── get_all_repositories.py
+```
+
+Call it like this:
 ```python
-client = AuthenticatedClient(
-    base_url="https://internal_api.example.com:9419", 
-    token="SuperSecretToken",
-    verify_ssl="/path/to/certificate_bundle.pem",
+await vc.call(
+    vc.api("repositories").get_all_repositories
 )
+```
 
-# Disable SSL verification (security risk)
-client = AuthenticatedClient(
-    base_url="https://internal_api.example.com:9419", 
-    token="SuperSecretToken", 
-    verify_ssl=False
+Or explicity:
+```python
+await vc.call(
+    vc.api("repositories.get_all_repositories")
 )
 ```
 
-## Contributing
-Contributions are welcome! To contribute:
-- Fork the repository
-- Create a feature branch
-- Make your changes and add tests
-- Submit a pull request with a clear description
+#### Pagination example
+```python
+result = await vc.call(
+    vc.api("repositories").get_all_repositories,
+    limit=50,
+    skip=0,
+)
+```
 
-Please follow PEP8 style and include docstrings for new functions/classes.
-
-## 🤝 Core Contributors
-This project is made possible thanks to the efforts of our core contributors:
-
-- [Jonah May](https://github.com/JonahMMay)  
-- [Maurice Kevenaar](https://github.com/mkevenaar)  
-
-We’re grateful for their continued support and contributions.
+#### Close the client
+```python
+await vc.close()
+```
