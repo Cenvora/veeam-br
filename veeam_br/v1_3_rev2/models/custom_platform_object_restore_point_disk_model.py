@@ -1,0 +1,109 @@
+from __future__ import annotations
+
+from collections.abc import Mapping
+from typing import Any, TypeVar
+
+from attrs import define as _attrs_define
+from attrs import field as _attrs_field
+
+from ..models.e_disk_info_process_state import EDiskInfoProcessState
+from ..models.e_disk_info_type import EDiskInfoType
+from ..models.e_platform_type import EPlatformType
+from ..types import UNSET, Unset
+
+T = TypeVar("T", bound="CustomPlatformObjectRestorePointDiskModel")
+
+
+@_attrs_define
+class CustomPlatformObjectRestorePointDiskModel:
+    """Custom platform disk.
+
+    Attributes:
+        platform (EPlatformType): Platform type.<p>`Test` is the platform of SureBackup content scan job
+            (`SureBackupContentScan`) — backup verification and content scanning with antivirus software or YARA rules.</p>
+        uid (str): Disk ID.
+        type_ (EDiskInfoType): Disk type.
+        name (str): Disk name.
+        state (EDiskInfoProcessState): Process state of the disk.
+        capacity (int | Unset): Disk capacity.
+    """
+
+    platform: EPlatformType
+    uid: str
+    type_: EDiskInfoType
+    name: str
+    state: EDiskInfoProcessState
+    capacity: int | Unset = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+    def to_dict(self) -> dict[str, Any]:
+        platform = self.platform.value
+
+        uid = self.uid
+
+        type_ = self.type_.value
+
+        name = self.name
+
+        state = self.state.value
+
+        capacity = self.capacity
+
+        field_dict: dict[str, Any] = {}
+        field_dict.update(self.additional_properties)
+        field_dict.update(
+            {
+                "platform": platform,
+                "uid": uid,
+                "type": type_,
+                "name": name,
+                "state": state,
+            }
+        )
+        if capacity is not UNSET:
+            field_dict["capacity"] = capacity
+
+        return field_dict
+
+    @classmethod
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        d = dict(src_dict)
+        platform = EPlatformType(d.pop("platform"))
+
+        uid = d.pop("uid")
+
+        type_ = EDiskInfoType(d.pop("type"))
+
+        name = d.pop("name")
+
+        state = EDiskInfoProcessState(d.pop("state"))
+
+        capacity = d.pop("capacity", UNSET)
+
+        custom_platform_object_restore_point_disk_model = cls(
+            platform=platform,
+            uid=uid,
+            type_=type_,
+            name=name,
+            state=state,
+            capacity=capacity,
+        )
+
+        custom_platform_object_restore_point_disk_model.additional_properties = d
+        return custom_platform_object_restore_point_disk_model
+
+    @property
+    def additional_keys(self) -> list[str]:
+        return list(self.additional_properties.keys())
+
+    def __getitem__(self, key: str) -> Any:
+        return self.additional_properties[key]
+
+    def __setitem__(self, key: str, value: Any) -> None:
+        self.additional_properties[key] = value
+
+    def __delitem__(self, key: str) -> None:
+        del self.additional_properties[key]
+
+    def __contains__(self, key: str) -> bool:
+        return key in self.additional_properties

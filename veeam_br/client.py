@@ -1,8 +1,7 @@
 import importlib
 import re
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import Any
-
 
 # ----------------------------
 # helpers
@@ -86,9 +85,7 @@ class VeeamClient:
 
     async def connect(self):
         Client = getattr(importlib.import_module(f"{self.package}.client"), "Client")
-        AuthenticatedClient = getattr(
-            importlib.import_module(f"{self.package}.client"), "AuthenticatedClient"
-        )
+        AuthenticatedClient = getattr(importlib.import_module(f"{self.package}.client"), "AuthenticatedClient")
 
         login_mod = importlib.import_module(f"{self.package}.api.login.create_token")
         create_token = getattr(login_mod, "asyncio")
@@ -134,7 +131,7 @@ class VeeamClient:
     def _store_token(self, token, AuthenticatedClient):
         self._access_token = token.access_token
         self._refresh_token = token.refresh_token
-        self._expires_at = datetime.utcnow() + timedelta(seconds=token.expires_in - 30)
+        self._expires_at = datetime.now(timezone.utc) + timedelta(seconds=token.expires_in - 30)
 
         self._client = AuthenticatedClient(
             base_url=self.host,
@@ -144,7 +141,7 @@ class VeeamClient:
         )
 
     async def _refresh_token_if_needed(self):
-        if self._expires_at and datetime.utcnow() < self._expires_at:
+        if self._expires_at and datetime.now(timezone.utc) < self._expires_at:
             return
 
         login_mod = importlib.import_module(f"{self.package}.api.login.create_token")
@@ -160,9 +157,7 @@ class VeeamClient:
         )
 
         Client = getattr(importlib.import_module(f"{self.package}.client"), "Client")
-        AuthenticatedClient = getattr(
-            importlib.import_module(f"{self.package}.client"), "AuthenticatedClient"
-        )
+        AuthenticatedClient = getattr(importlib.import_module(f"{self.package}.client"), "AuthenticatedClient")
 
         # try refresh first
         try:

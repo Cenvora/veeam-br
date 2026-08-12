@@ -28,6 +28,11 @@ This project is an independent, open source Python client for the Veeam Backup &
   </thead>
   <tbody>
     <tr>
+      <td>13.1.0.411</td>
+      <td>1.3-rev2</td>
+      <td style="text-align:center;">&#9989;</td>
+    </tr>
+    <tr>
       <td>13.0.1.180</td>
       <td>1.3-rev1</td>
       <td style="text-align:center;">&#9989;</td>
@@ -53,7 +58,7 @@ This project is an independent, open source Python client for the Veeam Backup &
 ## How to support new API versions
 1. Download the OpenAPI schema into openapi_schemas
 2. Install the openapi-python-client package
-3. Run `python fix_openapi_yaml.py .\openapi_schemas\vbr_rest_{version}.yaml .\openapi_schemas\vbr_rest_{version}_fixed.yaml` 
+3. Run `python fix_openapi_yaml.py .\openapi_schemas\vbr_rest_{version}.json .\openapi_schemas\vbr_rest_{version}_fixed.json` 
 4. Run `openapi-python-client generate --path ".\openapi_schemas\vbr_rest_{version}_fixed.json" --output-path ".\veeam_br" --overwrite`
 5. Fix any warnings/errors
 6. Rename the folder to match the API version (i.e., `v1.3-rev1`)
@@ -164,6 +169,15 @@ await vc.call(
     vc.api("repositories.get_all_repositories")
 )
 ```
+
+#### Names that shadow Python builtins
+`openapi-python-client` appends a trailing underscore to any generated identifier that would shadow a Python builtin or keyword. The `license` tag is the one that shows up in practice, so its namespace is `license_`:
+```python
+await vc.call(
+    vc.api("license_").get_installed_license
+)
+```
+This is the same rule behind the `type_` attribute used in the filtering example above.
 
 #### Pagination example
 ```python

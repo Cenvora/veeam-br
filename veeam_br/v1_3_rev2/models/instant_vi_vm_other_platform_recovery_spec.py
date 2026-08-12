@@ -1,0 +1,179 @@
+from __future__ import annotations
+
+from collections.abc import Mapping
+from typing import TYPE_CHECKING, Any, TypeVar
+from uuid import UUID
+
+from attrs import define as _attrs_define
+from attrs import field as _attrs_field
+
+from ..models.e_instant_vm_recovery_mode_type import EInstantVMRecoveryModeType
+from ..types import UNSET, Unset
+
+if TYPE_CHECKING:
+    from ..models.instant_vi_vm_customized_recovery_datastore_spec import InstantViVMCustomizedRecoveryDatastoreSpec
+    from ..models.instant_vi_vm_other_platform_recovery_destination_spec import (
+        InstantViVMOtherPlatformRecoveryDestinationSpec,
+    )
+    from ..models.secure_restore_spec import SecureRestoreSpec
+
+
+T = TypeVar("T", bound="InstantViVMOtherPlatformRecoverySpec")
+
+
+@_attrs_define
+class InstantViVMOtherPlatformRecoverySpec:
+    """Instant Recovery to a new location for other platform.
+
+    Attributes:
+        restore_point_id (UUID): ID of the restore point.
+        type_ (EInstantVMRecoveryModeType): Instant Recovery restore mode.
+
+            | Enum Value               | Description
+            |
+            |--------------------------|------------------------------------------------------------------------------------
+            -------------------------------------------------------------------------------------|
+            | OriginalLocation         | Veeam Backup & Replication will perform Instant Recovery to the original location.
+            |
+            | Customized               | Veeam Backup & Replication will perform Instant Recovery to a new location or to
+            the original location with new settings.<br><br>Note: If you do not specify an optional property that defines
+            target settings (such as VM name, destination host, resource pool, folder and so on), Veeam Backup & Replication
+            will try to use the source settings for that property. |
+        secure_restore (SecureRestoreSpec): Secure restore settings.
+        destination (InstantViVMOtherPlatformRecoveryDestinationSpec): Destination where the recovered VM resides. To
+            get objects of the destination host, folder and resource pool, use the [Get Inventory Objects](Inventory-
+            Browser#operation/GetInventoryObjects) request.
+        datastore (InstantViVMCustomizedRecoveryDatastoreSpec): Datastore that keeps redo logs with changes that take
+            place while a VM is running from a backup. To get a datastore object, run the [Get Inventory Objects](Inventory-
+            Browser#operation/GetInventoryObjects) request.
+        nics_enabled (bool | Unset): If `true`, the restored VM is connected to the network.
+        power_up (bool | Unset): If `true`, Veeam Backup & Replication powers on the restored VM on the target host.
+        reason (str | Unset): Reason for restoring the VM.
+        overwrite (bool | Unset): If `true`, the existing VM with the same name is overwritten.
+        share_credentials_id (UUID | Unset): Credentials to network share the restorePoint is located on. If needed.
+    """
+
+    restore_point_id: UUID
+    type_: EInstantVMRecoveryModeType
+    secure_restore: SecureRestoreSpec
+    destination: InstantViVMOtherPlatformRecoveryDestinationSpec
+    datastore: InstantViVMCustomizedRecoveryDatastoreSpec
+    nics_enabled: bool | Unset = UNSET
+    power_up: bool | Unset = UNSET
+    reason: str | Unset = UNSET
+    overwrite: bool | Unset = UNSET
+    share_credentials_id: UUID | Unset = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+    def to_dict(self) -> dict[str, Any]:
+        restore_point_id = str(self.restore_point_id)
+
+        type_ = self.type_.value
+
+        secure_restore = self.secure_restore.to_dict()
+
+        destination = self.destination.to_dict()
+
+        datastore = self.datastore.to_dict()
+
+        nics_enabled = self.nics_enabled
+
+        power_up = self.power_up
+
+        reason = self.reason
+
+        overwrite = self.overwrite
+
+        share_credentials_id: str | Unset = UNSET
+        if not isinstance(self.share_credentials_id, Unset):
+            share_credentials_id = str(self.share_credentials_id)
+
+        field_dict: dict[str, Any] = {}
+        field_dict.update(self.additional_properties)
+        field_dict.update(
+            {
+                "restorePointId": restore_point_id,
+                "type": type_,
+                "secureRestore": secure_restore,
+                "destination": destination,
+                "datastore": datastore,
+            }
+        )
+        if nics_enabled is not UNSET:
+            field_dict["nicsEnabled"] = nics_enabled
+        if power_up is not UNSET:
+            field_dict["powerUp"] = power_up
+        if reason is not UNSET:
+            field_dict["reason"] = reason
+        if overwrite is not UNSET:
+            field_dict["overwrite"] = overwrite
+        if share_credentials_id is not UNSET:
+            field_dict["shareCredentialsId"] = share_credentials_id
+
+        return field_dict
+
+    @classmethod
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        from ..models.instant_vi_vm_customized_recovery_datastore_spec import InstantViVMCustomizedRecoveryDatastoreSpec
+        from ..models.instant_vi_vm_other_platform_recovery_destination_spec import (
+            InstantViVMOtherPlatformRecoveryDestinationSpec,
+        )
+        from ..models.secure_restore_spec import SecureRestoreSpec
+
+        d = dict(src_dict)
+        restore_point_id = UUID(d.pop("restorePointId"))
+
+        type_ = EInstantVMRecoveryModeType(d.pop("type"))
+
+        secure_restore = SecureRestoreSpec.from_dict(d.pop("secureRestore"))
+
+        destination = InstantViVMOtherPlatformRecoveryDestinationSpec.from_dict(d.pop("destination"))
+
+        datastore = InstantViVMCustomizedRecoveryDatastoreSpec.from_dict(d.pop("datastore"))
+
+        nics_enabled = d.pop("nicsEnabled", UNSET)
+
+        power_up = d.pop("powerUp", UNSET)
+
+        reason = d.pop("reason", UNSET)
+
+        overwrite = d.pop("overwrite", UNSET)
+
+        _share_credentials_id = d.pop("shareCredentialsId", UNSET)
+        share_credentials_id: UUID | Unset
+        if isinstance(_share_credentials_id, Unset):
+            share_credentials_id = UNSET
+        else:
+            share_credentials_id = UUID(_share_credentials_id)
+
+        instant_vi_vm_other_platform_recovery_spec = cls(
+            restore_point_id=restore_point_id,
+            type_=type_,
+            secure_restore=secure_restore,
+            destination=destination,
+            datastore=datastore,
+            nics_enabled=nics_enabled,
+            power_up=power_up,
+            reason=reason,
+            overwrite=overwrite,
+            share_credentials_id=share_credentials_id,
+        )
+
+        instant_vi_vm_other_platform_recovery_spec.additional_properties = d
+        return instant_vi_vm_other_platform_recovery_spec
+
+    @property
+    def additional_keys(self) -> list[str]:
+        return list(self.additional_properties.keys())
+
+    def __getitem__(self, key: str) -> Any:
+        return self.additional_properties[key]
+
+    def __setitem__(self, key: str, value: Any) -> None:
+        self.additional_properties[key] = value
+
+    def __delitem__(self, key: str) -> None:
+        del self.additional_properties[key]
+
+    def __contains__(self, key: str) -> bool:
+        return key in self.additional_properties
