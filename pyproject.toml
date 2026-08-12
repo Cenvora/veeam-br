@@ -37,6 +37,7 @@ classifiers = [
 [project.optional-dependencies]
 dev = [
     "pytest>=7.0.0",
+    "pytest-asyncio>=0.23.0",
     "pytest-cov",
     "black",
     "ruff",
@@ -55,5 +56,10 @@ tag_regex = "^(?:v)?(?P<version>.*)$"
 
 [tool.setuptools.packages.find]
 include = ["veeam_br*"]
-exclude = ["media*", "openapi_schemas*"]
+exclude = ["media*", "openapi_schemas*", "tests*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "strict"
+asyncio_default_fixture_loop_scope = "function"
 

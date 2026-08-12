@@ -1,0 +1,145 @@
+from __future__ import annotations
+
+from collections.abc import Mapping
+from typing import TYPE_CHECKING, Any, TypeVar
+
+from attrs import define as _attrs_define
+from attrs import field as _attrs_field
+
+from ..models.e_cloud_director_inventory_type import ECloudDirectorInventoryType
+from ..models.e_inventory_platform_type import EInventoryPlatformType
+from ..types import UNSET, Unset
+
+if TYPE_CHECKING:
+    from ..models.common_meta_info import CommonMetaInfo
+
+
+T = TypeVar("T", bound="CloudDirectorObjectModel")
+
+
+@_attrs_define
+class CloudDirectorObjectModel:
+    """VMware Cloud Director object.
+
+    Attributes:
+        platform (EInventoryPlatformType): Platform type of inventory object.
+        host_name (str): Name of the VMware Cloud Director server that hosts the object.
+        name (str): Name of the VMware Cloud Director object.
+        type_ (ECloudDirectorInventoryType): Type of the VMware Cloud Director object.
+        size (str | Unset): Object size.
+        object_id (str | Unset): ID of the VMware Cloud Director object. The parameter is required for all VMware Cloud
+            Director objects.
+        urn (str | Unset): Uniform Resource Name (URN) of the object.
+        metadata (list[CommonMetaInfo] | Unset): Array of meta information about VMware Cloud Director object model.
+    """
+
+    platform: EInventoryPlatformType
+    host_name: str
+    name: str
+    type_: ECloudDirectorInventoryType
+    size: str | Unset = UNSET
+    object_id: str | Unset = UNSET
+    urn: str | Unset = UNSET
+    metadata: list[CommonMetaInfo] | Unset = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+    def to_dict(self) -> dict[str, Any]:
+        platform = self.platform.value
+
+        host_name = self.host_name
+
+        name = self.name
+
+        type_ = self.type_.value
+
+        size = self.size
+
+        object_id = self.object_id
+
+        urn = self.urn
+
+        metadata: list[dict[str, Any]] | Unset = UNSET
+        if not isinstance(self.metadata, Unset):
+            metadata = []
+            for metadata_item_data in self.metadata:
+                metadata_item = metadata_item_data.to_dict()
+                metadata.append(metadata_item)
+
+        field_dict: dict[str, Any] = {}
+        field_dict.update(self.additional_properties)
+        field_dict.update(
+            {
+                "platform": platform,
+                "hostName": host_name,
+                "name": name,
+                "type": type_,
+            }
+        )
+        if size is not UNSET:
+            field_dict["size"] = size
+        if object_id is not UNSET:
+            field_dict["objectId"] = object_id
+        if urn is not UNSET:
+            field_dict["urn"] = urn
+        if metadata is not UNSET:
+            field_dict["metadata"] = metadata
+
+        return field_dict
+
+    @classmethod
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        from ..models.common_meta_info import CommonMetaInfo
+
+        d = dict(src_dict)
+        platform = EInventoryPlatformType(d.pop("platform"))
+
+        host_name = d.pop("hostName")
+
+        name = d.pop("name")
+
+        type_ = ECloudDirectorInventoryType(d.pop("type"))
+
+        size = d.pop("size", UNSET)
+
+        object_id = d.pop("objectId", UNSET)
+
+        urn = d.pop("urn", UNSET)
+
+        _metadata = d.pop("metadata", UNSET)
+        metadata: list[CommonMetaInfo] | Unset = UNSET
+        if _metadata is not UNSET:
+            metadata = []
+            for metadata_item_data in _metadata:
+                metadata_item = CommonMetaInfo.from_dict(metadata_item_data)
+
+                metadata.append(metadata_item)
+
+        cloud_director_object_model = cls(
+            platform=platform,
+            host_name=host_name,
+            name=name,
+            type_=type_,
+            size=size,
+            object_id=object_id,
+            urn=urn,
+            metadata=metadata,
+        )
+
+        cloud_director_object_model.additional_properties = d
+        return cloud_director_object_model
+
+    @property
+    def additional_keys(self) -> list[str]:
+        return list(self.additional_properties.keys())
+
+    def __getitem__(self, key: str) -> Any:
+        return self.additional_properties[key]
+
+    def __setitem__(self, key: str, value: Any) -> None:
+        self.additional_properties[key] = value
+
+    def __delitem__(self, key: str) -> None:
+        del self.additional_properties[key]
+
+    def __contains__(self, key: str) -> bool:
+        return key in self.additional_properties

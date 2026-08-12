@@ -29,7 +29,7 @@ This project is an independent, open source Python client for the Veeam Backup &
   <tbody>
     <tr>
       <td>13.1.0.411</td>
-      <td>1/3-rev2</td>
+      <td>1.3-rev2</td>
       <td style="text-align:center;">&#9989;</td>
     </tr>
     <tr>
@@ -169,6 +169,15 @@ await vc.call(
     vc.api("repositories.get_all_repositories")
 )
 ```
+
+#### Names that shadow Python builtins
+`openapi-python-client` appends a trailing underscore to any generated identifier that would shadow a Python builtin or keyword. The `license` tag is the one that shows up in practice, so its namespace is `license_`:
+```python
+await vc.call(
+    vc.api("license_").get_installed_license
+)
+```
+This is the same rule behind the `type_` attribute used in the filtering example above.
 
 #### Pagination example
 ```python
