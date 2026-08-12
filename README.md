@@ -114,6 +114,45 @@ async def main():
 asyncio.run(main())
 ```
 
+#### Detect the API version a server serves
+
+The REST API has no endpoint that reports its supported versions, and Veeam's guidance is
+that the caller picks one. What a server does expose is a Swagger document per version it
+serves, so `detect_api_version` probes those and returns the newest version that both the
+server serves and this library can speak:
+
+```python
+import asyncio
+from veeam_br.client import VeeamClient
+from veeam_br.discovery import detect_api_version
+
+async def main():
+    base_url = "https://vbr.example.com:9419"
+
+    api_version = await detect_api_version(base_url, verify_ssl=False)
+    if api_version is None:
+        # Swagger may be unreachable, disabled or gated — choose your own default
+        api_version = "1.3-rev1"
+
+    vc = VeeamClient(
+        host=base_url,
+        username="administrator",
+        password="SuperSecretPassword",
+        api_version=api_version,
+        verify_ssl=False,
+    )
+    await vc.connect()
+
+asyncio.run(main())
+```
+
+Detection needs no credentials, so it can run before you have any. Probes are concurrent, so
+it costs roughly one round trip regardless of how many versions this library supports.
+
+Resolve it once and store the result rather than detecting on every start: a server upgrade
+would otherwise silently move you onto a newer revision, and revisions rename enum values and
+add required fields.
+
 #### Call an API endpoint (async)
 ```python
 repos = await vc.call(
