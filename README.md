@@ -149,6 +149,23 @@ asyncio.run(main())
 Detection needs no credentials, so it can run before you have any. Probes are concurrent, so
 it costs roughly one round trip regardless of how many versions this library supports.
 
+If you do not know the port either, `detect_rest_api` finds both at once. Veeam B&R 13.1
+serves the REST API on 443 and no longer needs a dedicated port; 9419 still answers on 13.1
+and is the only port on older releases, but Veeam has said it will be removed in a future
+release:
+
+```python
+from veeam_br.discovery import detect_rest_api
+
+endpoint = await detect_rest_api("vbr.example.com", verify_ssl=False)
+if endpoint:
+    print(endpoint.port, endpoint.api_version)  # e.g. 443 1.3-rev2
+    base_url = f"https://vbr.example.com{endpoint.base_url_suffix}"
+```
+
+Ports are tried in preference order — 443 before 9419 by default, since a 13.1 server answers
+on both — and the newest version served by the winning port is returned.
+
 Resolve it once and store the result rather than detecting on every start: a server upgrade
 would otherwise silently move you onto a newer revision, and revisions rename enum values and
 add required fields.

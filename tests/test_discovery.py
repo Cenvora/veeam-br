@@ -8,7 +8,9 @@ import httpx
 import pytest
 
 from veeam_br.discovery import (
+    RestApiEndpoint,
     detect_api_version,
+    detect_rest_api,
     newest_first,
     swagger_url,
 )
@@ -188,3 +190,140 @@ async def test_detected_version_is_usable_with_veeam_client():
         api_version=detected,
     )
     assert vc.package == VERSION_TO_PACKAGE[detected]
+
+
+# ---------------------------------------------------------------------------
+# Endpoint detection: which port, and which version on it
+#
+# 13.1 serves the REST API on 443 and answers on 9419 too; older releases only have 9419,
+# and Veeam has said 9419 will be removed in a future release.
+# ---------------------------------------------------------------------------
+
+
+def make_endpoint_client(served, fail_with=None):
+    """A client whose server serves Swagger only at the given (port, version) pairs.
+
+    httpx reports url.port as None for a scheme's default port, so an https URL written as
+    ":443" arrives here with no port at all — hence the fallback. A real server still sees
+    the TCP port it was reached on.
+    """
+    requested = []
+
+    def port_of(request):
+        return request.url.port or 443
+
+    def handler(request):
+        requested.append((port_of(request), str(request.url.path)))
+        if fail_with is not None:
+            raise fail_with
+        for port, version in served:
+            if (
+                port_of(request) == port
+                and request.url.path == f"/swagger/v{version}/swagger.json"
+            ):
+                return httpx.Response(200, json={"openapi": "3.0.1"})
+        return httpx.Response(404)
+
+    return httpx.AsyncClient(transport=httpx.MockTransport(handler)), requested
+
+
+@pytest.mark.asyncio
+async def test_prefers_443_when_a_server_answers_on_both():
+    """A 13.1 server serves both; the modern port is the one to keep using."""
+    client, _ = make_endpoint_client([(443, "1.3-rev2"), (9419, "1.3-rev2")])
+
+    endpoint = await detect_rest_api("vbr.example.com", client=client)
+
+    assert endpoint == RestApiEndpoint(port=443, api_version="1.3-rev2")
+
+
+@pytest.mark.asyncio
+async def test_finds_the_legacy_port_on_an_older_server():
+    """Pre-13.1 servers have nothing on 443."""
+    client, _ = make_endpoint_client([(9419, "1.3-rev0")])
+
+    endpoint = await detect_rest_api("vbr.example.com", client=client)
+
+    assert endpoint == RestApiEndpoint(port=9419, api_version="1.3-rev0")
+
+
+@pytest.mark.asyncio
+async def test_reports_the_newest_version_on_the_preferred_port():
+    """Port preference comes first, then the newest version that port serves."""
+    client, _ = make_endpoint_client(
+        [(443, "1.3-rev1"), (443, "1.3-rev2"), (9419, "1.3-rev2")]
+    )
+
+    endpoint = await detect_rest_api("vbr.example.com", client=client)
+
+    assert endpoint == RestApiEndpoint(port=443, api_version="1.3-rev2")
+
+
+@pytest.mark.asyncio
+async def test_port_order_is_the_callers_choice():
+    """A caller that wants the legacy port checked first can say so."""
+    client, _ = make_endpoint_client([(443, "1.3-rev2"), (9419, "1.3-rev2")])
+
+    endpoint = await detect_rest_api(
+        "vbr.example.com", ports=(9419, 443), client=client
+    )
+
+    assert endpoint.port == 9419
+
+
+@pytest.mark.asyncio
+async def test_probes_every_port_and_version_combination():
+    client, requested = make_endpoint_client([])
+
+    await detect_rest_api(
+        "vbr.example.com", client=client, versions=["1.3-rev2", "1.2-rev1"]
+    )
+
+    assert sorted(requested) == sorted(
+        [
+            (port, f"/swagger/v{version}/swagger.json")
+            for port in (443, 9419)
+            for version in ("1.3-rev2", "1.2-rev1")
+        ]
+    )
+
+
+@pytest.mark.asyncio
+async def test_returns_none_when_no_port_answers():
+    """Caller keeps whatever the user configured rather than guessing."""
+    client, _ = make_endpoint_client([])
+
+    assert await detect_rest_api("vbr.example.com", client=client) is None
+
+
+@pytest.mark.asyncio
+async def test_returns_none_when_the_host_is_unreachable():
+    client, _ = make_endpoint_client([], fail_with=httpx.ConnectError("no route"))
+
+    assert await detect_rest_api("vbr.example.com", client=client) is None
+
+
+@pytest.mark.asyncio
+async def test_no_ports_means_no_requests():
+    client, requested = make_endpoint_client([])
+
+    assert await detect_rest_api("vbr.example.com", ports=(), client=client) is None
+    assert requested == []
+
+
+@pytest.mark.asyncio
+async def test_detected_endpoint_builds_a_working_base_url():
+    """The result should drop straight into a VeeamClient host argument."""
+    from veeam_br.client import VeeamClient
+
+    client, _ = make_endpoint_client([(443, "1.3-rev2")])
+    endpoint = await detect_rest_api("vbr.example.com", client=client)
+
+    vc = VeeamClient(
+        host=f"https://vbr.example.com{endpoint.base_url_suffix}",
+        username="administrator",
+        password="pw",
+        api_version=endpoint.api_version,
+    )
+    assert vc.host == "https://vbr.example.com:443"
+    assert vc.package == VERSION_TO_PACKAGE[endpoint.api_version]
