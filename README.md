@@ -114,6 +114,42 @@ async def main():
 asyncio.run(main())
 ```
 
+`VeeamClient` is also an async context manager, which closes it on exit:
+
+```python
+async with VeeamClient(host, username, password, api_version="1.3-rev1") as vc:
+    await vc.connect()
+    ...
+```
+
+`verify_ssl` accepts `True`/`False`, an `ssl.SSLContext`, or a path to a CA bundle.
+
+#### Timeouts
+Every request times out after 30 seconds by default. Pass `timeout` as a number of seconds
+or an `httpx.Timeout` for finer control; `timeout=None` disables timeouts entirely:
+
+```python
+import httpx
+
+vc = VeeamClient(..., timeout=httpx.Timeout(30.0, connect=5.0))
+```
+
+A timed-out request raises `httpx.TimeoutException`.
+
+#### Errors
+Authentication is handled for you: an expired token is refreshed (once, even when several
+calls need it at the same time), and a refused refresh falls back to the password login.
+What reaches you is one of:
+
+| Exception | Meaning | What to do |
+| --- | --- | --- |
+| `veeam_br.exceptions.VeeamAuthenticationError` | The server refused the username/password. | Ask for new credentials. |
+| `veeam_br.exceptions.VeeamSessionError` | The server rejected the session mid-use. The session is dropped and the next call logs in again. The failed call is not retried. | Retry later; not a credentials problem. |
+| `httpx.HTTPError`, `OSError`, `TimeoutError` | The server could not be reached. Passed through unchanged. | Treat as transient. |
+
+Both Veeam exceptions subclass `veeam_br.exceptions.VeeamError` and `PermissionError`, so
+code that catches `PermissionError` keeps working.
+
 #### Detect the API version a server serves
 
 The REST API has no endpoint that reports its supported versions, and Veeam's guidance is
@@ -248,6 +284,9 @@ result = await vc.call(
 ```python
 await vc.close()
 ```
+
+This closes the underlying HTTP connection pool and forgets the session; a later call
+logs in again.
 
 ## Contributing
 Contributions are welcome! To contribute:
