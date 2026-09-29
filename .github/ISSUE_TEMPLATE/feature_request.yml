@@ -1,0 +1,36 @@
+name: Feature request
+description: Suggest an endpoint, API version, or client feature
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What would you like to do?
+      description: |
+        Describe the outcome you are after rather than the implementation — what would you
+        automate or see on a dashboard?
+    validations:
+      required: true
+  - type: input
+    id: veeam-feature
+    attributes:
+      label: REST endpoint or API version
+      description: "The endpoint or API version you need, if you know it."
+      placeholder: "e.g. a newer API version"
+    validations:
+      required: false
+  - type: input
+    id: product-version
+    attributes:
+      label: Veeam Backup & Replication version
+      description: "Which build has this feature, if it is version-specific."
+      placeholder: "13.1.0.411"
+    validations:
+      required: false
+  - type: textarea
+    id: context
+    attributes:
+      label: Anything else
+      description: "Example automations, screenshots, or links to Veeam documentation."
+    validations:
+      required: false

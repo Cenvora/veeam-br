@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Veeam Backup & Replication REST API reference
+    url: https://helpcenter.veeam.com/docs/backup/vbr_rest/overview.html
+    about: Veeam's own documentation for the API this library wraps.
+  - name: Home Assistant integration
+    url: https://github.com/Cenvora/ha-veeam-br/issues
+    about: Problems with entities or setup in Home Assistant belong there.
