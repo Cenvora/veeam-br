@@ -20,7 +20,7 @@ authors = [
 ]
 
 dependencies = [
-    "httpx>=0.23.0,<0.29.0",
+    "httpx>=0.29.0,<0.30.0",
     "attrs>=22.2.0",
     "python-dateutil>=2.8.0"
 ]
